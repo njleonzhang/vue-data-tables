@@ -2,6 +2,9 @@
 
 > vue2.0 DataTables, based on element-ui, el-table + el-pagination + custom filter and sort
 
+
+![preview](</assets/desc.png>)
+
 ## Build Setup
 
 ``` bash
