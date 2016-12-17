@@ -1,6 +1,6 @@
 # vue-data-tables
 
-> A Vue.js project
+> vue2.0 DataTables, based on element-ui, el-table + el-pagination + custom filter and sort
 
 ## Build Setup
 
@@ -10,9 +10,6 @@ npm install
 
 # serve with hot reload at localhost:8080
 npm run dev
-
-# build for production with minification
-npm run build
 ```
 
-For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
+## dist webpack config doesn't work, so no demo is provided, please clone the project and run in your local enviroment.
