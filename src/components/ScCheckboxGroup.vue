@@ -1,5 +1,11 @@
+<style lang='scss'>
+  .sc-checkbox-group {
+    padding-top: 9px;
+  }
+</style>
+
 <template lang="pug">
-  div
+  .sc-checkbox-group
     el-checkbox-group(v-model='checkList', @change="changeHandler")
       el-checkbox(v-for="check in checks", :label="check.code") {{check.name}}
 </template>
