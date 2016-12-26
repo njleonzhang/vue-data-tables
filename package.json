@@ -1,9 +1,10 @@
 {
   "name": "vue-data-tables",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A Vue.js project",
   "author": "njleonzhang <scream3616@sina.com>",
   "main": "src/index.js",
+  "homepage": "https://github.com/njleonzhang/vue-data-tables",
   "scripts": {
     "dev": "node build/dev-server.js",
     "lint": "eslint --ext .js,.vue src"

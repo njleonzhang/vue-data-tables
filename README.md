@@ -3,7 +3,7 @@
 > vue2.0 DataTables, based on element-ui, el-table + el-pagination + custom filter and sort
 
 
-![preview](/Assets/desc.png)
+![preview](https://github.com/njleonzhang/vue-data-tables/blob/master/Assets/desc.png)
 
 ## Install
 `npm install vue-data-tables`
@@ -51,7 +51,7 @@ data-tables(:data='tableData',
 3. rowActionsDef
   Defination on action for every row.
 
-check the [example](/example/App.vue).
+check the [example](https://github.com/njleonzhang/vue-data-tables/blob/master/example/App.vue).
 
 ## Event
 `row-click`: emit when row is clicked
