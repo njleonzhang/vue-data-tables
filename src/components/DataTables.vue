@@ -43,7 +43,6 @@
       fit,
       stripe,
       @row-click='handleRowClick',
-      @cell-click='handleCellClick',
       style="width: 100%")
       slot
       el-table-column(label='操作', prop='innerRowActions', inline-template, :min-width="actionColWidth")
@@ -65,11 +64,10 @@
 </template>
 
 <script>
-import ActionBar from './ActionBar'
-import CheckboxGroup from './ScCheckboxGroup'
+import ActionBar from 'components/ActionBar'
+import CheckboxGroup from 'components/ScCheckboxGroup'
 
 export default {
-  name: 'DataTables',
   components: {
     ActionBar,
     CheckboxGroup
@@ -91,8 +89,18 @@ export default {
         return [20, 50, 100]
       }
     },
-    toolBarDef: Object,
-    rowActionDef: Array,
+    toolBarDef: {
+      type: Object,
+      default() {
+        return {}
+      }
+    },
+    rowActionDef: {
+      type: Array,
+      default() {
+        return []
+      }
+    },
     actionColWidth: String,
     colNotRowClick: {
       type: Array,
@@ -107,8 +115,7 @@ export default {
       sortData: {},
       internalPageSize: 10,
       searchKey: '',
-      checkedFilters: [],
-      actionCellClick: false
+      checkedFilters: []
     }
   },
   computed: {
@@ -146,6 +153,7 @@ export default {
           } else if (value instanceof Array && value.length > 0) {
             // 2. 过滤条件value不是列表， 且其值对应boolen类型是true (这个判断比较粗)
             let defaultFilterFunction = function(data, values) {
+              console.log(data, values)
               return values.indexOf(data) > -1
             }
 
@@ -190,12 +198,27 @@ export default {
       return this.tableData.length
     },
     filters() {
-      return [{
-        property: 'state_code',
-        value: this.checkedFilters
-      }, {
+      let filters = [{
         value: this.searchKey
       }]
+
+      let prop = this.toolBarDef.filters && this.toolBarDef.filters.prop
+      if (prop) {
+        if (prop instanceof Array) {
+          prop.forEach(el => {
+            filters.push({
+              property: el,
+              value: this.checkedFilters
+            })
+          })
+        } else if (typeof prop === 'string') {
+          filters.push({
+            property: prop,
+            value: this.checkedFilters
+          })
+        }
+      }
+      return filters
     }
   },
   methods: {
@@ -211,18 +234,9 @@ export default {
     handleFilterChange(checkedFilters) {
       this.checkedFilters = checkedFilters
     },
-    handleRowClick(row, event) {
-      if (this.actionCellClick) {
-        this.actionCellClick = false
-      } else {
+    handleRowClick(row, event, column) {
+      if (this.innerColNotRowClick.indexOf(column.property) === -1) {
         this.$emit('row-click', row)
-      }
-    },
-    handleCellClick(row, column, cell, event) {
-      // 防止stuck
-      this.actionCellClick = false
-      if (this.innerColNotRowClick.indexOf(column.property) > -1) {
-        this.actionCellClick = true
       }
     }
   },

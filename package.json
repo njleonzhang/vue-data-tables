@@ -10,7 +10,10 @@
   },
   "dependencies": {
     "element-ui": "^1.0.7",
-    "vue": "^2.1.0"
+    "vue": "^2.1.0",
+    "pug": "^2.0.0-beta6",
+    "node-sass": "^4.0.0",
+    "sass-loader": "^4.1.0"
   },
   "devDependencies": {
     "autoprefixer": "^6.4.0",

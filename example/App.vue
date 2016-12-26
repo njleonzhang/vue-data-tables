@@ -65,6 +65,7 @@ export default {
         },
         filters: {
           width: 14,
+          prop: 'state_code',
           def: [
             {
               'code': 'created',
