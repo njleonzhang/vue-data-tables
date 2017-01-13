@@ -68,6 +68,7 @@ import ActionBar from 'components/ActionBar'
 import CheckboxGroup from 'components/ScCheckboxGroup'
 
 export default {
+  name: 'DataTables',
   components: {
     ActionBar,
     CheckboxGroup
