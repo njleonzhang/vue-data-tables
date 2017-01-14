@@ -146,7 +146,6 @@ export default {
           let value = filter.value
           if (!(value instanceof Array)) { // 1. 过滤条件value是列表，且不为空
             let defaultFilterFunction = function(data, value) {
-              console.log(data, value)
               return data.indexOf(value) > -1
             }
 
@@ -154,7 +153,6 @@ export default {
           } else if (value instanceof Array && value.length > 0) {
             // 2. 过滤条件value不是列表， 且其值对应boolen类型是true (这个判断比较粗)
             let defaultFilterFunction = function(data, values) {
-              console.log(data, values)
               return values.indexOf(data) > -1
             }
 
