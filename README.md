@@ -11,7 +11,7 @@
 ## Usage
 1. import into your project
 
-```
+```js
 <script>
 import DataTables from 'vue-data-tables'
 
@@ -23,21 +23,22 @@ export default {
 </script>    
 ```
 
-```
+```html
 <template>
-data-tables(:data='tableData',    
-  :tool-bar-def='toolBarDef',
-  :row-action-def='rowActionsDef',
-  @row-click='rowClick')
-  <el-table-column prop="flow_no"
-    label="服务编号"
-    sortable="custom">
-  </el-table-column>
-  <el-table-column
-    prop="flow_no"
-    label="服务编号"
-    sortable="custom">
-  </el-table-column>
+  <data-tables:data='tableData',    
+    :tool-bar-def='toolBarDef',
+    :row-action-def='rowActionsDef',
+    @row-click='rowClick'>
+    <el-table-column prop="flow_no"
+      label="服务编号"
+      sortable="custom">
+    </el-table-column>
+    <el-table-column
+      prop="flow_no"
+      label="服务编号"
+      sortable="custom">
+    </el-table-column>
+  </data-tables>
 </template>
 ```
 
