@@ -49,13 +49,15 @@ export default {
         handler() {
           console.log('click', self)
           self.$message('新建clicked')
-        }
+        },
+        icon: 'plus'
       }, {
-        name: 'RUA',
+        name: '导入',
         handler() {
-          console.log('RUA', self)
-          self.$message('RUA clicked')
-        }
+          console.log('导入', self)
+          self.$message('导入 clicked')
+        },
+        icon: 'upload'
       }]
 
       return {
