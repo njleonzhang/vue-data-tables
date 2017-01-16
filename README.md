@@ -6,10 +6,11 @@
 ![preview](https://github.com/njleonzhang/vue-data-tables/blob/master/Assets/desc.png)
 
 ## example
-check the [example](https://github.com/njleonzhang/vue-data-tables/blob/master/example/App.vue).
+Check the [example](https://github.com/njleonzhang/vue-data-tables/blob/master/example/App.vue).
 
 ## Install ElementUI and vue-data-tables
 `npm install element-ui`
+
 `npm install vue-data-tables`
 
 ## Usage
@@ -47,13 +48,16 @@ Vue.use(DataTables)
 
 ## props
 1. data
+
     The data array which will be render in the table.
 
 2. toolBarDef
-    define the tool bar.
+
+  define the tool bar.
 
 3. rowActionsDef
-    define the actions for every row.
+
+  define the actions for every row.
 
 ## Event
 `row-click`: emit when row is clicked
