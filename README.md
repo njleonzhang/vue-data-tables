@@ -5,24 +5,27 @@
 
 ![preview](https://github.com/njleonzhang/vue-data-tables/blob/master/Assets/desc.png)
 
-## Install
+## example
+check the [example](https://github.com/njleonzhang/vue-data-tables/blob/master/example/App.vue).
+
+## Install ElementUI and vue-data-tables
+`npm install element-ui`
 `npm install vue-data-tables`
 
 ## Usage
-1. import into your project
+1. import to your project as plugin.
 
 ```js
 <script>
+import ElementUI from 'element-ui'
+import 'element-ui/lib/theme-default/index.css'
 import DataTables from 'vue-data-tables'
 
-export default {
-  name: 'app',
-  components: {
-    DataTables
-  }
-</script>    
+Vue.use(ElementUI)
+Vue.use(DataTables)
 ```
 
+2. use in your project.
 ```html
 <template>
   <data-tables:data='tableData',    
@@ -44,18 +47,18 @@ export default {
 
 ## props
 1. data
-  The data array which will be render in the table.
+    The data array which will be render in the table.
 
 2. toolBarDef
-  Defination on tool bar.
+    define the tool bar.
 
 3. rowActionsDef
-  Defination on action for every row.
-
-check the [example](https://github.com/njleonzhang/vue-data-tables/blob/master/example/App.vue).
+    define the actions for every row.
 
 ## Event
 `row-click`: emit when row is clicked
+
+For details, check the [example](https://github.com/njleonzhang/vue-data-tables/blob/master/example/App.vue).
 
 ## Dev
 
