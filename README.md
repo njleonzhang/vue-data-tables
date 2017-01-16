@@ -17,7 +17,6 @@ Check the [example](https://github.com/njleonzhang/vue-data-tables/blob/master/e
 1. import to your project as plugin.
 
 ```js
-<script>
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-default/index.css'
 import DataTables from 'vue-data-tables'
