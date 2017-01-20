@@ -45,21 +45,22 @@ Vue.use(DataTables)
 </template>
 ```
 
-## props
-1. data
-
-    The data array which will be render in the table.
-
-2. toolBarDef
-
-  define the tool bar.
-
-3. rowActionsDef
-
-  define the actions for every row.
+## Attributes
+| Property          | Desc            | Type            |  default values |
+|-------------  |---------------- |---------------------- | ----- |
+| data | The data array which will be render in the table.| Array | - |
+| actions-def | Define the table actions. | Object | `{ def: [], width: 5, offset: 0 }` |
+| checkbox-filter-def | Define checkbox filter | Object | `{ props: undefined, def: [], width: 14, offset: 0, filterFunction: undefined}` |
+| row-action-def | Define actions of every row | Object |
+| search-def | Define search bar | Object | `{show: true, props: undefined, filterFunction: undefined, width: 5, offset: 0}` |
+| action-col-width | Define min width of action column  | Object | - |
+| has-action-col | Determine wether show action column | Boolean | true |
+| col-not-row-click | Indicate the columns which do not trigger row-click | Array | the action column |
 
 ## Event
-`row-click`: emit when row is clicked
+| Event          | Desc            |
+| ---- | ---- |
+| row-click | Emit when row is clicked |
 
 For details, check the [example](https://github.com/njleonzhang/vue-data-tables/blob/master/example/App.vue).
 

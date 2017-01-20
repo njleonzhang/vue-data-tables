@@ -1,4 +1,4 @@
-<style lang="scss">
+<style lang='scss'>
 .sc-table {
   .tool-bar {
     margin-bottom: 20px;
@@ -29,12 +29,21 @@
 <template lang="pug">
   .sc-table
     el-row.tool-bar
-      el-col.actions(:span="toolBarDef.actions.width" v-if="toolBarDef.actions")
-        action-bar(:actions="toolBarDef.actions.def")
-      el-col.filters(:span="toolBarDef.filters.width" v-if="toolBarDef.filters")
-        checkbox-group(:checks="toolBarDef.filters.def" @checkChange="handleFilterChange")
-      el-col.search(:span=5, :offset="toolBarDef.search && toolBarDef.search.offset")
-        el-input(v-model="searchKey", icon="search")
+      el-col.actions(
+        :span='innerActionsDef.width',
+        :offset='innerActionsDef.offset',
+        v-if='actionsShow')
+        action-bar(:actions='innerActionsDef.def')
+      el-col.filters(
+        :span='innerCheckboxFilterDef.width',
+        :offset='innerCheckboxFilterDef.offset',
+        v-if='checkboxShow')
+        checkbox-group(:checks='innerCheckboxFilterDef.def' @checkChange='handleFilterChange')
+      el-col.search(
+        :span='innerSearchDef.width',
+        :offset='innerSearchDef.offset',
+        v-if='searchShow')
+        el-input(v-model='searchKey', icon='search')
 
     el-table(
       :data='curTableData',
@@ -43,23 +52,27 @@
       fit,
       stripe,
       @row-click='handleRowClick',
-      style="width: 100%")
+      style='width: 100%')
       slot
-      el-table-column(label='操作', prop='innerRowActions', inline-template, :min-width="actionColWidth")
+      el-table-column(label='操作',
+        prop='innerRowActions',
+        inline-template,
+        v-if='hasActionCol',
+        :min-width='actionColWidth')
         div.action-list
-          span(v-for="action in rowActionDef")
+          span(v-for='action in rowActionDef')
             el-button(
-              type="text",
-              @click="action.handler(row)") {{action.tip}}
+              type='text',
+              @click='action.handler(row)') {{action.name}}
 
     .pagination-wrap
       el-pagination(
         @size-change='handleSizeChange',
         @current-change='handleCurrentChange',
         :current-page='currentPage',
-        :page-sizes='pageSizes',
+        :page-sizes='innerPaginationDef.pageSizes',
         :page-size='internalPageSize',
-        layout='prev, pager, next, jumper, sizes, total',
+        :layout='innerPaginationDef.layout',
         :total='total')
 </template>
 
@@ -80,17 +93,19 @@ export default {
         return []
       }
     },
-    pageSize: {
-      type: Number,
-      default: 20
-    },
-    pageSizes: {
-      type: Array,
+    actionsDef: {
+      type: Object,
       default() {
-        return [20, 50, 100]
+        return {}
       }
     },
-    toolBarDef: {
+    checkboxFilterDef: {
+      type: Object,
+      default() {
+        return {}
+      }
+    },
+    searchDef: {
       type: Object,
       default() {
         return {}
@@ -102,24 +117,68 @@ export default {
         return []
       }
     },
+    hasActionCol: {
+      type: Boolean,
+      default: true
+    },
     actionColWidth: String,
     colNotRowClick: {
       type: Array,
       default() {
         return []
       }
+    },
+    paginationDef: {
+      type: Object,
+      default() {
+        return {}
+      }
     }
   },
   data() {
     return {
-      currentPage: 1,
       sortData: {},
-      internalPageSize: 10,
+      currentPage: 1,
+      internalPageSize: 20,
       searchKey: '',
       checkedFilters: []
     }
   },
   computed: {
+    innerActionsDef() {
+      return Object.assign({}, {
+        def: [],
+        width: 5,
+        offset: 0
+      }, this.actionsDef)
+    },
+    innerCheckboxFilterDef() {
+      return Object.assign({}, {
+        props: undefined,
+        def: [],
+        width: 14,
+        offset: 0,
+        filterFunction: undefined
+      }, this.checkboxFilterDef)
+    },
+    innerSearchDef() {
+      return Object.assign({}, {
+        show: true,
+        props: undefined,
+        filterFunction: undefined,
+        width: 5,
+        offset: 0
+      }, this.searchDef)
+    },
+    innerPaginationDef() {
+      console.log(this.paginationDef)
+      return Object.assign({}, {
+        layout: 'prev, pager, next, jumper, sizes, total',
+        pageSize: 20,
+        pageSizes: [20, 50, 100],
+        currentPage: 1
+      }, this.paginationDef)
+    },
     innerColNotRowClick() {
       return this.colNotRowClick.concat(['innerRowActions'])
     },
@@ -127,52 +186,55 @@ export default {
       let newData = this.data
 
       let doFilter = function(defaultFilterFunction, filter, value) {
-        let filterFunction = defaultFilterFunction
+        let filterFunction = filter.filterFunction || defaultFilterFunction
+
         newData = newData.filter(el => {
-          if (filter.filterFunction) {
-            filterFunction = filter.filterFunction
-          }
-          return filterFunction(el[filter.property], value, el, filter.property)
+          return filterFunction(el, filter)
         })
       }
 
       this.filters.forEach((filter) => {
-        if (!filter.value) {
-          // 如果filter.value没有值， 则说明filter失效，不处理
+        let val = filter.val
+        if (!val) {
           return true
         }
 
-        if (filter.property) {
-          let value = filter.value
-          if (!(value instanceof Array)) { // 1. 过滤条件value是列表，且不为空
-            let defaultFilterFunction = function(data, value) {
-              return data.indexOf(value) > -1
+        let defaultFilterFunction
+        if (filter.props) {
+          // the filter is for some special column
+          if (!(val instanceof Array)) {
+            // filter value is not list
+            defaultFilterFunction = function(el, filter) {
+              return filter.props.some(prop => {
+                return el[prop].indexOf(filter.val) > -1
+              })
             }
-
-            doFilter(defaultFilterFunction, filter, value)
-          } else if (value instanceof Array && value.length > 0) {
-            // 2. 过滤条件value不是列表， 且其值对应boolen类型是true (这个判断比较粗)
-            let defaultFilterFunction = function(data, values) {
-              return values.indexOf(data) > -1
+          } else if (val instanceof Array && val.length > 0) {
+            // filter value is list, at the same time not empty
+            defaultFilterFunction = function(el, filter) {
+              return filter.props.some(prop => {
+                return filter.value.indexOf(el[prop]) > -1
+              })
             }
-
-            doFilter(defaultFilterFunction, filter, value)
           }
-        } else { // 过滤条件没有property属性，则与所有的项比较(全表模糊搜索),
-          // 此处需要自定义匹配函数
-          // todo
-          newData = newData.filter(el => {
-            return Object.keys(el).some((key) => {
-              return String(el[key]).indexOf(filter.value) > -1
+        } else {
+          // filter is for all column
+          defaultFilterFunction = function(el, filter) {
+            return Object.keys(el).some(key => {
+              return String(el[key]).indexOf(filter.val) > -1
             })
-          })
+          }
         }
+
+        doFilter(defaultFilterFunction, filter)
       })
 
       if (this.sortData.order) {
         let order = this.sortData.order
         let prop = this.sortData.prop
         let isDescending = order === 'descending'
+
+        // todo: customize sort function
         newData.sort(function(a, b) {
           if (a[prop] > b[prop]) {
             return 1
@@ -196,31 +258,39 @@ export default {
     total() {
       return this.tableData.length
     },
+    checkboxShow() {
+      return this.innerCheckboxFilterDef.def.length > 0
+    },
+    searchShow() {
+      return this.innerSearchDef.show !== false
+    },
+    actionsShow() {
+      return this.innerActionsDef.def.length > 0
+    },
     filters() {
-      let filters = [{
-        value: this.searchKey
-      }]
+      let filters = []
 
-      let prop = this.toolBarDef.filters && this.toolBarDef.filters.prop
-      if (prop) {
-        if (prop instanceof Array) {
-          prop.forEach(el => {
-            filters.push({
-              property: el,
-              value: this.checkedFilters
-            })
-          })
-        } else if (typeof prop === 'string') {
-          filters.push({
-            property: prop,
-            value: this.checkedFilters
-          })
-        }
+      if (this.searchShow) {
+        filters.push({
+          props: this.formatProps(this.innerSearchDef.props),
+          val: this.searchKey,
+          filterFunction: this.innerSearchDef.filterFunction
+        })
+      }
+      if (this.checkboxShow) {
+        filters.push({
+          props: this.formatProps(this.innerCheckboxFilterDef.props),
+          val: this.checkedFilters,
+          filterFunction: this.innerCheckboxFilterDef.filterFunction
+        })
       }
       return filters
     }
   },
   methods: {
+    formatProps(props) {
+      return props ? [].concat(props) : undefined
+    },
     handleSort(obj) {
       this.sortData = obj
     },
@@ -240,10 +310,11 @@ export default {
     }
   },
   watch: {
-    pageSize: {
+    innerPaginationDef: {
       immediate: true,
       handler(val) {
-        this.internalPageSize = val
+        this.internalPageSize = val.pageSize
+        this.currentPage = val.currentPage
       }
     }
   }
