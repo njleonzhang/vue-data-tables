@@ -46,13 +46,11 @@ Vue.use(DataTables)
 ```
 
 ## Attributes
-| Property   |    Attributes    | Desc            | Type            |  default values |
-|-------------  |---------------- | ----- |---------------------- | ----- |
-| data | - | The data array which will be render in the table.| Array | - |
-|  | def: [{name: '', code: ''}] | defines the actions | Array |  |
-| actions-def |  | Define the table actions. | Object | `{ def: [], width: 5, offset: 0 }` |
+| Property   | Desc            | Type            |  default values |
+|------------- | ----- |---------------------- | ----- |
+| data | The data array which will be render in the table.| Array | - |
+| actions-def | Define the table actions. | Object | `{ def: [], width: 5, offset: 0 }` |
 | checkbox-filter-def | Define checkbox filter | Object | `{ props: undefined, def: [], width: 14, offset: 0, filterFunction: undefined}` |
-| |  | | |
 | row-action-def | Define actions of every row | Array | - |
 | search-def | Define search bar | Object | `{show: true, props: undefined, filterFunction: undefined, width: 5, offset: 0}` |
 | action-col-width | Define min width of action column  | Object | - |
