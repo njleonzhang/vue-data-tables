@@ -86,7 +86,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	__vue_exports__ = __webpack_require__(6)
 
 	/* template */
-	var __vue_template__ = __webpack_require__(50)
+	var __vue_template__ = __webpack_require__(56)
 	__vue_options__ = __vue_exports__ = __vue_exports__ || {}
 	if (
 	  typeof __vue_exports__.default === "object" ||
@@ -120,8 +120,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../node_modules/.0.25.0@css-loader/index.js!./../../node_modules/.10.0.2@vue-loader/lib/style-rewriter.js?id=data-v-67d90120!./../../node_modules/.4.1.1@sass-loader/index.js!./../../node_modules/.10.0.2@vue-loader/lib/selector.js?type=styles&index=0!./DataTables.vue", function() {
-				var newContent = require("!!./../../node_modules/.0.25.0@css-loader/index.js!./../../node_modules/.10.0.2@vue-loader/lib/style-rewriter.js?id=data-v-67d90120!./../../node_modules/.4.1.1@sass-loader/index.js!./../../node_modules/.10.0.2@vue-loader/lib/selector.js?type=styles&index=0!./DataTables.vue");
+			module.hot.accept("!!./../../node_modules/.0.25.0@css-loader/index.js!./../../node_modules/.10.0.2@vue-loader/lib/style-rewriter.js?id=data-v-3c1f5bfc!./../../node_modules/.4.1.1@sass-loader/index.js!./../../node_modules/.10.0.2@vue-loader/lib/selector.js?type=styles&index=0!./DataTables.vue", function() {
+				var newContent = require("!!./../../node_modules/.0.25.0@css-loader/index.js!./../../node_modules/.10.0.2@vue-loader/lib/style-rewriter.js?id=data-v-3c1f5bfc!./../../node_modules/.4.1.1@sass-loader/index.js!./../../node_modules/.10.0.2@vue-loader/lib/selector.js?type=styles&index=0!./DataTables.vue");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -436,11 +436,15 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _keys2 = _interopRequireDefault(_keys);
 
-	var _ActionBar = __webpack_require__(42);
+	var _assign = __webpack_require__(42);
+
+	var _assign2 = _interopRequireDefault(_assign);
+
+	var _ActionBar = __webpack_require__(48);
 
 	var _ActionBar2 = _interopRequireDefault(_ActionBar);
 
-	var _ScCheckboxGroup = __webpack_require__(45);
+	var _ScCheckboxGroup = __webpack_require__(51);
 
 	var _ScCheckboxGroup2 = _interopRequireDefault(_ScCheckboxGroup);
 
@@ -459,17 +463,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	        return [];
 	      }
 	    },
-	    pageSize: {
-	      type: Number,
-	      default: 20
-	    },
-	    pageSizes: {
-	      type: Array,
+	    actionsDef: {
+	      type: Object,
 	      default: function _default() {
-	        return [20, 50, 100];
+	        return {};
 	      }
 	    },
-	    toolBarDef: {
+	    checkboxFilterDef: {
+	      type: Object,
+	      default: function _default() {
+	        return {};
+	      }
+	    },
+	    searchDef: {
 	      type: Object,
 	      default: function _default() {
 	        return {};
@@ -481,25 +487,69 @@ return /******/ (function(modules) { // webpackBootstrap
 	        return [];
 	      }
 	    },
+	    hasActionCol: {
+	      type: Boolean,
+	      default: true
+	    },
 	    actionColWidth: String,
 	    colNotRowClick: {
 	      type: Array,
 	      default: function _default() {
 	        return [];
 	      }
+	    },
+	    paginationDef: {
+	      type: Object,
+	      default: function _default() {
+	        return {};
+	      }
 	    }
 	  },
 	  data: function data() {
 	    return {
-	      currentPage: 1,
 	      sortData: {},
-	      internalPageSize: 10,
+	      currentPage: 1,
+	      internalPageSize: 20,
 	      searchKey: '',
 	      checkedFilters: []
 	    };
 	  },
 
 	  computed: {
+	    innerActionsDef: function innerActionsDef() {
+	      return (0, _assign2.default)({}, {
+	        def: [],
+	        width: 5,
+	        offset: 0
+	      }, this.actionsDef);
+	    },
+	    innerCheckboxFilterDef: function innerCheckboxFilterDef() {
+	      return (0, _assign2.default)({}, {
+	        props: undefined,
+	        def: [],
+	        width: 14,
+	        offset: 0,
+	        filterFunction: undefined
+	      }, this.checkboxFilterDef);
+	    },
+	    innerSearchDef: function innerSearchDef() {
+	      return (0, _assign2.default)({}, {
+	        show: true,
+	        props: undefined,
+	        filterFunction: undefined,
+	        width: 5,
+	        offset: 0
+	      }, this.searchDef);
+	    },
+	    innerPaginationDef: function innerPaginationDef() {
+	      console.log(this.paginationDef);
+	      return (0, _assign2.default)({}, {
+	        layout: 'prev, pager, next, jumper, sizes, total',
+	        pageSize: 20,
+	        pageSizes: [20, 50, 100],
+	        currentPage: 1
+	      }, this.paginationDef);
+	    },
 	    innerColNotRowClick: function innerColNotRowClick() {
 	      return this.colNotRowClick.concat(['innerRowActions']);
 	    },
@@ -509,42 +559,43 @@ return /******/ (function(modules) { // webpackBootstrap
 	      var newData = this.data;
 
 	      var doFilter = function doFilter(defaultFilterFunction, filter, value) {
-	        var filterFunction = defaultFilterFunction;
+	        var filterFunction = filter.filterFunction || defaultFilterFunction;
+
 	        newData = newData.filter(function (el) {
-	          if (filter.filterFunction) {
-	            filterFunction = filter.filterFunction;
-	          }
-	          return filterFunction(el[filter.property], value, el, filter.property);
+	          return filterFunction(el, filter);
 	        });
 	      };
 
 	      this.filters.forEach(function (filter) {
-	        if (!filter.value) {
+	        var val = filter.val;
+	        if (!val) {
 	          return true;
 	        }
 
-	        if (filter.property) {
-	          var value = filter.value;
-	          if (!(value instanceof Array)) {
-	            var defaultFilterFunction = function defaultFilterFunction(data, value) {
-	              return data.indexOf(value) > -1;
+	        var defaultFilterFunction = void 0;
+	        if (filter.props) {
+	          if (!(val instanceof Array)) {
+	            defaultFilterFunction = function defaultFilterFunction(el, filter) {
+	              return filter.props.some(function (prop) {
+	                return el[prop].indexOf(filter.val) > -1;
+	              });
 	            };
-
-	            doFilter(defaultFilterFunction, filter, value);
-	          } else if (value instanceof Array && value.length > 0) {
-	            var _defaultFilterFunction = function _defaultFilterFunction(data, values) {
-	              return values.indexOf(data) > -1;
+	          } else if (val instanceof Array && val.length > 0) {
+	            defaultFilterFunction = function defaultFilterFunction(el, filter) {
+	              return filter.props.some(function (prop) {
+	                return filter.value.indexOf(el[prop]) > -1;
+	              });
 	            };
-
-	            doFilter(_defaultFilterFunction, filter, value);
 	          }
 	        } else {
-	          newData = newData.filter(function (el) {
+	          defaultFilterFunction = function defaultFilterFunction(el, filter) {
 	            return (0, _keys2.default)(el).some(function (key) {
-	              return String(el[key]).indexOf(filter.value) > -1;
+	              return String(el[key]).indexOf(filter.val) > -1;
 	            });
-	          });
+	          };
 	        }
+
+	        doFilter(defaultFilterFunction, filter);
 	      });
 
 	      if (this.sortData.order) {
@@ -552,6 +603,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	          var order = _this.sortData.order;
 	          var prop = _this.sortData.prop;
 	          var isDescending = order === 'descending';
+
 	          newData.sort(function (a, b) {
 	            if (a[prop] > b[prop]) {
 	              return 1;
@@ -576,33 +628,39 @@ return /******/ (function(modules) { // webpackBootstrap
 	    total: function total() {
 	      return this.tableData.length;
 	    },
+	    checkboxShow: function checkboxShow() {
+	      return this.innerCheckboxFilterDef.def.length > 0;
+	    },
+	    searchShow: function searchShow() {
+	      return this.innerSearchDef.show !== false;
+	    },
+	    actionsShow: function actionsShow() {
+	      return this.innerActionsDef.def.length > 0;
+	    },
 	    filters: function filters() {
-	      var _this2 = this;
+	      var filters = [];
 
-	      var filters = [{
-	        value: this.searchKey
-	      }];
-
-	      var prop = this.toolBarDef.filters && this.toolBarDef.filters.prop;
-	      if (prop) {
-	        if (prop instanceof Array) {
-	          prop.forEach(function (el) {
-	            filters.push({
-	              property: el,
-	              value: _this2.checkedFilters
-	            });
-	          });
-	        } else if (typeof prop === 'string') {
-	          filters.push({
-	            property: prop,
-	            value: this.checkedFilters
-	          });
-	        }
+	      if (this.searchShow) {
+	        filters.push({
+	          props: this.formatProps(this.innerSearchDef.props),
+	          val: this.searchKey,
+	          filterFunction: this.innerSearchDef.filterFunction
+	        });
+	      }
+	      if (this.checkboxShow) {
+	        filters.push({
+	          props: this.formatProps(this.innerCheckboxFilterDef.props),
+	          val: this.checkedFilters,
+	          filterFunction: this.innerCheckboxFilterDef.filterFunction
+	        });
 	      }
 	      return filters;
 	    }
 	  },
 	  methods: {
+	    formatProps: function formatProps(props) {
+	      return props ? [].concat(props) : undefined;
+	    },
 	    handleSort: function handleSort(obj) {
 	      this.sortData = obj;
 	    },
@@ -622,10 +680,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 	  },
 	  watch: {
-	    pageSize: {
+	    innerPaginationDef: {
 	      immediate: true,
 	      handler: function handler(val) {
-	        this.internalPageSize = val;
+	        this.internalPageSize = val.pageSize;
+	        this.currentPage = val.currentPage;
 	      }
 	    }
 	  }
@@ -1110,14 +1169,86 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 42 */
 /***/ function(module, exports, __webpack_require__) {
 
+	module.exports = { "default": __webpack_require__(43), __esModule: true };
+
+/***/ },
+/* 43 */
+/***/ function(module, exports, __webpack_require__) {
+
+	__webpack_require__(44);
+	module.exports = __webpack_require__(29).Object.assign;
+
+/***/ },
+/* 44 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// 19.1.3.1 Object.assign(target, source)
+	var $export = __webpack_require__(28);
+
+	$export($export.S + $export.F, 'Object', {assign: __webpack_require__(45)});
+
+/***/ },
+/* 45 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	// 19.1.2.1 Object.assign(target, source, ...)
+	var getKeys  = __webpack_require__(12)
+	  , gOPS     = __webpack_require__(46)
+	  , pIE      = __webpack_require__(47)
+	  , toObject = __webpack_require__(10)
+	  , IObject  = __webpack_require__(16)
+	  , $assign  = Object.assign;
+
+	// should work with symbols and should have deterministic property order (V8 bug)
+	module.exports = !$assign || __webpack_require__(38)(function(){
+	  var A = {}
+	    , B = {}
+	    , S = Symbol()
+	    , K = 'abcdefghijklmnopqrst';
+	  A[S] = 7;
+	  K.split('').forEach(function(k){ B[k] = k; });
+	  return $assign({}, A)[S] != 7 || Object.keys($assign({}, B)).join('') != K;
+	}) ? function assign(target, source){ // eslint-disable-line no-unused-vars
+	  var T     = toObject(target)
+	    , aLen  = arguments.length
+	    , index = 1
+	    , getSymbols = gOPS.f
+	    , isEnum     = pIE.f;
+	  while(aLen > index){
+	    var S      = IObject(arguments[index++])
+	      , keys   = getSymbols ? getKeys(S).concat(getSymbols(S)) : getKeys(S)
+	      , length = keys.length
+	      , j      = 0
+	      , key;
+	    while(length > j)if(isEnum.call(S, key = keys[j++]))T[key] = S[key];
+	  } return T;
+	} : $assign;
+
+/***/ },
+/* 46 */
+/***/ function(module, exports) {
+
+	exports.f = Object.getOwnPropertySymbols;
+
+/***/ },
+/* 47 */
+/***/ function(module, exports) {
+
+	exports.f = {}.propertyIsEnumerable;
+
+/***/ },
+/* 48 */
+/***/ function(module, exports, __webpack_require__) {
+
 	var __vue_exports__, __vue_options__
 	var __vue_styles__ = {}
 
 	/* script */
-	__vue_exports__ = __webpack_require__(43)
+	__vue_exports__ = __webpack_require__(49)
 
 	/* template */
-	var __vue_template__ = __webpack_require__(44)
+	var __vue_template__ = __webpack_require__(50)
 	__vue_options__ = __vue_exports__ = __vue_exports__ || {}
 	if (
 	  typeof __vue_exports__.default === "object" ||
@@ -1136,7 +1267,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 43 */
+/* 49 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -1151,7 +1282,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 44 */
+/* 50 */
 /***/ function(module, exports) {
 
 	module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -1169,20 +1300,20 @@ return /******/ (function(modules) { // webpackBootstrap
 	},staticRenderFns: []}
 
 /***/ },
-/* 45 */
+/* 51 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __vue_exports__, __vue_options__
 	var __vue_styles__ = {}
 
 	/* styles */
-	__webpack_require__(46)
+	__webpack_require__(52)
 
 	/* script */
-	__vue_exports__ = __webpack_require__(48)
+	__vue_exports__ = __webpack_require__(54)
 
 	/* template */
-	var __vue_template__ = __webpack_require__(49)
+	var __vue_template__ = __webpack_require__(55)
 	__vue_options__ = __vue_exports__ = __vue_exports__ || {}
 	if (
 	  typeof __vue_exports__.default === "object" ||
@@ -1201,13 +1332,13 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 46 */
+/* 52 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 
 	// load the styles
-	var content = __webpack_require__(47);
+	var content = __webpack_require__(53);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
 	var update = __webpack_require__(5)(content, {});
@@ -1216,8 +1347,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../node_modules/.0.25.0@css-loader/index.js!./../../node_modules/.10.0.2@vue-loader/lib/style-rewriter.js?id=data-v-0b04be2a!./../../node_modules/.4.1.1@sass-loader/index.js!./../../node_modules/.10.0.2@vue-loader/lib/selector.js?type=styles&index=0!./ScCheckboxGroup.vue", function() {
-				var newContent = require("!!./../../node_modules/.0.25.0@css-loader/index.js!./../../node_modules/.10.0.2@vue-loader/lib/style-rewriter.js?id=data-v-0b04be2a!./../../node_modules/.4.1.1@sass-loader/index.js!./../../node_modules/.10.0.2@vue-loader/lib/selector.js?type=styles&index=0!./ScCheckboxGroup.vue");
+			module.hot.accept("!!./../../node_modules/.0.25.0@css-loader/index.js!./../../node_modules/.10.0.2@vue-loader/lib/style-rewriter.js?id=data-v-24eca0e2!./../../node_modules/.4.1.1@sass-loader/index.js!./../../node_modules/.10.0.2@vue-loader/lib/selector.js?type=styles&index=0!./ScCheckboxGroup.vue", function() {
+				var newContent = require("!!./../../node_modules/.0.25.0@css-loader/index.js!./../../node_modules/.10.0.2@vue-loader/lib/style-rewriter.js?id=data-v-24eca0e2!./../../node_modules/.4.1.1@sass-loader/index.js!./../../node_modules/.10.0.2@vue-loader/lib/selector.js?type=styles&index=0!./ScCheckboxGroup.vue");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -1227,7 +1358,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 /***/ },
-/* 47 */
+/* 53 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(4)();
@@ -1241,7 +1372,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 /***/ },
-/* 48 */
+/* 54 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -1269,7 +1400,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 49 */
+/* 55 */
 /***/ function(module, exports) {
 
 	module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -1301,7 +1432,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	},staticRenderFns: []}
 
 /***/ },
-/* 50 */
+/* 56 */
 /***/ function(module, exports) {
 
 	module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -1309,32 +1440,34 @@ return /******/ (function(modules) { // webpackBootstrap
 	    staticClass: "sc-table"
 	  }, [_c('el-row', {
 	    staticClass: "tool-bar"
-	  }, [(_vm.toolBarDef.actions) ? _c('el-col', {
+	  }, [(_vm.actionsShow) ? _c('el-col', {
 	    staticClass: "actions",
 	    attrs: {
-	      "span": _vm.toolBarDef.actions.width
+	      "span": _vm.innerActionsDef.width,
+	      "offset": _vm.innerActionsDef.offset
 	    }
 	  }, [_c('action-bar', {
 	    attrs: {
-	      "actions": _vm.toolBarDef.actions.def
+	      "actions": _vm.innerActionsDef.def
 	    }
-	  })], 1) : _vm._e(), (_vm.toolBarDef.filters) ? _c('el-col', {
+	  })], 1) : _vm._e(), (_vm.checkboxShow) ? _c('el-col', {
 	    staticClass: "filters",
 	    attrs: {
-	      "span": _vm.toolBarDef.filters.width
+	      "span": _vm.innerCheckboxFilterDef.width,
+	      "offset": _vm.innerCheckboxFilterDef.offset
 	    }
 	  }, [_c('checkbox-group', {
 	    attrs: {
-	      "checks": _vm.toolBarDef.filters.def
+	      "checks": _vm.innerCheckboxFilterDef.def
 	    },
 	    on: {
 	      "checkChange": _vm.handleFilterChange
 	    }
-	  })], 1) : _vm._e(), _c('el-col', {
+	  })], 1) : _vm._e(), (_vm.searchShow) ? _c('el-col', {
 	    staticClass: "search",
 	    attrs: {
-	      "span": 5,
-	      "offset": _vm.toolBarDef.search && _vm.toolBarDef.search.offset
+	      "span": _vm.innerSearchDef.width,
+	      "offset": _vm.innerSearchDef.offset
 	    }
 	  }, [_c('el-input', {
 	    directives: [{
@@ -1354,7 +1487,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        _vm.searchKey = $event
 	      }
 	    }
-	  })], 1)], 1), _c('el-table', {
+	  })], 1) : _vm._e()], 1), _c('el-table', {
 	    staticStyle: {
 	      "width": "100%"
 	    },
@@ -1368,7 +1501,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      "sort-change": _vm.handleSort,
 	      "row-click": _vm.handleRowClick
 	    }
-	  }, [_vm._t("default"), _c('el-table-column', {
+	  }, [_vm._t("default"), (_vm.hasActionCol) ? _c('el-table-column', {
 	    attrs: {
 	      "label": "操作",
 	      "prop": "innerRowActions",
@@ -1389,20 +1522,20 @@ return /******/ (function(modules) { // webpackBootstrap
 	                  action.handler(_vm.row)
 	                }
 	              }
-	            }, [_vm._v(_vm._s(action.tip))])], 1)
+	            }, [_vm._v(_vm._s(action.name))])], 1)
 	          }))
 	        
 	      },
 	      staticRenderFns: []
 	    }
-	  })], 2), _c('div', {
+	  }) : _vm._e()], 2), _c('div', {
 	    staticClass: "pagination-wrap"
 	  }, [_c('el-pagination', {
 	    attrs: {
 	      "current-page": _vm.currentPage,
-	      "page-sizes": _vm.pageSizes,
+	      "page-sizes": _vm.innerPaginationDef.pageSizes,
 	      "page-size": _vm.internalPageSize,
-	      "layout": "prev, pager, next, jumper, sizes, total",
+	      "layout": _vm.innerPaginationDef.layout,
 	      "total": _vm.total
 	    },
 	    on: {
