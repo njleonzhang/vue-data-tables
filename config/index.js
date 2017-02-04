@@ -17,7 +17,7 @@ module.exports = {
   },
   demo: {
     env: require('./demo.env'),
-    assetsRoot: path.resolve(__dirname, '../demo-dist'),
+    assetsRoot: path.resolve(__dirname, '../docs'),
     assetsSubDirectory: '',
     assetsPublicPath: '',
     productionSourceMap: false,
