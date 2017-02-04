@@ -18,8 +18,8 @@ module.exports = {
   demo: {
     env: require('./demo.env'),
     assetsRoot: path.resolve(__dirname, '../demo-dist'),
-    assetsSubDirectory: '/',
-    assetsPublicPath: '/',
+    assetsSubDirectory: '',
+    assetsPublicPath: '',
     productionSourceMap: false,
     // Gzip off by default as many popular static hosts such as
     // Surge or Netlify already gzip all static assets for you.

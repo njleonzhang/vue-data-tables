@@ -18,6 +18,7 @@ var webpackConfig = merge(baseWebpackConfig, {
   output: {
     path: config.demo.assetsRoot,
     filename: 'demo.js',
+    publicPath: config.demo.assetsPublicPath
   },
   vue: {
     loaders: utils.cssLoaders({
