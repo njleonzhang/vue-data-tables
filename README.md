@@ -5,8 +5,11 @@
 
 ![preview](https://github.com/njleonzhang/vue-data-tables/blob/master/Assets/desc.png)
 
-## example
-Check the [example](https://github.com/njleonzhang/vue-data-tables/blob/master/example/App.vue).
+## online demo and example
+* [Demo](https://njleonzhang.github.io/vue-data-tables/)
+
+* [Example](https://github.com/njleonzhang/vue-data-tables/blob/master/example/App.vue)
+
 
 ## Install ElementUI and vue-data-tables
 `npm install element-ui`
