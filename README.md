@@ -3,7 +3,7 @@
 > vue2.0 DataTables, based on element-ui, el-table + el-pagination + custom filter and sort
 
 
-![preview](https://github.com/njleonzhang/vue-data-tables/blob/master/Assets/desc.png)
+![preview](https://rawgit.com/njleonzhang/vue-data-tables/master/Assets/desc.png)
 
 ## online demo and example
 * [Demo](https://njleonzhang.github.io/vue-data-tables/)
@@ -19,34 +19,34 @@
 ## Usage
 1. import to your project as plugin.
 
-```js
-import ElementUI from 'element-ui'
-import 'element-ui/lib/theme-default/index.css'
-import DataTables from 'vue-data-tables'
+    ```js
+    import ElementUI from 'element-ui'
+    import 'element-ui/lib/theme-default/index.css'
+    import DataTables from 'vue-data-tables'
 
-Vue.use(ElementUI)
-Vue.use(DataTables)
-```
+    Vue.use(ElementUI)
+    Vue.use(DataTables)
+    ```
 
 2. use in your project.
-```html
-<template>
-  <data-tables:data='tableData',    
-    :tool-bar-def='toolBarDef',
-    :row-action-def='rowActionsDef',
-    @row-click='rowClick'>
-    <el-table-column prop="flow_no"
-      label="服务编号"
-      sortable="custom">
-    </el-table-column>
-    <el-table-column
-      prop="flow_no"
-      label="服务编号"
-      sortable="custom">
-    </el-table-column>
-  </data-tables>
-</template>
-```
+    ```html
+    <template>
+      <data-tables:data='tableData',    
+        :tool-bar-def='toolBarDef',
+        :row-action-def='rowActionsDef',
+        @row-click='rowClick'>
+        <el-table-column prop="flow_no"
+          label="服务编号"
+          sortable="custom">
+        </el-table-column>
+        <el-table-column
+          prop="flow_no"
+          label="服务编号"
+          sortable="custom">
+        </el-table-column>
+      </data-tables>
+    </template>
+    ```
 
 ## Attributes
 | Property   | Desc            | Type            |  default values |
