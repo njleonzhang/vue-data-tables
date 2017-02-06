@@ -1,7 +1,7 @@
 {
   "name": "vue-data-tables",
   "version": "0.0.7",
-  "description": "A Vue.js project",
+  "description": "vue2.0 DataTables, based on element-ui, el-table + el-pagination + custom filter and sort",
   "author": "njleonzhang <scream3616@sina.com>",
   "main": "dist/data-tables.js",
   "homepage": "https://github.com/njleonzhang/vue-data-tables",
