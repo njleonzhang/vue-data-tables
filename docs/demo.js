@@ -10713,7 +10713,7 @@
 	    }
 	  })], 1)], 1), _c('el-card', [_c('div', {
 	    staticClass: "desc"
-	  }, [_c('p', [_vm._v("事件")]), _c('p'), _c('data-tables', {
+	  }, [_c('p', [_vm._v("事件 (https://github.com/njleonzhang/vue-data-tables#event)")]), _c('p', [_vm._v("多数的事件都是对element-ui el-table事件的proxy")]), _c('p', [_vm._v("filtered-data事件用于传递过滤后数据，配合alasql(https://github.com/agershun/alasql)等库使用可以实现导出excel等功能")]), _c('data-tables', {
 	    attrs: {
 	      "data": _vm.tableData1,
 	      "col-not-row-click": ["special_selection_col"]
