@@ -52,6 +52,10 @@
       fit,
       stripe,
       @row-click='handleRowClick',
+      @selection-change='handleSelectChange',
+      @select='handleSelect',
+      @select-all='handleSelectAll',
+      @current-change='handleCurrentRowChange',
       style='width: 100%')
       slot
       el-table-column(label='操作',
@@ -248,6 +252,8 @@ export default {
           newData.reverse()
         }
       }
+
+      this.$emit('filtered-data', newData)
       return newData
     },
     curTableData() {
@@ -307,6 +313,18 @@ export default {
       if (this.innerColNotRowClick.indexOf(column.property) === -1) {
         this.$emit('row-click', row)
       }
+    },
+    handleSelectChange(selection) {
+      this.$emit('selection-change', selection)
+    },
+    handleSelect(selection, row) {
+      this.$emit('select', selection, row)
+    },
+    handleSelectAll(selection) {
+      this.$emit('select-all', selection)
+    },
+    handleCurrentRowChange(currentRow, oldCurrentRow) {
+      this.$emit('current-change', currentRow, oldCurrentRow)
     }
   },
   watch: {

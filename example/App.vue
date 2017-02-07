@@ -95,6 +95,29 @@
 
     el-card
       .desc
+        p 事件
+        p
+        data-tables(
+          :data='tableData1',
+          :col-not-row-click='["special_selection_col"]',
+          @row-click='rowClick',
+          @select='handleSelect',
+          @select-all='handleAllSelect',
+          @current-change='handleCurrentRowChange',
+          @filtered-data='handleFilterDataChange')
+          el-table-column(type='selection', width='55', prop='special_selection_col')
+          el-table-column(prop='flow_no', label='服务编号', sortable='custom')
+          el-table-column(prop='content', label='服务内容', sortable='custom')
+          el-table-column(prop='create_time', label='服务时间', sortable='custom')
+          el-table-column(prop='state', label='服务状态', sortable='custom')
+          el-table-column(prop='flow_type', label='服务类型', sortable='custom')
+          el-table-column(prop='building_group', label='分区', sortable='custom')
+          el-table-column(prop='building', label='楼栋', sortable='custom')
+          el-table-column(prop='room_no', label='房号', sortable='custom')
+          el-table-column(prop='cellphone', label='手机号', sortable='custom')
+
+    el-card
+      .desc
         h1 高级用法：自定义过滤方法。
         p 也许默认的过滤方法不适合你，那么你可以自定义过滤方法。checkbox-filter-def和search-def都有一个filterFunction属性，定义一个函数即可。本例设定的过滤方案是: 过滤state_code值等于搜索栏的值。所以在搜索栏输入created时可以显示未处理的数据
       data-tables(
@@ -201,6 +224,18 @@ export default {
     rowClick(row) {
       this.$message('row clicked')
       console.log('row clicked', row)
+    },
+    handleSelect(selection, row) {
+      console.log('handleSelect', selection, row)
+    },
+    handleAllSelect(selection) {
+      console.log('handleAllSelect', selection)
+    },
+    handleCurrentRowChange(currentRow, oldCurrentRow) {
+      console.log('handleCurrentRowChange', currentRow, oldCurrentRow)
+    },
+    handleFilterDataChange(filteredData) {
+      console.log('handleFilterDataChange', filteredData)
     },
     getSearchDef() {
       return {

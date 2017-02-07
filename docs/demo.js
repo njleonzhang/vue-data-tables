@@ -9145,6 +9145,18 @@
 	      this.$message('row clicked');
 	      console.log('row clicked', row);
 	    },
+	    handleSelect: function handleSelect(selection, row) {
+	      console.log('handleSelect', selection, row);
+	    },
+	    handleAllSelect: function handleAllSelect(selection) {
+	      console.log('handleAllSelect', selection);
+	    },
+	    handleCurrentRowChange: function handleCurrentRowChange(currentRow, oldCurrentRow) {
+	      console.log('handleCurrentRowChange', currentRow, oldCurrentRow);
+	    },
+	    handleFilterDataChange: function handleFilterDataChange(filteredData) {
+	      console.log('handleFilterDataChange', filteredData);
+	    },
 	    getSearchDef: function getSearchDef() {
 	      return {
 	        offset: 12,
@@ -9449,6 +9461,8 @@
 	          }
 	        })();
 	      }
+
+	      this.$emit('filtered-data', newData);
 	      return newData;
 	    },
 	    curTableData: function curTableData() {
@@ -9508,6 +9522,18 @@
 	      if (this.innerColNotRowClick.indexOf(column.property) === -1) {
 	        this.$emit('row-click', row);
 	      }
+	    },
+	    handleSelectChange: function handleSelectChange(selection) {
+	      this.$emit('selection-change', selection);
+	    },
+	    handleSelect: function handleSelect(selection, row) {
+	      this.$emit('select', selection, row);
+	    },
+	    handleSelectAll: function handleSelectAll(selection) {
+	      this.$emit('select-all', selection);
+	    },
+	    handleCurrentRowChange: function handleCurrentRowChange(currentRow, oldCurrentRow) {
+	      this.$emit('current-change', currentRow, oldCurrentRow);
 	    }
 	  },
 	  watch: {
@@ -10309,7 +10335,11 @@
 	    },
 	    on: {
 	      "sort-change": _vm.handleSort,
-	      "row-click": _vm.handleRowClick
+	      "row-click": _vm.handleRowClick,
+	      "selection-change": _vm.handleSelectChange,
+	      "select": _vm.handleSelect,
+	      "select-all": _vm.handleSelectAll,
+	      "current-change": _vm.handleCurrentRowChange
 	    }
 	  }, [_vm._t("default"), (_vm.hasActionCol) ? _c('el-table-column', {
 	    attrs: {
@@ -10682,6 +10712,80 @@
 	      "sortable": "custom"
 	    }
 	  })], 1)], 1), _c('el-card', [_c('div', {
+	    staticClass: "desc"
+	  }, [_c('p', [_vm._v("事件")]), _c('p'), _c('data-tables', {
+	    attrs: {
+	      "data": _vm.tableData1,
+	      "col-not-row-click": ["special_selection_col"]
+	    },
+	    on: {
+	      "row-click": _vm.rowClick,
+	      "select": _vm.handleSelect,
+	      "select-all": _vm.handleAllSelect,
+	      "current-change": _vm.handleCurrentRowChange,
+	      "filtered-data": _vm.handleFilterDataChange
+	    }
+	  }, [_c('el-table-column', {
+	    attrs: {
+	      "type": "selection",
+	      "width": "55",
+	      "prop": "special_selection_col"
+	    }
+	  }), _c('el-table-column', {
+	    attrs: {
+	      "prop": "flow_no",
+	      "label": "服务编号",
+	      "sortable": "custom"
+	    }
+	  }), _c('el-table-column', {
+	    attrs: {
+	      "prop": "content",
+	      "label": "服务内容",
+	      "sortable": "custom"
+	    }
+	  }), _c('el-table-column', {
+	    attrs: {
+	      "prop": "create_time",
+	      "label": "服务时间",
+	      "sortable": "custom"
+	    }
+	  }), _c('el-table-column', {
+	    attrs: {
+	      "prop": "state",
+	      "label": "服务状态",
+	      "sortable": "custom"
+	    }
+	  }), _c('el-table-column', {
+	    attrs: {
+	      "prop": "flow_type",
+	      "label": "服务类型",
+	      "sortable": "custom"
+	    }
+	  }), _c('el-table-column', {
+	    attrs: {
+	      "prop": "building_group",
+	      "label": "分区",
+	      "sortable": "custom"
+	    }
+	  }), _c('el-table-column', {
+	    attrs: {
+	      "prop": "building",
+	      "label": "楼栋",
+	      "sortable": "custom"
+	    }
+	  }), _c('el-table-column', {
+	    attrs: {
+	      "prop": "room_no",
+	      "label": "房号",
+	      "sortable": "custom"
+	    }
+	  }), _c('el-table-column', {
+	    attrs: {
+	      "prop": "cellphone",
+	      "label": "手机号",
+	      "sortable": "custom"
+	    }
+	  })], 1)], 1)]), _c('el-card', [_c('div', {
 	    staticClass: "desc"
 	  }, [_c('h1', [_vm._v("高级用法：自定义过滤方法。")]), _c('p', [_vm._v("也许默认的过滤方法不适合你，那么你可以自定义过滤方法。checkbox-filter-def和search-def都有一个filterFunction属性，定义一个函数即可。本例设定的过滤方案是: 过滤state_code值等于搜索栏的值。所以在搜索栏输入created时可以显示未处理的数据")])]), _c('data-tables', {
 	    attrs: {

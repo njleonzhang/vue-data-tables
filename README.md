@@ -63,9 +63,13 @@
 For details, check the [example](https://github.com/njleonzhang/vue-data-tables/blob/master/example/App.vue).
 
 ## Event
-| Event          | Desc            |
-| ---- | ---- |
-| row-click | Emit when row is clicked |
+| Event          | Desc            |  params |
+| ---- | ---- | ---- |
+| row-click | Emit when row is clicked | row, event, column |
+| selection-change | Emit when selection is changed | currentRow, oldCurrentRow |
+| select | Emit when row is selected | selection |
+| select-all | Emit when select-all is clicked | selection |
+| filtered-data | Emit when filter condition changes | filteredData |
 
 For details, check the [example](https://github.com/njleonzhang/vue-data-tables/blob/master/example/App.vue).
 
