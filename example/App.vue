@@ -95,8 +95,9 @@
 
     el-card
       .desc
-        p 事件
-        p
+        p 事件 (https://github.com/njleonzhang/vue-data-tables#event)
+        p 多数的事件都是对element-ui el-table事件的proxy
+        p filtered-data事件用于传递过滤后数据，配合alasql(https://github.com/agershun/alasql)等库使用可以实现导出excel等功能
         data-tables(
           :data='tableData1',
           :col-not-row-click='["special_selection_col"]',
