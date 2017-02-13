@@ -185,7 +185,7 @@ export default {
     getCheckFilterDef() {
       return {
         width: 14,
-        props: ['state_code'],
+        props: 'state_code',
         def: [{
           'code': 'created',
           'name': '未处理'
