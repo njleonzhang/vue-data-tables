@@ -5,7 +5,7 @@
 
 ![preview](https://rawgit.com/njleonzhang/vue-data-tables/master/Assets/desc.png)
 
-## Online demo and example
+## Online demo
 * [Demo](https://njleonzhang.github.io/vue-data-tables/)
 
 * [Demo Code](https://github.com/njleonzhang/vue-data-tables/blob/master/example/App.vue)
