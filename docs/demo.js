@@ -9102,7 +9102,7 @@
 	    getCheckFilterDef: function getCheckFilterDef() {
 	      return {
 	        width: 14,
-	        prop: 'state_code',
+	        props: 'state_code',
 	        def: [{
 	          'code': 'created',
 	          'name': '未处理'
@@ -9411,7 +9411,7 @@
 
 	      this.filters.forEach(function (filter) {
 	        var val = filter.val;
-	        if (!val) {
+	        if (!val || val.length === 0) {
 	          return true;
 	        }
 
@@ -9426,7 +9426,7 @@
 	          } else if (val instanceof Array && val.length > 0) {
 	            defaultFilterFunction = function defaultFilterFunction(el, filter) {
 	              return filter.props.some(function (prop) {
-	                return filter.value.indexOf(el[prop]) > -1;
+	                return filter.val.indexOf(el[prop]) > -1;
 	              });
 	            };
 	          }
@@ -10449,7 +10449,12 @@
 	    attrs: {
 	      "id": "app"
 	    }
-	  }, [_c('el-card', [_c('div', {
+	  }, [_c('el-card', [_c('a', {
+	    attrs: {
+	      "href": "https://github.com/njleonzhang/vue-data-tables/blob/master/example/App.vue",
+	      "target": "_blank"
+	    }
+	  }, [_vm._v("compare to the source code")])]), _c('el-card', [_c('div', {
 	    staticClass: "desc"
 	  }, [_c('h1', [_vm._v("基本用法")]), _c('p', [_vm._v(" checkbox-filter-def: 来定义选择过滤的控件")]), _c('p', [_vm._v(" actions-def: 来定义表格内容")]), _c('p', [_vm._v(" row-action-def: 定义表里各列的操作")]), _c('p', [_vm._v(" action-col-width: 定义动作列的最小宽度")]), _c('p', [_vm._v(" row-click: 行被点击的事件")])]), _c('data-tables', {
 	    attrs: {

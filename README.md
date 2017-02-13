@@ -5,10 +5,10 @@
 
 ![preview](https://rawgit.com/njleonzhang/vue-data-tables/master/Assets/desc.png)
 
-## online demo and example
+## Online demo and example
 * [Demo](https://njleonzhang.github.io/vue-data-tables/)
 
-* [Example](https://github.com/njleonzhang/vue-data-tables/blob/master/example/App.vue)
+* [Demo Code](https://github.com/njleonzhang/vue-data-tables/blob/master/example/App.vue)
 
 
 ## Install ElementUI and vue-data-tables
@@ -60,7 +60,7 @@
 | has-action-col | Determine wether show action column | Boolean | true |
 | col-not-row-click | Indicate the columns which do not trigger row-click | Array | the action column |
 
-For details, check the [example](https://github.com/njleonzhang/vue-data-tables/blob/master/example/App.vue).
+For details, check the [Demo](https://njleonzhang.github.io/vue-data-tables/) and [Demo Code](https://github.com/njleonzhang/vue-data-tables/blob/master/example/App.vue).
 
 ## Event
 | Event          | Desc            |  params |
@@ -71,7 +71,7 @@ For details, check the [example](https://github.com/njleonzhang/vue-data-tables/
 | select-all | Emit when select-all is clicked | selection |
 | filtered-data | Emit when filter condition changes | filteredData |
 
-For details, check the [example](https://github.com/njleonzhang/vue-data-tables/blob/master/example/App.vue).
+For details, check the [Demo](https://njleonzhang.github.io/vue-data-tables/) and [Demo Code](https://github.com/njleonzhang/vue-data-tables/blob/master/example/App.vue).
 
 ## Dev
 

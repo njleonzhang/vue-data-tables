@@ -611,7 +611,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	      this.filters.forEach(function (filter) {
 	        var val = filter.val;
-	        if (!val) {
+	        if (!val || val.length === 0) {
 	          return true;
 	        }
 
@@ -626,7 +626,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	          } else if (val instanceof Array && val.length > 0) {
 	            defaultFilterFunction = function defaultFilterFunction(el, filter) {
 	              return filter.props.some(function (prop) {
-	                return filter.value.indexOf(el[prop]) > -1;
+	                return filter.val.indexOf(el[prop]) > -1;
 	              });
 	            };
 	          }

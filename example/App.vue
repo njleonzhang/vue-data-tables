@@ -8,6 +8,9 @@
 <template lang='pug'>
   #app
     el-card
+      a(href='https://github.com/njleonzhang/vue-data-tables/blob/master/example/App.vue', target='_blank') compare to the source code
+
+    el-card
       .desc
         h1 基本用法
         p  checkbox-filter-def: 来定义选择过滤的控件
