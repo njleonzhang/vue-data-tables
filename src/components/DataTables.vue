@@ -58,7 +58,7 @@
       @current-change='handleCurrentRowChange',
       style='width: 100%')
       slot
-      el-table-column(label='操作',
+      el-table-column(:label='actionColLabel',
         prop='innerRowActions',
         inline-template,
         v-if='hasActionCol',
@@ -120,6 +120,10 @@ export default {
       default() {
         return []
       }
+    },
+    actionColLabel: {
+      type: String,
+      default: '操作'
     },
     hasActionCol: {
       type: Boolean,

@@ -1,0 +1,244 @@
+table
+  tr
+    th Property
+    th layer1 sub proptery
+    th layer2 sub proptery
+    th Desc
+    th Type
+    th Default values
+  tr
+    td data
+    td
+    td
+    td The data array which will be render in the table.
+    td Array
+    td -
+  tr
+    td actions-def
+    td
+    td
+    td Define the actions, which belongs to table.
+    td Object
+    td -
+  tr
+    td(rowspan='6')
+    td width
+    td
+    td grid(24 grids) width of actions bar. actions bar, checkbox and searchbox are in a <b>el-row</b> as <b>el-col</b>s
+    td Number
+    td 5
+  tr
+    td offset
+    td
+    td offset of actions bar
+    td Number
+    td 0
+  tr
+    td def
+    td
+    td Define the actions
+    td Array
+    td []
+  tr
+    td(rowspan='3')
+    td name
+    td the ation button label text
+    td String
+    td -
+  tr
+    td icon
+    td icon of the button
+    td String
+    td -
+  tr
+    td handler
+    td handler of the click
+    td Function
+    td -
+  tr
+    td checkbox-filter-def
+    td
+    td
+    td Define the checkbox filter
+    td Object
+    td -
+  tr
+    td(rowspan='7')
+    td width
+    td
+    td grid width of checkbox
+    td Number
+    td 14
+  tr
+    td offset
+    td
+    td grid offset of checkbox
+    td Number
+    td 0
+  tr
+    td props
+    td
+    td
+      | Indicate proptery[s] in the data which will be used to filter data by checkbox filter.
+    td String | Array
+    td []
+  tr
+    td filterFunction
+    td
+    td customize filter function
+    td Function
+    td -
+  tr
+    td def
+    td
+    td grid offset of checkbox
+    td Array
+    td []
+  tr
+    td(rowspan='2')
+    td name
+    td the checkbox label text
+    td String
+    td -
+  tr
+    td code
+    td the value of this checkbox stands for
+    td String
+    td -
+  tr
+    td search-def
+    td
+    td
+    td Define the search box
+    td Object
+    td -
+
+  tr
+    td(rowspan='5')
+    td show
+    td
+    td show or hide search box
+    td Boolean
+    td true
+
+  tr
+    td props
+    td
+    td indicate proptery[s] in the data which will be used to filter data by search box.
+    td Array | String
+    td All
+
+  tr
+    td width
+    td
+    td grid width of search box
+    td Number
+    td 5
+
+  tr
+    td offset
+    td
+    td grid offset of search box
+    td Number
+    td 0
+
+  tr
+    td filterFunction
+    td
+    td customize filter function
+    td Function
+    td -
+
+  tr
+    td row-action-def
+    td
+    td
+    td Define the actions, which belongs to row
+    td Array
+    td []
+  tr
+    td(rowspan='2')
+    td name
+    td
+    td the row action button text
+    td String
+    td -
+
+  tr
+    td handler
+    td
+    td handler of the click
+    td Function
+    td -
+
+  tr
+    td action-col-width
+    td
+    td
+    td Define the min-width of the action column. unit: px.
+    td String
+    td -
+
+  tr
+    td col-not-row-click
+    td
+    td
+    td indicated column[s] which can not trigger row click
+    td String | Array
+    td the action column
+
+  tr
+    td has-action-col
+    td
+    td
+    td Determine wether show action column
+    td Boolean
+    td true
+
+  tr
+    td action-col-label
+    td
+    td
+    td indicated the header text of the action column
+    td String
+    td "操作"
+
+  tr
+    td pagination-def
+    td
+    td
+    td define pagination.
+    td Object
+    td
+
+  tr
+    td(rowspan='4')
+    td layout
+    td
+    td
+    td String
+    td [prev, pager, next, jumper, sizes, total]
+
+  tr
+    td pageSize
+    td
+    td refer to
+      a(href='http://element.eleme.io/#/zh-CN/component/pagination') Elmeme Doc
+    td Number
+    td 20
+
+  tr
+    td pageSizes
+    td
+    td refer to
+      a(href='http://element.eleme.io/#/zh-CN/component/pagination') Elmeme Doc
+    td Array
+    td [20, 50, 100]
+
+  tr
+    td currentPage
+    td
+    td refer to
+      a(href='http://element.eleme.io/#/zh-CN/component/pagination') Elmeme Doc
+    td Number
+    td 1
