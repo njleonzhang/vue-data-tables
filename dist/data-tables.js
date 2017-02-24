@@ -530,6 +530,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	        return [];
 	      }
 	    },
+	    actionColLabel: {
+	      type: String,
+	      default: '操作'
+	    },
 	    hasActionCol: {
 	      type: Boolean,
 	      default: true
@@ -1543,7 +1547,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 	  }, [_vm._t("default"), (_vm.hasActionCol) ? _c('el-table-column', {
 	    attrs: {
-	      "label": "操作",
+	      "label": _vm.actionColLabel,
 	      "prop": "innerRowActions",
 	      "min-width": _vm.actionColWidth
 	    },
