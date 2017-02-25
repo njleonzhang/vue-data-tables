@@ -191,7 +191,7 @@ export default {
       return this.colNotRowClick.concat(['innerRowActions'])
     },
     tableData() {
-      let newData = this.data
+      let newData = this.data.slice()
 
       let doFilter = function(defaultFilterFunction, filter, value) {
         let filterFunction = filter.filterFunction || defaultFilterFunction
