@@ -603,7 +603,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    tableData: function tableData() {
 	      var _this = this;
 
-	      var newData = this.data;
+	      var newData = this.data.slice();
 
 	      var doFilter = function doFilter(defaultFilterFunction, filter, value) {
 	        var filterFunction = filter.filterFunction || defaultFilterFunction;
