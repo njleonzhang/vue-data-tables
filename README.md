@@ -8,7 +8,7 @@
 ## Online demo
 * [Demo](https://njleonzhang.github.io/vue-data-tables/)
 
-* [Demo Code](https://github.com/njleonzhang/vue-data-tables/tree/master/docs)
+* [Demo Code](https://github.com/njleonzhang/vue-data-tables/tree/master/example/docs)
 
 
 ## Install ElementUI and vue-data-tables
@@ -311,7 +311,7 @@
   </tr>
 </table>
 
-For details, check the [Demo](https://njleonzhang.github.io/vue-data-tables/) and [Demo Code](https://github.com/njleonzhang/vue-data-tables/tree/master/docs).
+For details, check the [Demo](https://njleonzhang.github.io/vue-data-tables/) and [Demo Code](https://github.com/njleonzhang/vue-data-tables/tree/master/example/docs).
 
 ## Event
 | Event          | Desc            |  params |
@@ -322,7 +322,7 @@ For details, check the [Demo](https://njleonzhang.github.io/vue-data-tables/) an
 | select-all | Emit when select-all is clicked | selection |
 | filtered-data | Emit when filter condition changes | filteredData |
 
-For details, check the [Demo](https://njleonzhang.github.io/vue-data-tables/) and [Demo Code](https://github.com/njleonzhang/vue-data-tables/tree/master/docs).
+For details, check the [Demo](https://njleonzhang.github.io/vue-data-tables/) and [Demo Code](https://github.com/njleonzhang/vue-data-tables/tree/master/example/docs).
 
 ## Dev
 
