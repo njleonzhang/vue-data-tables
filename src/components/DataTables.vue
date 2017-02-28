@@ -179,7 +179,6 @@ export default {
       }, this.searchDef)
     },
     innerPaginationDef() {
-      console.log(this.paginationDef)
       return Object.assign({}, {
         layout: 'prev, pager, next, jumper, sizes, total',
         pageSize: 20,
