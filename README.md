@@ -8,7 +8,7 @@
 ## Online demo
 * [Demo](https://njleonzhang.github.io/vue-data-tables/)
 
-* [Demo Code](https://github.com/njleonzhang/vue-data-tables/blob/master/example/App.vue)
+* [Demo Code](https://github.com/njleonzhang/vue-data-tables/tree/master/docs)
 
 
 ## Install ElementUI and vue-data-tables
@@ -278,40 +278,40 @@
     <td></td>
     <td>define pagination.</td>
     <td>Object</td>
-    <td></td>
+    <td>-</td>
   </tr>
   <tr>
     <td rowspan="4"></td>
     <td>layout</td>
     <td></td>
-    <td></td>
+    <td>refer to <a href="http://element.eleme.io/#/zh-CN/component/pagination">Elmeme Doc</a></td>
     <td>String</td>
     <td>[prev, pager, next, jumper, sizes, total]</td>
   </tr>
   <tr>
     <td>pageSize</td>
     <td></td>
-    <td>refer to<a href="http://element.eleme.io/#/zh-CN/component/pagination">Elmeme Doc</a></td>
+    <td>refer to <a href="http://element.eleme.io/#/zh-CN/component/pagination">Elmeme Doc</a></td>
     <td>Number</td>
     <td>20</td>
   </tr>
   <tr>
     <td>pageSizes</td>
     <td></td>
-    <td>refer to<a href="http://element.eleme.io/#/zh-CN/component/pagination">Elmeme Doc</a></td>
+    <td>refer to <a href="http://element.eleme.io/#/zh-CN/component/pagination">Elmeme Doc</a></td>
     <td>Array</td>
     <td>[20, 50, 100]</td>
   </tr>
   <tr>
     <td>currentPage</td>
     <td></td>
-    <td>refer to<a href="http://element.eleme.io/#/zh-CN/component/pagination">Elmeme Doc</a></td>
+    <td>refer to <a href="http://element.eleme.io/#/zh-CN/component/pagination">Elmeme Doc</a></td>
     <td>Number</td>
     <td>1</td>
   </tr>
 </table>
 
-For details, check the [Demo](https://njleonzhang.github.io/vue-data-tables/) and [Demo Code](https://github.com/njleonzhang/vue-data-tables/blob/master/example/App.vue).
+For details, check the [Demo](https://njleonzhang.github.io/vue-data-tables/) and [Demo Code](https://github.com/njleonzhang/vue-data-tables/tree/master/docs).
 
 ## Event
 | Event          | Desc            |  params |
@@ -322,7 +322,7 @@ For details, check the [Demo](https://njleonzhang.github.io/vue-data-tables/) an
 | select-all | Emit when select-all is clicked | selection |
 | filtered-data | Emit when filter condition changes | filteredData |
 
-For details, check the [Demo](https://njleonzhang.github.io/vue-data-tables/) and [Demo Code](https://github.com/njleonzhang/vue-data-tables/blob/master/example/App.vue).
+For details, check the [Demo](https://njleonzhang.github.io/vue-data-tables/) and [Demo Code](https://github.com/njleonzhang/vue-data-tables/tree/master/docs).
 
 ## Dev
 
@@ -330,6 +330,6 @@ For details, check the [Demo](https://njleonzhang.github.io/vue-data-tables/) an
 # install dependencies
 npm install
 
-# serve with hot reload at localhost:8080
-npm run dev
+# serve demo with hot reload at localhost:8080
+npm run demo
 ```
