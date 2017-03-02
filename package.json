@@ -1,6 +1,6 @@
 {
   "name": "vue-data-tables",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "vue2.0 DataTables, based on element-ui, el-table + el-pagination + custom filter and sort",
   "author": "njleonzhang <scream3616@sina.com>",
   "main": "dist/data-tables.js",
@@ -22,7 +22,7 @@
     "publish": "node publish/publish.js"
   },
   "dependencies": {
-    "vue": "^2.1.0"
+    "vue": "^2.2.1"
   },
   "devDependencies": {
     "autoprefixer": "^6.4.0",
@@ -62,7 +62,7 @@
     "url-loader": "^0.5.7",
     "vue-loader": "^10.0.0",
     "vue-style-loader": "^1.0.0",
-    "vue-template-compiler": "^2.1.0",
+    "vue-template-compiler": "^2.2.1",
     "webpack": "^1.13.2",
     "webpack-dev-middleware": "^1.8.3",
     "webpack-hot-middleware": "^2.12.2",
