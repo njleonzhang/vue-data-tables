@@ -585,6 +585,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        props: undefined,
 	        filterFunction: undefined,
 	        width: 5,
+	        placeholder: '',
 	        offset: 0
 	      }, this.searchDef);
 	    },
@@ -1504,6 +1505,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    }
 	  }, [_c('el-input', {
 	    attrs: {
+	      "placeholder": _vm.innerSearchDef.placeholder,
 	      "icon": "search"
 	    },
 	    model: {
