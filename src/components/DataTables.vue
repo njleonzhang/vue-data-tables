@@ -43,7 +43,10 @@
         :span='innerSearchDef.width',
         :offset='innerSearchDef.offset',
         v-if='searchShow')
-        el-input(v-model='searchKey', icon='search')
+        el-input(
+          v-model='searchKey',
+          :placeholder='innerSearchDef.placeholder',
+          icon='search')
 
     el-table(
       :data='curTableData',
@@ -175,6 +178,7 @@ export default {
         props: undefined,
         filterFunction: undefined,
         width: 5,
+        placeholder: '',
         offset: 0
       }, this.searchDef)
     },

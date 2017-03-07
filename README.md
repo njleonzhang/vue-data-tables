@@ -182,7 +182,7 @@
     <td>-</td>
   </tr>
   <tr>
-    <td rowspan="5"></td>
+    <td rowspan="6"></td>
     <td>show</td>
     <td></td>
     <td>show or hide search box</td>
@@ -216,6 +216,13 @@
     <td>customize filter function</td>
     <td>Function</td>
     <td>-</td>
+  </tr>
+  <tr>
+    <td>placeholder</td>
+    <td></td>
+    <td>searchbox placeholder</td>
+    <td>String</td>
+    <td>""</td>
   </tr>
   <tr>
     <td>row-action-def</td>

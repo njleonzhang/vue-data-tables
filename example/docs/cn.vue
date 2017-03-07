@@ -244,6 +244,7 @@ export default {
     getSearchDef() {
       return {
         offset: 12,
+        placeholder: 'please input searchkey',
         props: ['state', 'flow_type'] // can be string or Array
       }
     },
