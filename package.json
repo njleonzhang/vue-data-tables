@@ -22,7 +22,8 @@
     "publish": "node publish/publish.js"
   },
   "dependencies": {
-    "vue": "^2.2.1"
+    "vue": "^2.2.1",
+    "vue-router": "^2.3.0"
   },
   "devDependencies": {
     "autoprefixer": "^6.4.0",
