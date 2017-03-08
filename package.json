@@ -22,8 +22,7 @@
     "publish": "node publish/publish.js"
   },
   "dependencies": {
-    "vue": "^2.2.1",
-    "vue-router": "^2.3.0"
+    "vue": "^2.2.1"
   },
   "devDependencies": {
     "autoprefixer": "^6.4.0",
@@ -62,6 +61,7 @@
     "shelljs": "^0.7.4",
     "url-loader": "^0.5.7",
     "vue-loader": "^10.0.0",
+    "vue-router": "^2.3.0",
     "vue-style-loader": "^1.0.0",
     "vue-template-compiler": "^2.2.1",
     "webpack": "^1.13.2",
