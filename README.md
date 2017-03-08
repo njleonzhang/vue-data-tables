@@ -338,5 +338,5 @@ For details, check the [Demo](https://njleonzhang.github.io/vue-data-tables/) an
 npm install
 
 # serve demo with hot reload at localhost:8080
-npm run demo
+npm run dev
 ```
