@@ -317,7 +317,7 @@ export default {
       this.checkedFilters = checkedFilters
     },
     handleRowClick(row, event, column) {
-      if (this.innerColNotRowClick.indexOf(column.property) === -1) {
+      if (column && this.innerColNotRowClick.indexOf(column.property) === -1) {
         this.$emit('row-click', row)
       }
     },
