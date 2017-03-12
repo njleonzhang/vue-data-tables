@@ -110,8 +110,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../node_modules/.0.25.0@css-loader/index.js!./../../node_modules/.10.3.0@vue-loader/lib/style-rewriter.js?id=data-v-739f43f1!./../../node_modules/.4.1.1@sass-loader/index.js!./../../node_modules/.10.3.0@vue-loader/lib/selector.js?type=styles&index=0!./DataTables.vue", function() {
-				var newContent = require("!!./../../node_modules/.0.25.0@css-loader/index.js!./../../node_modules/.10.3.0@vue-loader/lib/style-rewriter.js?id=data-v-739f43f1!./../../node_modules/.4.1.1@sass-loader/index.js!./../../node_modules/.10.3.0@vue-loader/lib/selector.js?type=styles&index=0!./DataTables.vue");
+			module.hot.accept("!!../../node_modules/css-loader/index.js!../../node_modules/vue-loader/lib/style-rewriter.js?id=data-v-739f43f1!../../node_modules/sass-loader/index.js!../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./DataTables.vue", function() {
+				var newContent = require("!!../../node_modules/css-loader/index.js!../../node_modules/vue-loader/lib/style-rewriter.js?id=data-v-739f43f1!../../node_modules/sass-loader/index.js!../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./DataTables.vue");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});
@@ -601,8 +601,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	      return this.colNotRowClick.concat(['innerRowActions']);
 	    },
 	    tableData: function tableData() {
-	      var _this = this;
-
 	      var newData = this.data.slice();
 
 	      var doFilter = function doFilter(defaultFilterFunction, filter, value) {
@@ -646,24 +644,22 @@ return /******/ (function(modules) { // webpackBootstrap
 	      });
 
 	      if (this.sortData.order) {
-	        (function () {
-	          var order = _this.sortData.order;
-	          var prop = _this.sortData.prop;
-	          var isDescending = order === 'descending';
+	        var order = this.sortData.order;
+	        var prop = this.sortData.prop;
+	        var isDescending = order === 'descending';
 
-	          newData.sort(function (a, b) {
-	            if (a[prop] > b[prop]) {
-	              return 1;
-	            } else if (a[prop] < b[prop]) {
-	              return -1;
-	            } else {
-	              return 0;
-	            }
-	          });
-	          if (isDescending) {
-	            newData.reverse();
+	        newData.sort(function (a, b) {
+	          if (a[prop] > b[prop]) {
+	            return 1;
+	          } else if (a[prop] < b[prop]) {
+	            return -1;
+	          } else {
+	            return 0;
 	          }
-	        })();
+	        });
+	        if (isDescending) {
+	          newData.reverse();
+	        }
 	      }
 
 	      this.$emit('filtered-data', newData);
@@ -723,7 +719,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      this.checkedFilters = checkedFilters;
 	    },
 	    handleRowClick: function handleRowClick(row, event, column) {
-	      if (this.innerColNotRowClick.indexOf(column.property) === -1) {
+	      if (column && this.innerColNotRowClick.indexOf(column.property) === -1) {
 	        this.$emit('row-click', row);
 	      }
 	    },
@@ -1387,8 +1383,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	if(false) {
 		// When the styles change, update the <style> tags
 		if(!content.locals) {
-			module.hot.accept("!!./../../node_modules/.0.25.0@css-loader/index.js!./../../node_modules/.10.3.0@vue-loader/lib/style-rewriter.js?id=data-v-5ef578ba!./../../node_modules/.4.1.1@sass-loader/index.js!./../../node_modules/.10.3.0@vue-loader/lib/selector.js?type=styles&index=0!./ScCheckboxGroup.vue", function() {
-				var newContent = require("!!./../../node_modules/.0.25.0@css-loader/index.js!./../../node_modules/.10.3.0@vue-loader/lib/style-rewriter.js?id=data-v-5ef578ba!./../../node_modules/.4.1.1@sass-loader/index.js!./../../node_modules/.10.3.0@vue-loader/lib/selector.js?type=styles&index=0!./ScCheckboxGroup.vue");
+			module.hot.accept("!!../../node_modules/css-loader/index.js!../../node_modules/vue-loader/lib/style-rewriter.js?id=data-v-5ef578ba!../../node_modules/sass-loader/index.js!../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./ScCheckboxGroup.vue", function() {
+				var newContent = require("!!../../node_modules/css-loader/index.js!../../node_modules/vue-loader/lib/style-rewriter.js?id=data-v-5ef578ba!../../node_modules/sass-loader/index.js!../../node_modules/vue-loader/lib/selector.js?type=styles&index=0!./ScCheckboxGroup.vue");
 				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
 				update(newContent);
 			});

@@ -9,8 +9,3 @@ console.log('build demo done...')
 
 exceSync('git add .')
 exceSync(`git commit -m "release ${version}"`)
-exceSync(`git push`)
-console.log('push done...')
-
-exceSync('npm publish')
-console.log('publish...')
