@@ -24,7 +24,8 @@
         :actions-def='getActionsDef()',
         :row-action-def='getRowActionsDef()',
         action-col-width='200'
-        @row-click='rowClick')
+        @row-click='rowClick'
+        ref='table1')
         el-table-column(prop='flow_no', label='服务编号', sortable='custom')
         el-table-column(prop='content', label='服务内容', sortable='custom')
         el-table-column(prop='create_time', label='服务时间', sortable='custom')
@@ -98,11 +99,16 @@
 
     el-card
       .desc
-        p 事件 (https://github.com/njleonzhang/vue-data-tables#event)
+        a(href='https://github.com/njleonzhang/vue-data-tables#event') 事件
         p 多数的事件都是对element-ui el-table事件的proxy
-        p filtered-data事件用于传递过滤后数据，配合alasql(https://github.com/agershun/alasql)等库使用可以实现导出excel等功能
+        p filtered-data事件用于传递过滤后数据，配合
+          a(href='https://github.com/zemirco/json2csv') json2csv
+          span 、
+          a(href='https://github.com/agershun/alasql') alasql
+          span 等库使用可以实现导出excel等功能
         data-tables(
           :data='tableData1',
+          :actions-def='getExportActionsDef()',
           :col-not-row-click='["special_selection_col"]',
           @row-click='rowClick',
           @select='handleSelect',
@@ -145,6 +151,7 @@
 <script>
 import DataTables from '../../src/index.js'
 import {cn} from '../mock'
+import CsvExport from '../utils/CsvExport'
 
 export default {
   name: 'app',
@@ -154,7 +161,9 @@ export default {
 
   data() {
     return {
-      tableData: []
+      tableData: [],
+      tableData1: [],
+      filteredData: []
     }
   },
 
@@ -185,6 +194,7 @@ export default {
         }]
       }
     },
+
     getCheckFilterDef() {
       return {
         width: 14,
@@ -225,6 +235,29 @@ export default {
         name: 'RUA'
       }]
     },
+
+    getExportActionsDef() {
+      let columns = ['room_no', 'cellphone', 'flow_no', 'state']
+      let columnNames = ['房号', '电话号码', '订单号', '状态']
+
+      return {
+        width: 19,
+        def: [{
+          name: 'export all',
+          handler: () => {
+            CsvExport(this.tableData1, columns, columnNames, '所有数据')
+          },
+          icon: 'plus'
+        }, {
+          name: 'export filtered',
+          handler: () => {
+            CsvExport(this.filteredData, columns, columnNames, '过滤后的数据')
+          },
+          icon: 'upload'
+        }]
+      }
+    },
+
     rowClick(row) {
       this.$message('row clicked')
       console.log('row clicked', row)
@@ -240,6 +273,7 @@ export default {
     },
     handleFilterDataChange(filteredData) {
       console.log('handleFilterDataChange', filteredData)
+      this.filteredData = filteredData
     },
     getSearchDef() {
       return {
