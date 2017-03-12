@@ -103,11 +103,13 @@
         p most of the events is just a proxy for element-ui el-table.
         p filtered-data is special, which pass the filted data out the component.
         p you can export these data to excel by 3rd-party libs, such as:
+          a(href='https://github.com/zemirco/json2csv') json2csv
+          span 、
           a(href='https://github.com/agershun/alasql') alasql
 
         data-tables(
           :data='tableData1',
-          :col-not-row-click='["special_selection_col"]',
+          :actions-def='getExportActionsDef()',
           @row-click='rowClick',
           @select='handleSelect',
           @select-all='handleAllSelect',
@@ -152,6 +154,7 @@
 <script>
 import DataTables from '../../src/index.js'
 import {en} from '../mock'
+import CsvExport from '../utils/CsvExport'
 
 export default {
   name: 'app',
@@ -161,7 +164,9 @@ export default {
 
   data() {
     return {
-      tableData: []
+      tableData: [],
+      tableData1: [],
+      filteredData: []
     }
   },
 
@@ -232,6 +237,29 @@ export default {
         name: 'RUA'
       }]
     },
+
+    getExportActionsDef() {
+      let columns = ['room_no', 'cellphone', 'flow_no', 'state']
+      let columnNames = ['room NO.', 'Tel.', 'order No.', 'state']
+
+      return {
+        width: 19,
+        def: [{
+          name: 'export all',
+          handler: () => {
+            CsvExport(this.tableData1, columns, columnNames, 'all')
+          },
+          icon: 'plus'
+        }, {
+          name: 'export filtered',
+          handler: () => {
+            CsvExport(this.filteredData, columns, columnNames, 'filtered')
+          },
+          icon: 'upload'
+        }]
+      }
+    },
+
     rowClick(row) {
       this.$message('row clicked')
       console.log('row clicked', row)
@@ -247,6 +275,7 @@ export default {
     },
     handleFilterDataChange(filteredData) {
       console.log('handleFilterDataChange', filteredData)
+      this.filteredData = filteredData
     },
     getSearchDef() {
       return {

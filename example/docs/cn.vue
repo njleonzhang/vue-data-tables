@@ -99,11 +99,16 @@
 
     el-card
       .desc
-        p 事件 (https://github.com/njleonzhang/vue-data-tables#event)
+        a(href='https://github.com/njleonzhang/vue-data-tables#event') 事件
         p 多数的事件都是对element-ui el-table事件的proxy
-        p filtered-data事件用于传递过滤后数据，配合alasql(https://github.com/agershun/alasql)等库使用可以实现导出excel等功能
+        p filtered-data事件用于传递过滤后数据，配合
+          a(href='https://github.com/zemirco/json2csv') json2csv
+          span 、
+          a(href='https://github.com/agershun/alasql') alasql
+          span 等库使用可以实现导出excel等功能
         data-tables(
           :data='tableData1',
+          :actions-def='getExportActionsDef()',
           :col-not-row-click='["special_selection_col"]',
           @row-click='rowClick',
           @select='handleSelect',
@@ -156,7 +161,9 @@ export default {
 
   data() {
     return {
-      tableData: []
+      tableData: [],
+      tableData1: [],
+      filteredData: []
     }
   },
 
@@ -168,67 +175,26 @@ export default {
   },
 
   methods: {
-    /**
-     * 参数可选
-     *
-     * fileName 导出的文件名
-     *
-     * filtered
-     *    true  导出筛选、排序后的数据
-     *    false 默认值，导出原数据
-     */
-    exportData(config) {
-      let dataTable = this.$refs.table1
-      let table = dataTable.$children.filter(t => t.$el._prevClass.indexOf('el-table') !== -1)[0]
-      let data = dataTable.data
-      let columns = this.getColumns(table)
-      const fields = columns.map(t => t.prop)
-      const fieldNames = columns.map(t => t.label)
-      if (config.filtered) {
-        data = dataTable.tableData
-      }
-      CsvExport(data, fields, fieldNames, config.fileName)
-    },
-    /**
-     * 针对多级分类表格，需循环遍历table获取columns
-     */
-    getColumns(tableEl, arr = []) {
-      if (!tableEl.$children.length) {
-        return
-      }
-      tableEl.$children.forEach((data) => {
-        if (!data.$children.length && data.prop) {
-          arr.push(data)
-        } else {
-          this.getColumns(data, arr)
-        }
-      })
-      return arr
-    },
     getActionsDef() {
       let self = this
       return {
         width: 5,
         def: [{
-          name: '导出原始数据',
+          name: 'new',
           handler() {
-            self.exportData({
-              fileName: '原始数据'
-            })
+            self.$message('new clicked')
           },
-          icon: 'upload'
+          icon: 'plus'
         }, {
-          name: '导出排序和过滤后的数据',
+          name: 'import',
           handler() {
-            self.exportData({
-              fileName: '排序和过滤后的数据',
-              filtered: true
-            })
+            self.$message('import clicked')
           },
           icon: 'upload'
         }]
       }
     },
+
     getCheckFilterDef() {
       return {
         width: 14,
@@ -269,6 +235,29 @@ export default {
         name: 'RUA'
       }]
     },
+
+    getExportActionsDef() {
+      let columns = ['room_no', 'cellphone', 'flow_no', 'state']
+      let columnNames = ['房号', '电话号码', '订单号', '状态']
+
+      return {
+        width: 19,
+        def: [{
+          name: 'export all',
+          handler: () => {
+            CsvExport(this.tableData1, columns, columnNames, '所有数据')
+          },
+          icon: 'plus'
+        }, {
+          name: 'export filtered',
+          handler: () => {
+            CsvExport(this.filteredData, columns, columnNames, '过滤后的数据')
+          },
+          icon: 'upload'
+        }]
+      }
+    },
+
     rowClick(row) {
       this.$message('row clicked')
       console.log('row clicked', row)
@@ -284,6 +273,7 @@ export default {
     },
     handleFilterDataChange(filteredData) {
       console.log('handleFilterDataChange', filteredData)
+      this.filteredData = filteredData
     },
     getSearchDef() {
       return {

@@ -22,7 +22,6 @@
     "publish": "node publish/publish.js"
   },
   "dependencies": {
-    "json2csv": "^3.7.3",
     "vue": "^2.2.1"
   },
   "devDependencies": {
@@ -52,6 +51,7 @@
     "function-bind": "^1.0.2",
     "html-webpack-plugin": "^2.8.1",
     "http-proxy-middleware": "^0.17.2",
+    "json2csv": "^3.7.3",
     "json-loader": "^0.5.4",
     "node-sass": "^4.3.0",
     "opn": "^4.0.2",
