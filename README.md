@@ -29,6 +29,7 @@
     ```
 
 2. use in your project.
+
     ```html
     <template>
       <data-tables:data='tableData',    
@@ -66,6 +67,22 @@
     <td>The data array which will be render in the table.</td>
     <td>Array</td>
     <td>-</td>
+  </tr>
+  <tr>
+    <td>border</td>
+    <td></td>
+    <td></td>
+    <td>whether table has vertical border.</td>
+    <td>Boolean</td>
+    <td>true</td>
+  </tr>
+  <tr>
+    <td>stripe</td>
+    <td></td>
+    <td></td>
+    <td>whether table is striped.</td>
+    <td>Boolean</td>
+    <td>true</td>
   </tr>
   <tr>
     <td>actions-def</td>

@@ -51,9 +51,9 @@
     el-table(
       :data='curTableData',
       @sort-change='handleSort',
-      border,
+      :border="border",
       fit,
-      stripe,
+      :stripe="stripe",
       @row-click='handleRowClick',
       @selection-change='handleSelectChange',
       @select='handleSelect',
@@ -98,6 +98,18 @@ export default {
       type: Array,
       default() {
         return []
+      }
+    },
+    border: {
+      type: Boolean,
+      default() {
+        return true
+      }
+    },
+    stripe: {
+      type: Boolean,
+      default() {
+        return true
       }
     },
     actionsDef: {
