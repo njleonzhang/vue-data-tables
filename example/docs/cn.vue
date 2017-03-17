@@ -24,7 +24,8 @@
         :actions-def='getActionsDef()',
         :row-action-def='getRowActionsDef()',
         action-col-width='200'
-        @row-click='rowClick')
+        @row-click='rowClick'
+        ref='table1')
         el-table-column(prop='flow_no', label='服务编号', sortable='custom')
         el-table-column(prop='content', label='服务内容', sortable='custom')
         el-table-column(prop='create_time', label='服务时间', sortable='custom')
@@ -145,6 +146,7 @@
 <script>
 import DataTables from '../../src/index.js'
 import {cn} from '../mock'
+import CsvExport from '../utils/CsvExport'
 
 export default {
   name: 'app',
@@ -166,20 +168,62 @@ export default {
   },
 
   methods: {
+    /**
+     * 参数可选
+     *
+     * fileName 导出的文件名
+     *
+     * filtered
+     *    true  导出筛选、排序后的数据
+     *    false 默认值，导出原数据
+     */
+    exportData(config) {
+      let dataTable = this.$refs.table1
+      let table = dataTable.$children.filter(t => t.$el._prevClass.indexOf('el-table') !== -1)[0]
+      let data = dataTable.data
+      let columns = this.getColumns(table)
+      const fields = columns.map(t => t.prop)
+      const fieldNames = columns.map(t => t.label)
+      if (config.filtered) {
+        data = dataTable.tableData
+      }
+      CsvExport(data, fields, fieldNames, config.fileName)
+    },
+    /**
+     * 针对多级分类表格，需循环遍历table获取columns
+     */
+    getColumns(tableEl, arr = []) {
+      if (!tableEl.$children.length) {
+        return
+      }
+      tableEl.$children.forEach((data) => {
+        if (!data.$children.length && data.prop) {
+          arr.push(data)
+        } else {
+          this.getColumns(data, arr)
+        }
+      })
+      return arr
+    },
     getActionsDef() {
       let self = this
       return {
         width: 5,
         def: [{
-          name: 'new',
+          name: '导出原始数据',
           handler() {
-            self.$message('new clicked')
+            self.exportData({
+              fileName: '原始数据'
+            })
           },
-          icon: 'plus'
+          icon: 'upload'
         }, {
-          name: 'import',
+          name: '导出排序和过滤后的数据',
           handler() {
-            self.$message('import clicked')
+            self.exportData({
+              fileName: '排序和过滤后的数据',
+              filtered: true
+            })
           },
           icon: 'upload'
         }]
