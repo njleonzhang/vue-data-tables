@@ -217,26 +217,20 @@ export default {
       return {
         width: 5,
         def: [{
-          name: '导出原始数据',
+          name: 'new',
           handler() {
-            self.exportData({
-              fileName: '原始数据'
-            })
+            self.$message('new clicked')
           },
-          icon: 'upload'
+          icon: 'plus'
         }, {
-          name: '导出排序和过滤后的数据',
+          name: 'import',
           handler() {
-            self.exportData({
-              fileName: '排序和过滤后的数据',
-              filtered: true
-            })
+            self.$message('import clicked')
           },
           icon: 'upload'
         }]
       }
     },
-
     getCheckFilterDef() {
       return {
         width: 14,
