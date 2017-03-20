@@ -48086,21 +48086,61 @@
 
 
 	  methods: {
+	    exportData: function exportData(config) {
+	      var dataTable = this.$refs.table1;
+	      var table = dataTable.$children.filter(function (t) {
+	        return t.$el._prevClass.indexOf('el-table') !== -1;
+	      })[0];
+	      var data = dataTable.data;
+	      var columns = this.getColumns(table);
+	      var fields = columns.map(function (t) {
+	        return t.prop;
+	      });
+	      var fieldNames = columns.map(function (t) {
+	        return t.label;
+	      });
+	      if (config.filtered) {
+	        data = dataTable.tableData;
+	      }
+	      (0, _CsvExport2.default)(data, fields, fieldNames, config.fileName);
+	    },
+	    getColumns: function getColumns(tableEl) {
+	      var _this = this;
+
+	      var arr = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
+
+	      if (!tableEl.$children.length) {
+	        return;
+	      }
+	      tableEl.$children.forEach(function (data) {
+	        if (!data.$children.length && data.prop) {
+	          arr.push(data);
+	        } else {
+	          _this.getColumns(data, arr);
+	        }
+	      });
+	      return arr;
+	    },
 	    getActionsDef: function getActionsDef() {
 	      var self = this;
 	      return {
 	        width: 5,
 	        def: [{
-	          name: 'new',
+	          name: '导出原始数据',
 	          handler: function handler() {
-	            self.$message('new clicked');
+	            self.exportData({
+	              fileName: '原始数据'
+	            });
 	          },
 
-	          icon: 'plus'
+	          icon: 'upload'
 	        }, {
-	          name: 'import',
+	          name: '导出排序和过滤后的数据',
 	          handler: function handler() {
-	            self.$message('import clicked');
+	            self.exportData({
+	              fileName: '排序和过滤后的数据',
+	              filtered: true
+	            });
 	          },
 
 	          icon: 'upload'
@@ -48150,7 +48190,7 @@
 	      }];
 	    },
 	    getExportActionsDef: function getExportActionsDef() {
-	      var _this = this;
+	      var _this2 = this;
 
 	      var columns = ['room_no', 'cellphone', 'flow_no', 'state'];
 	      var columnNames = ['房号', '电话号码', '订单号', '状态'];
@@ -48160,13 +48200,13 @@
 	        def: [{
 	          name: 'export all',
 	          handler: function handler() {
-	            (0, _CsvExport2.default)(_this.tableData1, columns, columnNames, '所有数据');
+	            (0, _CsvExport2.default)(_this2.tableData1, columns, columnNames, '所有数据');
 	          },
 	          icon: 'plus'
 	        }, {
 	          name: 'export filtered',
 	          handler: function handler() {
-	            (0, _CsvExport2.default)(_this.filteredData, columns, columnNames, '过滤后的数据');
+	            (0, _CsvExport2.default)(_this2.filteredData, columns, columnNames, '过滤后的数据');
 	          },
 	          icon: 'upload'
 	        }]
@@ -48337,6 +48377,18 @@
 	      type: Array,
 	      default: function _default() {
 	        return [];
+	      }
+	    },
+	    border: {
+	      type: Boolean,
+	      default: function _default() {
+	        return true;
+	      }
+	    },
+	    stripe: {
+	      type: Boolean,
+	      default: function _default() {
+	        return true;
 	      }
 	    },
 	    actionsDef: {
@@ -49349,9 +49401,9 @@
 	    },
 	    attrs: {
 	      "data": _vm.curTableData,
-	      "border": "border",
+	      "border": _vm.border,
 	      "fit": "fit",
-	      "stripe": "stripe"
+	      "stripe": _vm.stripe
 	    },
 	    on: {
 	      "sort-change": _vm.handleSort,
@@ -55631,7 +55683,7 @@
 	  /* script */
 	  __webpack_require__(156),
 	  /* template */
-	  __webpack_require__(157),
+	  __webpack_require__(158),
 	  /* scopeId */
 	  null,
 	  /* cssModules */
@@ -55701,7 +55753,17 @@
 
 	var _CsvExport2 = _interopRequireDefault(_CsvExport);
 
+	var _en = __webpack_require__(157);
+
+	var _en2 = _interopRequireDefault(_en);
+
+	var _locale = __webpack_require__(25);
+
+	var _locale2 = _interopRequireDefault(_locale);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	_locale2.default.use(_en2.default);
 
 	exports.default = {
 	  name: 'app',
@@ -55855,6 +55917,108 @@
 
 /***/ },
 /* 157 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	exports.__esModule = true;
+	exports.default = {
+	  el: {
+	    colorpicker: {
+	      confirm: 'OK',
+	      clear: 'Clear'
+	    },
+	    datepicker: {
+	      now: 'Now',
+	      today: 'Today',
+	      cancel: 'Cancel',
+	      clear: 'Clear',
+	      confirm: 'OK',
+	      selectDate: 'Select date',
+	      selectTime: 'Select time',
+	      startDate: 'Start Date',
+	      startTime: 'Start Time',
+	      endDate: 'End Date',
+	      endTime: 'End Time',
+	      year: '',
+	      month1: 'Jan',
+	      month2: 'Feb',
+	      month3: 'Mar',
+	      month4: 'Apr',
+	      month5: 'May',
+	      month6: 'Jun',
+	      month7: 'Jul',
+	      month8: 'Aug',
+	      month9: 'Sep',
+	      month10: 'Oct',
+	      month11: 'Nov',
+	      month12: 'Dec',
+	      // week: 'week',
+	      weeks: {
+	        sun: 'Sun',
+	        mon: 'Mon',
+	        tue: 'Tue',
+	        wed: 'Wed',
+	        thu: 'Thu',
+	        fri: 'Fri',
+	        sat: 'Sat'
+	      },
+	      months: {
+	        jan: 'Jan',
+	        feb: 'Feb',
+	        mar: 'Mar',
+	        apr: 'Apr',
+	        may: 'May',
+	        jun: 'Jun',
+	        jul: 'Jul',
+	        aug: 'Aug',
+	        sep: 'Sep',
+	        oct: 'Oct',
+	        nov: 'Nov',
+	        dec: 'Dec'
+	      }
+	    },
+	    select: {
+	      loading: 'Loading',
+	      noMatch: 'No matching data',
+	      noData: 'No data',
+	      placeholder: 'Select'
+	    },
+	    cascader: {
+	      noMatch: 'No matching data',
+	      placeholder: 'Select'
+	    },
+	    pagination: {
+	      goto: 'Go to',
+	      pagesize: '/page',
+	      total: 'Total {total}',
+	      pageClassifier: ''
+	    },
+	    messagebox: {
+	      title: 'Message',
+	      confirm: 'OK',
+	      cancel: 'Cancel',
+	      error: 'Illegal input'
+	    },
+	    upload: {
+	      delete: 'Delete',
+	      preview: 'Preview',
+	      continue: 'Continue'
+	    },
+	    table: {
+	      emptyText: 'No Data',
+	      confirmFilter: 'Confirm',
+	      resetFilter: 'Reset',
+	      clearFilter: 'All'
+	    },
+	    tree: {
+	      emptyText: 'No Data'
+	    }
+	  }
+	};
+
+/***/ },
+/* 158 */
 /***/ function(module, exports) {
 
 	module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;

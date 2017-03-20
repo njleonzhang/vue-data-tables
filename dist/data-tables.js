@@ -506,6 +506,18 @@ return /******/ (function(modules) { // webpackBootstrap
 	        return [];
 	      }
 	    },
+	    border: {
+	      type: Boolean,
+	      default: function _default() {
+	        return true;
+	      }
+	    },
+	    stripe: {
+	      type: Boolean,
+	      default: function _default() {
+	        return true;
+	      }
+	    },
 	    actionsDef: {
 	      type: Object,
 	      default: function _default() {
@@ -1516,9 +1528,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	    },
 	    attrs: {
 	      "data": _vm.curTableData,
-	      "border": "border",
+	      "border": _vm.border,
 	      "fit": "fit",
-	      "stripe": "stripe"
+	      "stripe": _vm.stripe
 	    },
 	    on: {
 	      "sort-change": _vm.handleSort,
