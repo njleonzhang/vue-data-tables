@@ -28,6 +28,19 @@
     Vue.use(DataTables)
     ```
 
+    If you don't want import the whole `element-ui`, you can just load corresponding components refer to `On demand` section of [element-ui doc](http://element.eleme.io/#/en-US/component/quickstart)
+
+    This lib depends on the following components:
+    - el-table
+    - el-row
+    - el-col
+    - el-input
+    - el-button
+    - el-pagination
+    - el-checkbox
+    - el-checkbox-group
+
+
 2. use in your project.
 
     ```html
