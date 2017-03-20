@@ -32,6 +32,7 @@
 
     This lib depends on the following components:
     - el-table
+    - el-table-column
     - el-row
     - el-col
     - el-input
@@ -45,7 +46,8 @@
 
     ```html
     <template>
-      <data-tables:data='tableData',    
+      <data-tables
+        :data='tableData',    
         :tool-bar-def='toolBarDef',
         :row-action-def='rowActionsDef',
         @row-click='rowClick'>
