@@ -55243,7 +55243,7 @@
 	    }
 	  }, [_c('el-card', [_c('a', {
 	    attrs: {
-	      "href": "https://github.com/njleonzhang/vue-data-tables/blob/master/example/App.vue",
+	      "href": "https://github.com/njleonzhang/vue-data-tables/tree/master/example/docs/cn.vue",
 	      "target": "_blank"
 	    }
 	  }, [_vm._v("compare to the source code")])]), _c('el-card', [_c('div', {
@@ -56023,7 +56023,7 @@
 	    }
 	  }, [_c('el-card', [_c('a', {
 	    attrs: {
-	      "href": "https://github.com/njleonzhang/vue-data-tables/blob/master/example/App.vue",
+	      "href": "https://github.com/njleonzhang/vue-data-tables/tree/master/example/docs/en.vue",
 	      "target": "_blank"
 	    }
 	  }, [_vm._v("compare to the source code")])]), _c('el-card', [_c('div', {
