@@ -93,6 +93,37 @@ export default {
     ActionBar,
     CheckboxGroup
   },
+  created() {
+    this.innerActionsDef = Object.assign({}, {
+      def: [],
+      width: 5,
+      offset: 0
+    }, this.actionsDef)
+
+    this.innerCheckboxFilterDef = Object.assign({}, {
+      props: undefined,
+      def: [],
+      width: 14,
+      offset: 0,
+      filterFunction: undefined
+    }, this.checkboxFilterDef)
+
+    this.innerSearchDef = Object.assign({}, {
+      show: true,
+      props: undefined,
+      filterFunction: undefined,
+      width: 5,
+      placeholder: '',
+      offset: 0
+    }, this.searchDef)
+
+    this.innerPaginationDef = Object.assign({}, {
+      layout: 'prev, pager, next, jumper, sizes, total',
+      pageSize: 20,
+      pageSizes: [20, 50, 100],
+      currentPage: 1
+    }, this.paginationDef)
+  },
   props: {
     data: {
       type: Array,
@@ -164,44 +195,14 @@ export default {
       currentPage: 1,
       internalPageSize: 20,
       searchKey: '',
-      checkedFilters: []
+      checkedFilters: [],
+      innerActionsDef: {},
+      innerCheckboxFilterDef: {},
+      innerSearchDef: {},
+      innerPaginationDef: {}
     }
   },
   computed: {
-    innerActionsDef() {
-      return Object.assign({}, {
-        def: [],
-        width: 5,
-        offset: 0
-      }, this.actionsDef)
-    },
-    innerCheckboxFilterDef() {
-      return Object.assign({}, {
-        props: undefined,
-        def: [],
-        width: 14,
-        offset: 0,
-        filterFunction: undefined
-      }, this.checkboxFilterDef)
-    },
-    innerSearchDef() {
-      return Object.assign({}, {
-        show: true,
-        props: undefined,
-        filterFunction: undefined,
-        width: 5,
-        placeholder: '',
-        offset: 0
-      }, this.searchDef)
-    },
-    innerPaginationDef() {
-      return Object.assign({}, {
-        layout: 'prev, pager, next, jumper, sizes, total',
-        pageSize: 20,
-        pageSizes: [20, 50, 100],
-        currentPage: 1
-      }, this.paginationDef)
-    },
     innerColNotRowClick() {
       return this.colNotRowClick.concat(['innerRowActions'])
     },
