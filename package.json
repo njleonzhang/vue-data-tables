@@ -22,7 +22,6 @@
     "publish": "node publish/publish.js"
   },
   "dependencies": {
-    "json2csv": "^3.7.3",
     "vue": "^2.2.1"
   },
   "devDependencies": {
