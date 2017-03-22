@@ -48367,6 +48367,38 @@
 	    ActionBar: _ActionBar2.default,
 	    CheckboxGroup: _ScCheckboxGroup2.default
 	  },
+	  created: function created() {
+	    this.innerActionsDef = (0, _assign2.default)({}, {
+	      def: [],
+	      width: 5,
+	      offset: 0
+	    }, this.actionsDef);
+
+	    this.innerCheckboxFilterDef = (0, _assign2.default)({}, {
+	      props: undefined,
+	      def: [],
+	      width: 14,
+	      offset: 0,
+	      filterFunction: undefined
+	    }, this.checkboxFilterDef);
+
+	    this.innerSearchDef = (0, _assign2.default)({}, {
+	      show: true,
+	      props: undefined,
+	      filterFunction: undefined,
+	      width: 5,
+	      placeholder: '',
+	      offset: 0
+	    }, this.searchDef);
+
+	    this.innerPaginationDef = (0, _assign2.default)({}, {
+	      layout: 'prev, pager, next, jumper, sizes, total',
+	      pageSize: 20,
+	      pageSizes: [20, 50, 100],
+	      currentPage: 1
+	    }, this.paginationDef);
+	  },
+
 	  props: {
 	    data: {
 	      type: Array,
@@ -48438,45 +48470,15 @@
 	      currentPage: 1,
 	      internalPageSize: 20,
 	      searchKey: '',
-	      checkedFilters: []
+	      checkedFilters: [],
+	      innerActionsDef: {},
+	      innerCheckboxFilterDef: {},
+	      innerSearchDef: {},
+	      innerPaginationDef: {}
 	    };
 	  },
 
 	  computed: {
-	    innerActionsDef: function innerActionsDef() {
-	      return (0, _assign2.default)({}, {
-	        def: [],
-	        width: 5,
-	        offset: 0
-	      }, this.actionsDef);
-	    },
-	    innerCheckboxFilterDef: function innerCheckboxFilterDef() {
-	      return (0, _assign2.default)({}, {
-	        props: undefined,
-	        def: [],
-	        width: 14,
-	        offset: 0,
-	        filterFunction: undefined
-	      }, this.checkboxFilterDef);
-	    },
-	    innerSearchDef: function innerSearchDef() {
-	      return (0, _assign2.default)({}, {
-	        show: true,
-	        props: undefined,
-	        filterFunction: undefined,
-	        width: 5,
-	        placeholder: '',
-	        offset: 0
-	      }, this.searchDef);
-	    },
-	    innerPaginationDef: function innerPaginationDef() {
-	      return (0, _assign2.default)({}, {
-	        layout: 'prev, pager, next, jumper, sizes, total',
-	        pageSize: 20,
-	        pageSizes: [20, 50, 100],
-	        currentPage: 1
-	      }, this.paginationDef);
-	    },
 	    innerColNotRowClick: function innerColNotRowClick() {
 	      return this.colNotRowClick.concat(['innerRowActions']);
 	    },
