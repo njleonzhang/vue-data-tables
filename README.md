@@ -275,6 +275,14 @@
     <td>[]</td>
   </tr>
   <tr>
+    <td>action-col-fixed</td>
+    <td></td>
+    <td></td>
+    <td>Determine wether action column is fixed. left means action column fix to left, right means action column fix to right. undefined means not fix</td>
+    <td>String</td>
+    <td>undefined</td>
+  </tr>
+  <tr>
     <td rowspan="4"></td>
     <td>name</td>
     <td></td>
@@ -295,8 +303,8 @@
     <td>
       an object to pass any proptery to el-button. refer to <a href="http://element.eleme.io/#/en-US/component/button#attributes">el-button proptery</a>
     </td>
-    <td>Object</td>
-    <td>undefined</td>
+    <td>Function</td>
+    <td>-</td>
   </tr>
   <tr>
     <td>handler</td>
