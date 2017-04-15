@@ -14,6 +14,29 @@ table
     td Array
     td -
   tr
+    td border
+    td
+    td
+    td whether table has vertical border.
+    td Boolean
+    td true
+  tr
+    td stripe
+    td
+    td
+    td whether table is striped.
+    td Boolean
+    td true
+  tr
+    td tableProps
+    td
+    td
+    td 
+      | an object to pass any proptery to el-table. refer to 
+      a(href='http://element.eleme.io/#/en-US/component/table#table-attributes') el-table proptery
+    td Object
+    td undefined
+  tr
     td actions-def
     td
     td
@@ -163,11 +186,25 @@ table
     td Array
     td []
   tr
-    td(rowspan='2')
+    td(rowspan='4')
     td name
     td
     td the row action button text
     td String
+    td -
+  tr
+    td type
+    td
+    td type of the button
+    td String
+    td text
+  tr
+    td buttonProps
+    td
+    td 
+      | an object to pass any proptery to el-button. refer to 
+      a(href='http://element.eleme.io/#/en-US/component/button#attributes') el-button proptery
+    td Function
     td -
   tr
     td handler
@@ -216,7 +253,7 @@ table
     td
     td
       | refer to 
-      a(href='http://element.eleme.io/#/zh-CN/component/pagination') Elmeme Doc
+      a(href='http://element.eleme.io/#/en-US/component/pagination') Elmeme Doc
     td String
     td [prev, pager, next, jumper, sizes, total]
   tr
@@ -224,7 +261,7 @@ table
     td
     td
       | refer to 
-      a(href='http://element.eleme.io/#/zh-CN/component/pagination') Elmeme Doc
+      a(href='http://element.eleme.io/#/en-US/component/pagination') Elmeme Doc
     td Number
     td 20
   tr
@@ -232,7 +269,7 @@ table
     td
     td
       | refer to 
-      a(href='http://element.eleme.io/#/zh-CN/component/pagination') Elmeme Doc
+      a(href='http://element.eleme.io/#/en-US/component/pagination') Elmeme Doc
     td Array
     td [20, 50, 100]
   tr
@@ -240,6 +277,6 @@ table
     td
     td
       | refer to 
-      a(href='http://element.eleme.io/#/zh-CN/component/pagination') Elmeme Doc
+      a(href='http://element.eleme.io/#/en-US/component/pagination') Elmeme Doc
     td Number
     td 1

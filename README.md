@@ -100,6 +100,16 @@
     <td>true</td>
   </tr>
   <tr>
+    <td>tableProps</td>
+    <td></td>
+    <td></td>
+    <td>
+      an object to pass any proptery to el-table. refer to <a href="http://element.eleme.io/#/en-US/component/table#table-attributes">el-table proptery</a>
+    </td>
+    <td>Object</td>
+    <td>undefined</td>
+  </tr>
+  <tr>
     <td>actions-def</td>
     <td></td>
     <td></td>
@@ -265,12 +275,28 @@
     <td>[]</td>
   </tr>
   <tr>
-    <td rowspan="2"></td>
+    <td rowspan="4"></td>
     <td>name</td>
     <td></td>
     <td>the row action button text</td>
     <td>String</td>
     <td>-</td>
+  </tr>
+  <tr>
+    <td>type</td>
+    <td></td>
+    <td>type of the button</td>
+    <td>String</td>
+    <td>text</td>
+  </tr>
+  <tr>
+    <td>buttonProps</td>
+    <td></td>
+    <td>
+      an object to pass any proptery to el-button. refer to <a href="http://element.eleme.io/#/en-US/component/button#attributes">el-button proptery</a>
+    </td>
+    <td>Object</td>
+    <td>undefined</td>
   </tr>
   <tr>
     <td>handler</td>
@@ -323,28 +349,28 @@
     <td rowspan="4"></td>
     <td>layout</td>
     <td></td>
-    <td>refer to <a href="http://element.eleme.io/#/zh-CN/component/pagination">Elmeme Doc</a></td>
+    <td>refer to <a href="http://element.eleme.io/#/en-US/component/pagination">Elmeme Doc</a></td>
     <td>String</td>
     <td>[prev, pager, next, jumper, sizes, total]</td>
   </tr>
   <tr>
     <td>pageSize</td>
     <td></td>
-    <td>refer to <a href="http://element.eleme.io/#/zh-CN/component/pagination">Elmeme Doc</a></td>
+    <td>refer to <a href="http://element.eleme.io/#/en-US/component/pagination">Elmeme Doc</a></td>
     <td>Number</td>
     <td>20</td>
   </tr>
   <tr>
     <td>pageSizes</td>
     <td></td>
-    <td>refer to <a href="http://element.eleme.io/#/zh-CN/component/pagination">Elmeme Doc</a></td>
+    <td>refer to <a href="http://element.eleme.io/#/en-US/component/pagination">Elmeme Doc</a></td>
     <td>Array</td>
     <td>[20, 50, 100]</td>
   </tr>
   <tr>
     <td>currentPage</td>
     <td></td>
-    <td>refer to <a href="http://element.eleme.io/#/zh-CN/component/pagination">Elmeme Doc</a></td>
+    <td>refer to <a href="http://element.eleme.io/#/en-US/component/pagination">Elmeme Doc</a></td>
     <td>Number</td>
     <td>1</td>
   </tr>
@@ -369,6 +395,9 @@ For details, check the [Demo](https://njleonzhang.github.io/vue-data-tables/) an
 # install dependencies
 npm install
 
-# serve demo with hot reload at localhost:8080
+# serve test/play with hot reload at localhost:8080
+npm run play
+
+# serve docs with hot reload at localhost:8080
 npm run dev
 ```

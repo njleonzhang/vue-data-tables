@@ -15,7 +15,13 @@
 
 <template lang="pug">
   .app-wrapper
-    data-tables(:data='tableData', :actions-def='getActionsDef()', :checkbox-filter-def='getCheckFilterDef()', :row-action-def='getRowActionsDef()')
+    data-tables(
+      :data='tableData',
+      :actions-def='getActionsDef()',
+      :actionColFixed='false',
+      :checkbox-filter-def='getCheckFilterDef()',
+      :row-action-def='getRowActionsDef()',
+      :tableProps="{border: false, 'row-class-name':'test-class'}")
       el-table-column(prop='flow_no', label='No.', sortable='custom')
       el-table-column(prop='content', label='Content', sortable='custom')
       el-table-column(prop='create_time', label='Time', sortable='custom')
@@ -134,7 +140,7 @@
           },
           name: 'Edit'
         }, {
-          type: 'primary',
+          buttonProps: {icon: 'message'},
           handler(row) {
             self.$message('RUA in row clicked')
             console.log('RUA in row clicked', row)

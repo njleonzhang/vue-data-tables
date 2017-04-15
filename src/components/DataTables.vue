@@ -54,6 +54,7 @@
       :border="border",
       fit,
       :stripe="stripe",
+      v-bind='tableProps',
       @row-click='handleRowClick',
       @selection-change='handleSelectChange',
       @select='handleSelect',
@@ -65,12 +66,14 @@
         prop='innerRowActions',
         inline-template,
         v-if='hasActionCol',
-        :min-width='actionColWidth')
+        :min-width='actionColWidth',
+        :fixed='actionColFixed')
         div.action-list
-          span(v-for='action in rowActionDef')
+          span(v-for='action in innerRowActionDef')
             el-button(
-              type='text',
-              @click='action.handler(row)') {{action.name}}
+              :type='action.type',
+              @click='action.handler(row)'
+              v-bind='action.buttonProps') {{action.name}}
 
     .pagination-wrap
       el-pagination(
@@ -99,6 +102,15 @@ export default {
       width: 5,
       offset: 0
     }, this.actionsDef)
+
+    this.innerRowActionDef = this.rowActionDef.map(el => {
+      if (!el.type) {
+        el.type = 'text'
+      }
+      return el
+    })
+
+    console.log(this.innerRowActionDef)
 
     this.innerCheckboxFilterDef = Object.assign({}, {
       props: undefined,
@@ -143,6 +155,9 @@ export default {
         return true
       }
     },
+    tableProps: {
+      type: Object
+    },
     actionsDef: {
       type: Object,
       default() {
@@ -176,6 +191,7 @@ export default {
       default: true
     },
     actionColWidth: String,
+    actionColFixed: [String, Boolean],
     colNotRowClick: {
       type: Array,
       default() {
