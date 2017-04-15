@@ -506,6 +506,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	      offset: 0
 	    }, this.actionsDef);
 
+	    this.innerRowActionDef = this.rowActionDef.map(function (el) {
+	      if (!el.type) {
+	        el.type = 'text';
+	      }
+	      return el;
+	    });
+
 	    this.innerCheckboxFilterDef = (0, _assign2.default)({}, {
 	      props: undefined,
 	      def: [],
@@ -550,6 +557,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	        return true;
 	      }
 	    },
+	    tableProps: {
+	      type: Object
+	    },
 	    actionsDef: {
 	      type: Object,
 	      default: function _default() {
@@ -583,6 +593,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	      default: true
 	    },
 	    actionColWidth: String,
+	    actionColFixed: [String, Boolean],
 	    colNotRowClick: {
 	      type: Array,
 	      default: function _default() {
@@ -1524,7 +1535,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        _vm.searchKey = $$v
 	      }
 	    }
-	  })], 1) : _vm._e()], 1), _c('el-table', {
+	  })], 1) : _vm._e()], 1), _c('el-table', _vm._b({
 	    staticStyle: {
 	      "width": "100%"
 	    },
@@ -1542,28 +1553,29 @@ return /******/ (function(modules) { // webpackBootstrap
 	      "select-all": _vm.handleSelectAll,
 	      "current-change": _vm.handleCurrentRowChange
 	    }
-	  }, [_vm._t("default"), (_vm.hasActionCol) ? _c('el-table-column', {
+	  }, 'el-table', _vm.tableProps), [_vm._t("default"), (_vm.hasActionCol) ? _c('el-table-column', {
 	    attrs: {
 	      "label": _vm.actionColLabel,
 	      "prop": "innerRowActions",
-	      "min-width": _vm.actionColWidth
+	      "min-width": _vm.actionColWidth,
+	      "fixed": _vm.actionColFixed
 	    },
 	    inlineTemplate: {
 	      render: function() {
 	        var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
 	          return _c('div', {
 	            staticClass: "action-list"
-	          }, _vm._l((_vm.rowActionDef), function(action) {
-	            return _c('span', [_c('el-button', {
+	          }, _vm._l((_vm.innerRowActionDef), function(action) {
+	            return _c('span', [_c('el-button', _vm._b({
 	              attrs: {
-	                "type": "text"
+	                "type": action.type
 	              },
 	              on: {
 	                "click": function($event) {
 	                  action.handler(_vm.row)
 	                }
 	              }
-	            }, [_vm._v(_vm._s(action.name))])], 1)
+	            }, 'el-button', action.buttonProps), [_vm._v(_vm._s(action.name))])], 1)
 	          }))
 	        
 	      },
