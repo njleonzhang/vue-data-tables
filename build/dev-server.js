@@ -6,7 +6,16 @@ var express = require('express')
 var webpack = require('webpack')
 var opn = require('opn')
 var proxyMiddleware = require('http-proxy-middleware')
-var webpackConfig = require('./webpack.dev.conf')
+
+var parms = process.argv.slice(2);
+
+var webpackConfig
+console.log(parms)
+if (parms[0] == "play") {
+  webpackConfig = require('./webpack.play.conf')
+} else {
+  webpackConfig = require('./webpack.dev.conf')
+}
 
 // default port where dev server listens for incoming traffic
 var port = process.env.PORT || config.dev.port
