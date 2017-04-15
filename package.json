@@ -20,7 +20,7 @@
     "build": "node build/build.js",
     "demo": "node build/build-demo.js",
     "lint": "eslint --ext .js,.vue src",
-    "publish": "node publish/publish.js"
+    "pub": "node publish/publish.js"
   },
   "dependencies": {
     "vue": "^2.2.1"
