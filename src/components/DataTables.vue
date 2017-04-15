@@ -110,8 +110,6 @@ export default {
       return el
     })
 
-    console.log(this.innerRowActionDef)
-
     this.innerCheckboxFilterDef = Object.assign({}, {
       props: undefined,
       def: [],
