@@ -54,6 +54,8 @@
       :data='curTableData',
       @sort-change='handleSort',
       fit,
+      border,
+      stripe,
       v-bind='tableProps',
       @row-click='handleRowClick',
       @selection-change='handleSelectChange',
