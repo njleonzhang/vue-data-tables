@@ -21,7 +21,7 @@
       :checkbox-filter-def='getCheckFilterDef()',
       :search-def='getSearchDef()',
       :action-col-def='getActionColDef()',
-      :tableProps="{border: false, 'row-class-name':'test-class'}")
+      :tableProps="tableProps")
       el-table-column(prop='flow_no', label='No.', sortable='custom')
       el-table-column(prop='content', label='Content', sortable='custom')
       el-table-column(prop='create_time', label='Time', sortable='custom')
@@ -40,7 +40,11 @@
     components: {dataTables},
     data() {
       return {
-        tableData: []
+        tableData: [],
+        tableProps: {
+          rowClassName: 'test-class',
+          border: false
+        }
       }
     },
     created() {
