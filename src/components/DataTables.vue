@@ -89,6 +89,7 @@
 <script>
 import ActionBar from 'components/ActionBar'
 import CheckboxGroup from 'components/ScCheckboxGroup'
+import ErrorTips from 'components/ErrorTips.js'
 
 export default {
   name: 'DataTables',
@@ -231,7 +232,7 @@ export default {
         })
       }
 
-      this.filters.forEach((filter) => {
+      this.filters.forEach(filter => {
         let val = filter.val
         if (!val || val.length === 0) {
           return true
@@ -244,6 +245,10 @@ export default {
             // filter value is not list
             defaultFilterFunction = function(el, filter) {
               return filter.props.some(prop => {
+                if (el[prop] === undefined) {
+                  console.error(ErrorTips.propError(prop))
+                  return true
+                }
                 return el[prop].indexOf(filter.val) > -1
               })
             }
@@ -251,6 +256,9 @@ export default {
             // filter value is list, at the same time not empty
             defaultFilterFunction = function(el, filter) {
               return filter.props.some(prop => {
+                if (el[prop] === undefined) {
+                  console.error(ErrorTips.propError(prop))
+                }
                 return filter.val.indexOf(el[prop]) > -1
               })
             }
@@ -259,6 +267,9 @@ export default {
           // filter is for all column
           defaultFilterFunction = function(el, filter) {
             return Object.keys(el).some(key => {
+              if (el[key] === undefined) {
+                console.error(ErrorTips.propError(key))
+              }
               return String(el[key]).indexOf(filter.val) > -1
             })
           }

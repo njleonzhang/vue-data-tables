@@ -21,6 +21,7 @@
       :actionColFixed='false',
       :checkbox-filter-def='getCheckFilterDef()',
       :row-action-def='getRowActionsDef()',
+      :search-def='getSearchDef()',
       :tableProps="{border: false, 'row-class-name':'test-class'}")
       el-table-column(prop='flow_no', label='No.', sortable='custom')
       el-table-column(prop='content', label='Content', sortable='custom')
@@ -147,6 +148,11 @@
           },
           name: 'RUA'
         }]
+      },
+      getSearchDef() {
+        return {
+          props: ['flow_no', 'flow_type']
+        }
       }
     }
   }
