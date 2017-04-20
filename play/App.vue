@@ -18,10 +18,9 @@
     data-tables(
       :data='tableData',
       :actions-def='getActionsDef()',
-      :actionColFixed='false',
       :checkbox-filter-def='getCheckFilterDef()',
-      :row-action-def='getRowActionsDef()',
       :search-def='getSearchDef()',
+      :action-col-def='getActionColDef()',
       :tableProps="{border: false, 'row-class-name':'test-class'}")
       el-table-column(prop='flow_no', label='No.', sortable='custom')
       el-table-column(prop='content', label='Content', sortable='custom')
@@ -93,13 +92,18 @@
       getActionsDef() {
         let self = this
         return {
-          width: 5,
+          colProps: {
+            span: 5
+          },
           def: [{
             name: 'new',
             handler() {
               self.$message('new clicked')
             },
-            icon: 'plus'
+            icon: 'plus',
+            buttonProps: {
+              type: 'primary'
+            }
           }, {
             name: 'import',
             handler() {
@@ -111,7 +115,9 @@
       },
       getCheckFilterDef() {
         return {
-          width: 14,
+          colProps: {
+            span: 14
+          },
           props: 'state_code',
           def: [{
             'code': 'created',
@@ -131,27 +137,35 @@
           }]
         }
       },
-      getRowActionsDef() {
-        let self = this
-        return [{
-          type: 'primary',
-          handler(row) {
-            self.$message('Edit clicked')
-            console.log('Edit in row clicked', row)
-          },
-          name: 'Edit'
-        }, {
-          buttonProps: {icon: 'message'},
-          handler(row) {
-            self.$message('RUA in row clicked')
-            console.log('RUA in row clicked', row)
-          },
-          name: 'RUA'
-        }]
-      },
       getSearchDef() {
         return {
           props: ['flow_no', 'flow_type']
+        }
+      },
+      getActionColDef() {
+        return {
+          tableColProps: {
+            fixed: 'right',
+            minWidth: '200'
+          },
+          def: [{
+            type: 'primary',
+            handler: row => {
+              this.$message('Edit clicked')
+              console.log('Edit in row clicked', row)
+            },
+            name: 'Edit'
+          }, {
+            buttonProps: {
+              type: 'primary',
+              icon: 'message'
+            },
+            handler: row => {
+              this.$message('RUA in row clicked')
+              console.log('RUA in row clicked', row)
+            },
+            name: 'RUA'
+          }]
         }
       }
     }

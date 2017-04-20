@@ -30,18 +30,20 @@
   .sc-table
     el-row.tool-bar
       el-col.actions(
-        :span='innerActionsDef.width',
-        :offset='innerActionsDef.offset',
+        v-bind='innerActionsDef.colProps'
         v-if='actionsShow')
-        action-bar(:actions='innerActionsDef.def')
+        el-button(
+          v-for="action in innerActionsDef.def",
+          @click="action.handler",
+          type='primary',
+          :icon='action.icon',
+          v-bind='action.buttonProps') {{action.name}}
       el-col.filters(
-        :span='innerCheckboxFilterDef.width',
-        :offset='innerCheckboxFilterDef.offset',
+        v-bind='innerCheckboxFilterDef.colProps'
         v-if='checkboxShow')
         checkbox-group(:checks='innerCheckboxFilterDef.def' @checkChange='handleFilterChange')
       el-col.search(
-        :span='innerSearchDef.width',
-        :offset='innerSearchDef.offset',
+        v-bind='innerSearchDef.colProps'
         v-if='searchShow')
         el-input(
           v-model='searchKey',
@@ -51,9 +53,7 @@
     el-table(
       :data='curTableData',
       @sort-change='handleSort',
-      :border="border",
       fit,
-      :stripe="stripe",
       v-bind='tableProps',
       @row-click='handleRowClick',
       @selection-change='handleSelectChange',
@@ -62,17 +62,16 @@
       @current-change='handleCurrentRowChange',
       style='width: 100%')
       slot
-      el-table-column(:label='actionColLabel',
-        prop='innerRowActions',
-        inline-template,
-        v-if='hasActionCol',
-        :min-width='actionColWidth',
-        :fixed='actionColFixed')
-        div.action-list
-          span(v-for='action in innerRowActionDef')
+      el-table-column(:label='innerActionColDef.label',
+        prop='vueDataTablesInnerRowActions',
+        v-if='innerActionColDef.show'
+        v-bind='innerActionColDef.tableColProps')
+        template.action-list(scope='scope')
+          span(v-for='action in innerActionColDef.def')
             el-button(
-              :type='action.type',
-              @click='action.handler(row)'
+              type='text',
+              :icon='action.icon',
+              @click='action.handler(scope.row)'
               v-bind='action.buttonProps') {{action.name}}
 
     .pagination-wrap
@@ -87,53 +86,51 @@
 </template>
 
 <script>
-import ActionBar from 'components/ActionBar'
 import CheckboxGroup from 'components/ScCheckboxGroup'
 import ErrorTips from 'components/ErrorTips.js'
 
 export default {
   name: 'DataTables',
   components: {
-    ActionBar,
     CheckboxGroup
   },
   created() {
-    this.innerActionsDef = Object.assign({}, {
-      def: [],
-      width: 5,
-      offset: 0
+    this.innerActionsDef = Object.assign({
+      colProps: {
+        span: 5
+      },
+      def: []
     }, this.actionsDef)
 
-    this.innerRowActionDef = this.rowActionDef.map(el => {
-      if (!el.type) {
-        el.type = 'text'
-      }
-      return el
-    })
-
-    this.innerCheckboxFilterDef = Object.assign({}, {
+    this.innerCheckboxFilterDef = Object.assign({
+      colProps: {
+        span: 14
+      },
       props: undefined,
       def: [],
-      width: 14,
-      offset: 0,
       filterFunction: undefined
     }, this.checkboxFilterDef)
 
-    this.innerSearchDef = Object.assign({}, {
+    this.innerSearchDef = Object.assign({
       show: true,
+      colProps: {
+        span: 5
+      },
       props: undefined,
-      filterFunction: undefined,
-      width: 5,
-      placeholder: '',
-      offset: 0
+      filterFunction: undefined
     }, this.searchDef)
 
-    this.innerPaginationDef = Object.assign({}, {
+    this.innerPaginationDef = Object.assign({
       layout: 'prev, pager, next, jumper, sizes, total',
       pageSize: 20,
       pageSizes: [20, 50, 100],
       currentPage: 1
     }, this.paginationDef)
+
+    this.innerActionColDef = Object.assign({
+      show: true,
+      label: '操作'
+    }, this.actionColDef)
   },
   props: {
     data: {
@@ -142,20 +139,14 @@ export default {
         return []
       }
     },
-    border: {
-      type: Boolean,
-      default() {
-        return true
-      }
-    },
-    stripe: {
-      type: Boolean,
-      default() {
-        return true
-      }
-    },
     tableProps: {
       type: Object
+    },
+    colNotRowClick: {
+      type: Array,
+      default() {
+        return []
+      }
     },
     actionsDef: {
       type: Object,
@@ -175,26 +166,10 @@ export default {
         return {}
       }
     },
-    rowActionDef: {
-      type: Array,
+    actionColDef: {
+      type: Object,
       default() {
-        return []
-      }
-    },
-    actionColLabel: {
-      type: String,
-      default: '操作'
-    },
-    hasActionCol: {
-      type: Boolean,
-      default: true
-    },
-    actionColWidth: String,
-    actionColFixed: [String, Boolean],
-    colNotRowClick: {
-      type: Array,
-      default() {
-        return []
+        return {}
       }
     },
     paginationDef: {
@@ -214,12 +189,13 @@ export default {
       innerActionsDef: {},
       innerCheckboxFilterDef: {},
       innerSearchDef: {},
-      innerPaginationDef: {}
+      innerPaginationDef: {},
+      innerActionColDef: {}
     }
   },
   computed: {
     innerColNotRowClick() {
-      return this.colNotRowClick.concat(['innerRowActions'])
+      return this.colNotRowClick.concat(['vueDataTablesInnerRowActions'])
     },
     tableData() {
       let newData = this.data.slice()
