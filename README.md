@@ -111,7 +111,7 @@
     <td>colProps</td>
     <td></td>
     <td>Actions bar, checkbox and searchbox are in a <b>el-row</b> as <b>el-col</b>s.
-            An object to properties to el-col. refer to <a href="http://element.eleme.io/#/en-US/component/layout#col-attributes">el-col proptery</a>
+                  An object to properties to el-col. refer to <a href="http://element.eleme.io/#/en-US/component/layout#col-attributes">el-col proptery</a>
     </td>
     <td>Object</td>
     <td>-</td>
@@ -161,7 +161,7 @@
     <td>colProps</td>
     <td></td>
     <td>Actions bar, checkbox and searchbox are in a <b>el-row</b> as <b>el-col</b>s
-            An object to properties to el-col. refer to <a href="http://element.eleme.io/#/en-US/component/layout#col-attributes">el-col proptery</a>
+                  An object to properties to el-col. refer to <a href="http://element.eleme.io/#/en-US/component/layout#col-attributes">el-col proptery</a>
     </td>
     <td>Object</td>
     <td>-</td>
@@ -220,7 +220,7 @@
     <td>colProps</td>
     <td></td>
     <td>Actions bar, checkbox and searchbox are in a <b>el-row</b> as <b>el-col</b>s
-            An object to properties to el-col. refer to <a href="http://element.eleme.io/#/en-US/component/layout#col-attributes">el-col proptery</a>
+                  An object to properties to el-col. refer to <a href="http://element.eleme.io/#/en-US/component/layout#col-attributes">el-col proptery</a>
     </td>
     <td>Object</td>
     <td>-</td>
@@ -303,7 +303,10 @@
     <td>pagination-def</td>
     <td></td>
     <td></td>
-    <td>define pagination.</td>
+    <td>
+      define pagination.
+      refer to <a href="http://element.eleme.io/#/en-US/component/pagination#attributes">el-pagination proptery</a>
+    </td>
     <td>Object</td>
     <td>-</td>
   </tr>
@@ -311,28 +314,28 @@
     <td rowspan="4"></td>
     <td>layout</td>
     <td></td>
-    <td>refer to <a href="http://element.eleme.io/#/en-US/component/pagination">Elmeme Doc</a></td>
+    <td></td>
     <td>String</td>
     <td>[prev, pager, next, jumper, sizes, total]</td>
   </tr>
   <tr>
     <td>pageSize</td>
     <td></td>
-    <td>refer to <a href="http://element.eleme.io/#/en-US/component/pagination">Elmeme Doc</a></td>
+    <td></td>
     <td>Number</td>
     <td>20</td>
   </tr>
   <tr>
     <td>pageSizes</td>
     <td></td>
-    <td>refer to <a href="http://element.eleme.io/#/en-US/component/pagination">Elmeme Doc</a></td>
+    <td></td>
     <td>Array</td>
     <td>[20, 50, 100]</td>
   </tr>
   <tr>
     <td>currentPage</td>
     <td></td>
-    <td>refer to <a href="http://element.eleme.io/#/en-US/component/pagination">Elmeme Doc</a></td>
+    <td></td>
     <td>Number</td>
     <td>1</td>
   </tr>
