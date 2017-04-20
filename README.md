@@ -65,7 +65,6 @@
     ```
 
 ## Attributes
-
 <table>
   <tr>
     <th>Property</th>
@@ -267,20 +266,20 @@
     <td>""</td>
   </tr>
   <tr>
-    <td>row-action-def</td>
-    <td></td>
-    <td></td>
-    <td>Define the actions, which belongs to row</td>
-    <td>Array</td>
-    <td>[]</td>
-  </tr>
-  <tr>
     <td>action-col-fixed</td>
     <td></td>
     <td></td>
     <td>Determine wether action column is fixed. left means action column fix to left, right means action column fix to right. undefined means not fix</td>
     <td>String</td>
     <td>undefined</td>
+  </tr>
+  <tr>
+    <td>row-action-def</td>
+    <td></td>
+    <td></td>
+    <td>Define the actions, which belongs to row</td>
+    <td>Array</td>
+    <td>[]</td>
   </tr>
   <tr>
     <td rowspan="4"></td>
