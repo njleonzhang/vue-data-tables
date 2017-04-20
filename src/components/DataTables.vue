@@ -30,6 +30,7 @@
   .sc-table
     el-row.tool-bar
       el-col.actions(
+        :span='5'
         v-bind='innerActionsDef.colProps'
         v-if='actionsShow')
         el-button(
@@ -39,15 +40,17 @@
           :icon='action.icon',
           v-bind='action.buttonProps') {{action.name}}
       el-col.filters(
+        :span='14'
         v-bind='innerCheckboxFilterDef.colProps'
         v-if='checkboxShow')
         checkbox-group(:checks='innerCheckboxFilterDef.def' @checkChange='handleFilterChange')
       el-col.search(
+        :span='5'
         v-bind='innerSearchDef.colProps'
         v-if='searchShow')
         el-input(
           v-model='searchKey',
-          :placeholder='innerSearchDef.placeholder',
+          v-bind='innerSearchDef.inputProps'
           icon='search')
 
     el-table(
@@ -64,9 +67,10 @@
       @current-change='handleCurrentRowChange',
       style='width: 100%')
       slot
-      el-table-column(:label='innerActionColDef.label',
+      el-table-column(
+        v-if='innerActionColDef.show',
         prop='vueDataTablesInnerRowActions',
-        v-if='innerActionColDef.show'
+        :label='操作',
         v-bind='innerActionColDef.tableColProps')
         template(scope='scope')
           .action-list
@@ -99,16 +103,10 @@ export default {
   },
   created() {
     this.innerActionsDef = Object.assign({
-      colProps: {
-        span: 5
-      },
       def: []
     }, this.actionsDef)
 
     this.innerCheckboxFilterDef = Object.assign({
-      colProps: {
-        span: 14
-      },
       props: undefined,
       def: [],
       filterFunction: undefined
@@ -116,9 +114,6 @@ export default {
 
     this.innerSearchDef = Object.assign({
       show: true,
-      colProps: {
-        span: 5
-      },
       props: undefined,
       filterFunction: undefined
     }, this.searchDef)

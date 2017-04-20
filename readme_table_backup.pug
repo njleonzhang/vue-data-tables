@@ -1,8 +1,8 @@
 table
   tr
     th Property
-    th layer1 sub proptery
-    th layer2 sub proptery
+    th Layer1 sub proptery
+    th Layer2 sub proptery
     th Desc
     th Type
     th Default values
@@ -14,28 +14,21 @@ table
     td Array
     td -
   tr
-    td border
-    td
-    td
-    td whether table has vertical border.
-    td Boolean
-    td true
-  tr
-    td stripe
-    td
-    td
-    td whether table is striped.
-    td Boolean
-    td true
-  tr
     td tableProps
     td
     td
-    td 
-      | an object to pass any proptery to el-table. refer to 
+    td
+      | An object to properties to el-table. refer to 
       a(href='http://element.eleme.io/#/en-US/component/table#table-attributes') el-table proptery
     td Object
-    td undefined
+    td -
+  tr
+    td col-not-row-click
+    td
+    td
+    td indicated column[s] which can not trigger row click
+    td String | Array
+    td the action column
   tr
     td actions-def
     td
@@ -45,22 +38,18 @@ table
     td -
   tr
     td(rowspan='6')
-    td width
+    td colProps
     td
     td
-      | grid(24 grids) width of actions bar. actions bar, checkbox and searchbox are in a 
+      | Actions bar, checkbox and searchbox are in a 
       b el-row
       |  as 
       b el-col
-      | s
-    td Number
-    td 5
-  tr
-    td offset
-    td
-    td offset of actions bar
-    td Number
-    td 0
+      | s.
+      |             An object to properties to el-col. refer to 
+      a(href='http://element.eleme.io/#/en-US/component/layout#col-attributes') el-col proptery
+    td Object
+    td -
   tr
     td def
     td
@@ -68,7 +57,7 @@ table
     td Array
     td []
   tr
-    td(rowspan='3')
+    td(rowspan='4')
     td name
     td the ation button label text
     td String
@@ -77,6 +66,13 @@ table
     td icon
     td icon of the button
     td String
+    td -
+  tr
+    td buttonProps
+    td
+      | An object to properties to el-button. refer to 
+      a(href='http://element.eleme.io/#/en-US/component/button#attributes') el-button proptery
+    td Object
     td -
   tr
     td handler
@@ -91,18 +87,19 @@ table
     td Object
     td -
   tr
-    td(rowspan='7')
-    td width
+    td(rowspan='6')
+    td colProps
     td
-    td grid width of checkbox
-    td Number
-    td 14
-  tr
-    td offset
     td
-    td grid offset of checkbox
-    td Number
-    td 0
+      | Actions bar, checkbox and searchbox are in a 
+      b el-row
+      |  as 
+      b el-col
+      | s
+      |             An object to properties to el-col. refer to 
+      a(href='http://element.eleme.io/#/en-US/component/layout#col-attributes') el-col proptery
+    td Object
+    td -
   tr
     td props
     td
@@ -141,12 +138,25 @@ table
     td Object
     td -
   tr
-    td(rowspan='6')
+    td(rowspan='5')
     td show
     td
     td show or hide search box
     td Boolean
     td true
+  tr
+    td colProps
+    td
+    td
+      | Actions bar, checkbox and searchbox are in a 
+      b el-row
+      |  as 
+      b el-col
+      | s
+      |             An object to properties to el-col. refer to 
+      a(href='http://element.eleme.io/#/en-US/component/layout#col-attributes') el-col proptery
+    td Object
+    td -
   tr
     td props
     td
@@ -155,98 +165,68 @@ table
     td Array | String
     td All
   tr
-    td width
-    td
-    td grid width of search box
-    td Number
-    td 5
-  tr
-    td offset
-    td
-    td grid offset of search box
-    td Number
-    td 0
-  tr
     td filterFunction
     td
     td customize filter function
     td Function
     td -
   tr
-    td placeholder
+    td inputProps
     td
-    td searchbox placeholder
-    td String
-    td ""
+    td
+      | An object to properties to el-input. refer to 
+      a(href='http://element.eleme.io/#/en-US/component/input#input-attributes') el-input proptery
+    td Object
+    td -
   tr
-    td action-col-fixed
+    td(rowspan='8') actionColDef
     td
     td
-    td Determine wether action column is fixed. left means action column fix to left, right means action column fix to right. undefined means not fix
-    td String
-    td undefined
+    td Define action column
+    td Object
+    td -
   tr
-    td row-action-def
+    td show
     td
+    td Determine wether show action column
+    td Boolean
+    td true
+  tr
+    td tableColProps
+    td
+    td
+      | An object to pass properties to el-table-column. refer to 
+      a(href='http://element.eleme.io/#/en-US/component/table#table-column-attributes') el-button proptery
+    td Object
+    td -  
+  tr
+    td(rowspan='5') def
     td
     td Define the actions, which belongs to row
     td Array
     td []
   tr
-    td(rowspan='4')
     td name
-    td
     td the row action button text
     td String
     td -
   tr
     td type
-    td
     td type of the button
     td String
     td text
   tr
     td buttonProps
     td
-    td 
-      | an object to pass any proptery to el-button. refer to 
+      | An object to properties to el-button. refer to 
       a(href='http://element.eleme.io/#/en-US/component/button#attributes') el-button proptery
-    td Function
+    td Object
     td -
   tr
     td handler
-    td
     td handler of the click
     td Function
     td -
-  tr
-    td action-col-width
-    td
-    td
-    td Define the min-width of the action column. unit: px.
-    td String
-    td -
-  tr
-    td col-not-row-click
-    td
-    td
-    td indicated column[s] which can not trigger row click
-    td String | Array
-    td the action column
-  tr
-    td has-action-col
-    td
-    td
-    td Determine wether show action column
-    td Boolean
-    td true
-  tr
-    td action-col-label
-    td
-    td
-    td indicated the header text of the action column
-    td String
-    td "操作"
   tr
     td pagination-def
     td

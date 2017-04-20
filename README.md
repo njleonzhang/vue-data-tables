@@ -68,8 +68,8 @@
 <table>
   <tr>
     <th>Property</th>
-    <th>layer1 sub proptery</th>
-    <th>layer2 sub proptery</th>
+    <th>Layer1 sub proptery</th>
+    <th>Layer2 sub proptery</th>
     <th>Desc</th>
     <th>Type</th>
     <th>Default values</th>
@@ -83,30 +83,20 @@
     <td>-</td>
   </tr>
   <tr>
-    <td>border</td>
-    <td></td>
-    <td></td>
-    <td>whether table has vertical border.</td>
-    <td>Boolean</td>
-    <td>true</td>
-  </tr>
-  <tr>
-    <td>stripe</td>
-    <td></td>
-    <td></td>
-    <td>whether table is striped.</td>
-    <td>Boolean</td>
-    <td>true</td>
-  </tr>
-  <tr>
     <td>tableProps</td>
     <td></td>
     <td></td>
-    <td>
-      an object to pass any proptery to el-table. refer to <a href="http://element.eleme.io/#/en-US/component/table#table-attributes">el-table proptery</a>
-    </td>
+    <td>An object to properties to el-table. refer to <a href="http://element.eleme.io/#/en-US/component/table#table-attributes">el-table proptery</a></td>
     <td>Object</td>
-    <td>undefined</td>
+    <td>-</td>
+  </tr>
+  <tr>
+    <td>col-not-row-click</td>
+    <td></td>
+    <td></td>
+    <td>indicated column[s] which can not trigger row click</td>
+    <td>String | Array</td>
+    <td>the action column</td>
   </tr>
   <tr>
     <td>actions-def</td>
@@ -118,18 +108,13 @@
   </tr>
   <tr>
     <td rowspan="6"></td>
-    <td>width</td>
+    <td>colProps</td>
     <td></td>
-    <td>grid(24 grids) width of actions bar. actions bar, checkbox and searchbox are in a <b>el-row</b> as <b>el-col</b>s</td>
-    <td>Number</td>
-    <td>5</td>
-  </tr>
-  <tr>
-    <td>offset</td>
-    <td></td>
-    <td>offset of actions bar</td>
-    <td>Number</td>
-    <td>0</td>
+    <td>Actions bar, checkbox and searchbox are in a <b>el-row</b> as <b>el-col</b>s.
+            An object to properties to el-col. refer to <a href="http://element.eleme.io/#/en-US/component/layout#col-attributes">el-col proptery</a>
+    </td>
+    <td>Object</td>
+    <td>-</td>
   </tr>
   <tr>
     <td>def</td>
@@ -139,7 +124,7 @@
     <td>[]</td>
   </tr>
   <tr>
-    <td rowspan="3"></td>
+    <td rowspan="4"></td>
     <td>name</td>
     <td>the ation button label text</td>
     <td>String</td>
@@ -149,6 +134,12 @@
     <td>icon</td>
     <td>icon of the button</td>
     <td>String</td>
+    <td>-</td>
+  </tr>
+  <tr>
+    <td>buttonProps</td>
+    <td>An object to properties to el-button. refer to <a href="http://element.eleme.io/#/en-US/component/button#attributes">el-button proptery</a></td>
+    <td>Object</td>
     <td>-</td>
   </tr>
   <tr>
@@ -166,19 +157,14 @@
     <td>-</td>
   </tr>
   <tr>
-    <td rowspan="7"></td>
-    <td>width</td>
+    <td rowspan="6"></td>
+    <td>colProps</td>
     <td></td>
-    <td>grid width of checkbox</td>
-    <td>Number</td>
-    <td>14</td>
-  </tr>
-  <tr>
-    <td>offset</td>
-    <td></td>
-    <td>grid offset of checkbox</td>
-    <td>Number</td>
-    <td>0</td>
+    <td>Actions bar, checkbox and searchbox are in a <b>el-row</b> as <b>el-col</b>s
+            An object to properties to el-col. refer to <a href="http://element.eleme.io/#/en-US/component/layout#col-attributes">el-col proptery</a>
+    </td>
+    <td>Object</td>
+    <td>-</td>
   </tr>
   <tr>
     <td>props</td>
@@ -223,12 +209,21 @@
     <td>-</td>
   </tr>
   <tr>
-    <td rowspan="6"></td>
+    <td rowspan="5"></td>
     <td>show</td>
     <td></td>
     <td>show or hide search box</td>
     <td>Boolean</td>
     <td>true</td>
+  </tr>
+  <tr>
+    <td>colProps</td>
+    <td></td>
+    <td>Actions bar, checkbox and searchbox are in a <b>el-row</b> as <b>el-col</b>s
+            An object to properties to el-col. refer to <a href="http://element.eleme.io/#/en-US/component/layout#col-attributes">el-col proptery</a>
+    </td>
+    <td>Object</td>
+    <td>-</td>
   </tr>
   <tr>
     <td>props</td>
@@ -238,20 +233,6 @@
     <td>All</td>
   </tr>
   <tr>
-    <td>width</td>
-    <td></td>
-    <td>grid width of search box</td>
-    <td>Number</td>
-    <td>5</td>
-  </tr>
-  <tr>
-    <td>offset</td>
-    <td></td>
-    <td>grid offset of search box</td>
-    <td>Number</td>
-    <td>0</td>
-  </tr>
-  <tr>
     <td>filterFunction</td>
     <td></td>
     <td>customize filter function</td>
@@ -259,90 +240,64 @@
     <td>-</td>
   </tr>
   <tr>
-    <td>placeholder</td>
+    <td>inputProps</td>
     <td></td>
-    <td>searchbox placeholder</td>
-    <td>String</td>
-    <td>""</td>
-  </tr>
-  <tr>
-    <td>action-col-fixed</td>
-    <td></td>
-    <td></td>
-    <td>Determine wether action column is fixed. left means action column fix to left, right means action column fix to right. undefined means not fix</td>
-    <td>String</td>
-    <td>undefined</td>
-  </tr>
-  <tr>
-    <td>row-action-def</td>
-    <td></td>
-    <td></td>
-    <td>Define the actions, which belongs to row</td>
-    <td>Array</td>
-    <td>[]</td>
-  </tr>
-  <tr>
-    <td rowspan="4"></td>
-    <td>name</td>
-    <td></td>
-    <td>the row action button text</td>
-    <td>String</td>
+    <td>An object to properties to el-input. refer to <a href="http://element.eleme.io/#/en-US/component/input#input-attributes">el-input proptery</a></td>
+    <td>Object</td>
     <td>-</td>
   </tr>
   <tr>
-    <td>type</td>
+    <td rowspan="8">actionColDef</td>
     <td></td>
-    <td>type of the button</td>
-    <td>String</td>
-    <td>text</td>
-  </tr>
-  <tr>
-    <td>buttonProps</td>
     <td></td>
-    <td>
-      an object to pass any proptery to el-button. refer to <a href="http://element.eleme.io/#/en-US/component/button#attributes">el-button proptery</a>
-    </td>
-    <td>Function</td>
+    <td>Define action column</td>
+    <td>Object</td>
     <td>-</td>
   </tr>
   <tr>
-    <td>handler</td>
-    <td></td>
-    <td>handler of the click</td>
-    <td>Function</td>
-    <td>-</td>
-  </tr>
-  <tr>
-    <td>action-col-width</td>
-    <td></td>
-    <td></td>
-    <td>Define the min-width of the action column. unit: px.</td>
-    <td>String</td>
-    <td>-</td>
-  </tr>
-  <tr>
-    <td>col-not-row-click</td>
-    <td></td>
-    <td></td>
-    <td>indicated column[s] which can not trigger row click</td>
-    <td>String | Array</td>
-    <td>the action column</td>
-  </tr>
-  <tr>
-    <td>has-action-col</td>
-    <td></td>
+    <td>show</td>
     <td></td>
     <td>Determine wether show action column</td>
     <td>Boolean</td>
     <td>true</td>
   </tr>
   <tr>
-    <td>action-col-label</td>
+    <td>tableColProps</td>
     <td></td>
+    <td>An object to pass properties to el-table-column. refer to <a href="http://element.eleme.io/#/en-US/component/table#table-column-attributes">el-button proptery</a></td>
+    <td>Object</td>
+    <td>-  </td>
+  </tr>
+  <tr>
+    <td rowspan="5">def</td>
     <td></td>
-    <td>indicated the header text of the action column</td>
+    <td>Define the actions, which belongs to row</td>
+    <td>Array</td>
+    <td>[]</td>
+  </tr>
+  <tr>
+    <td>name</td>
+    <td>the row action button text</td>
     <td>String</td>
-    <td>"操作"</td>
+    <td>-</td>
+  </tr>
+  <tr>
+    <td>type</td>
+    <td>type of the button</td>
+    <td>String</td>
+    <td>text</td>
+  </tr>
+  <tr>
+    <td>buttonProps</td>
+    <td>An object to properties to el-button. refer to <a href="http://element.eleme.io/#/en-US/component/button#attributes">el-button proptery</a></td>
+    <td>Object</td>
+    <td>-</td>
+  </tr>
+  <tr>
+    <td>handler</td>
+    <td>handler of the click</td>
+    <td>Function</td>
+    <td>-</td>
   </tr>
   <tr>
     <td>pagination-def</td>
