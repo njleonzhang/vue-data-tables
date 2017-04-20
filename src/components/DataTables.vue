@@ -66,13 +66,14 @@
         prop='vueDataTablesInnerRowActions',
         v-if='innerActionColDef.show'
         v-bind='innerActionColDef.tableColProps')
-        template.action-list(scope='scope')
-          span(v-for='action in innerActionColDef.def')
-            el-button(
-              type='text',
-              :icon='action.icon',
-              @click='action.handler(scope.row)'
-              v-bind='action.buttonProps') {{action.name}}
+        template(scope='scope')
+          .action-list
+            span(v-for='action in innerActionColDef.def')
+              el-button(
+                type='text',
+                :icon='action.icon',
+                @click='action.handler(scope.row)'
+                v-bind='action.buttonProps') {{action.name}}
 
     .pagination-wrap
       el-pagination(
