@@ -310,7 +310,6 @@ export default {
     },
     handleSort(obj) {
       this.sortData = obj
-      console.log(obj)
     },
     handleSizeChange(size) {
       this.internalPageSize = size
