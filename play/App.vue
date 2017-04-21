@@ -43,7 +43,11 @@
         tableData: [],
         tableProps: {
           rowClassName: 'test-class',
-          border: false
+          border: false,
+          defaultSort: {
+            prop: 'flow_no',
+            order: 'descending'
+          }
         }
       }
     },
@@ -82,7 +86,7 @@
         'cellphone': '13400000000',
         'content': 'Help to buy some drinks',
         'create_time': '2016-10-02 22:25',
-        'flow_no': 'FW201601010002',
+        'flow_no': 'FW201601010003',
         'flow_type': 'Help',
         'flow_type_code': 'help',
         'id': '2222222',
