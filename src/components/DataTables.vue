@@ -96,6 +96,7 @@
 <script>
 import CheckboxGroup from 'components/ScCheckboxGroup'
 import ErrorTips from 'components/ErrorTips.js'
+import debounce from 'throttle-debounce/debounce'
 
 export default {
   name: 'DataTables',
@@ -130,6 +131,11 @@ export default {
       show: true,
       label: '操作'
     }, this.actionColDef)
+
+    let self = this
+    this.updateInnerSearchKey = debounce(200, _ => {
+      self.innerSearchKey = self.searchKey
+    })
   },
   props: {
     data: {
@@ -190,6 +196,7 @@ export default {
       currentPage: 1,
       internalPageSize: 20,
       searchKey: '',
+      innerSearchKey: '',
       checkedFilters: [],
       innerActionsDef: {},
       innerCheckboxFilterDef: {},
@@ -287,7 +294,7 @@ export default {
       if (this.searchShow) {
         filters.push({
           props: this.formatProps(this.innerSearchDef.props),
-          vals: this.formatToArray(this.searchKey),
+          vals: this.formatToArray(this.innerSearchKey),
           filterFunction: this.innerSearchDef.filterFunction
         })
       }
@@ -345,6 +352,9 @@ export default {
         this.internalPageSize = val.pageSize
         this.currentPage = val.currentPage
       }
+    },
+    searchKey() {
+      this.updateInnerSearchKey()
     }
   }
 }
