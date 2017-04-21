@@ -70,7 +70,7 @@
       el-table-column(
         v-if='innerActionColDef.show',
         prop='vueDataTablesInnerRowActions',
-        :label='操作',
+        label='操作',
         v-bind='innerActionColDef.tableColProps')
         template(scope='scope')
           .action-list
@@ -318,6 +318,7 @@ export default {
     },
     handleSort(obj) {
       this.sortData = obj
+      console.log(obj)
     },
     handleSizeChange(size) {
       this.internalPageSize = size
