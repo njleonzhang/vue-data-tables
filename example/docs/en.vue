@@ -140,6 +140,8 @@
         action-col-width='200'
         action-col-label='Actions'
         @row-click='rowClick')
+        el-col(slot='actionBar')
+          el-input(v-model='customFilter.val')
         el-table-column(prop='flow_no', label='No.', sortable='custom')
         el-table-column(prop='content', label='Content', sortable='custom')
         el-table-column(prop='create_time', label='Time', sortable='custom')

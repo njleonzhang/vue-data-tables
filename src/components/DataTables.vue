@@ -44,6 +44,7 @@
         v-bind='innerCheckboxFilterDef.colProps'
         v-if='checkboxShow')
         checkbox-group(:checks='innerCheckboxFilterDef.def' @checkChange='handleFilterChange')
+      slot(name='actionBar')
       el-col.search(
         :span='5'
         v-bind='innerSearchDef.colProps'
@@ -137,6 +138,12 @@ export default {
         return []
       }
     },
+    customFilter: {
+      type: Object,
+      default() {
+        return {}
+      }
+    },
     tableProps: {
       type: Object
     },
@@ -195,8 +202,14 @@ export default {
     innerColNotRowClick() {
       return this.colNotRowClick.concat(['vueDataTablesInnerRowActions'])
     },
+    innerCustomFilter() {
+      return Object.assign({}, this.customFilter, {
+        vals: this.formatToArray(this.customFilter.vals)
+      })
+    },
     tableData() {
       let newData = this.data.slice()
+      let allProps = Object.keys(newData[0] || {})
 
       let doFilter = function(defaultFilterFunction, filter, value) {
         let filterFunction = filter.filterFunction || defaultFilterFunction
@@ -207,46 +220,22 @@ export default {
       }
 
       this.filters.forEach(filter => {
-        let val = filter.val
-        if (!val || val.length === 0) {
+        let vals = filter.vals
+        if (!vals || vals.length === 0) {
           return true
         }
 
-        let defaultFilterFunction
-        if (filter.props) {
-          // the filter is for some special column
-          if (!(val instanceof Array)) {
-            // filter value is not list
-            defaultFilterFunction = function(el, filter) {
-              return filter.props.some(prop => {
-                if (el[prop] === undefined) {
-                  console.error(ErrorTips.propError(prop))
-                  return true
-                }
-                return el[prop].indexOf(filter.val) > -1
-              })
+        let defaultFilterFunction = function(el, filter) {
+          let props = filter.props || allProps
+          return props.some(prop => {
+            let elVal = el[prop]
+            if (!elVal) {
+              console.error(ErrorTips.propError(prop))
             }
-          } else if (val instanceof Array && val.length > 0) {
-            // filter value is list, at the same time not empty
-            defaultFilterFunction = function(el, filter) {
-              return filter.props.some(prop => {
-                if (el[prop] === undefined) {
-                  console.error(ErrorTips.propError(prop))
-                }
-                return filter.val.indexOf(el[prop]) > -1
-              })
-            }
-          }
-        } else {
-          // filter is for all column
-          defaultFilterFunction = function(el, filter) {
-            return Object.keys(el).some(key => {
-              if (el[key] === undefined) {
-                console.error(ErrorTips.propError(key))
-              }
-              return String(el[key]).indexOf(filter.val) > -1
+            return filter.vals.some(val => {
+              return elVal.toString().indexOf(val) > -1
             })
-          }
+          })
         }
 
         doFilter(defaultFilterFunction, filter)
@@ -293,19 +282,19 @@ export default {
       return this.innerActionsDef.def.length > 0
     },
     filters() {
-      let filters = []
+      let filters = this.formatToArray(this.innerCustomFilter)
 
       if (this.searchShow) {
         filters.push({
           props: this.formatProps(this.innerSearchDef.props),
-          val: this.searchKey,
+          vals: this.formatToArray(this.searchKey),
           filterFunction: this.innerSearchDef.filterFunction
         })
       }
       if (this.checkboxShow) {
         filters.push({
           props: this.formatProps(this.innerCheckboxFilterDef.props),
-          val: this.checkedFilters,
+          vals: this.checkedFilters,
           filterFunction: this.innerCheckboxFilterDef.filterFunction
         })
       }
@@ -315,6 +304,9 @@ export default {
   methods: {
     formatProps(props) {
       return props ? [].concat(props) : undefined
+    },
+    formatToArray(filters) {
+      return filters ? [].concat(filters) : []
     },
     handleSort(obj) {
       this.sortData = obj

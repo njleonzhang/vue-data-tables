@@ -21,7 +21,12 @@
       :checkbox-filter-def='getCheckFilterDef()',
       :search-def='getSearchDef()',
       :action-col-def='getActionColDef()',
+      :custom-filter='customFilter',
       :tableProps="tableProps")
+
+      el-col(slot='actionBar', :span='5')
+        el-input( v-model='customFilter.vals')
+
       el-table-column(prop='flow_no', label='No.', sortable='custom')
       el-table-column(prop='content', label='Content', sortable='custom')
       el-table-column(prop='create_time', label='Time', sortable='custom')
@@ -48,6 +53,9 @@
             prop: 'flow_no',
             order: 'descending'
           }
+        },
+        customFilter: {
+          vals: ''
         }
       }
     },
@@ -124,7 +132,7 @@
       getCheckFilterDef() {
         return {
           colProps: {
-            span: 14
+            span: 6
           },
           props: 'state_code',
           def: [{
@@ -147,7 +155,10 @@
       },
       getSearchDef() {
         return {
-          props: ['flow_no', 'flow_type']
+          colProps: {
+            offset: 2
+          },
+          props: ['flow_no', 'state_code']
         }
       },
       getActionColDef() {
