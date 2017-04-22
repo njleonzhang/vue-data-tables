@@ -17,16 +17,19 @@
   .app-wrapper
     data-tables(
       :data='tableData',
-      :actions-def='getActionsDef()',
-      :checkbox-filter-def='getCheckFilterDef()',
-      :search-def='getSearchDef()',
-      :action-col-def='getActionColDef()',
+      :actions-def='actionsDef',
+      :checkbox-filter-def='checkFilterDef',
+      :search-def='searchDef',
+      :action-col-def='actionColDef',
       :custom-filter='customFilter',
-      :tableProps="tableProps")
+      :tableProps='tableProps',
+      :pagination-def='paginationDef',
+      @selection-change='handleSelectChange')
 
       el-col(slot='actionBar', :span='5')
         el-input( v-model='customFilter.vals')
 
+      el-table-column(type='selection' width='55')
       el-table-column(prop='flow_no', label='No.', sortable='custom')
       el-table-column(prop='content', label='Content', sortable='custom')
       el-table-column(prop='create_time', label='Time', sortable='custom')
@@ -36,6 +39,7 @@
       el-table-column(prop='building', label='building', sortable='custom')
       el-table-column(prop='room_no', label='no', sortable='custom')
       el-table-column(prop='cellphone', label='tel', sortable='custom')
+    div {{selection}}
 </template>
 
 <script>
@@ -56,10 +60,88 @@
         },
         customFilter: {
           vals: ''
+        },
+        selection: {},
+        actionsDef: {
+          colProps: {
+            span: 5
+          },
+          def: [{
+            name: 'new',
+            handler: () => {
+              this.$message('new clicked')
+            },
+            icon: 'plus',
+            buttonProps: {
+              type: 'primary'
+            }
+          }, {
+            name: 'import',
+            handler: () => {
+              this.$message('import clicked')
+            },
+            icon: 'upload'
+          }]
+        },
+        checkFilterDef: {
+          colProps: {
+            span: 6
+          },
+          props: 'state_code',
+          def: [{
+            'code': 'created',
+            'name': 'Created'
+          }, {
+            'code': 'assigned',
+            'name': 'Assigned'
+          }, {
+            'code': 'accepted',
+            'name': 'Accepted'
+          }, {
+            'code': 'closed',
+            'name': 'Closed'
+          }, {
+            'code': 'cancelled',
+            'name': 'Cancelled'
+          }]
+        },
+        searchDef: {
+          colProps: {
+            offset: 2
+          },
+          props: ['flow_no', 'state_code']
+        },
+        actionColDef: {
+          tableColProps: {
+            fixed: 'right',
+            minWidth: '200'
+          },
+          def: [{
+            type: 'primary',
+            handler: row => {
+              this.$message('Edit clicked')
+              console.log('Edit in row clicked', row)
+            },
+            name: 'Edit'
+          }, {
+            buttonProps: {
+              type: 'primary',
+              icon: 'message'
+            },
+            handler: row => {
+              this.$message('RUA in row clicked')
+              console.log('RUA in row clicked', row)
+            },
+            name: 'RUA'
+          }]
+        },
+        paginationDef: {
+          layout: 'prev, pager, next, jumper, sizes, total'
         }
       }
     },
     created() {
+      console.log('created')
       this.tableData = [{
         'building': '5',
         'building_group': 'North',
@@ -105,87 +187,8 @@
       }]
     },
     methods: {
-      getActionsDef() {
-        let self = this
-        return {
-          colProps: {
-            span: 5
-          },
-          def: [{
-            name: 'new',
-            handler() {
-              self.$message('new clicked')
-            },
-            icon: 'plus',
-            buttonProps: {
-              type: 'primary'
-            }
-          }, {
-            name: 'import',
-            handler() {
-              self.$message('import clicked')
-            },
-            icon: 'upload'
-          }]
-        }
-      },
-      getCheckFilterDef() {
-        return {
-          colProps: {
-            span: 6
-          },
-          props: 'state_code',
-          def: [{
-            'code': 'created',
-            'name': 'Created'
-          }, {
-            'code': 'assigned',
-            'name': 'Assigned'
-          }, {
-            'code': 'accepted',
-            'name': 'Accepted'
-          }, {
-            'code': 'closed',
-            'name': 'Closed'
-          }, {
-            'code': 'cancelled',
-            'name': 'Cancelled'
-          }]
-        }
-      },
-      getSearchDef() {
-        return {
-          colProps: {
-            offset: 2
-          },
-          props: ['flow_no', 'state_code']
-        }
-      },
-      getActionColDef() {
-        return {
-          tableColProps: {
-            fixed: 'right',
-            minWidth: '200'
-          },
-          def: [{
-            type: 'primary',
-            handler: row => {
-              this.$message('Edit clicked')
-              console.log('Edit in row clicked', row)
-            },
-            name: 'Edit'
-          }, {
-            buttonProps: {
-              type: 'primary',
-              icon: 'message'
-            },
-            handler: row => {
-              this.$message('RUA in row clicked')
-              console.log('RUA in row clicked', row)
-            },
-            name: 'RUA'
-          }]
-        }
+      handleSelectChange(selection) {
+        this.selection = selection
       }
     }
   }

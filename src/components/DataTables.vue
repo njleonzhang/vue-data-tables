@@ -104,34 +104,6 @@ export default {
     CheckboxGroup
   },
   created() {
-    this.innerActionsDef = Object.assign({
-      def: []
-    }, this.actionsDef)
-
-    this.innerCheckboxFilterDef = Object.assign({
-      props: undefined,
-      def: [],
-      filterFunction: undefined
-    }, this.checkboxFilterDef)
-
-    this.innerSearchDef = Object.assign({
-      show: true,
-      props: undefined,
-      filterFunction: undefined
-    }, this.searchDef)
-
-    this.innerPaginationDef = Object.assign({
-      layout: 'prev, pager, next, jumper, sizes, total',
-      pageSize: 20,
-      pageSizes: [20, 50, 100],
-      currentPage: 1
-    }, this.paginationDef)
-
-    this.innerActionColDef = Object.assign({
-      show: true,
-      label: '操作'
-    }, this.actionColDef)
-
     let self = this
     this.updateInnerSearchKey = debounce(200, _ => {
       self.innerSearchKey = self.searchKey
@@ -197,15 +169,43 @@ export default {
       internalPageSize: 20,
       searchKey: '',
       innerSearchKey: '',
-      checkedFilters: [],
-      innerActionsDef: {},
-      innerCheckboxFilterDef: {},
-      innerSearchDef: {},
-      innerPaginationDef: {},
-      innerActionColDef: {}
+      checkedFilters: []
     }
   },
   computed: {
+    innerActionsDef() {
+      return Object.assign({
+        def: []
+      }, this.actionsDef)
+    },
+    innerCheckboxFilterDef() {
+      return Object.assign({
+        props: undefined,
+        def: [],
+        filterFunction: undefined
+      }, this.checkboxFilterDef)
+    },
+    innerSearchDef() {
+      return Object.assign({
+        show: true,
+        props: undefined,
+        filterFunction: undefined
+      }, this.searchDef)
+    },
+    innerPaginationDef() {
+      return Object.assign({
+        layout: 'prev, pager, next, jumper, sizes, total',
+        pageSize: 20,
+        pageSizes: [20, 50, 100],
+        currentPage: 1
+      }, this.paginationDef)
+    },
+    innerActionColDef() {
+      return Object.assign({
+        show: true,
+        label: '操作'
+      }, this.actionColDef)
+    },
     innerColNotRowClick() {
       return this.colNotRowClick.concat(['vueDataTablesInnerRowActions'])
     },
