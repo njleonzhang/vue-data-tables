@@ -278,7 +278,7 @@ export default {
       return newData
     },
     curTableData() {
-      let from = this.internalPageSize * (this.currentPage - 1) - this.dataOffset
+      let from = this.internalPageSize * (this.currentPage - 1)
       let to = from + this.internalPageSize
       return this.tableData.slice(from, to)
     },
