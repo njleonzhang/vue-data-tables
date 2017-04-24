@@ -112,11 +112,7 @@
           props: ['flow_no', 'state_code']
         },
         actionColDef: {
-          // show: false,
-          tableColProps: {
-            fixed: 'right',
-            minWidth: '200'
-          },
+          minWidth: '200',
           def: [{
             handler: row => {
               this.$message('Edit clicked')

@@ -72,7 +72,9 @@
         v-if='innerActionColDef.show',
         :fixed='innerActionColDef.fixed',
         :label='innerActionColDef.label',
-        :type='innerActionColDef.type')
+        :type='innerActionColDef.type',
+        :width='innerActionColDef.width',
+        :minWidth='innerActionColDef.minWidth')
         template(scope='scope')
           .action-list
             span(v-for='action in innerActionColDef.def')
