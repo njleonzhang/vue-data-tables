@@ -26,8 +26,8 @@
       :pagination-def='paginationDef',
       @selection-change='handleSelectChange')
 
-      el-col(slot='actionBar', :span='5')
-        el-input( v-model='customFilter.vals')
+      //- el-col(slot='actionBar', :span='5')
+      //-   el-input( v-model='customFilter.vals')
 
       el-table-column(type='selection' width='55')
       el-table-column(prop='flow_no', label='No.', sortable='custom')
@@ -39,7 +39,7 @@
       el-table-column(prop='building', label='building', sortable='custom')
       el-table-column(prop='room_no', label='no', sortable='custom')
       el-table-column(prop='cellphone', label='tel', sortable='custom')
-    div {{selection}}
+    //- div {{selection}}
 </template>
 
 <script>
@@ -112,22 +112,20 @@
           props: ['flow_no', 'state_code']
         },
         actionColDef: {
+          // show: false,
           tableColProps: {
             fixed: 'right',
             minWidth: '200'
           },
           def: [{
-            type: 'primary',
             handler: row => {
               this.$message('Edit clicked')
               console.log('Edit in row clicked', row)
             },
             name: 'Edit'
           }, {
-            buttonProps: {
-              type: 'primary',
-              icon: 'message'
-            },
+            icon: 'message',
+            type: 'text',
             handler: row => {
               this.$message('RUA in row clicked')
               console.log('RUA in row clicked', row)
@@ -142,49 +140,51 @@
     },
     created() {
       console.log('created')
-      this.tableData = [{
-        'building': '5',
-        'building_group': 'North',
-        'cellphone': '13400000000',
-        'content': 'Water flood',
-        'create_time': '2016-10-01 22:25',
-        'flow_no': 'FW201601010001',
-        'flow_type': 'Repair',
-        'flow_type_code': 'repair',
-        'id': '111111',
-        'room_id': '00501',
-        'room_no': '501',
-        'state': 'Created',
-        'state_code': 'created'
-      }, {
-        'building': '6',
-        'building_group': 'Sourth',
-        'cellphone': '13400000000',
-        'content': 'Lock broken',
-        'create_time': '2016-10-01 22:25',
-        'flow_no': 'FW201601010002',
-        'flow_type': 'Repair',
-        'flow_type_code': 'repair',
-        'id': '2222222',
-        'room_id': '00701',
-        'room_no': '701',
-        'state': 'Assigned',
-        'state_code': 'assigned'
-      }, {
-        'building': '9',
-        'building_group': 'North',
-        'cellphone': '13400000000',
-        'content': 'Help to buy some drinks',
-        'create_time': '2016-10-02 22:25',
-        'flow_no': 'FW201601010003',
-        'flow_type': 'Help',
-        'flow_type_code': 'help',
-        'id': '2222222',
-        'room_id': '00601',
-        'room_no': '601',
-        'state': 'Closed',
-        'state_code': 'closed'
-      }]
+      for (var i = 0; i < 100; i++) {
+        this.tableData = this.tableData.concat([{
+          'building': '5',
+          'building_group': 'North',
+          'cellphone': '13400000000',
+          'content': 'Water flood',
+          'create_time': '2016-10-01 22:25',
+          'flow_no': 'FW201601010001',
+          'flow_type': 'Repair',
+          'flow_type_code': 'repair',
+          'id': '111111',
+          'room_id': '00501',
+          'room_no': '501',
+          'state': 'Created',
+          'state_code': 'created'
+        }, {
+          'building': '6',
+          'building_group': 'Sourth',
+          'cellphone': '13400000000',
+          'content': 'Lock broken',
+          'create_time': '2016-10-01 22:25',
+          'flow_no': 'FW201601010002',
+          'flow_type': 'Repair',
+          'flow_type_code': 'repair',
+          'id': '2222222',
+          'room_id': '00701',
+          'room_no': '701',
+          'state': 'Assigned',
+          'state_code': 'assigned'
+        }, {
+          'building': '9',
+          'building_group': 'North',
+          'cellphone': '13400000000',
+          'content': 'Help to buy some drinks',
+          'create_time': '2016-10-02 22:25',
+          'flow_no': 'FW201601010003',
+          'flow_type': 'Help',
+          'flow_type_code': 'help',
+          'id': '2222222',
+          'room_id': '00601',
+          'room_no': '601',
+          'state': 'Closed',
+          'state_code': 'closed'
+        }])
+      }
     },
     methods: {
       handleSelectChange(selection) {

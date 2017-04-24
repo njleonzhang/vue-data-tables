@@ -60,7 +60,6 @@
       fit,
       border,
       stripe,
-      v-bind='tableProps',
       @row-click='handleRowClick',
       @selection-change='handleSelectChange',
       @select='handleSelect',
@@ -69,18 +68,18 @@
       style='width: 100%')
       slot
       el-table-column(
-        v-if='innerActionColDef.show',
         prop='vueDataTablesInnerRowActions',
-        label='操作',
-        v-bind='innerActionColDef.tableColProps')
+        v-if='innerActionColDef.show',
+        :fixed='innerActionColDef.fixed',
+        :label='innerActionColDef.label',
+        :type='innerActionColDef.type')
         template(scope='scope')
           .action-list
             span(v-for='action in innerActionColDef.def')
               el-button(
-                type='text',
-                :icon='action.icon',
-                @click='action.handler(scope.row)'
-                v-bind='action.buttonProps') {{action.name}}
+                :type='action.type || "text"',
+                :icon='action.icon'
+                @click='action.handler(scope.row)') {{action.name}}
 
     .pagination-wrap
       el-pagination(
@@ -169,7 +168,9 @@ export default {
       internalPageSize: 20,
       searchKey: '',
       innerSearchKey: '',
-      checkedFilters: []
+      checkedFilters: [],
+      dataOffset: 0,
+      serverPagination: false
     }
   },
   computed: {
@@ -203,7 +204,8 @@ export default {
     innerActionColDef() {
       return Object.assign({
         show: true,
-        label: '操作'
+        label: '操作',
+        fixed: false
       }, this.actionColDef)
     },
     innerColNotRowClick() {
@@ -214,7 +216,11 @@ export default {
         vals: this.formatToArray(this.customFilter.vals)
       })
     },
+    innerTableProps() {
+      return this.tableProps
+    },
     tableData() {
+      console.log('tableData')
       let newData = this.data.slice()
       let allProps = Object.keys(newData[0] || {})
 
@@ -272,7 +278,7 @@ export default {
       return newData
     },
     curTableData() {
-      let from = this.internalPageSize * (this.currentPage - 1)
+      let from = this.internalPageSize * (this.currentPage - 1) - this.dataOffset
       let to = from + this.internalPageSize
       return this.tableData.slice(from, to)
     },
@@ -317,6 +323,10 @@ export default {
     },
     handleSort(obj) {
       this.sortData = obj
+      this.innerTableProps.defaultSort = {
+        prop: obj.prop,
+        order: obj.order
+      }
     },
     handleSizeChange(size) {
       this.internalPageSize = size
