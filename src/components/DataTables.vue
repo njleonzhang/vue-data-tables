@@ -171,9 +171,7 @@ export default {
       internalPageSize: 20,
       searchKey: '',
       innerSearchKey: '',
-      checkedFilters: [],
-      dataOffset: 0,
-      serverPagination: false
+      checkedFilters: []
     }
   },
   computed: {
