@@ -65,6 +65,7 @@
       @select='handleSelect',
       @select-all='handleSelectAll',
       @current-change='handleCurrentRowChange',
+      v-bind='innerTableProps'
       style='width: 100%')
       slot
       el-table-column(
@@ -222,7 +223,6 @@ export default {
       return this.tableProps
     },
     tableData() {
-      console.log('tableData')
       let newData = this.data.slice()
       let allProps = Object.keys(newData[0] || {})
 
