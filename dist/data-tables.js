@@ -512,8 +512,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	      offset: 0
 	    }, this.actionsDef);
 
-	    console.log(' CSK org source row ref ', this.rowActionDef);
-
 	    this.innerRowActionDef = this.rowActionDef.map(function (el) {
 	      if (!el.type) {
 	        el.type = 'text';
@@ -1604,7 +1602,9 @@ return /******/ (function(modules) { // webpackBootstrap
 	            return _c('span', [(action.mtype === "dropdown") ? _c('el-dropdown', {
 	              on: {
 	                "command": function($event) {
-	                  action.handleCommand(_vm.row)
+	                  action.handleCommand.bind({
+	                    item: _vm.row
+	                  })
 	                }
 	              }
 	            }, [_c('el-button', {

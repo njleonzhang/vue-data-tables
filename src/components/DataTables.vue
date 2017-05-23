@@ -71,7 +71,7 @@
         :fixed='actionColFixed')
         div.action-list
           span(v-for='action in innerRowActionDef')
-            el-dropdown(v-if='action.mtype === "dropdown"', @command='action.handleCommand(row)')
+            el-dropdown(v-if='action.mtype === "dropdown"', @command='action.handleCommand({item:row})')
               el-button(type='primary')
                 span(v-if='action.name !== undefined')  {{ action.name }} 
                 i(:class='action.icon')
@@ -109,8 +109,6 @@ export default {
       width: 5,
       offset: 0
     }, this.actionsDef)
-
-    console.log(' CSK org source row ref ', this.rowActionDef)
 
     this.innerRowActionDef = this.rowActionDef.map(el => {
       if (!el.type) {
