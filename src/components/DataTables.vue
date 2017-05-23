@@ -24,9 +24,6 @@
     margin-top: 20px;
   }
 
-  .icon-text {
-    padding-right: 4px;
-  }
 }
 </style>
 
@@ -76,7 +73,7 @@
           span(v-for='action in innerRowActionDef')
             el-dropdown(v-if='action.mtype === "dropdown"', @command='action.handleCommand(row)')
               el-button(type='primary')
-                span(v-if='action.name !== undefined' class='icon-text')  {{ action.name }} 
+                span(v-if='action.name !== undefined')  {{ action.name }} 
                 i(:class='action.icon')
               el-dropdown-menu(slot='dropdown')
                 el-dropdown-item(v-for='item in action.items', :command='item.id')  {{ item.name }} 
