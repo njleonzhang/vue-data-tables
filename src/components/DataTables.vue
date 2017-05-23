@@ -102,11 +102,15 @@ export default {
     CheckboxGroup
   },
   created() {
+    console.log(' CSK data table created org source ')
+
     this.innerActionsDef = Object.assign({}, {
       def: [],
       width: 5,
       offset: 0
     }, this.actionsDef)
+
+    console.log(' CSK org source row ref ', this.rowActionDef)
 
     this.innerRowActionDef = this.rowActionDef.map(el => {
       if (!el.type) {
