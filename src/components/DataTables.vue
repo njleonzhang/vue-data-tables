@@ -72,7 +72,7 @@
         div.action-list
           span(v-for='action in innerRowActionDef')
             el-dropdown(v-if='action.mtype === "dropdown"', @command='action.handleCommand({item:row})')
-              el-button(type='primary')
+              el-button(:type='action.type')
                 span(v-if='action.name !== undefined')  {{ action.name }} 
                 i(:class='action.icon')
               el-dropdown-menu(slot='dropdown')
