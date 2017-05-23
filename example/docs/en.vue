@@ -240,15 +240,11 @@ export default {
           mtype: 'dropdown',
           type: 'primary',
           class: 'vemenu',
-          moreOption: true,
           iconOnly: true,
           icon: 'fa fa-ellipsis-v',
           items: [
             {
-              name: 'Edit',
-              id: 'edit',
-              showIcon: false,
-              showText: false
+              name: 'Edit'
             }
           ],
           handleCommand(row) {

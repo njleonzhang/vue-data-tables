@@ -45,7 +45,7 @@
       <div class="action-list"><span v-for="action in innerRowActionDef">
          
           <el-dropdown v-if='action.mtype === "dropdown"' :class="action.class" @command="action.handleCommand(row)">
-            <i v-if="action.moreOption && action.iconOnly" :class="action.icon">
+            <i :class="action.icon">
             </i> 
             <el-button type="primary" v-if="!action.iconOnly">
               {{action.name}} <i class="el-icon-caret-bottom el-icon--right"></i> 
@@ -56,7 +56,7 @@
           </el-dropdown>
 
           <el-button  v-if='action.mtype !== "dropdown"' :type="action.type" @click="action.handler(row)" v-bind="action.buttonProps">{{action.name}}</el-button></span></div>
-    </el-table-column>
+          </el-table-column>
   </el-table>
   <div class="pagination-wrap">
     <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" :page-sizes="innerPaginationDef.pageSizes" :page-size="internalPageSize" :layout="innerPaginationDef.layout" :total="total"></el-pagination>
