@@ -239,9 +239,8 @@ export default {
         {
           mtype: 'dropdown',
           type: 'primary',
-          class: 'vemenu',
+          icon: 'el-icon-caret-bottom el-icon--right',
           iconOnly: true,
-          icon: 'fa fa-ellipsis-v',
           items: [
             {
               name: 'Edit'
@@ -251,7 +250,7 @@ export default {
             self.$message('Edit clicked')
             console.log('Edit in row clicked', row)
           },
-          name: 'Edit'
+          name: 'More'
         }
       ]
     },

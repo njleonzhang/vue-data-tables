@@ -23,46 +23,74 @@
     text-align: center;
     margin-top: 20px;
   }
+
+  .icon-text {
+    padding-right: 4px;
+  }
 }
 </style>
 
-<template>
-  <div class="sc-table">
-  <el-row class="tool-bar">
-    <el-col :span="innerActionsDef.width" :offset="innerActionsDef.offset" v-if="actionsShow" class="actions">
-      <action-bar :actions="innerActionsDef.def"></action-bar>
-    </el-col>
-    <el-col :span="innerCheckboxFilterDef.width" :offset="innerCheckboxFilterDef.offset" v-if="checkboxShow" class="filters">
-      <checkbox-group :checks="innerCheckboxFilterDef.def" @checkChange="handleFilterChange"></checkbox-group>
-    </el-col>
-    <el-col :span="innerSearchDef.width" :offset="innerSearchDef.offset" v-if="searchShow" class="search">
-      <el-input v-model="searchKey" :placeholder="innerSearchDef.placeholder" icon="search"></el-input>
-    </el-col>
-  </el-row>
-  <el-table :data="curTableData" @sort-change="handleSort" :border="border" fit="fit" :stripe="stripe" v-bind="tableProps" @row-click="handleRowClick" @selection-change="handleSelectChange" @select="handleSelect" @select-all="handleSelectAll" @current-change="handleCurrentRowChange" style="width: 100%">
-    <slot></slot>
-    <el-table-column :label="actionColLabel" prop="innerRowActions" inline-template="inline-template" v-if="hasActionCol" :min-width="actionColWidth" :fixed="actionColFixed">
-      <div class="action-list"><span v-for="action in innerRowActionDef">
-         
-          <el-dropdown v-if='action.mtype === "dropdown"' :class="action.class" @command="action.handleCommand(row)">
-            <i :class="action.icon">
-            </i> 
-            <el-button type="primary" v-if="!action.iconOnly">
-              {{action.name}} <i class="el-icon-caret-bottom el-icon--right"></i> 
-            </el-button>
-            <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item v-for="item in action.items" :command="item.id" > {{ item.name }} </el-dropdown-item>
-            </el-dropdown-menu>
-          </el-dropdown>
+<template lang="pug">
+  .sc-table
+    el-row.tool-bar
+      el-col.actions(
+        :span='innerActionsDef.width',
+        :offset='innerActionsDef.offset',
+        v-if='actionsShow')
+        action-bar(:actions='innerActionsDef.def')
+      el-col.filters(
+        :span='innerCheckboxFilterDef.width',
+        :offset='innerCheckboxFilterDef.offset',
+        v-if='checkboxShow')
+        checkbox-group(:checks='innerCheckboxFilterDef.def' @checkChange='handleFilterChange')
+      el-col.search(
+        :span='innerSearchDef.width',
+        :offset='innerSearchDef.offset',
+        v-if='searchShow')
+        el-input(
+          v-model='searchKey',
+          :placeholder='innerSearchDef.placeholder',
+          icon='search')
 
-          <el-button  v-if='action.mtype !== "dropdown"' :type="action.type" @click="action.handler(row)" v-bind="action.buttonProps">{{action.name}}</el-button>
-          </span></div>
-          </el-table-column>
-  </el-table>
-  <div class="pagination-wrap">
-    <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="currentPage" :page-sizes="innerPaginationDef.pageSizes" :page-size="internalPageSize" :layout="innerPaginationDef.layout" :total="total"></el-pagination>
-  </div>
-</div>
+    el-table(
+      :data='curTableData',
+      @sort-change='handleSort',
+      :border="border",
+      fit,
+      :stripe="stripe",
+      v-bind='tableProps',
+      @row-click='handleRowClick',
+      @selection-change='handleSelectChange',
+      @select='handleSelect',
+      @select-all='handleSelectAll',
+      @current-change='handleCurrentRowChange',
+      style='width: 100%')
+      slot
+      el-table-column(:label='actionColLabel',
+        prop='innerRowActions',
+        inline-template,
+        v-if='hasActionCol',
+        :min-width='actionColWidth',
+        :fixed='actionColFixed')
+        div.action-list
+          span(v-for='action in innerRowActionDef')
+            el-dropdown(v-if='action.mtype === "dropdown"', @command='action.handleCommand(row)')
+              el-button(type='primary')
+                span(v-if='action.name !== undefined' class='icon-text')  {{ action.name }} 
+                i(:class='action.icon')
+              el-dropdown-menu(slot='dropdown')
+                el-dropdown-item(v-for='item in action.items', :command='item.id')  {{ item.name }} 
+            el-button(v-if='action.mtype !== "dropdown"', :type='action.type', @click='action.handler(row)', v-bind='action.buttonProps') {{action.name}}
+
+    .pagination-wrap
+      el-pagination(
+        @size-change='handleSizeChange',
+        @current-change='handleCurrentChange',
+        :current-page='currentPage',
+        :page-sizes='innerPaginationDef.pageSizes',
+        :page-size='internalPageSize',
+        :layout='innerPaginationDef.layout',
+        :total='total')
 </template>
 
 <script>
@@ -82,8 +110,6 @@ export default {
       width: 5,
       offset: 0
     }, this.actionsDef)
-
-    console.log(' this.rowActionDef on DataTables ', this.rowActionDef, this)
 
     this.innerRowActionDef = this.rowActionDef.map(el => {
       if (!el.type) {
@@ -364,3 +390,4 @@ export default {
   }
 }
 </script>
+
