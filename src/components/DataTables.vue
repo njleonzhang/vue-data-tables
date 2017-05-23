@@ -55,7 +55,8 @@
             </el-dropdown-menu>
           </el-dropdown>
 
-          <el-button  v-if='action.mtype !== "dropdown"' :type="action.type" @click="action.handler(row)" v-bind="action.buttonProps">{{action.name}}</el-button></span></div>
+          <el-button  v-if='action.mtype !== "dropdown"' :type="action.type" @click="action.handler(row)" v-bind="action.buttonProps">{{action.name}}</el-button>
+          </span></div>
           </el-table-column>
   </el-table>
   <div class="pagination-wrap">
