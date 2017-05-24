@@ -314,7 +314,7 @@
   </tr>
   
    <tr>
-    <td rowspan="5">Dropdown</td>
+    <td rowspan="6">Dropdown</td>
     <td>name</td>
     <td></td>
     <td>the row action Dropdown text</td>
@@ -348,6 +348,13 @@
     <td> List of menu items </td>
     <td>Array</td>
     <td>[]</td>
+  </tr>
+  <tr>
+    <td>handleCommand</td>
+    <td></td>
+    <td> Method to handle menuitem click </td>
+    <td>Function</td>
+    <td>Function</td>
   </tr>
   <tr>
     <td>buttonProps</td>
