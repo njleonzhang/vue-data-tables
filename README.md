@@ -343,6 +343,13 @@
     <td>false</td>
   </tr>
   <tr>
+    <td>items</td>
+    <td></td>
+    <td> List of menu items </td>
+    <td>Array</td>
+    <td>[]</td>
+  </tr>
+  <tr>
     <td>buttonProps</td>
     <td></td>
     <td>
@@ -350,14 +357,7 @@
     </td>
     <td>Function</td>
     <td>-</td>
-  </tr>
-  <tr>
-    <td>items</td>
-    <td></td>
-    <td> List of menu items </td>
-    <td>Array</td>
-    <td>[]</td>
-  </tr>
+  </tr>  
   <tr>
     <td>handleCommand</td>
     <td></td>
