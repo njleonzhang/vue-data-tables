@@ -282,7 +282,7 @@
     <td>[]</td>
   </tr>
   <tr>
-    <td rowspan="4"></td>
+    <td rowspan="4">Button</td>
     <td>name</td>
     <td></td>
     <td>the row action button text</td>
@@ -314,7 +314,7 @@
   </tr>
   
    <tr>
-    <td rowspan="4"></td>
+    <td rowspan="4">Dropdown</td>
     <td>name</td>
     <td></td>
     <td>the row action Dropdown text</td>
