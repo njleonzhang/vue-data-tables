@@ -312,6 +312,46 @@
     <td>Function</td>
     <td>-</td>
   </tr>
+  
+   <tr>
+    <td rowspan="4"></td>
+    <td>name</td>
+    <td></td>
+    <td>the row action Dropdown text</td>
+    <td>String</td>
+    <td>-</td>
+  </tr>
+   <tr>
+    <td>ctype</td>
+    <td></td>
+    <td> this attribute differentiate from the default button component </td>
+    <td>String</td>
+    <td>text</td>
+  </tr>
+  <tr>
+    <td>type</td>
+    <td></td>
+    <td>type of the button</td>
+    <td>String</td>
+    <td>text</td>
+  </tr>
+  <tr>
+    <td>buttonProps</td>
+    <td></td>
+    <td>
+      an object to pass any proptery to el-button. refer to <a href="http://element.eleme.io/#/en-US/component/button#attributes">el-button proptery</a>
+    </td>
+    <td>Function</td>
+    <td>-</td>
+  </tr>
+  <tr>
+    <td>handleCommand</td>
+    <td></td>
+    <td>handler for menuitem click</td>
+    <td>Function</td>
+    <td>-</td>
+  </tr>
+  
   <tr>
     <td>action-col-width</td>
     <td></td>
