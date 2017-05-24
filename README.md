@@ -326,7 +326,7 @@
     <td></td>
     <td> this attribute differentiate from the default button component </td>
     <td>String</td>
-    <td>text</td>
+    <td>dropdown</td>
   </tr>
   <tr>
     <td>type</td>
@@ -343,6 +343,13 @@
     </td>
     <td>Function</td>
     <td>-</td>
+  </tr>
+  <tr>
+    <td>items</td>
+    <td></td>
+    <td> List of menu items </td>
+    <td>Array</td>
+    <td>[]</td>
   </tr>
   <tr>
     <td>handleCommand</td>
