@@ -322,7 +322,7 @@
     <td>-</td>
   </tr>
    <tr>
-    <td>ctype</td>
+    <td>mtype</td>
     <td></td>
     <td> this attribute differentiate from the default button component </td>
     <td>String</td>
@@ -334,6 +334,13 @@
     <td>type of the button</td>
     <td>String</td>
     <td>text</td>
+  </tr>
+  <tr>
+    <td>iconOnly</td>
+    <td></td>
+    <td> Option render dropdown button only with icon </td>
+    <td>Boolean</td>
+    <td>false</td>
   </tr>
   <tr>
     <td>buttonProps</td>
