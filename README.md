@@ -314,7 +314,7 @@
   </tr>
   
    <tr>
-    <td rowspan="4">Dropdown</td>
+    <td rowspan="5">Dropdown</td>
     <td>name</td>
     <td></td>
     <td>the row action Dropdown text</td>
