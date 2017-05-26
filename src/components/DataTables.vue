@@ -23,6 +23,7 @@
     text-align: center;
     margin-top: 20px;
   }
+
 }
 </style>
 
@@ -70,10 +71,13 @@
         :fixed='actionColFixed')
         div.action-list
           span(v-for='action in innerRowActionDef')
-            el-button(
-              :type='action.type',
-              @click='action.handler(row)'
-              v-bind='action.buttonProps') {{action.name}}
+            el-dropdown(v-if='action.mtype === "dropdown"', @command='action.handleCommand')
+              el-button(:type='action.type')
+                span(v-if='action.name !== undefined')  {{ action.name }}
+                i(:class='action.icon')
+              el-dropdown-menu(slot='dropdown')
+                el-dropdown-item(v-for='item in action.items', :command='item.id' :passback='row')  {{ item.name }}
+            el-button(v-if='action.mtype !== "dropdown"', :type='action.type', v-bind='action.buttonProps') {{action.name}}
 
     .pagination-wrap
       el-pagination(
@@ -98,6 +102,8 @@ export default {
     CheckboxGroup
   },
   created() {
+    console.log(' CSK data table created org source ')
+
     this.innerActionsDef = Object.assign({}, {
       def: [],
       width: 5,

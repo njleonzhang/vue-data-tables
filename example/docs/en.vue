@@ -1,4 +1,6 @@
 <style lang='scss'>
+
+  /*@import url('https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');*/
   .desc {
     margin-top: 20px;
     margin-bottom: 40px;
@@ -225,23 +227,33 @@ export default {
     },
     getRowActionsDef() {
       let self = this
-      return [{
-        type: 'primary',
-        handler(row) {
-          self.$message('Edit clicked')
-          console.log('Edit in row clicked', row)
+      return [
+        {
+          type: 'primary',
+          handler(row) {
+            self.$message('RUA in row clicked')
+            console.log('RUA in row clicked', row)
+          },
+          name: 'RUA'
         },
-        name: 'Edit'
-      }, {
-        type: 'primary',
-        handler(row) {
-          self.$message('RUA in row clicked')
-          console.log('RUA in row clicked', row)
-        },
-        name: 'RUA'
-      }]
+        {
+          mtype: 'dropdown',
+          type: 'primary',
+          icon: 'el-icon-caret-bottom el-icon--right',
+          iconOnly: true,
+          items: [
+            {
+              name: 'Edit'
+            }
+          ],
+          handleCommand(row) {
+            self.$message('Edit clicked')
+            console.log('Edit in row clicked', row)
+          },
+          name: 'More'
+        }
+      ]
     },
-
     getExportActionsDef() {
       let columns = ['room_no', 'cellphone', 'flow_no', 'state']
       let columnNames = ['room NO.', 'Tel.', 'order No.', 'state']
