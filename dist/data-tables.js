@@ -1601,34 +1601,26 @@ return /******/ (function(modules) { // webpackBootstrap
 	          }, _vm._l((_vm.innerRowActionDef), function(action) {
 	            return _c('span', [(action.mtype === "dropdown") ? _c('el-dropdown', {
 	              on: {
-	                "command": function($event) {
-	                  action.handleCommand.bind({
-	                    item: _vm.row
-	                  })
-	                }
+	                "command": action.handleCommand
 	              }
 	            }, [_c('el-button', {
 	              attrs: {
-	                "type": "primary"
+	                "type": action.type
 	              }
-	            }, [(action.name !== undefined) ? _c('span', [_vm._v(" " + _vm._s(action.name) + " ")]) : _vm._e(), _c('i', {
+	            }, [(action.name !== undefined) ? _c('span', [_vm._v(" " + _vm._s(action.name))]) : _vm._e(), _c('i', {
 	              class: action.icon
 	            })]), _c('el-dropdown-menu', {
 	              slot: "dropdown"
 	            }, _vm._l((action.items), function(item) {
 	              return _c('el-dropdown-item', {
 	                attrs: {
-	                  "command": item.id
+	                  "command": item.id,
+	                  "passback": _vm.row
 	                }
-	              }, [_vm._v(" " + _vm._s(item.name) + " ")])
+	              }, [_vm._v(" " + _vm._s(item.name))])
 	            }))], 1) : _vm._e(), (action.mtype !== "dropdown") ? _c('el-button', _vm._b({
 	              attrs: {
 	                "type": action.type
-	              },
-	              on: {
-	                "click": function($event) {
-	                  action.handler(_vm.row)
-	                }
 	              }
 	            }, 'el-button', action.buttonProps), [_vm._v(_vm._s(action.name))]) : _vm._e()], 1)
 	          }))
