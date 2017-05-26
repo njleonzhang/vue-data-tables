@@ -282,7 +282,7 @@
     <td>[]</td>
   </tr>
   <tr>
-    <td rowspan="4"></td>
+    <td rowspan="4">Button</td>
     <td>name</td>
     <td></td>
     <td>the row action button text</td>
@@ -312,6 +312,67 @@
     <td>Function</td>
     <td>-</td>
   </tr>
+  
+   <tr>
+    <td rowspan="6">Dropdown</td>
+    <td>name</td>
+    <td></td>
+    <td>the row action Dropdown text</td>
+    <td>String</td>
+    <td>-</td>
+  </tr>
+   <tr>
+    <td>mtype</td>
+    <td></td>
+    <td> this attribute differentiate from the default button component </td>
+    <td>String</td>
+    <td>dropdown</td>
+  </tr>
+  <tr>
+    <td>type</td>
+    <td></td>
+    <td>type of the button</td>
+    <td>String</td>
+    <td>text</td>
+  </tr>
+  <tr>
+    <td>iconOnly</td>
+    <td></td>
+    <td> Option render dropdown button only with icon </td>
+    <td>Boolean</td>
+    <td>false</td>
+  </tr>
+  <tr>
+    <td>items</td>
+    <td></td>
+    <td> List of menu items </td>
+    <td>Array</td>
+    <td>[]</td>
+  </tr>
+  <tr>
+    <td>handleCommand</td>
+    <td></td>
+    <td> Method to handle menuitem click </td>
+    <td>Function</td>
+    <td>Function</td>
+  </tr>
+  <tr>
+    <td>buttonProps</td>
+    <td></td>
+    <td>
+      an object to pass any proptery to el-button. refer to <a href="http://element.eleme.io/#/en-US/component/button#attributes">el-button proptery</a>
+    </td>
+    <td>Function</td>
+    <td>-</td>
+  </tr>  
+  <tr>
+    <td>handleCommand</td>
+    <td></td>
+    <td>handler for menuitem click</td>
+    <td>Function</td>
+    <td>-</td>
+  </tr>
+  
   <tr>
     <td>action-col-width</td>
     <td></td>
