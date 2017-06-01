@@ -76,7 +76,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 1 */
 /***/ function(module, exports, __webpack_require__) {
 
-	
+
 	/* styles */
 	__webpack_require__(2)
 
@@ -527,7 +527,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	      filterFunction: undefined,
 	      width: 5,
 	      placeholder: '',
-	      offset: 0
+	      offset: 0,
+	      caseInsensitive: false
 	    }, this.searchDef);
 
 	    this.innerPaginationDef = (0, _assign2.default)({}, {
@@ -641,26 +642,26 @@ return /******/ (function(modules) { // webpackBootstrap
 	        if (!val || val.length === 0) {
 	          return true;
 	        }
-
+            
 	        var defaultFilterFunction = void 0;
 	        if (filter.props) {
 	          if (!(val instanceof Array)) {
 	            defaultFilterFunction = function defaultFilterFunction(el, filter) {
 	              return filter.props.some(function (prop) {
-	                return el[prop].indexOf(filter.val) > -1;
+	                return (filter.caseInsensitive) ? el[prop].toLowerCase().indexOf(filter.val.toLowerCase()) > -1 : el[prop].indexOf(filter.val);
 	              });
 	            };
 	          } else if (val instanceof Array && val.length > 0) {
 	            defaultFilterFunction = function defaultFilterFunction(el, filter) {
 	              return filter.props.some(function (prop) {
-	                return filter.val.indexOf(el[prop]) > -1;
+	                return (filter.caseInsensitive) ? filter.val.toLowerCase().indexOf(el[prop].toLowerCase()) > -1 : filter.val.indexOf(el[prop]) > -1;
 	              });
 	            };
 	          }
 	        } else {
-	          defaultFilterFunction = function defaultFilterFunction(el, filter) {
+	          	defaultFilterFunction = function defaultFilterFunction(el, filter) {
 	            return (0, _keys2.default)(el).some(function (key) {
-	              return String(el[key]).indexOf(filter.val) > -1;
+	              return (filter.caseInsensitive) ? String(el[key]).toLowerCase().indexOf(filter.val.toLowerCase()) > -1 : String(el[key]).indexOf(filter.val) > -1;
 	            });
 	          };
 	        }
@@ -714,7 +715,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	        filters.push({
 	          props: this.formatProps(this.innerSearchDef.props),
 	          val: this.searchKey,
-	          filterFunction: this.innerSearchDef.filterFunction
+	          filterFunction: this.innerSearchDef.filterFunction,
+	          caseInsensitive: this.innerSearchDef.caseInsensitive
 	        });
 	      }
 	      if (this.checkboxShow) {
@@ -1080,7 +1082,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	$export.B = 16;  // bind
 	$export.W = 32;  // wrap
 	$export.U = 64;  // safe
-	$export.R = 128; // real proto method for `library` 
+	$export.R = 128; // real proto method for `library`
 	module.exports = $export;
 
 /***/ },
@@ -1374,7 +1376,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 52 */
 /***/ function(module, exports, __webpack_require__) {
 
-	
+
 	/* styles */
 	__webpack_require__(53)
 
@@ -1577,7 +1579,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	              }
 	            }, 'el-button', action.buttonProps), [_vm._v(_vm._s(action.name))])], 1)
 	          }))
-	        
+
 	      },
 	      staticRenderFns: []
 	    }

@@ -223,7 +223,7 @@
     <td>-</td>
   </tr>
   <tr>
-    <td rowspan="6"></td>
+    <td rowspan="7"></td>
     <td>show</td>
     <td></td>
     <td>show or hide search box</td>
@@ -264,6 +264,13 @@
     <td>searchbox placeholder</td>
     <td>String</td>
     <td>""</td>
+  </tr>
+  <tr>
+    <td>caseInsensitive</td>
+    <td></td>
+    <td>trun on case insensitive mode</td>
+    <td>Boolean</td>
+    <td>false</td>
   </tr>
   <tr>
     <td>action-col-fixed</td>
