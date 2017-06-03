@@ -1,23 +1,3 @@
-Skip to content
-This repository
-Search
-Pull requests
-Issues
-Marketplace
-Gist
- @yusser
- Sign out
- Unwatch 1
-  Star 0
-  Fork 44 yusser/vue-data-tables
-forked from njleonzhang/vue-data-tables
- Code  Pull requests 0  Projects 0  Wiki  Settings Insights
-Tree: 26e652c483 Find file Copy pathvue-data-tables/dist/data-tables.js
-26e652c  2 days ago
-@yusser yusser Implemented case insensitive search (layer1 sub proptery for search-def)
-3 contributors @njleonzhang @storkyeh @yusser
-RawBlameHistory
-1607 lines (1380 sloc)  43.9 KB
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
 		module.exports = factory();
@@ -1623,6 +1603,3 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ }
 /******/ ])
 });
-;
-Contact GitHub API Training Shop Blog About
-© 2017 GitHub, Inc. Terms Privacy Security Status Help
