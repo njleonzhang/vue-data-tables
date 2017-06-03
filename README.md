@@ -268,7 +268,7 @@
   <tr>
     <td>caseInsensitive</td>
     <td></td>
-    <td>trun on case insensitive mode</td>
+    <td>turn on case insensitive mode</td>
     <td>Boolean</td>
     <td>false</td>
   </tr>
