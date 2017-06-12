@@ -15,8 +15,8 @@ module.exports = {
     productionGzip: false,
     productionGzipExtensions: ['js', 'css']
   },
-  demo: {
-    env: require('./demo.env'),
+  doc: {
+    env: require('./doc.env'),
     assetsRoot: path.resolve(__dirname, '../docs'),
     assetsSubDirectory: '',
     assetsPublicPath: '',

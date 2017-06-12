@@ -38,6 +38,7 @@
           @click="action.handler",
           type='primary',
           :icon='action.icon',
+          :key="action.name",
           v-bind='action.buttonProps') {{action.name}}
       el-col.filters(
         :span='14'
@@ -218,7 +219,7 @@ export default {
       })
     },
     innerTableProps() {
-      return this.tableProps
+      return this.tableProps || {}
     },
     tableData() {
       let newData = this.data.slice()
