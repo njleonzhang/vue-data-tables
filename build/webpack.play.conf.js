@@ -7,7 +7,7 @@ var HtmlWebpackPlugin = require('html-webpack-plugin')
 var FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
 
 baseWebpackConfig.entry = {
-  app: './play/main.js'
+    app: './play/main.js'
 }
 
 // add hot-reload related code to entry chunks
@@ -31,7 +31,7 @@ module.exports = merge(baseWebpackConfig, {
     // https://github.com/ampedandwired/html-webpack-plugin
     new HtmlWebpackPlugin({
       filename: 'index.html',
-      template: 'example/index.html',
+      template: 'play/index.html',
       inject: true
     }),
     new FriendlyErrorsPlugin()
