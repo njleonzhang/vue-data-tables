@@ -91,7 +91,7 @@
 /******/ 		if (__webpack_require__.nc) {
 /******/ 			script.setAttribute("nonce", __webpack_require__.nc);
 /******/ 		}
-/******/ 		script.src = __webpack_require__.p + "js/" + chunkId + "." + {"0":"51e1b2812250d764eaa3","1":"e187041ff599de3d31bf"}[chunkId] + ".js";
+/******/ 		script.src = __webpack_require__.p + "static/js/" + chunkId + "." + {"0":"29c330d4f50d341c8f46","1":"c16b3d2e5d49c67a03b9"}[chunkId] + ".js";
 /******/ 		var timeout = setTimeout(onScriptComplete, 120000);
 /******/ 		script.onerror = script.onload = onScriptComplete;
 /******/ 		function onScriptComplete() {
@@ -151,4 +151,4 @@
 /******/ })
 /************************************************************************/
 /******/ ([]);
-//# sourceMappingURL=manifest.c7a925a7f6f0782aafa7.js.map
+//# sourceMappingURL=manifest.7c4911726eeb8065615c.js.map

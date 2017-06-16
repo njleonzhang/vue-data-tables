@@ -18,10 +18,10 @@ var webpackConfig = merge(baseWebpackConfig, {
     app: './src/index.js'
   },
   module: {
-    rules: utils.styleLoaders({
-      sourceMap: config.build.productionSourceMap,
-      extract: true
-    })
+    rules: [...utils.styleLoaders({ sourceMap: config.dev.cssSourceMap }), {
+      test: /\.vue$/,
+      loader: 'vue-loader'
+    }]
   },
   devtool: config.build.productionSourceMap ? '#source-map' : false,
   output: {

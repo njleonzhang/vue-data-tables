@@ -17,7 +17,10 @@ Object.keys(baseWebpackConfig.entry).forEach(function (name) {
 
 module.exports = merge(baseWebpackConfig, {
   module: {
-    rules: utils.styleLoaders({ sourceMap: config.dev.cssSourceMap })
+    rules: [...utils.styleLoaders({ sourceMap: config.dev.cssSourceMap }), {
+      test: /\.vue$/,
+      loader: 'vue-loader'
+    }]
   },
   // cheap-module-eval-source-map is faster for development
   devtool: '#cheap-module-eval-source-map',
