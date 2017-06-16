@@ -152,7 +152,7 @@
 </template>
 
 <script>
-import DataTables from '../../src/index.js'
+import DataTables from '@/index.js'
 import {en} from '../mock'
 import CsvExport from '../utils/CsvExport'
 import lang from 'element-ui/lib/locale/lang/en'

@@ -15,7 +15,7 @@ console.log(
   '  Opening index.html over file:// won\'t work.\n'
 )
 
-var spinner = ora('building for demo...')
+var spinner = ora('building for doc-dev...')
 spinner.start()
 
 var assetsPath = path.join(config.doc.assetsRoot, config.doc.assetsSubDirectory)

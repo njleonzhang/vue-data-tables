@@ -43,7 +43,7 @@
 </template>
 
 <script>
-  import dataTables from '../src/index.js'
+  import dataTables from '@/index.js'
 
   export default {
     components: {dataTables},

@@ -17,14 +17,13 @@
 
   .link-wrapper {
     font-size: 18px;
-    
+
     .link {
       display: inline-block;
       width: 50%;
       margin-top: 20px;
     }
   }
-
 
 </style>
 

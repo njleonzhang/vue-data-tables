@@ -1,7 +1,6 @@
 var path = require('path')
 var utils = require('./utils')
 var config = require('../config')
-var vueLoaderConfig = require('./vue-loader.conf')
 
 function resolve (dir) {
   return path.join(__dirname, '..', dir)
@@ -21,7 +20,7 @@ module.exports = {
 
     alias: {
       'vue$': 'vue/dist/vue.esm.js',
-      'src': resolve('src'),
+      '@': resolve('src'),
       'assets': resolve('src/assets'),
       'components': resolve('src/components')
     }
@@ -39,8 +38,7 @@ module.exports = {
       },
       {
         test: /\.vue$/,
-        loader: 'vue-loader',
-        options: vueLoaderConfig
+        loader: 'vue-loader'
       },
       {
         test: /\.js$/,

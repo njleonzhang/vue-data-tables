@@ -149,7 +149,7 @@
 </template>
 
 <script>
-import DataTables from '../../src/index.js'
+import DataTables from '@/index.js'
 import {cn} from '../mock'
 import CsvExport from '../utils/CsvExport'
 
