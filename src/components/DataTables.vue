@@ -44,7 +44,7 @@
         :span='14'
         v-bind='innerCheckboxFilterDef.colProps'
         v-if='checkboxShow')
-        checkbox-group(:checks='innerCheckboxFilterDef.def' @checkChange='handleFilterChange')
+        checkbox-group(:checks='innerCheckboxFilterDef.def', @checkChange='handleFilterChange')
       slot(name='actionBar')
       el-col.search(
         :span='5'
@@ -82,7 +82,7 @@
             span(v-for='action in innerActionColDef.def')
               el-button(
                 :type='action.type || "text"',
-                :icon='action.icon'
+                :icon='action.icon',
                 @click='action.handler(scope.row)') {{action.name}}
 
     .pagination-wrap
