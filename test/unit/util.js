@@ -100,7 +100,39 @@ exports.triggerClick = function(elm, ...opts) {
 exports.sleep = function(time) {
   return new Promise(function (resolve) {
     setTimeout(function () {
-        resolve();
-    }, time);
+        resolve()
+    }, time)
   })
 }
+
+let getTable = function(el) {
+  return el.querySelector('.el-table')
+}
+
+let getHead = function(el) {
+  return el.querySelector('thead')
+}
+
+let getBody = function(el) {
+  return el.querySelector('tbody')
+}
+
+let getRows = function(el) {
+  return el.querySelectorAll('tr')
+}
+
+exports.getTableItems = function(el) {
+  let table = getTable(el);
+  let head = getHead(table);
+  let body = getBody(table);
+  let rows = getRows(body);
+
+  return {table, head, body, rows}
+}
+
+exports = Object.assign(exports, {
+  getTable,
+  getHead,
+  getRows,
+  getBody
+})

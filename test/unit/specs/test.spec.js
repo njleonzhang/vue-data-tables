@@ -1,4 +1,5 @@
-import {createVue, destroyVM, sleep} from '../util'
+import {createVue, destroyVM, sleep, getTableItems, getHead, getBody, getTable, getRows} from '../util'
+import chai from 'chai'
 
 let DELAY = 10
 
@@ -95,12 +96,16 @@ describe('render table', _ => {
     }, true)
 
     setTimeout(_ => {
-      expect(vm.$el.querySelectorAll('.el-table__row').length).to.equal(3)
-      let secondItem = vm.$el.querySelectorAll('.el-table__row')[1]
+      let {table, head, body, rows} = getTableItems(vm.$el);
+      rows.length.should.equal(3)
+      let secondItem = rows[1]
       let secondItemTds = secondItem.querySelectorAll('td')
-      expect(secondItemTds[0].innerText).contains('FW201601010002')
-      expect(secondItemTds[5].innerText).contains('Sourth')
-      expect(vm.$el.querySelector('thead').querySelectorAll('th')[9].innerText).contains('操作')
+      secondItemTds[0].innerText.should.contains('FW201601010002')
+      secondItemTds[5].innerText.should.contains('Sourth')
+      head.querySelectorAll('th')[9].innerText.should.contains('操作')
+      should.not.exist(head.querySelector('td.ascending'))
+      table.should.have.class('el-table--border')
+      table.should.have.class('el-table--striped')
       destroyVM(vm)
       done()
     }, DELAY)
@@ -131,8 +136,9 @@ describe('data table property', _ => {
 
     setTimeout(_ => {
       // include a width0 column seems from element
-      expect(vm.$el.querySelector('thead').querySelectorAll('th').length).equal(10)
-      expect(vm.$el.querySelector('thead').querySelectorAll('th')[9].innerText).equal("")
+      let head = getHead(vm.$el)
+      head.querySelectorAll('th').length.should.equal(10)
+      vm.$el.querySelector('thead').querySelectorAll('th')[9].innerText.should.equal("")
       done()
     })
   })
@@ -174,31 +180,71 @@ describe('data table property', _ => {
 
         await sleep(DELAY)
         secondItemTds[0].click()
-        expect(rowClickCnt).equal(0)
+        rowClickCnt.should.equal(0)
 
         await sleep(DELAY)
         secondItemTds[5].click()
-        expect(rowClickCnt).equal(1)
+        rowClickCnt.should.equal(1)
 
         await sleep(DELAY)
         secondItemTds[7].click()
-        expect(rowClickCnt).equal(1)
+        rowClickCnt.should.equal(1)
 
         await sleep(DELAY)
         for (var i = 0; i < 10; i++) {
           secondItemTds[2].click()
         }
-        expect(rowClickCnt).equal(11)
+        rowClickCnt.should.equal(11)
 
         await sleep(DELAY)
         secondItemTds[9].click()
-        expect(rowClickCnt).equal(11)
+        rowClickCnt.should.equal(11)
 
         done();
       } catch (err) {
         done(err);
       }
     } ()
+  })
 
+  it('tableProps', done => {
+    let vm = createVue({
+      template: `
+        <data-tables :data="tableData" :tableProps='tableProps'>
+          <el-table-column v-for="title in titles"
+            :prop="title.prop"
+            :label="title.label"
+            :key="title.prop" sortable="custom"/>
+        </data-tables>
+      `,
+      data() {
+        return {
+          tableData,
+          titles,
+          tableProps: {
+            border: false,
+            stripe: false,
+            defaultSort: {
+              prop: 'flow_no',
+              order: 'descending'
+            }
+          }
+        }
+      },
+      methods: {
+        itemClick() {
+          rowClickCnt++
+        }
+      }
+    }, true)
+
+    setTimeout(_ => {
+      let table = getTable(vm.$el);
+      table.should.not.have.class('el-table--border')
+      table.should.not.have.class('el-table--striped')
+      let head = getHead(table)
+      head.querySelectorAll('th')[0].should.have.class('descending')
+      done()
+    }, DELAY)
   })
 })

@@ -24,7 +24,8 @@
       :custom-filter='customFilter',
       :tableProps='tableProps',
       :pagination-def='paginationDef',
-      @selection-change='handleSelectChange')
+      @selection-change='handleSelectChange'
+      @row-click='handleRowClick')
 
       //- el-col(slot='actionBar', :span='5')
       //-   el-input( v-model='customFilter.vals')
@@ -186,6 +187,11 @@
     methods: {
       handleSelectChange(selection) {
         this.selection = selection
+        console.log(selection)
+      },
+
+      handleRowClick() {
+        console.log('clicked')
       }
     }
   }

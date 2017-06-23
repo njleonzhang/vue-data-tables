@@ -58,7 +58,6 @@
     el-table(
       :data='curTableData',
       @sort-change='handleSort',
-      fit,
       @row-click='handleRowClick',
       @selection-change='handleSelectChange',
       @select='handleSelect',
@@ -68,7 +67,7 @@
       style='width: 100%')
       slot
       el-table-column(
-        prop='vueDataTablesInnerRowActions',
+        :prop='actionColProp',
         v-if='innerActionColDef.show',
         :fixed='innerActionColDef.fixed',
         :label='innerActionColDef.label',
@@ -173,7 +172,8 @@ export default {
       internalPageSize: 20,
       searchKey: '',
       innerSearchKey: '',
-      checkedFilters: []
+      checkedFilters: [],
+      actionColProp: 'e6e4c9de-7cf5-4f19-bb73-838e5182a372'
     }
   },
   computed: {
@@ -212,7 +212,7 @@ export default {
       }, this.actionColDef)
     },
     innerColNotRowClick() {
-      return this.colNotRowClick.concat(['vueDataTablesInnerRowActions'])
+      return this.colNotRowClick.concat([this.actionColProp])
     },
     innerCustomFilter() {
       return Object.assign({}, this.customFilter, {
@@ -222,7 +222,8 @@ export default {
     innerTableProps() {
       return Object.assign({
         border: true,
-        stripe: true
+        stripe: true,
+        fit: true
       }, this.tableProps)
     },
     tableData() {
