@@ -248,3 +248,123 @@ describe('data table property', _ => {
     }, DELAY)
   })
 })
+
+describe('pagination def', _ => {
+  it('pagination', done => {
+    let vm = createVue({
+      template: `
+        <data-tables :data="tableData" :paginationDef="paginationDef" ref="dataTable">
+          <el-table-column v-for="title in titles"
+            :prop="title.prop"
+            :label="title.label"
+            :key="title.prop"
+            sortable="custom"/>
+        </data-tables>
+      `,
+      data() {
+        return {
+          tableData,
+          titles,
+          paginationDef: {
+            pageSize: 1,
+            pageSizes: [1, 2, 3],
+            currentPage: 2
+          }
+        }
+      }
+    }, true)
+
+    setTimeout(_ => {
+      let jump = vm.$el.querySelector('.el-pagination__jump').querySelector('.el-pagination__editor')
+      jump.should.have.property('value', '2')
+      vm.$refs.dataTable.innerPaginationDef.should.deep.equal({
+        layout: 'prev, pager, next, jumper, sizes, total',
+        pageSize: 1,
+        pageSizes: [1, 2, 3],
+        currentPage: 2
+      })
+      done()
+    }, DELAY)
+  })
+})
+
+describe('table actions def', _ => {
+  it('action render', done => {
+    let newClickedCnt = 0;
+    let importClickedCnt = 0;
+
+    let vm = createVue({
+      template: `
+        <data-tables
+          :data="tableData"
+          :actions-def="actionsDef"
+          ref="dataTable">
+          <el-table-column v-for="title in titles"
+            :prop="title.prop"
+            :label="title.label"
+            :key="title.prop"
+            sortable="custom"/>
+        </data-tables>
+      `,
+      data() {
+        return {
+          tableData,
+          titles,
+          actionsDef: {
+            colProps: {
+              span: 5
+            },
+            def: [{
+              name: 'new',
+              handler: () => {
+                newClickedCnt++
+              }
+            }, {
+              name: 'import',
+              handler: () => {
+                importClickedCnt++
+              },
+              icon: 'upload',
+              buttonProps: {
+                type: 'text'
+              }
+            }]
+          }
+        }
+      }
+    }, true)
+
+    let test = async function() {
+      try {
+        await sleep(DELAY)
+        let actionBar = vm.$el.querySelector('.actions')
+        let buttons = actionBar.children
+        actionBar.should.have.class('el-col-5')
+        buttons.length.should.equal(2)
+        should.not.exist(buttons[0].querySelector('i'))
+        should.exist(buttons[1].querySelector('.el-icon-upload'))
+        buttons[0].should.have.class('el-button--primary')
+        buttons[1].should.have.class('el-button--text')
+
+        for (var i = 0; i <10; i++) {
+          buttons[0].click()
+        }
+        await sleep(DELAY)
+        newClickedCnt.should.equal(10)
+        importClickedCnt.should.equal(0)
+
+        for (var i = 0; i < 20; i++) {
+          buttons[1].click()
+        }
+        await sleep(DELAY)
+        newClickedCnt.should.equal(10)
+        importClickedCnt.should.equal(20)
+        done()
+      } catch (e) {
+        done(e)
+      }
+    }
+
+    test()
+  })
+})

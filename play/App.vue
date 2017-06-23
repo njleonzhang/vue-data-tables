@@ -73,9 +73,8 @@
             handler: () => {
               this.$message('new clicked')
             },
-            icon: 'plus',
             buttonProps: {
-              type: 'primary'
+              type: 'text'
             }
           }, {
             name: 'import',

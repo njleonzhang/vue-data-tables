@@ -36,9 +36,9 @@
         el-button(
           v-for="action in innerActionsDef.def",
           @click="action.handler",
-          type='primary',
           :icon='action.icon',
           :key="action.name",
+          :type='action.buttonProps && action.buttonProps.type || `primary`'
           v-bind='action.buttonProps') {{action.name}}
       el-col.filters(
         :span='14'
