@@ -59,8 +59,6 @@
       :data='curTableData',
       @sort-change='handleSort',
       fit,
-      border,
-      stripe,
       @row-click='handleRowClick',
       @selection-change='handleSelectChange',
       @select='handleSelect',
@@ -126,7 +124,10 @@ export default {
       }
     },
     tableProps: {
-      type: Object
+      type: Object,
+      default() {
+        return {}
+      }
     },
     colNotRowClick: {
       type: Array,
@@ -219,7 +220,10 @@ export default {
       })
     },
     innerTableProps() {
-      return this.tableProps || {}
+      return Object.assign({
+        border: true,
+        stripe: true
+      }, this.tableProps)
     },
     tableData() {
       let newData = this.data.slice()

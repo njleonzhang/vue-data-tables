@@ -53,6 +53,7 @@
         tableProps: {
           rowClassName: 'test-class',
           border: false,
+          stripe: false,
           defaultSort: {
             prop: 'flow_no',
             order: 'descending'

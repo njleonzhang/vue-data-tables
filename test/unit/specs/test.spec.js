@@ -1,6 +1,8 @@
-import {createVue} from '../util'
+import {createVue, destroyVM, sleep} from '../util'
 
-let soureData = [{
+let DELAY = 10
+
+let tableData = [{
   'building': '5',
   'building_group': 'North',
   'cellphone': '13400000000',
@@ -44,54 +46,159 @@ let soureData = [{
   'state_code': 'closed'
 }]
 
+let titles = [{
+  prop: 'flow_no',
+  label: 'No.'
+}, {
+  prop: 'content',
+  label: 'Content'
+}, {
+  prop: 'create_time',
+  label: 'Time',
+}, {
+  prop: 'state',
+  label: 'State'
+}, {
+  prop: 'flow_type',
+  label: 'Type'
+}, {
+  prop: 'building_group',
+  label: 'building'
+}, {
+  prop: 'building',
+  label: 'building'
+}, {
+  prop: 'room_no',
+  label: 'no'
+}, {
+  prop: 'cellphone',
+  label: 'tel'
+}]
+
 describe('render table', _ => {
   it('shoule render correct content', done => {
     let vm = createVue({
       template: `
-      <div class="app-wrapper">
-        <data-tables :data="tableData" :actions-def="actionsDef">
-          <el-table-column type="selection" width="55"></el-table-column>
-          <el-table-column prop="flow_no" label="No." sortable="custom"></el-table-column>
-          <el-table-column prop="content" label="Content" sortable="custom"></el-table-column>
-          <el-table-column prop="create_time" label="Time" sortable="custom"></el-table-column>
-          <el-table-column prop="state" label="State" sortable="custom"></el-table-column>
-          <el-table-column prop="flow_type" label="Type" sortable="custom"></el-table-column>
-          <el-table-column prop="building_group" label="Building group" sortable="custom"></el-table-column>
-          <el-table-column prop="building" label="building" sortable="custom"></el-table-column>
-          <el-table-column prop="room_no" label="no" sortable="custom"></el-table-column>
-          <el-table-column prop="cellphone" label="tel" sortable="custom"></el-table-column>
+        <data-tables :data="tableData">
+          <el-table-column v-for="title in titles"
+            :prop="title.prop"
+            :label="title.label"
+            :key="title.prop" sortable="custom"/>
         </data-tables>
-      </div>
       `,
       data() {
         return {
-          tableData: soureData,
-          actionsDef: {
-            colProps: {
-              span: 5
-            },
-            def: [{
-              name: 'new',
-              handler: () => {
-                this.$message('new clicked')
-              },
-              icon: 'plus',
-              buttonProps: {
-                type: 'primary'
-              }
-            }, {
-              name: 'import',
-              handler: () => {
-                this.$message('import clicked')
-              },
-              icon: 'upload'
-            }]
+          tableData,
+          titles
+        }
+      },
+    }, true)
+
+    setTimeout(_ => {
+      expect(vm.$el.querySelectorAll('.el-table__row').length).to.equal(3)
+      let secondItem = vm.$el.querySelectorAll('.el-table__row')[1]
+      let secondItemTds = secondItem.querySelectorAll('td')
+      expect(secondItemTds[0].innerText).contains('FW201601010002')
+      expect(secondItemTds[5].innerText).contains('Sourth')
+      expect(vm.$el.querySelector('thead').querySelectorAll('th')[9].innerText).contains('操作')
+      destroyVM(vm)
+      done()
+    }, DELAY)
+  })
+})
+
+describe('data table property', _ => {
+  it('hide action', done => {
+    let vm = createVue({
+      template: `
+        <data-tables :data="tableData" :action-col-def="actionColDef">
+          <el-table-column v-for="title in titles"
+            :prop="title.prop"
+            :label="title.label"
+            :key="title.prop" sortable="custom"/>
+        </data-tables>
+      `,
+      data() {
+        return {
+          tableData,
+          titles,
+          actionColDef: {
+            show: false
           }
         }
       },
     }, true)
 
-    expect(vm.$el.querySelector('.actions').children.length).to.equal(2)
-    done()
+    setTimeout(_ => {
+      // include a width0 column seems from element
+      expect(vm.$el.querySelector('thead').querySelectorAll('th').length).equal(10)
+      expect(vm.$el.querySelector('thead').querySelectorAll('th')[9].innerText).equal("")
+      done()
+    })
+  })
+
+  it('col can not click', done => {
+    let rowClickCnt = 0
+
+    let vm = createVue({
+      template: `
+        <data-tables :data="tableData"
+          :col-not-row-click="canNotClickList"
+          @row-click="itemClick()">
+          <el-table-column v-for="title in titles"
+            :prop="title.prop"
+            :label="title.label"
+            :key="title.prop" sortable="custom"/>
+        </data-tables>
+      `,
+      data() {
+        return {
+          tableData,
+          titles,
+          canNotClickList: ['flow_no', 'room_no']
+        }
+      },
+      methods: {
+        itemClick() {
+          rowClickCnt++
+        }
+      }
+    }, true)
+
+    var test = async function() {
+      try {
+        // include a width0 column seems from element
+        await sleep(DELAY)
+        let secondItem = vm.$el.querySelectorAll('.el-table__row')[1]
+        let secondItemTds = secondItem.querySelectorAll('td')
+
+        await sleep(DELAY)
+        secondItemTds[0].click()
+        expect(rowClickCnt).equal(0)
+
+        await sleep(DELAY)
+        secondItemTds[5].click()
+        expect(rowClickCnt).equal(1)
+
+        await sleep(DELAY)
+        secondItemTds[7].click()
+        expect(rowClickCnt).equal(1)
+
+        await sleep(DELAY)
+        for (var i = 0; i < 10; i++) {
+          secondItemTds[2].click()
+        }
+        expect(rowClickCnt).equal(11)
+
+        await sleep(DELAY)
+        secondItemTds[9].click()
+        expect(rowClickCnt).equal(11)
+
+        done();
+      } catch (err) {
+        done(err);
+      }
+    } ()
+
   })
 })
