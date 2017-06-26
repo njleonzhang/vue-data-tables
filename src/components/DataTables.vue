@@ -30,7 +30,6 @@
   .sc-table
     el-row.tool-bar
       el-col.actions(
-        :span='5'
         v-bind='innerActionsDef.colProps'
         v-if='actionsShow')
         el-button(
@@ -41,7 +40,6 @@
           :type='action.buttonProps && action.buttonProps.type || `primary`'
           v-bind='action.buttonProps') {{action.name}}
       el-col.filters(
-        :span='14'
         v-bind='innerCheckboxFilterDef.colProps'
         v-if='checkboxShow')
         checkbox-group(:checks='innerCheckboxFilterDef.def', @checkChange='handleFilterChange')
@@ -179,6 +177,9 @@ export default {
   computed: {
     innerActionsDef() {
       return Object.assign({
+        colProps: {
+          span: 5
+        },
         def: []
       }, this.actionsDef)
     },
@@ -186,6 +187,9 @@ export default {
       return Object.assign({
         props: undefined,
         def: [],
+        colProps: {
+          span: 14
+        },
         filterFunction: undefined
       }, this.checkboxFilterDef)
     },
