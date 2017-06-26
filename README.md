@@ -1,4 +1,4 @@
-# vue-data-tables
+# vue-data-tables ![travis](https://travis-ci.org/njleonzhang/vue-data-tables.svg?branch=dev)
 
 > vue2.0 DataTables, based on element-ui, el-table + el-pagination + custom filter and sort
 
