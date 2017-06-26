@@ -1,5 +1,4 @@
 import {createVue, destroyVM, sleep, getTableItems, getHead, getBody, getTable, getRows} from '../util'
-import chai from 'chai'
 
 let DELAY = 10
 
