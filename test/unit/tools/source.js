@@ -1,5 +1,5 @@
 
-export let DELAY = 10
+export let DELAY = 100
 
 export let tableData = [{
   'building': '5',

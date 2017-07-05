@@ -82,6 +82,53 @@ describe('checkedFilters', _ => {
     test()
   })
 
+  it('custom filter', done => {
+    let vm = createVue({
+      template,
+      data() {
+        return {
+          tableData,
+          titles,
+          checkboxFilterDef: {
+            def,
+            filterFunction(el, filter) {
+              return el['state_code'].toString() === filter.vals[0]
+            }
+          }
+        }
+      }
+    }, true)
+
+    let test = async function() {
+      try {
+        await sleep(DELAY)
+        let filters = vm.$el.querySelector('.filters')
+        let checkboxGroup = filters.querySelector('.el-checkbox-group')
+        let checkboxs = checkboxGroup.children
+
+        await sleep(DELAY)
+        checkboxs[4].click()
+        checkboxs[0].click()
+        await sleep(DELAY)
+        getBody(vm.$el).querySelectorAll('tr').length.should.equal(1)
+
+        checkboxs[4].click()
+        checkboxs[1].click()
+        checkboxs[2].click()
+        await sleep(DELAY)
+        getBody(vm.$el).querySelectorAll('tr').length.should.equal(1)
+
+        done()
+      } catch (e) {
+        console.log(e)
+        done(e)
+      }
+    }
+
+    test()
+  })
+
+
   it('checkbox filter and search filter', done => {
     let vm = createVue({
       template: `
