@@ -81,4 +81,73 @@ describe('checkedFilters', _ => {
 
     test()
   })
+
+  it('checkbox filter and search filter', done => {
+    let vm = createVue({
+      template: `
+        <data-tables
+          :data="tableData"
+          ref="dataTable"
+          :checkbox-filter-def="checkboxFilterDef">
+          <el-table-column v-for="title in titles"
+            :prop="title.prop"
+            :label="title.label"
+            :key="title.prop"
+            sortable="custom"/>
+        </data-tables>
+      `,
+      data() {
+        return {
+          tableData,
+          titles,
+          checkboxFilterDef: {
+            def
+          }
+        }
+      }
+    }, true)
+
+    let test = async function() {
+      try {
+        await sleep(DELAY)
+        let search = vm.$el.querySelector('.search')
+        let input = search.querySelector('input')
+
+        input.value = 'repair'
+
+        triggerEvent(input, 'input')
+
+        let filters = vm.$el.querySelector('.filters')
+        let checkboxGroup = filters.querySelector('.el-checkbox-group')
+        let checkboxs = checkboxGroup.children
+
+        checkboxs[0].click()
+        await sleep(DELAY)
+        getBody(vm.$el).querySelectorAll('tr').length.should.equal(1)
+
+        checkboxs[1].click()
+        await sleep(DELAY)
+        getBody(vm.$el).querySelectorAll('tr').length.should.equal(2)
+
+        checkboxs[0].click()
+        await sleep(DELAY)
+        getBody(vm.$el).querySelectorAll('tr').length.should.equal(1)
+
+        checkboxs[1].click()
+        await sleep(DELAY)
+        getBody(vm.$el).querySelectorAll('tr').length.should.equal(2)
+
+        checkboxs[4].click()
+        await sleep(DELAY)
+        getBody(vm.$el).querySelectorAll('tr').length.should.equal(0)
+
+        done()
+      } catch (e) {
+        console.log(e)
+        done(e)
+      }
+    }
+
+    test()
+  })
 })
