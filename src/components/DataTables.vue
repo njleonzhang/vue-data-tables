@@ -80,7 +80,7 @@
                 :icon='action.icon',
                 @click='action.handler(scope.row)') {{action.name}}
 
-    .pagination-wrap
+    .pagination-wrap(v-if='paginationShow')
       el-pagination(
         @size-change='handleSizeChange',
         @current-change='handleCurrentChange',
@@ -303,6 +303,9 @@ export default {
     },
     actionsShow() {
       return this.innerActionsDef.def.length > 0
+    },
+    paginationShow() {
+      return this.paginationDef.show !== false
     },
     filters() {
       let filters = this.formatToArray(this.innerCustomFilter)

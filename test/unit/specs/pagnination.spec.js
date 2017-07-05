@@ -38,5 +38,35 @@ describe('pagination def', _ => {
       })
       done()
     }, DELAY)
+  }),
+
+  it('pagination is disabled', done => {
+    let vm = createVue({
+      template: `
+        <data-tables :data="tableData" :paginationDef="paginationDef" ref="dataTable">
+          <el-table-column v-for="title in titles"
+            :prop="title.prop"
+            :label="title.label"
+            :key="title.prop"
+            sortable="custom"/>
+        </data-tables>
+      `,
+      data() {
+        return {
+          tableData,
+          titles,
+          paginationDef: {
+            show: false
+          }
+        }
+      }
+    }, true)
+
+    setTimeout(_ => {
+      let jump = vm.$el.querySelector('.pagination-wrap')
+      expect(jump).to.be.null
+
+      done()
+    }, DELAY)
   })
 })
