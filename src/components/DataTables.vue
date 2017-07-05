@@ -45,7 +45,7 @@
         checkbox-group(:checks='innerCheckboxFilterDef.def', @checkChange='handleFilterChange')
       slot(name='actionBar')
       el-col.search(
-        :span='5'
+        :span='innerSearchDef.colProps && innerSearchDef.colProps.span || 5'
         v-bind='innerSearchDef.colProps'
         v-if='searchShow')
         el-input(
@@ -256,7 +256,7 @@ export default {
               console.error(ErrorTips.propError(prop))
             }
             return filter.vals.some(val => {
-              return elVal.toString().indexOf(val) > -1
+              return elVal.toString().toLowerCase().indexOf(val.toLowerCase()) > -1
             })
           })
         }
