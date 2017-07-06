@@ -105,6 +105,14 @@ exports.sleep = function(time) {
   })
 }
 
+exports.waitForVMready = function(vm) {
+  return new Promise(function (resolve) {
+    vm.$nextTick(_ => {
+      resolve()
+    })
+  })
+}
+
 let getTable = function(el) {
   return el.querySelector('.el-table')
 }

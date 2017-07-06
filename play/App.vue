@@ -17,6 +17,7 @@
   .app-wrapper
     data-tables(
       :data='tableData',
+      :show-action-bar='false',
       :actions-def='actionsDef',
       :checkbox-filter-def='checkFilterDef',
       :search-def='searchDef',
@@ -27,8 +28,25 @@
       @selection-change='handleSelectChange'
       @row-click='handleRowClick')
 
-      el-col(slot='actionBar', :span='5')
-        el-input( v-model='customFilters[0].vals', @change='change()')
+      el-row(slot='custom-tool-bar')
+        el-col(:span='5')
+          el-dropdown
+            el-button(type='primary')
+              | 更多菜单
+              i.el-icon-caret-bottom.el-icon--right
+            el-dropdown-menu(slot='dropdown')
+              el-dropdown-item 黄金糕
+              el-dropdown-item 狮子头
+              el-dropdown-item 螺蛳粉
+              el-dropdown-item 双皮奶
+              el-dropdown-item 蚵仔煎
+
+        el-col(:span='14')
+          el-input(class='test', v-model='customFilters[0].vals', @change='change()')
+        el-col(:span='5')
+          el-select(v-model='customFilters[1].vals', multiple)
+            el-option(label='维修', value='repair')
+            el-option(label='帮忙', value='help')
 
       el-table-column(type='selection' width='55')
       el-table-column(prop='flow_no', label='No.', sortable='custom')
@@ -62,6 +80,8 @@
         },
         customFilters: [{
           vals: ''
+        }, {
+          vals: []
         }],
         selection: {},
         actionsDef: {
@@ -179,7 +199,6 @@
     },
     methods: {
       change(val) {
-        console.log(this.customFilters)
       },
       handleSelectChange(selection) {
         this.selection = selection

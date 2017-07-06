@@ -28,7 +28,7 @@
 
 <template lang="pug">
   .sc-table
-    el-row.tool-bar
+    el-row.tool-bar(v-if="showActionBar")
       el-col.actions(
         v-bind='innerActionsDef.colProps'
         v-if='actionsShow')
@@ -43,7 +43,6 @@
         v-bind='innerCheckboxFilterDef.colProps'
         v-if='checkboxShow')
         checkbox-group(:checks='innerCheckboxFilterDef.def', @checkChange='handleFilterChange')
-      slot(name='actionBar')
       el-col.search(
         :span='innerSearchDef.colProps && innerSearchDef.colProps.span || 5'
         v-bind='innerSearchDef.colProps'
@@ -52,6 +51,8 @@
           v-model='searchKey',
           v-bind='innerSearchDef.inputProps'
           icon='search')
+    .custom-tool-bar
+      slot(name='custom-tool-bar')
 
     el-table(
       :data='curTableData',
@@ -108,10 +109,14 @@ export default {
         return []
       }
     },
-    customFilter: {
-      type: Object,
+    showActionBar: {
+      type: Boolean,
+      default: true
+    },
+    customFilters: {
+      type: [Object, Array],
       default() {
-        return {}
+        return []
       }
     },
     tableProps: {
@@ -212,10 +217,20 @@ export default {
     innerColNotRowClick() {
       return this.colNotRowClick.concat([this.actionColProp])
     },
-    innerCustomFilter() {
-      return Object.assign({}, this.customFilter, {
-        vals: this.formatToArray(this.customFilter.vals)
+    innerCustomFilters() {
+      let customFilterArray = this.formatToArray(this.customFilters)
+      let customFilters = []
+      customFilterArray.forEach(filter => {
+        let filterCopy = Object.assign({}, filter)
+
+        filterCopy = {
+          props: this.formatProps(filterCopy.props),
+          vals: this.formatToArray(filter.vals)
+        }
+
+        customFilters.push(filterCopy)
       })
+      return customFilters
     },
     innerTableProps() {
       return Object.assign({
@@ -302,8 +317,7 @@ export default {
       return this.paginationDef.show !== false
     },
     filters() {
-      let filters = this.formatToArray(this.innerCustomFilter)
-
+      let filters = this.formatToArray(this.innerCustomFilters)
       if (this.searchShow) {
         filters.push({
           props: this.formatProps(this.innerSearchDef.props),
