@@ -129,8 +129,7 @@ describe('checkedFilters', _ => {
   })
 
 
-  it('checkbox filter and search filter', function(done) {
-    this.timeout(5000)
+  it('checkbox filter and search filter', done => {
     let vm = createVue({
       template: `
         <data-tables

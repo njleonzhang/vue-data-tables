@@ -114,8 +114,7 @@ describe('searchDef', _ => {
     test()
   })
 
-  it('custom filter function match', function(done) {
-    this.timeout(5000)
+  it('custom filter function match', done => {
     let bus = new Vue()
 
     let vm = createVue({
@@ -190,8 +189,7 @@ describe('searchDef', _ => {
     test()
   })
 
-  it('custom filter function not match', function(done) {
-    this.timeout(5000)
+  it('custom filter function not match', done => {
     let bus = new Vue()
 
     let vm = createVue({
@@ -266,8 +264,7 @@ describe('searchDef', _ => {
     test()
   })
 
-  it('specific prop filter not match', function(done) {
-    this.timeout(5000)
+  it('specific prop filter not match', done => {
     let bus = new Vue()
 
     let vm = createVue({
@@ -336,8 +333,7 @@ describe('searchDef', _ => {
     test()
   })
 
-  it('specific prop filter match', function(done) {
-    this.timeout(5000)
+  it('specific prop filter match', done => {
     let bus = new Vue()
 
     let vm = createVue({
