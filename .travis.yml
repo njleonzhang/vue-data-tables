@@ -1,3 +1,4 @@
 language: node_js
 node_js: stable
 cache: yarn
+script: timeout=6000 npm run test

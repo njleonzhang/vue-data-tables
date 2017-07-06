@@ -313,7 +313,7 @@ describe('searchDef', _ => {
           vm.$nextTick(_ => {
             let body = getBody(vm.$el)
             let rows = getRows(body)
-            rows.length.should.equal(0)
+            rows.length.should.equal(1)
             setTimeout(_ => {
               spy.should.have.been.called.once
               done()
