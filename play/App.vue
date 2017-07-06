@@ -21,14 +21,14 @@
       :checkbox-filter-def='checkFilterDef',
       :search-def='searchDef',
       :action-col-def='actionColDef',
-      :custom-filter='customFilter',
+      :custom-filters='customFilters',
       :tableProps='tableProps',
       :pagination-def='paginationDef',
       @selection-change='handleSelectChange'
       @row-click='handleRowClick')
 
-      //- el-col(slot='actionBar', :span='5')
-      //-   el-input( v-model='customFilter.vals')
+      el-col(slot='actionBar', :span='5')
+        el-input( v-model='customFilters[0].vals', @change='change()')
 
       el-table-column(type='selection' width='55')
       el-table-column(prop='flow_no', label='No.', sortable='custom')
@@ -60,9 +60,9 @@
             order: 'descending'
           }
         },
-        customFilter: {
+        customFilters: [{
           vals: ''
-        },
+        }],
         selection: {},
         actionsDef: {
           colProps: {
@@ -85,9 +85,6 @@
           }]
         },
         checkFilterDef: {
-          colProps: {
-            span: 6
-          },
           props: 'state_code',
           def: [{
             'code': 'created',
@@ -107,9 +104,6 @@
           }]
         },
         searchDef: {
-          colProps: {
-            offset: 2
-          },
           props: ['flow_no', 'state_code']
         },
         actionColDef: {
@@ -184,6 +178,9 @@
       }
     },
     methods: {
+      change(val) {
+        console.log(this.customFilters)
+      },
       handleSelectChange(selection) {
         this.selection = selection
         console.log(selection)

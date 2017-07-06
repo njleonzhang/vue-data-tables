@@ -101,12 +101,6 @@ export default {
   components: {
     CheckboxGroup
   },
-  created() {
-    let self = this
-    this.updateInnerSearchKey = debounce(200, _ => {
-      self.innerSearchKey = self.searchKey
-    })
-  },
   props: {
     data: {
       type: Array,
@@ -334,6 +328,9 @@ export default {
     formatToArray(filters) {
       return filters ? [].concat(filters) : []
     },
+    updateInnerSearchKey: debounce(200, function() {
+      this.innerSearchKey = this.searchKey
+    }),
     handleSort(obj) {
       this.sortData = obj
       this.innerTableProps.defaultSort = {
