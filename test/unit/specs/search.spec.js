@@ -96,13 +96,13 @@ describe('searchDef', _ => {
             rows.length.should.equal(1)
             let cells = rows[0].querySelectorAll('td')
             cells[0].should.have.text('FW201601010001')
+
+            setTimeout(_ => {
+              spy.should.have.been.called.once
+              done()
+            }, 200);
           })
         })
-
-        setTimeout(_ => {
-          spy.should.have.been.called.once
-          done()
-        }, 1000);
 
         triggerEvent(input, 'input')
       } catch (e) {
@@ -154,7 +154,6 @@ describe('searchDef', _ => {
 
     let test = async function() {
       try {
-        let noException = true;
         await sleep(DELAY)
         let search = vm.$el.querySelector('.search')
         should.exist(search)
@@ -169,12 +168,11 @@ describe('searchDef', _ => {
           vm.$nextTick(_ => {
             let body = getBody(vm.$el)
             let rows = getRows(body)
-            try {
-              rows.length.should.equal(1)
-            } catch (e) {
-              console.log(e)
-              noException = false
-            }
+            rows.length.should.equal(1)
+            setTimeout(_ => {
+              spy.should.have.been.called.once
+              done()
+            }, 500);
           })
         }
 
@@ -182,11 +180,6 @@ describe('searchDef', _ => {
 
         triggerEvent(input, 'input')
 
-        setTimeout(_ => {
-          spy.should.have.been.called.once
-          noException.should.equal(true)
-          done()
-        }, 1000);
       } catch (e) {
         console.log(e)
         done(e)
@@ -236,8 +229,6 @@ describe('searchDef', _ => {
 
     let test = async function() {
       try {
-        let noException = true;
-
         await sleep(DELAY)
         let search = vm.$el.querySelector('.search')
         should.exist(search)
@@ -252,24 +243,18 @@ describe('searchDef', _ => {
           vm.$nextTick(_ => {
             let body = getBody(vm.$el)
             let rows = getRows(body)
-            try {
-              rows.length.should.equal(0)
-            } catch (e) {
-              console.log(e)
-              noException = false;
-            }
+            rows.length.should.equal(0)
+
+            setTimeout(_ => {
+              spy.should.have.been.called.once
+              done()
+            }, 200);
           })
         }
 
         bus.$on('filtered', filterCallBack)
 
         triggerEvent(input, 'input')
-
-        setTimeout(_ => {
-          spy.should.have.been.called.once
-          noException.should.equal(true)
-          done()
-        }, 1000);
       } catch (e) {
         console.log(e)
         done(e)
@@ -314,7 +299,6 @@ describe('searchDef', _ => {
 
     let test = async function() {
       try {
-        let noException = true;
         await sleep(DELAY)
         let search = vm.$el.querySelector('.search')
         should.exist(search)
@@ -329,24 +313,17 @@ describe('searchDef', _ => {
           vm.$nextTick(_ => {
             let body = getBody(vm.$el)
             let rows = getRows(body)
-            try {
-              rows.length.should.equal(0)
-            } catch(e) {
-              console.log(e)
-              noException = false
-            }
+            rows.length.should.equal(0)
+            setTimeout(_ => {
+              spy.should.have.been.called.once
+              done()
+            }, 200);
           })
         }
 
         bus.$on('filtered', filterCallBack)
 
         triggerEvent(input, 'input')
-
-        setTimeout(_ => {
-          spy.should.have.been.called.once
-          noException.should.equal(true)
-          done()
-        }, 1000);
       } catch (e) {
         console.log(e)
         done(e)
@@ -391,7 +368,6 @@ describe('searchDef', _ => {
 
     let test = async function() {
       try {
-        let noException = true;
         await sleep(DELAY)
         let search = vm.$el.querySelector('.search')
         should.exist(search)
@@ -406,24 +382,18 @@ describe('searchDef', _ => {
           vm.$nextTick(_ => {
             let body = getBody(vm.$el)
             let rows = getRows(body)
-            try {
-              rows.length.should.equal(1)
-            } catch(e) {
-              console.log(e)
-              noException = false
-            }
+            rows.length.should.equal(1)
+
+            setTimeout(_ => {
+              spy.should.have.been.called.once
+              done()
+            }, 200);
           })
         }
 
         bus.$on('filtered', filterCallBack)
 
         triggerEvent(input, 'input')
-
-        setTimeout(_ => {
-          spy.should.have.been.called.once
-          noException.should.equal(true)
-          done()
-        }, 1000);
       } catch (e) {
         console.log(e)
         done(e)

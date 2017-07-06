@@ -64,7 +64,7 @@ describe('pagination def', _ => {
 
     setTimeout(_ => {
       let jump = vm.$el.querySelector('.pagination-wrap')
-      expect(jump).to.be.null
+      should.not.exist(jump)
 
       done()
     }, DELAY)
