@@ -158,6 +158,8 @@ import CsvExport from '../utils/CsvExport'
 import lang from 'element-ui/lib/locale/lang/en'
 import locale from 'element-ui/lib/locale'
 
+console.log(DataTables)
+
 locale.use(lang)
 
 export default {

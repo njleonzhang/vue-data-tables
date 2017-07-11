@@ -95,7 +95,7 @@
 <script>
 import CheckboxGroup from 'components/ScCheckboxGroup'
 import ErrorTips from 'components/ErrorTips.js'
-import debounce from 'throttle-debounce/debounce'
+import debounce from 'javascript-debounce'
 
 export default {
   name: 'DataTables',

@@ -1,6 +1,6 @@
 import DataTables from './components/DataTables'
 
-DataTables.install = function(Vue) {
+export let install = function(Vue) {
   Vue.component(DataTables.name, DataTables)
 }
 
