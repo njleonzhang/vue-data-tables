@@ -65,7 +65,7 @@
   import DataTables from '@/index.js'
 
   export default {
-    components: {dataTables},
+    components: {DataTables},
     data() {
       return {
         tableData: [],
