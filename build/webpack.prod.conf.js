@@ -8,6 +8,7 @@ var CopyWebpackPlugin = require('copy-webpack-plugin')
 var HtmlWebpackPlugin = require('html-webpack-plugin')
 var ExtractTextPlugin = require('extract-text-webpack-plugin')
 var OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
+var UnminifiedWebpackPlugin = require('unminified-webpack-plugin');
 
 var env = process.env.NODE_ENV === 'testing'
   ? require('../config/test.env')
@@ -26,7 +27,7 @@ var webpackConfig = merge(baseWebpackConfig, {
   devtool: config.build.productionSourceMap ? '#source-map' : false,
   output: {
     path: config.build.assetsRoot,
-    filename: 'data-tables.js',
+    filename: 'data-tables.min.js',
     library: 'DataTables',
     libraryTarget: 'umd'
   },
@@ -43,6 +44,9 @@ var webpackConfig = merge(baseWebpackConfig, {
         warnings: false
       },
       sourceMap: true
+    }),
+    new UnminifiedWebpackPlugin({
+      postfix: ''
     })
   ]
 })

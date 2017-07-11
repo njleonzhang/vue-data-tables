@@ -92,6 +92,7 @@
     "shelljs": "^0.7.6",
     "sinon": "^2.1.0",
     "sinon-chai": "^2.8.0",
+    "unminified-webpack-plugin": "^1.2.0",
     "url-loader": "^0.5.8",
     "vue-loader": "^12.2.1",
     "vue-router": "^2.3.0",
