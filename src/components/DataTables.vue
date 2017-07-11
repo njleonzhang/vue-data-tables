@@ -342,9 +342,9 @@ export default {
     formatToArray(filters) {
       return filters ? [].concat(filters) : []
     },
-    updateInnerSearchKey: debounce(200, function() {
+    updateInnerSearchKey: debounce(function() {
       this.innerSearchKey = this.searchKey
-    }),
+    }, 200),
     handleSort(obj) {
       this.sortData = obj
       this.innerTableProps.defaultSort = {
