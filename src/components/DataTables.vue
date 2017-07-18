@@ -97,6 +97,8 @@ import CheckboxGroup from 'components/ScCheckboxGroup'
 import ErrorTips from 'components/ErrorTips.js'
 import debounce from 'javascript-debounce'
 
+let allProps = []
+
 export default {
   name: 'DataTables',
   components: {
@@ -189,7 +191,18 @@ export default {
         colProps: {
           span: 14
         },
-        filterFunction: undefined
+        filterFunction: (el, filter) => {
+          let props = filter.props || allProps
+          return props.some(prop => {
+            let elVal = el[prop]
+            if (!elVal) {
+              console.error(ErrorTips.propError(prop))
+            }
+            return filter.vals.some(val => {
+              return elVal.toString() === val
+            })
+          })
+        }
       }, this.checkboxFilterDef)
     },
     innerSearchDef() {
@@ -245,7 +258,6 @@ export default {
     },
     tableData() {
       let newData = this.data.slice()
-      let allProps = Object.keys(newData[0] || {})
 
       let doFilter = function(defaultFilterFunction, filter, value) {
         let filterFunction = filter.filterFunction || defaultFilterFunction
@@ -393,6 +405,12 @@ export default {
     },
     searchKey() {
       this.updateInnerSearchKey()
+    },
+    data: {
+      immediate: true,
+      handler(val) {
+        allProps = Object.keys(val && val[0] || {})
+      }
     }
   }
 }
