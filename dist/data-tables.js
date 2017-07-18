@@ -842,8 +842,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       return __WEBPACK_IMPORTED_MODULE_1_babel_runtime_core_js_object_assign___default()({
         show: true,
         label: '操作',
-        fixed: false
+        fixed: false,
+        def: []
       }, this.actionColDef);
+    },
+    actionColShow: function actionColShow() {
+      return this.innerActionColDef.def.length > 0;
     },
     innerColNotRowClick: function innerColNotRowClick() {
       return this.colNotRowClick.concat([this.actionColProp]);
@@ -1610,7 +1614,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "select-all": _vm.handleSelectAll,
       "current-change": _vm.handleCurrentRowChange
     }
-  }, 'el-table', _vm.innerTableProps), [_vm._t("default"), (_vm.innerActionColDef.show) ? _c('el-table-column', {
+  }, 'el-table', _vm.innerTableProps), [_vm._t("default"), (_vm.actionColShow) ? _c('el-table-column', {
     attrs: {
       "prop": _vm.actionColProp,
       "fixed": _vm.innerActionColDef.fixed,
