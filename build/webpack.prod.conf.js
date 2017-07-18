@@ -32,7 +32,12 @@ var webpackConfig = merge(baseWebpackConfig, {
     libraryTarget: 'umd'
   },
   externals: {
-    vue: 'vue'
+    vue: {
+      root: 'Vue',
+      commonjs: 'vue',
+      commonjs2: 'vue',
+      amd: 'vue'
+    }
   },
   plugins: [
     // http://vuejs.github.io/vue-loader/en/workflow/production.html
