@@ -727,6 +727,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 
+var allProps = [];
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'DataTables',
   components: {
@@ -820,7 +822,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         colProps: {
           span: 14
         },
-        filterFunction: undefined
+        filterFunction: function filterFunction(el, filter) {
+          var props = filter.props || allProps;
+          return props.some(function (prop) {
+            var elVal = el[prop];
+            if (!elVal) {
+              console.error(__WEBPACK_IMPORTED_MODULE_3_components_ErrorTips_js__["a" /* default */].propError(prop));
+            }
+            return filter.vals.some(function (val) {
+              return elVal.toString() === val;
+            });
+          });
+        }
       }, this.checkboxFilterDef);
     },
     innerSearchDef: function innerSearchDef() {
@@ -878,7 +891,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     tableData: function tableData() {
       var newData = this.data.slice();
-      var allProps = __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_object_keys___default()(newData[0] || {});
 
       var doFilter = function doFilter(defaultFilterFunction, filter, value) {
         var filterFunction = filter.filterFunction || defaultFilterFunction;
@@ -1026,6 +1038,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
     searchKey: function searchKey() {
       this.updateInnerSearchKey();
+    },
+
+    data: {
+      immediate: true,
+      handler: function handler(val) {
+        allProps = __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_object_keys___default()(val && val[0] || {});
+      }
     }
   }
 });
