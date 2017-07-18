@@ -23,9 +23,11 @@ describe('actionColDef', _ => {
           tableData,
           titles,
           actionColDef: {
-            show: true,
             label: 'action',
-            fixed: 'right'
+            fixed: 'right',
+            def: [{
+              name: 'test'
+            }]
           }
         }
       }

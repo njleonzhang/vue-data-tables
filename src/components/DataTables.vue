@@ -67,7 +67,7 @@
       slot
       el-table-column(
         :prop='actionColProp',
-        v-if='innerActionColDef.show',
+        v-if='actionColShow',
         :fixed='innerActionColDef.fixed',
         :label='innerActionColDef.label',
         :type='innerActionColDef.type',
@@ -211,8 +211,12 @@ export default {
       return Object.assign({
         show: true,
         label: '操作',
-        fixed: false
+        fixed: false,
+        def: []
       }, this.actionColDef)
+    },
+    actionColShow() {
+      return this.innerActionColDef.def.length > 0
     },
     innerColNotRowClick() {
       return this.colNotRowClick.concat([this.actionColProp])

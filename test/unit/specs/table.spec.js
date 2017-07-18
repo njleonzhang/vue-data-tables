@@ -29,7 +29,7 @@ describe('render table', _ => {
       let secondItemTds = secondItem.querySelectorAll('td')
       secondItemTds[0].innerText.should.contains('FW201601010002')
       secondItemTds[5].innerText.should.contains('Sourth')
-      head.querySelectorAll('th')[9].innerText.should.contains('操作')
+      head.querySelectorAll('th')[9].innerText.should.not.contains('操作')
       should.not.exist(head.querySelector('td.ascending'))
       table.should.have.class('el-table--border')
       table.should.have.class('el-table--striped')
@@ -77,6 +77,7 @@ describe('data table property', _ => {
       template: `
         <data-tables :data="tableData"
           :col-not-row-click="canNotClickList"
+          :action-col-def="actionColDef"
           @row-click="itemClick()">
           <el-table-column v-for="title in titles"
             :prop="title.prop"
@@ -88,7 +89,12 @@ describe('data table property', _ => {
         return {
           tableData,
           titles,
-          canNotClickList: ['flow_no', 'room_no']
+          canNotClickList: ['flow_no', 'room_no'],
+          actionColDef: {
+            def: [{
+              name: 'test'
+            }]
+          }
         }
       },
       methods: {
