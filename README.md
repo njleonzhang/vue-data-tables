@@ -8,13 +8,15 @@
 https://njleonzhang.github.io/vue-data-tables
 
 ## Dev
-``` bash
-# install dependencies
+
+* install dependencies
+
 ```
 yarn install
 ```
 
-# serve test/play with hot reload at localhost:8080
+* serve test/play with hot reload at localhost:8080
+
 ```
 npm run play
 ```
