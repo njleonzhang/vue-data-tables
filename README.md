@@ -19,7 +19,7 @@ Please provide a reproduce demo via refrencing [boilerplate](http://jsfiddle.net
 yarn install
 ```
 
-* serve test/play with hot reload at localhost:8080
+* serve test/play with hot reload at localhost:8089
 
 ```
 npm run play
