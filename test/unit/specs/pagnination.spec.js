@@ -6,7 +6,7 @@ describe('pagination def', _ => {
   it('pagination', done => {
     let vm = createVue({
       template: `
-        <data-tables :data="tableData" :paginationDef="paginationDef" ref="dataTable">
+        <data-tables :data="tableData" :pagination-def="paginationDef" ref="dataTable">
           <el-table-column v-for="title in titles"
             :prop="title.prop"
             :label="title.label"
@@ -38,7 +38,7 @@ describe('pagination def', _ => {
       })
       done()
     }, DELAY)
-  }),
+  })
 
   it('pagination is disabled', done => {
     let vm = createVue({
