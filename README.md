@@ -11,13 +11,6 @@
 ## Submit a issues
 Please provide a reproduce demo via refrencing [boilerplate](http://jsfiddle.net/zpczjl/9tp3z4bn/14/)
 
-## lengcy version(1.x)
-[code](https://github.com/njleonzhang/vue-data-tables/tree/1.x)
-
-[doc](https://njleonzhang.github.io/vue-data-tables-1.x-doc/)
-
-1.x is unmaintained now, use it at your own risk.
-
 ## Dev
 
 * install dependencies
@@ -31,3 +24,10 @@ yarn install
 ```
 npm run play
 ```
+
+## lengcy version(1.x)
+[Code](https://github.com/njleonzhang/vue-data-tables/tree/1.x)
+
+[Doc](https://njleonzhang.github.io/vue-data-tables-1.x-doc/)
+
+1.x is unmaintained now, use it at your own risk.
