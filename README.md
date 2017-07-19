@@ -1,8 +1,8 @@
-# vue-data-tables ![travis](https://travis-ci.org/njleonzhang/vue-data-tables.svg?branch=master)
-
-> vue2.0 DataTables, based on element-ui, el-table + el-pagination + custom filter and sort
-
 <p align="center"><a href="" target="_blank"><img width="100"src="https://njleonzhang.github.io/vue-data-tables/_media/icon.svg"></a></p>
+
+<p align="center">
+  <a href="https://github.com/njleonzhang/vue-data-tables"><img src="https://travis-ci.org/njleonzhang/vue-data-tables.svg?branch=master" alt="Build Status"></a>
+</p>
 
 ## Documentation
 * [Full Doc](https://njleonzhang.github.io/vue-data-tables)
