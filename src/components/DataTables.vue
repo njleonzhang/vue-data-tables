@@ -58,6 +58,7 @@
       :data='curTableData',
       @sort-change='handleSort',
       @row-click='handleRowClick',
+      @cell-click='handleCellClick',
       @selection-change='handleSelectChange',
       @select='handleSelect',
       @select-all='handleSelectAll',
@@ -380,6 +381,11 @@ export default {
     handleRowClick(row, event, column) {
       if (column && this.innerColNotRowClick.indexOf(column.property) === -1) {
         this.$emit('row-click', row)
+      }
+    },
+    handleCellClick(row, column, cell, event) {
+      if (column && this.innerColNotRowClick.indexOf(column.property) === -1) {
+        this.$emit('cell-click', row, column, cell, event)
       }
     },
     handleSelectChange(selection) {
