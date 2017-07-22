@@ -10,6 +10,8 @@
 * [Full Doc](https://njleonzhang.github.io/vue-data-tables)
 * [Online Demo](http://jsfiddle.net/zpczjl/9tp3z4bn/14/)
 
+> Hope native English speakers can help to review the document and revise.
+
 ## Submit a issues
 Please provide a reproduce demo via refrencing [boilerplate](http://jsfiddle.net/zpczjl/9tp3z4bn/14/)
 
