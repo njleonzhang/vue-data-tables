@@ -1,6 +1,6 @@
 ![logo](_media/icon.svg)
 
-# vue-data-tables <small>2.0</small>
+# vue-data-tables <small>2.0.2</small>
 
 > A simple and customizable, front-end pagination datatables，based on vue2 and element-ui.
 
