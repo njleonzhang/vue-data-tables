@@ -2,8 +2,6 @@ import {createVue, destroyVM, sleep, getTableItems, getHead, getBody, getTable, 
 import Vue from 'vue'
 import {DELAY, tableData, titles} from '../tools/source'
 
-// <el-input v-model="customFilters[0].vals"/>
-
 describe('custom action bar', _ => {
   let bus = new Vue()
 

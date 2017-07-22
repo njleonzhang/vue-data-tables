@@ -55,14 +55,8 @@
       slot(name='custom-tool-bar')
 
     el-table(
+      ref='elTable'
       :data='curTableData',
-      @sort-change='handleSort',
-      @row-click='handleRowClick',
-      @cell-click='handleCellClick',
-      @selection-change='handleSelectChange',
-      @select='handleSelect',
-      @select-all='handleSelectAll',
-      @current-change='handleCurrentRowChange',
       v-bind='innerTableProps'
       style='width: 100%')
       slot
@@ -163,6 +157,22 @@ export default {
       default() {
         return {}
       }
+    }
+  },
+  mounted() {
+    let elTableVm = this.$refs['elTable']
+    const oldEmit = elTableVm.$emit
+    elTableVm.$emit = (...args) => {
+      let command = args[0]
+      if (command === 'row-click' || command === 'cell-click') {
+        let column = command === 'row-click' ? args[3] : args[2]
+        if (column && this.innerColNotRowClick.indexOf(column.property) === -1) {
+          this.$emit.apply(this, args)
+        }
+      } else {
+        this.$emit.apply(this, args)
+      }
+      oldEmit.apply(elTableVm, args)
     }
   },
   data() {
@@ -377,28 +387,6 @@ export default {
     },
     handleFilterChange(checkedFilters) {
       this.checkedFilters = checkedFilters
-    },
-    handleRowClick(row, event, column) {
-      if (column && this.innerColNotRowClick.indexOf(column.property) === -1) {
-        this.$emit('row-click', row)
-      }
-    },
-    handleCellClick(row, column, cell, event) {
-      if (column && this.innerColNotRowClick.indexOf(column.property) === -1) {
-        this.$emit('cell-click', row, column, cell, event)
-      }
-    },
-    handleSelectChange(selection) {
-      this.$emit('selection-change', selection)
-    },
-    handleSelect(selection, row) {
-      this.$emit('select', selection, row)
-    },
-    handleSelectAll(selection) {
-      this.$emit('select-all', selection)
-    },
-    handleCurrentRowChange(currentRow, oldCurrentRow) {
-      this.$emit('current-change', currentRow, oldCurrentRow)
     }
   },
   watch: {

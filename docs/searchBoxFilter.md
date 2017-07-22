@@ -39,7 +39,47 @@ export default {
 </script>
 ```
 
+# customize the input
+`searchDef.inputProps` can be leveraged to customize the `el-input` of search box
+
+```html
+/*vue*/
+<desc>
+Set the input placeholder
+</desc>
+<template>
+  <data-tables
+    :data='data'
+    :search-def='searchDef'>
+    <el-table-column v-for="title in titles"
+      :prop="title.prop"
+      :label="title.label"
+      :key="title.label"
+      sortable="custom">
+    </el-table-column>
+  </data-tables>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      data,
+      titles,
+      searchDef: {
+        inputProps: {
+          placeholder: 'please search'
+        }
+      }
+    }
+  }
+}
+</script>
+```
+
 # hide search box
+
+`searchDef.show` can be used to hide search box
 
 ```html
 /*vue*/
@@ -72,6 +112,9 @@ export default {
 ```
 
 # search special properties
+
+`searchDef.props` can be used to indicate target property[s] of search
+
 ```html
 /*vue*/
 <desc>
@@ -106,6 +149,9 @@ export default {
 ```
 
 # customize filter logic
+
+Sometimes, default filter logic can not satisfy your requirement, `searchDef.filterFunction` can be leveraged to customize the filter logic
+
 ```html
 /*vue*/
 /*no-boot-code*/
@@ -198,5 +244,6 @@ export default {
 | -- | -- | -- | -- |
 | show | show or hide the search box | Boolean | true |
 | colProps | [el-col property](http://element.eleme.io/#/en-US/component/layout#col-attributes) of seach box area | Object | {span: 5} |
+| inputProps | [el-input property](http://element.eleme.io/#/en-US/component/input#input-attributes) of seach box | Object | - |
 | props | define the search box match properties | Array | - |
 | filterFunction | customize the search filter logic | Array | - |

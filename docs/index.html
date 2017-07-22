@@ -18,9 +18,19 @@
 <script src="https://unpkg.com/element-ui/lib/index.js"></script>
 <script src="//unpkg.com/element-ui/lib/umd/locale/en.js"></script>
 <script src="https://rawgit.com/njleonzhang/vue-data-tables/dev/dist/data-tables.min.js"></script>
+<script src="//unpkg.com/json2csv@3.9.1/dist/json2csv.js"></script>
 <script>
   Vue.use(DataTables)
   ELEMENT.locale(ELEMENT.lang.en)
+
+  function includeJs(jsFilePath) {
+      var js = document.createElement("script");
+
+      js.type = "text/javascript";
+      js.src = jsFilePath;
+
+      document.body.appendChild(js);
+  }
 
   var data, titles;
   var id = 0;
@@ -64,7 +74,7 @@ titles = [{
     + '\n<scr' + `ipt src="https://rawgit.com/njleonzhang/vue-data-tables/dev/dist/data-tables.js"></scr` + 'ipt>'
   var cssResources = '@import url("//unpkg.com/element-ui/lib/theme-default/index.css");'
   var bootCode =
-    'ELEMENT.locale(ELEMENT.lang.en)\n' 
+    'ELEMENT.locale(ELEMENT.lang.en)\n'
     + 'Vue.use(DataTables)\n'
     + 'var data, titles\n\n' + define + '\n\n';
 
