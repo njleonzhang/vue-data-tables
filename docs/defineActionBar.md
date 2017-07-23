@@ -28,8 +28,8 @@ object in `customFilters` can has 3 properties: `vals`, `props` and `filterFunct
       </el-col>
       <el-col :span="5">
         <el-select v-model="customFilters[1].vals" multiple="multiple">
-          <el-option label="维修" value="repair"></el-option>
-          <el-option label="帮忙" value="help"></el-option>
+          <el-option label="Repair" value="repair"></el-option>
+          <el-option label="Help" value="help"></el-option>
         </el-select>
       </el-col>
       <el-col :span="5" :offset="9">
