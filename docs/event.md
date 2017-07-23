@@ -11,6 +11,7 @@ SomeTimes, `row-click` and `cell-click` may not want to be triggered, when some 
 
 ```html
 /*vue*/
+/*jsResource //unpkg.com/json2csv@3.9.1/dist/json2csv.js*/
 <desc>
 `flow_no` and `table action column`(default) are marked as `can not trigger click`
 </desc>
@@ -65,6 +66,7 @@ trigger when any filter change(search box, checkbox, sort or customFilters), and
 
 ```html
 /*vue*/
+/*jsResource //unpkg.com/json2csv@3.9.1/dist/json2csv.js*/
 <desc>
 export data to excel
 </desc>
@@ -83,17 +85,6 @@ export data to excel
 </template>
 
 <script>
-function includeJs(jsFilePath) {
-    var js = document.createElement("script");
-
-    js.type = "text/javascript";
-    js.src = jsFilePath;
-
-    document.body.appendChild(js);
-}
-
-includeJs("//unpkg.com/json2csv@3.9.1/dist/json2csv.js");
-
 let CsvExport = function(data, fields, fieldNames, fileName) {
   try {
     var result = json2csv({
