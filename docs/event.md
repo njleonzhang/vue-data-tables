@@ -1,6 +1,6 @@
 # Event
 
-All `el-table` table [events](http://element.eleme.io/#/en-US/component/table#table-events) have been proxied by `vue-data-tables`
+All `el-table` [events](http://element.eleme.io/#/en-US/component/table#table-events) and all `el-pagination` [events](http://element.eleme.io/#/en-US/component/pagination#events) have been proxied by `vue-data-tables`
 
 # row-click and cell-click
 

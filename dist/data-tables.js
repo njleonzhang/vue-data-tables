@@ -848,6 +848,7 @@ var allProps = [];
           var props = filter.props || allProps;
           return props.some(function (prop) {
             var elVal = el[prop];
+
             if (!elVal) {
               console.error(__WEBPACK_IMPORTED_MODULE_3_components_ErrorTips_js__["a" /* default */].propError(prop));
             }
@@ -911,13 +912,37 @@ var allProps = [];
         fit: true
       }, this.tableProps);
     },
+    sortedData: function sortedData() {
+      var sortedData = this.data.slice();
+
+      if (this.sortData.order) {
+        var order = this.sortData.order;
+        var prop = this.sortData.prop;
+        var isDescending = order === 'descending';
+
+        sortedData.sort(function (a, b) {
+          if (a[prop] > b[prop]) {
+            return 1;
+          } else if (a[prop] < b[prop]) {
+            return -1;
+          } else {
+            return 0;
+          }
+        });
+        if (isDescending) {
+          sortedData.reverse();
+        }
+      }
+
+      return sortedData;
+    },
     tableData: function tableData() {
-      var newData = this.data.slice();
+      var filteredData = this.sortedData.slice();
 
       var doFilter = function doFilter(defaultFilterFunction, filter, value) {
         var filterFunction = filter.filterFunction || defaultFilterFunction;
 
-        newData = newData.filter(function (el) {
+        filteredData = filteredData.filter(function (el) {
           return filterFunction(el, filter);
         });
       };
@@ -932,6 +957,7 @@ var allProps = [];
           var props = filter.props || allProps;
           return props.some(function (prop) {
             var elVal = el[prop];
+
             if (!elVal) {
               console.error(__WEBPACK_IMPORTED_MODULE_3_components_ErrorTips_js__["a" /* default */].propError(prop));
             }
@@ -944,27 +970,8 @@ var allProps = [];
         doFilter(defaultFilterFunction, filter);
       });
 
-      if (this.sortData.order) {
-        var order = this.sortData.order;
-        var prop = this.sortData.prop;
-        var isDescending = order === 'descending';
-
-        newData.sort(function (a, b) {
-          if (a[prop] > b[prop]) {
-            return 1;
-          } else if (a[prop] < b[prop]) {
-            return -1;
-          } else {
-            return 0;
-          }
-        });
-        if (isDescending) {
-          newData.reverse();
-        }
-      }
-
-      this.$emit('filtered-data', newData);
-      return newData;
+      this.$emit('filtered-data', filteredData);
+      return filteredData;
     },
     curTableData: function curTableData() {
       var from = this.internalPageSize * (this.currentPage - 1);
