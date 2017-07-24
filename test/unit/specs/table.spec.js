@@ -37,6 +37,30 @@ describe('render table', _ => {
       done()
     }, DELAY)
   })
+
+  it('no data', done => {
+    let vm = createVue({
+      template: `
+        <data-tables>
+          <el-table-column v-for="title in titles"
+            :prop="title.prop"
+            :label="title.label"
+            :key="title.prop" sortable="custom"/>
+        </data-tables>
+      `,
+      data() {
+        return {
+          titles
+        }
+      },
+    }, true)
+
+    setTimeout(_ => {
+      let rows = vm.$el.querySelector('tbody').querySelectorAll('tr')
+      rows.length.should.equal(0)
+      done()
+    }, DELAY)
+  })
 })
 
 describe('data table property', _ => {

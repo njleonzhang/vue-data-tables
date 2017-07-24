@@ -207,6 +207,7 @@ export default {
           let props = filter.props || allProps
           return props.some(prop => {
             let elVal = el[prop]
+            /* istanbul ignore if */
             if (!elVal) {
               console.error(ErrorTips.propError(prop))
             }
@@ -314,6 +315,7 @@ export default {
           let props = filter.props || allProps
           return props.some(prop => {
             let elVal = el[prop]
+            /* istanbul ignore if */
             if (!elVal) {
               console.error(ErrorTips.propError(prop))
             }
