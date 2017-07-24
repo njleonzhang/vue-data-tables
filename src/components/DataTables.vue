@@ -268,13 +268,38 @@ export default {
         fit: true
       }, this.tableProps)
     },
+    sortedData() {
+      let sortedData = this.data.slice()
+
+      if (this.sortData.order) {
+        let order = this.sortData.order
+        let prop = this.sortData.prop
+        let isDescending = order === 'descending'
+
+        // todo: customize sort function
+        sortedData.sort(function(a, b) {
+          if (a[prop] > b[prop]) {
+            return 1
+          } else if (a[prop] < b[prop]) {
+            return -1
+          } else {
+            return 0
+          }
+        })
+        if (isDescending) {
+          sortedData.reverse()
+        }
+      }
+
+      return sortedData
+    },
     tableData() {
-      let newData = this.data.slice()
+      let filteredData = this.sortedData.slice()
 
       let doFilter = function(defaultFilterFunction, filter, value) {
         let filterFunction = filter.filterFunction || defaultFilterFunction
 
-        newData = newData.filter(el => {
+        filteredData = filteredData.filter(el => {
           return filterFunction(el, filter)
         })
       }
@@ -301,28 +326,8 @@ export default {
         doFilter(defaultFilterFunction, filter)
       })
 
-      if (this.sortData.order) {
-        let order = this.sortData.order
-        let prop = this.sortData.prop
-        let isDescending = order === 'descending'
-
-        // todo: customize sort function
-        newData.sort(function(a, b) {
-          if (a[prop] > b[prop]) {
-            return 1
-          } else if (a[prop] < b[prop]) {
-            return -1
-          } else {
-            return 0
-          }
-        })
-        if (isDescending) {
-          newData.reverse()
-        }
-      }
-
-      this.$emit('filtered-data', newData)
-      return newData
+      this.$emit('filtered-data', filteredData)
+      return filteredData
     },
     curTableData() {
       let from = this.internalPageSize * (this.currentPage - 1)
