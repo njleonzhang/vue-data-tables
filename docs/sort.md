@@ -8,7 +8,8 @@ To leverage this feature,  property `sortable` of `el-table-column` must be set 
 ```html
 /*vue*/
 <desc>
-`sortable="custom"` is important, indicate default sort column and order
+* `sortable="custom"` is important.
+* `tableProps.defaultSort` indicate default sort column and order
 </desc>
 <template>
   <data-tables
