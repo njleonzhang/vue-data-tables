@@ -22,7 +22,7 @@
 <script>
   Vue.use(DataTables)
   ELEMENT.locale(ELEMENT.lang.en)
-  
+
   var data, titles;
   var id = 0;
 
@@ -77,7 +77,21 @@ titles = [{
     loadSidebar: true,
 
     plugins: [
-      DemoBoxPlugin.create(jsResources, cssResources, bootCode)
+      DemoBoxPlugin.create(jsResources, cssResources, bootCode),
+      function (hook) {
+        var footer = [
+          '<hr/>',
+          '<footer>',
+          '<span><a href="https://github.com/njleonzhang">leon zhang</a> &copy;2017.</span>',
+          '<span>Proudly published with <a href="https://github.com/QingWei-Li/docsify" target="_blank">docsify</a>.</span>',
+          '<blockquote><p>Hope native English speakers can help to review the document and revise. Please contact me if you want to contribute or directly submit PR.</p></blockquote>',
+          '</footer>'
+        ].join('')
+
+        hook.afterEach(function (html) {
+          return html + footer
+        })
+      }
     ]
   }
 </script>
