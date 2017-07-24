@@ -1025,9 +1025,11 @@ var allProps = [];
     },
     handleSizeChange: function handleSizeChange(size) {
       this.internalPageSize = size;
+      this.$emit('size-change', size);
     },
     handleCurrentChange: function handleCurrentChange(currentPage) {
       this.currentPage = currentPage;
+      this.$emit('current-change', currentPage);
     },
     handleFilterChange: function handleFilterChange(checkedFilters) {
       this.checkedFilters = checkedFilters;
@@ -1630,6 +1632,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     },
     attrs: {
       "data": _vm.curTableData
+    },
+    on: {
+      "sort-change": _vm.handleSort
     }
   }, 'el-table', _vm.innerTableProps, false), [_vm._t("default"), (_vm.actionColShow) ? _c('el-table-column', {
     attrs: {
