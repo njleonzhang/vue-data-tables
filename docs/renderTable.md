@@ -77,4 +77,4 @@ export default {
 | Property | Desc | Type | Default value |
 | -- | -- | -- | -- |
 | data | The data array which will be render in the table. | Array | - |
-| table-props | an object to pass any proptery to embed el-table. | Object | - |
+| table-props | an object to pass any [proptery](http://element.eleme.io/#/en-US/component/table#table-attributes) to embed el-table. | Object | - |

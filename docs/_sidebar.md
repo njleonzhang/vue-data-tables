@@ -6,6 +6,7 @@
   - [Table Action](tableAction)
   - [Checkbox Filter](checkboxFilter)
   - [Search Box filter](searchBoxFilter)
+  - [Sort](sort)
   - [Define Action Bar](defineActionBar)
   - [Table Action col](tableActionCol)
   - [Pagination](pagination)

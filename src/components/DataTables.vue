@@ -57,6 +57,7 @@
     el-table(
       ref='elTable'
       :data='curTableData',
+      @sort-change='handleSort'
       v-bind='innerTableProps'
       style='width: 100%')
       slot
@@ -381,9 +382,11 @@ export default {
     },
     handleSizeChange(size) {
       this.internalPageSize = size
+      this.$emit('size-change', size)
     },
     handleCurrentChange(currentPage) {
       this.currentPage = currentPage
+      this.$emit('current-change', currentPage)
     },
     handleFilterChange(checkedFilters) {
       this.checkedFilters = checkedFilters
