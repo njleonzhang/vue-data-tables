@@ -37,4 +37,4 @@ Buttons can be defined in this area to do **row lavel** task. For example, **rev
 # Pagination
 no special explain, just notice the [L10N](quickstart?id=l10n-show-english-in-pagination)
 
-> Play with the [Helloword sample](http://jsfiddle.net/zpczjl/9tp3z4bn/14/) for better understanding
+> Play with the [Helloword sample](http://jsfiddle.net/zpczjl/9tp3z4bn/) for better understanding
