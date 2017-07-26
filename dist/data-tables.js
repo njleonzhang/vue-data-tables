@@ -916,6 +916,7 @@ var allProps = [];
       var sortedData = this.data.slice();
 
       if (this.sortData.order) {
+        if (this.sortData.column.sortable === 'custom' && this._events && this._events['sort-change']) return sortedData;
         var order = this.sortData.order;
         var prop = this.sortData.prop;
         var isDescending = order === 'descending';
@@ -1700,7 +1701,7 @@ var content = __webpack_require__(49);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(14)("668ac427", content, true);
+var update = __webpack_require__(14)("39be8dc0", content, true);
 
 /***/ }),
 /* 56 */
@@ -1713,7 +1714,7 @@ var content = __webpack_require__(50);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(14)("16e9a3a6", content, true);
+var update = __webpack_require__(14)("39f3376d", content, true);
 
 /***/ }),
 /* 57 */
