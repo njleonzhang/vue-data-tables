@@ -233,9 +233,13 @@ export default {
         currentPage: 1
       }, this.paginationDef)
 
-      if (paginationDef.pageSizes.indexOf(paginationDef.pageSize) === -1) {
-        console.warn(`pageSize ${paginationDef.pageSize} is not in pageSizes[${paginationDef.pageSizes}], use the first one(${paginationDef.pageSizes[0]}) in pageSizes`)
-        paginationDef.pageSize = paginationDef.pageSizes[0]
+      if (paginationDef.show === false) {
+        paginationDef.pageSize = this.data.length
+      } else {
+        if (paginationDef.pageSizes.indexOf(paginationDef.pageSize) === -1) {
+          console.warn(`pageSize ${paginationDef.pageSize} is not in pageSizes[${paginationDef.pageSizes}], use the first one(${paginationDef.pageSizes[0]}) in pageSizes`)
+          paginationDef.pageSize = paginationDef.pageSizes[0]
+        }
       }
 
       return paginationDef
@@ -339,13 +343,9 @@ export default {
       return filteredData
     },
     curTableData() {
-      if (this.paginationShow) {
-        let from = this.innerPageSize * (this.currentPage - 1)
-        let to = from + this.innerPageSize
-        return this.tableData.slice(from, to)
-      } else {
-        return this.tableData
-      }
+      let from = this.innerPageSize * (this.currentPage - 1)
+      let to = from + this.innerPageSize
+      return this.tableData.slice(from, to)
     },
     total() {
       return this.tableData.length
