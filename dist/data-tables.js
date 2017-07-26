@@ -867,12 +867,14 @@ var allProps = [];
       }, this.searchDef);
     },
     innerPaginationDef: function innerPaginationDef() {
-      return __WEBPACK_IMPORTED_MODULE_1_babel_runtime_core_js_object_assign___default()({
+      var paginationDef = __WEBPACK_IMPORTED_MODULE_1_babel_runtime_core_js_object_assign___default()({
         layout: 'prev, pager, next, jumper, sizes, total',
         pageSize: 20,
         pageSizes: [20, 50, 100],
         currentPage: 1
       }, this.paginationDef);
+      paginationDef.pageSize = paginationDef.show === false ? this.data.length : paginationDef.pageSize;
+      return paginationDef;
     },
     innerActionColDef: function innerActionColDef() {
       return __WEBPACK_IMPORTED_MODULE_1_babel_runtime_core_js_object_assign___default()({
@@ -1700,7 +1702,7 @@ var content = __webpack_require__(49);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(14)("668ac427", content, true);
+var update = __webpack_require__(14)("39be8dc0", content, true);
 
 /***/ }),
 /* 56 */
@@ -1713,7 +1715,7 @@ var content = __webpack_require__(50);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(14)("16e9a3a6", content, true);
+var update = __webpack_require__(14)("39f3376d", content, true);
 
 /***/ }),
 /* 57 */

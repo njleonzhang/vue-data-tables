@@ -226,12 +226,14 @@ export default {
       }, this.searchDef)
     },
     innerPaginationDef() {
-      return Object.assign({
+      let paginationDef = Object.assign({
         layout: 'prev, pager, next, jumper, sizes, total',
         pageSize: 20,
         pageSizes: [20, 50, 100],
         currentPage: 1
       }, this.paginationDef)
+      paginationDef.pageSize = paginationDef.show === false ? this.data.length : paginationDef.pageSize
+      return paginationDef
     },
     innerActionColDef() {
       return Object.assign({
