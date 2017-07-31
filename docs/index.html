@@ -69,6 +69,30 @@ titles = [{
     + 'Vue.use(DataTables)\n'
     + 'var data, titles\n\n' + define + '\n\n';
 
+  function editDoc(event) {
+    var matchedArray = location.hash.match(/^#\/.*\?/)
+    var matchedStr = matchedArray && matchedArray[0]
+    var docName
+    if (matchedStr) {
+      docName = matchedStr.slice(2, matchedStr.length - 1)
+    } else {
+      matchedArray = location.hash.match(/^#\/.*$/)
+      matchedStr = matchedArray[0]
+      if (matchedStr) {
+        docName = matchedStr.slice(2)
+      }
+    }
+
+    if (docName) {
+      var editLink = 'https://github.com/njleonzhang/vue-data-tables/edit/master/docs/' + docName + '.md'
+      window.open(editLink)
+      event.preventDefault()
+      return false
+    } else {
+      return true
+    }
+  }
+
   window.$docsify = {
     coverpage: true,
     name: 'vue-data-tables',
@@ -79,17 +103,22 @@ titles = [{
     plugins: [
       DemoBoxPlugin.create(jsResources, cssResources, bootCode),
       function (hook) {
+        var header = [
+          '<div style="overflow: auto">',
+          '<p style="float: right"><a href="https://github.com/njleonzhang/vue-data-tables/tree/master/docs" target="_blank" onclick="editDoc(event)">Edit on Github</a></p>',
+          '</div>'
+        ].join('')
+
         var footer = [
           '<hr/>',
           '<footer>',
           '<span><a href="https://github.com/njleonzhang">leon zhang</a> &copy;2017.</span>',
           '<span>Proudly published with <a href="https://github.com/QingWei-Li/docsify" target="_blank">docsify</a>.</span>',
-          '<blockquote><p>Hope native English speakers can help to review the document and revise. Please contact me if you want to contribute or directly submit PR.</p></blockquote>',
           '</footer>'
         ].join('')
 
         hook.afterEach(function (html) {
-          return html + footer
+          return header + html + footer
         })
       }
     ]
