@@ -59,7 +59,7 @@ export default {
           def: [{
             name: 'new',
             handler: () => {
-              this.tableData.push({
+              this.data.push({
                 'content': 'hello world',
                 'flow_no': 'FW201601010004',
                 'flow_type': 'Help',
@@ -88,11 +88,11 @@ export default {
           }]
        },
        actionColDef: {
-       		label: 'Actions',
+           label: 'Actions',
           def: [{
             handler: row => {
               this.$message('Edit clicked')
-							row.flow_no = "hello word"
+              row.flow_no = "hello word"
             },
             name: 'Edit'
           }, {
