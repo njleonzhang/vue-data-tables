@@ -3,11 +3,12 @@
 
 # render the checkbox filter
 property `checkbox-filter-def` is used to defined the checkbox filters
-`colProps` is used to customize the `el-col` of checkbox filter area
 
-`props` indicate the property[s] of `data` to filter.
+* `colProps` is used to customize the `el-col` of checkbox filter area
 
-`def` define the checkbox items.
+* `props` indicate the property[s] of `data` to filter.
+
+* `def` define the checkbox items.
 
 > The default filter logic is that showing the items whose `property` value is same to(included in) the selected item(s).
 
