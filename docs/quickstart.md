@@ -32,7 +32,9 @@ check [element-ui doc](http://element.eleme.io/#/en-US/component/i18n) for more 
 ```html
 /*vue*/
 <desc>
-  play and enjoy!
+  * click button `new` to add `row` to the table. 
+  * click button `Edit` to edit the row
+  * try to filter the table by checkbox filter and searchbox
 </desc>
 <template>
   <data-tables :data='data'
