@@ -8,7 +8,7 @@
 <template lang='pug'>
   #app
     el-card
-      a(href='https://github.com/njleonzhang/vue-data-tables/tree/master/example/docs/cn.vue', target='_blank') compare to the source code
+      a(href='https://github.com/njleonzhang/vue-data-tables/blob/1.x/example/docs/cn.vue', target='_blank') compare to the source code
 
     el-card
       .desc
