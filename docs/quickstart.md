@@ -80,7 +80,7 @@ export default {
           }]
         },
         checkFilterDef: {
-          props: 'flow_type',
+          props: 'flow_type_code',
           def: [{
             'code': 'repair',
             'name': 'Repair'
