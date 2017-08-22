@@ -10,10 +10,10 @@
 * [Full Doc](https://njleonzhang.github.io/vue-data-tables)
 * [Online Demo](http://jsfiddle.net/zpczjl/9tp3z4bn/)
 
-> Hope native English speakers can help to review the document and revise. Please contact me if you want to contribute
+> I hope that native English speakers can help to review the documentation and revise accordingly. Please contact me if you would like to contribute.
 
-## Submit a issues
-Please provide a reproduce demo via refrencing [boilerplate](http://jsfiddle.net/zpczjl/9tp3z4bn/)
+## Submitting an issue
+Please provide a reproducible demo via referencing [boilerplate](http://jsfiddle.net/zpczjl/9tp3z4bn/)
 
 ## Dev
 
@@ -29,7 +29,7 @@ yarn install
 npm run play
 ```
 
-## lengcy version(1.x)
+## legacy version(1.x)
 [Code](https://github.com/njleonzhang/vue-data-tables/tree/1.x)
 
 [Doc](https://njleonzhang.github.io/vue-data-tables-1.x-doc/)
