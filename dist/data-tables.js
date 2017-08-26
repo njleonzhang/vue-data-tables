@@ -727,8 +727,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 
-var allProps = [];
-
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'DataTables',
   components: {
@@ -820,7 +818,7 @@ var allProps = [];
     return {
       sortData: {},
       currentPage: 1,
-      internalPageSize: 20,
+      innerPageSize: 20,
       searchKey: '',
       innerSearchKey: '',
       checkedFilters: [],
@@ -838,6 +836,7 @@ var allProps = [];
       }, this.actionsDef);
     },
     innerCheckboxFilterDef: function innerCheckboxFilterDef() {
+      var _allDataProps = this._allDataProps;
       return __WEBPACK_IMPORTED_MODULE_1_babel_runtime_core_js_object_assign___default()({
         props: undefined,
         def: [],
@@ -845,11 +844,11 @@ var allProps = [];
           span: 14
         },
         filterFunction: function filterFunction(el, filter) {
-          var props = filter.props || allProps;
+          var props = filter.props || _allDataProps;
           return props.some(function (prop) {
             var elVal = el[prop];
 
-            if (!elVal) {
+            if (elVal === undefined) {
               console.error(__WEBPACK_IMPORTED_MODULE_3_components_ErrorTips_js__["a" /* default */].propError(prop));
             }
             return filter.vals.some(function (val) {
@@ -873,7 +872,16 @@ var allProps = [];
         pageSizes: [20, 50, 100],
         currentPage: 1
       }, this.paginationDef);
-      paginationDef.pageSize = paginationDef.show === false ? this.data.length : paginationDef.pageSize;
+
+      if (paginationDef.show === false) {
+        paginationDef.pageSize = this.data.length;
+      } else {
+        if (paginationDef.pageSizes.indexOf(paginationDef.pageSize) === -1) {
+          console.warn('pageSize ' + paginationDef.pageSize + ' is not in pageSizes[' + paginationDef.pageSizes + '], use the first one(' + paginationDef.pageSizes[0] + ') in pageSizes');
+          paginationDef.pageSize = paginationDef.pageSizes[0];
+        }
+      }
+
       return paginationDef;
     },
     innerActionColDef: function innerActionColDef() {
@@ -940,8 +948,9 @@ var allProps = [];
     },
     tableData: function tableData() {
       var filteredData = this.sortedData.slice();
+      var _allDataProps = this._allDataProps;
 
-      var doFilter = function doFilter(defaultFilterFunction, filter, value) {
+      var doFilter = function doFilter(defaultFilterFunction, filter) {
         var filterFunction = filter.filterFunction || defaultFilterFunction;
 
         filteredData = filteredData.filter(function (el) {
@@ -956,11 +965,11 @@ var allProps = [];
         }
 
         var defaultFilterFunction = function defaultFilterFunction(el, filter) {
-          var props = filter.props || allProps;
+          var props = filter.props || _allDataProps;
           return props.some(function (prop) {
             var elVal = el[prop];
 
-            if (!elVal) {
+            if (elVal === undefined) {
               console.error(__WEBPACK_IMPORTED_MODULE_3_components_ErrorTips_js__["a" /* default */].propError(prop));
             }
             return filter.vals.some(function (val) {
@@ -976,8 +985,8 @@ var allProps = [];
       return filteredData;
     },
     curTableData: function curTableData() {
-      var from = this.internalPageSize * (this.currentPage - 1);
-      var to = from + this.internalPageSize;
+      var from = this.innerPageSize * (this.currentPage - 1);
+      var to = from + this.innerPageSize;
       return this.tableData.slice(from, to);
     },
     total: function total() {
@@ -1033,7 +1042,7 @@ var allProps = [];
       };
     },
     handleSizeChange: function handleSizeChange(size) {
-      this.internalPageSize = size;
+      this.innerPageSize = size;
       this.$emit('size-change', size);
     },
     handleCurrentChange: function handleCurrentChange(currentPage) {
@@ -1048,7 +1057,7 @@ var allProps = [];
     innerPaginationDef: {
       immediate: true,
       handler: function handler(val) {
-        this.internalPageSize = val.pageSize;
+        this.innerPageSize = val.pageSize;
         this.currentPage = val.currentPage;
       }
     },
@@ -1059,7 +1068,7 @@ var allProps = [];
     data: {
       immediate: true,
       handler: function handler(val) {
-        allProps = __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_object_keys___default()(val && val[0] || {});
+        this._allDataProps = __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_object_keys___default()(val && val[0] || {});
       }
     }
   }
@@ -1680,7 +1689,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "current-page": _vm.currentPage,
       "page-sizes": _vm.innerPaginationDef.pageSizes,
-      "page-size": _vm.internalPageSize,
+      "page-size": _vm.innerPageSize,
       "layout": _vm.innerPaginationDef.layout,
       "total": _vm.total
     },
@@ -1702,7 +1711,7 @@ var content = __webpack_require__(49);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(14)("39be8dc0", content, true);
+var update = __webpack_require__(14)("668ac427", content, true);
 
 /***/ }),
 /* 56 */
@@ -1715,7 +1724,7 @@ var content = __webpack_require__(50);
 if(typeof content === 'string') content = [[module.i, content, '']];
 if(content.locals) module.exports = content.locals;
 // add the styles to the DOM
-var update = __webpack_require__(14)("39f3376d", content, true);
+var update = __webpack_require__(14)("16e9a3a6", content, true);
 
 /***/ }),
 /* 57 */

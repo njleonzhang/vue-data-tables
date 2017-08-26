@@ -93,8 +93,6 @@ import CheckboxGroup from 'components/ScCheckboxGroup'
 import ErrorTips from 'components/ErrorTips.js'
 import debounce from 'javascript-debounce'
 
-let allProps = []
-
 export default {
   name: 'DataTables',
   components: {
@@ -197,6 +195,7 @@ export default {
       }, this.actionsDef)
     },
     innerCheckboxFilterDef() {
+      let _allDataProps = this._allDataProps
       return Object.assign({
         props: undefined,
         def: [],
@@ -204,11 +203,11 @@ export default {
           span: 14
         },
         filterFunction: (el, filter) => {
-          let props = filter.props || allProps
+          let props = filter.props || _allDataProps
           return props.some(prop => {
             let elVal = el[prop]
             /* istanbul ignore if */
-            if (!elVal) {
+            if (elVal === undefined) {
               console.error(ErrorTips.propError(prop))
             }
             return filter.vals.some(val => {
@@ -307,8 +306,9 @@ export default {
     },
     tableData() {
       let filteredData = this.sortedData.slice()
+      let _allDataProps = this._allDataProps
 
-      let doFilter = function(defaultFilterFunction, filter, value) {
+      let doFilter = function(defaultFilterFunction, filter) {
         let filterFunction = filter.filterFunction || defaultFilterFunction
 
         filteredData = filteredData.filter(el => {
@@ -323,11 +323,11 @@ export default {
         }
 
         let defaultFilterFunction = function(el, filter) {
-          let props = filter.props || allProps
+          let props = filter.props || _allDataProps
           return props.some(prop => {
             let elVal = el[prop]
             /* istanbul ignore if */
-            if (!elVal) {
+            if (elVal === undefined) {
               console.error(ErrorTips.propError(prop))
             }
             return filter.vals.some(val => {
@@ -424,7 +424,7 @@ export default {
     data: {
       immediate: true,
       handler(val) {
-        allProps = Object.keys(val && val[0] || {})
+        this._allDataProps = Object.keys(val && val[0] || {})
       }
     }
   }
