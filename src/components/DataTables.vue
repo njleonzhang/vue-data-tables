@@ -89,8 +89,8 @@
 </template>
 
 <script>
-import CheckboxGroup from 'components/ScCheckboxGroup'
-import ErrorTips from 'components/ErrorTips.js'
+import CheckboxGroup from './ScCheckboxGroup'
+import ErrorTips from './ErrorTips.js'
 import debounce from 'javascript-debounce'
 
 export default {
@@ -221,7 +221,8 @@ export default {
       return Object.assign({
         show: true,
         props: undefined,
-        filterFunction: undefined
+        filterFunction: undefined,
+        debounceTime: 200
       }, this.searchDef)
     },
     innerPaginationDef() {
@@ -379,6 +380,12 @@ export default {
         })
       }
       return filters
+    },
+    updateInnerSearchKey() {
+      const timeout = this.innerSearchDef.debounceTime
+      return debounce(_ => {
+        this.innerSearchKey = this.searchKey
+      }, timeout)
     }
   },
   methods: {
@@ -388,9 +395,6 @@ export default {
     formatToArray(filters) {
       return filters ? [].concat(filters) : []
     },
-    updateInnerSearchKey: debounce(function() {
-      this.innerSearchKey = this.searchKey
-    }, 200),
     handleSort(obj) {
       this.sortData = obj
       this.innerTableProps.defaultSort = {

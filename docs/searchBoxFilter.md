@@ -243,6 +243,7 @@ export default {
 | Property | Desc | Type | Default value |
 | -- | -- | -- | -- |
 | show | show or hide the search box | Boolean | true |
+| debounceTime | typing debounce time for search box | Number | 200 |
 | colProps | [el-col property](http://element.eleme.io/#/en-US/component/layout#col-attributes) of seach box area | Object | {span: 5} |
 | inputProps | [el-input property](http://element.eleme.io/#/en-US/component/input#input-attributes) of seach box | Object | - |
 | props | define the search box match properties | Array | - |
