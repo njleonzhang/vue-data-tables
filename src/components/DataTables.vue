@@ -55,10 +55,10 @@
       slot(name='custom-tool-bar')
 
     el-table(
-      ref='elTable'
+      ref='elTable',
       :data='curTableData',
-      @sort-change='handleSort'
-      v-bind='innerTableProps'
+      @sort-change='handleSort',
+      v-bind='innerTableProps',
       style='width: 100%')
       slot
       el-table-column(
@@ -209,7 +209,10 @@ export default {
             /* istanbul ignore if */
             if (elVal === undefined) {
               console.error(ErrorTips.propError(prop))
+            } else if (elVal === null) {
+              return false
             }
+
             return filter.vals.some(val => {
               return elVal.toString() === val
             })
@@ -330,7 +333,10 @@ export default {
             /* istanbul ignore if */
             if (elVal === undefined) {
               console.error(ErrorTips.propError(prop))
+            } else if (elVal === null) {
+              return false
             }
+
             return filter.vals.some(val => {
               return elVal.toString().toLowerCase().indexOf(val.toLowerCase()) > -1
             })
