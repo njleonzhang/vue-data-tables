@@ -210,10 +210,10 @@ describe('checkedFilters', _ => {
 
     let tableData = [{
       name: 'leon',
-      age: null
+      age: 9
     }, {
       name: 'candy',
-      age: 1
+      age: null
     }]
 
     let vm = createVue({
@@ -251,7 +251,6 @@ describe('checkedFilters', _ => {
         await sleep(DELAY)
 
         let filters = vm.$el.querySelector('.filters')
-        console.log(filters)
         let checkboxGroup = filters.querySelector('.el-checkbox-group')
         let checkboxs = checkboxGroup.children
 
