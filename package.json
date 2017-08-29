@@ -1,6 +1,6 @@
 {
   "name": "vue-data-tables",
-  "version": "2.0.3",
+  "version": "2.0.4",
   "description": "A simple and customizable, front-end pagination datatables，based on vue2 and element-ui.",
   "author": "njleonzhang <scream3616@sina.com>",
   "main": "dist/data-tables.min.js",
