@@ -79,8 +79,8 @@ export default {
 
 property of object in `action-col-def.def`
 
-| Property | Desc | Type | Accepted Values | Default value |
-| -- | -- | -- | -- | -- |
-| type | the type of `el-button` | String | primary/success/warning/danger/info/text | text |  
-| name | label of the button | String | - |  - |
-| handler | callback for button click. parameter `row` represents the element corresponded to this row in `data` | Function | - | - |
+| Property | Desc | Type | Accepted Values | Default value | parameters |
+| -- | -- | -- | -- | -- | -- |
+| type | the type of `el-button` | String | primary<br/>success<br/>warning<br/>danger<br/>info<br/>text | text | - |
+| name | label of the button | String | - |  - | - |
+| handler(row, index, column, store) | callback for button click. | Function | - | - | 1. `row` represents the element corresponded to this row in `data` <br> 2. `index` indicate the index of the element in current page <br> 3. `column` and `store` are `e-table` internal variable, you may nearly never use them directly, export here for advanced usage |

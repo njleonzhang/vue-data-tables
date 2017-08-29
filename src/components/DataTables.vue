@@ -75,7 +75,8 @@
               el-button(
                 :type='action.type || "text"',
                 :icon='action.icon',
-                @click='action.handler(scope.row)') {{action.name}}
+                @click='action.handler(scope.row, scope.$index, scope.column, scope.store)')
+                | {{action.name}}
 
     .pagination-wrap(v-if='paginationShow')
       el-pagination(
