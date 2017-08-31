@@ -15,6 +15,7 @@
 <script src="//unpkg.com/vue/dist/vue.js"></script>
 <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
 <script src="https://rawgit.com/njleonzhang/docsify-demo-box/master/dist/docsify-demo-box-plugin.js"></script>
+<script src="//unpkg.com/docsify-edit-on-github@1.0.0/index.js"></script>
 <script src="https://unpkg.com/element-ui/lib/index.js"></script>
 <script src="//unpkg.com/element-ui/lib/umd/locale/en.js"></script>
 <script src="https://rawgit.com/njleonzhang/vue-data-tables/master/dist/data-tables.min.js"></script>
@@ -69,30 +70,6 @@ titles = [{
     + 'Vue.use(DataTables)\n'
     + 'var data, titles\n\n' + define + '\n\n';
 
-  function editDoc(event) {
-    var matchedArray = location.hash.match(/^#\/.*\?/)
-    var matchedStr = matchedArray && matchedArray[0]
-    var docName
-    if (matchedStr) {
-      docName = matchedStr.slice(2, matchedStr.length - 1)
-    } else {
-      matchedArray = location.hash.match(/^#\/.*$/)
-      matchedStr = matchedArray[0]
-      if (matchedStr) {
-        docName = matchedStr.slice(2)
-      }
-    }
-
-    if (docName) {
-      var editLink = 'https://github.com/njleonzhang/vue-data-tables/edit/master/docs/' + docName + '.md'
-      window.open(editLink)
-      event.preventDefault()
-      return false
-    } else {
-      return true
-    }
-  }
-
   window.$docsify = {
     coverpage: true,
     name: 'vue-data-tables',
@@ -102,13 +79,10 @@ titles = [{
 
     plugins: [
       DemoBoxPlugin.create(jsResources, cssResources, bootCode),
+      EditOnGithubPlugin.create(
+        'https://github.com/njleonzhang/vue-data-tables/edit/master/docs/'
+      ),
       function (hook) {
-        var header = [
-          '<div style="overflow: auto">',
-          '<p style="float: right"><a href="https://github.com/njleonzhang/vue-data-tables/tree/master/docs" target="_blank" onclick="editDoc(event)">Edit on Github</a></p>',
-          '</div>'
-        ].join('')
-
         var footer = [
           '<hr/>',
           '<footer>',
@@ -118,7 +92,7 @@ titles = [{
         ].join('')
 
         hook.afterEach(function (html) {
-          return header + html + footer
+          return html + footer
         })
       }
     ]
