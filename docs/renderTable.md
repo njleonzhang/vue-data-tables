@@ -3,7 +3,7 @@
 
 # Basic table
 
-Define use `data` property define the data source, and add `el-table-column` inside tag `data-tables` to define the column. In fact, it is same to [el-table](http://element.eleme.io/#/en-US/component/table)
+Use `data` property to define the data source, add `el-table-column` inside tag `data-tables` to add the column. In fact, it is same to [el-table](http://element.eleme.io/#/en-US/component/table)
 
 ```html
 /*vue*/
