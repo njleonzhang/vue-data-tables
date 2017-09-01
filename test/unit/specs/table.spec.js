@@ -37,6 +37,30 @@ describe('render table', _ => {
       done()
     }, DELAY)
   })
+
+  it('no data', done => {
+    let vm = createVue({
+      template: `
+        <data-tables>
+          <el-table-column v-for="title in titles"
+            :prop="title.prop"
+            :label="title.label"
+            :key="title.prop" sortable="custom"/>
+        </data-tables>
+      `,
+      data() {
+        return {
+          titles
+        }
+      },
+    }, true)
+
+    setTimeout(_ => {
+      let rows = vm.$el.querySelector('tbody').querySelectorAll('tr')
+      rows.length.should.equal(0)
+      done()
+    }, DELAY)
+  })
 })
 
 describe('data table property', _ => {
@@ -68,76 +92,6 @@ describe('data table property', _ => {
       vm.$el.querySelector('thead').querySelectorAll('th')[9].innerText.should.equal("")
       done()
     })
-  })
-
-  it('col can not click', done => {
-    let rowClickCnt = 0
-
-    let vm = createVue({
-      template: `
-        <data-tables :data="tableData"
-          :col-not-row-click="canNotClickList"
-          :action-col-def="actionColDef"
-          @row-click="itemClick()">
-          <el-table-column v-for="title in titles"
-            :prop="title.prop"
-            :label="title.label"
-            :key="title.prop" sortable="custom"/>
-        </data-tables>
-      `,
-      data() {
-        return {
-          tableData,
-          titles,
-          canNotClickList: ['flow_no', 'room_no'],
-          actionColDef: {
-            def: [{
-              name: 'test'
-            }]
-          }
-        }
-      },
-      methods: {
-        itemClick() {
-          rowClickCnt++
-        }
-      }
-    }, true)
-
-    var test = async function() {
-      try {
-        // include a width0 column seems from element
-        await sleep(DELAY)
-        let secondItem = vm.$el.querySelectorAll('.el-table__row')[1]
-        let secondItemTds = secondItem.querySelectorAll('td')
-
-        await sleep(DELAY)
-        secondItemTds[0].click()
-        rowClickCnt.should.equal(0)
-
-        await sleep(DELAY)
-        secondItemTds[5].click()
-        rowClickCnt.should.equal(1)
-
-        await sleep(DELAY)
-        secondItemTds[7].click()
-        rowClickCnt.should.equal(1)
-
-        await sleep(DELAY)
-        for (var i = 0; i < 10; i++) {
-          secondItemTds[2].click()
-        }
-        rowClickCnt.should.equal(11)
-
-        await sleep(DELAY)
-        secondItemTds[9].click()
-        rowClickCnt.should.equal(11)
-
-        done();
-      } catch (err) {
-        done(err);
-      }
-    } ()
   })
 
   it('tableProps', done => {

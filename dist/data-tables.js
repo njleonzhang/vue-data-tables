@@ -714,9 +714,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_object_keys___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_object_keys__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_babel_runtime_core_js_object_assign__ = __webpack_require__(20);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_babel_runtime_core_js_object_assign___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_babel_runtime_core_js_object_assign__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_components_ScCheckboxGroup__ = __webpack_require__(52);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_components_ScCheckboxGroup___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_components_ScCheckboxGroup__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_components_ErrorTips_js__ = __webpack_require__(16);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ScCheckboxGroup__ = __webpack_require__(52);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ScCheckboxGroup___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__ScCheckboxGroup__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ErrorTips_js__ = __webpack_require__(16);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_javascript_debounce__ = __webpack_require__(51);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_javascript_debounce___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_javascript_debounce__);
 
@@ -727,12 +727,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 
-var allProps = [];
-
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'DataTables',
   components: {
-    CheckboxGroup: __WEBPACK_IMPORTED_MODULE_2_components_ScCheckboxGroup___default.a
+    CheckboxGroup: __WEBPACK_IMPORTED_MODULE_2__ScCheckboxGroup___default.a
   },
   props: {
     data: {
@@ -794,11 +792,33 @@ var allProps = [];
       }
     }
   },
+  mounted: function mounted() {
+    var _this = this;
+
+    var elTableVm = this.$refs['elTable'];
+    var oldEmit = elTableVm.$emit;
+    elTableVm.$emit = function () {
+      for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+        args[_key] = arguments[_key];
+      }
+
+      var command = args[0];
+      if (command === 'row-click' || command === 'cell-click') {
+        var column = command === 'row-click' ? args[3] : args[2];
+        if (column && _this.innerColNotRowClick.indexOf(column.property) === -1) {
+          _this.$emit.apply(_this, args);
+        }
+      } else {
+        _this.$emit.apply(_this, args);
+      }
+      oldEmit.apply(elTableVm, args);
+    };
+  },
   data: function data() {
     return {
       sortData: {},
       currentPage: 1,
-      internalPageSize: 20,
+      innerPageSize: 20,
       searchKey: '',
       innerSearchKey: '',
       checkedFilters: [],
@@ -816,6 +836,7 @@ var allProps = [];
       }, this.actionsDef);
     },
     innerCheckboxFilterDef: function innerCheckboxFilterDef() {
+      var _allDataProps = this._allDataProps;
       return __WEBPACK_IMPORTED_MODULE_1_babel_runtime_core_js_object_assign___default()({
         props: undefined,
         def: [],
@@ -823,12 +844,16 @@ var allProps = [];
           span: 14
         },
         filterFunction: function filterFunction(el, filter) {
-          var props = filter.props || allProps;
+          var props = filter.props || _allDataProps;
           return props.some(function (prop) {
             var elVal = el[prop];
-            if (!elVal) {
-              console.error(__WEBPACK_IMPORTED_MODULE_3_components_ErrorTips_js__["a" /* default */].propError(prop));
+
+            if (elVal === undefined) {
+              console.error(__WEBPACK_IMPORTED_MODULE_3__ErrorTips_js__["a" /* default */].propError(prop));
+            } else if (elVal === null) {
+              return false;
             }
+
             return filter.vals.some(function (val) {
               return elVal.toString() === val;
             });
@@ -840,16 +865,28 @@ var allProps = [];
       return __WEBPACK_IMPORTED_MODULE_1_babel_runtime_core_js_object_assign___default()({
         show: true,
         props: undefined,
-        filterFunction: undefined
+        filterFunction: undefined,
+        debounceTime: 200
       }, this.searchDef);
     },
     innerPaginationDef: function innerPaginationDef() {
-      return __WEBPACK_IMPORTED_MODULE_1_babel_runtime_core_js_object_assign___default()({
+      var paginationDef = __WEBPACK_IMPORTED_MODULE_1_babel_runtime_core_js_object_assign___default()({
         layout: 'prev, pager, next, jumper, sizes, total',
         pageSize: 20,
         pageSizes: [20, 50, 100],
         currentPage: 1
       }, this.paginationDef);
+
+      if (paginationDef.show === false) {
+        paginationDef.pageSize = this.data.length;
+      } else {
+        if (paginationDef.pageSizes.indexOf(paginationDef.pageSize) === -1) {
+          console.warn('pageSize ' + paginationDef.pageSize + ' is not in pageSizes[' + paginationDef.pageSizes + '], use the first one(' + paginationDef.pageSizes[0] + ') in pageSizes');
+          paginationDef.pageSize = paginationDef.pageSizes[0];
+        }
+      }
+
+      return paginationDef;
     },
     innerActionColDef: function innerActionColDef() {
       return __WEBPACK_IMPORTED_MODULE_1_babel_runtime_core_js_object_assign___default()({
@@ -866,7 +903,7 @@ var allProps = [];
       return this.colNotRowClick.concat([this.actionColProp]);
     },
     innerCustomFilters: function innerCustomFilters() {
-      var _this = this;
+      var _this2 = this;
 
       var customFilterArray = this.formatToArray(this.customFilters);
       var customFilters = [];
@@ -874,8 +911,8 @@ var allProps = [];
         var filterCopy = __WEBPACK_IMPORTED_MODULE_1_babel_runtime_core_js_object_assign___default()({}, filter);
 
         filterCopy = {
-          props: _this.formatProps(filterCopy.props),
-          vals: _this.formatToArray(filter.vals)
+          props: _this2.formatProps(filterCopy.props),
+          vals: _this2.formatToArray(filter.vals)
         };
 
         customFilters.push(filterCopy);
@@ -889,13 +926,38 @@ var allProps = [];
         fit: true
       }, this.tableProps);
     },
-    tableData: function tableData() {
-      var newData = this.data.slice();
+    sortedData: function sortedData() {
+      var sortedData = this.data.slice();
 
-      var doFilter = function doFilter(defaultFilterFunction, filter, value) {
+      if (this.sortData.order) {
+        var order = this.sortData.order;
+        var prop = this.sortData.prop;
+        var isDescending = order === 'descending';
+
+        sortedData.sort(function (a, b) {
+          if (a[prop] > b[prop]) {
+            return 1;
+          } else if (a[prop] < b[prop]) {
+            return -1;
+          } else {
+            return 0;
+          }
+        });
+        if (isDescending) {
+          sortedData.reverse();
+        }
+      }
+
+      return sortedData;
+    },
+    tableData: function tableData() {
+      var filteredData = this.sortedData.slice();
+      var _allDataProps = this._allDataProps;
+
+      var doFilter = function doFilter(defaultFilterFunction, filter) {
         var filterFunction = filter.filterFunction || defaultFilterFunction;
 
-        newData = newData.filter(function (el) {
+        filteredData = filteredData.filter(function (el) {
           return filterFunction(el, filter);
         });
       };
@@ -907,12 +969,16 @@ var allProps = [];
         }
 
         var defaultFilterFunction = function defaultFilterFunction(el, filter) {
-          var props = filter.props || allProps;
+          var props = filter.props || _allDataProps;
           return props.some(function (prop) {
             var elVal = el[prop];
-            if (!elVal) {
-              console.error(__WEBPACK_IMPORTED_MODULE_3_components_ErrorTips_js__["a" /* default */].propError(prop));
+
+            if (elVal === undefined) {
+              console.error(__WEBPACK_IMPORTED_MODULE_3__ErrorTips_js__["a" /* default */].propError(prop));
+            } else if (elVal === null) {
+              return false;
             }
+
             return filter.vals.some(function (val) {
               return elVal.toString().toLowerCase().indexOf(val.toLowerCase()) > -1;
             });
@@ -922,31 +988,12 @@ var allProps = [];
         doFilter(defaultFilterFunction, filter);
       });
 
-      if (this.sortData.order) {
-        var order = this.sortData.order;
-        var prop = this.sortData.prop;
-        var isDescending = order === 'descending';
-
-        newData.sort(function (a, b) {
-          if (a[prop] > b[prop]) {
-            return 1;
-          } else if (a[prop] < b[prop]) {
-            return -1;
-          } else {
-            return 0;
-          }
-        });
-        if (isDescending) {
-          newData.reverse();
-        }
-      }
-
-      this.$emit('filtered-data', newData);
-      return newData;
+      this.$emit('filtered-data', filteredData);
+      return filteredData;
     },
     curTableData: function curTableData() {
-      var from = this.internalPageSize * (this.currentPage - 1);
-      var to = from + this.internalPageSize;
+      var from = this.innerPageSize * (this.currentPage - 1);
+      var to = from + this.innerPageSize;
       return this.tableData.slice(from, to);
     },
     total: function total() {
@@ -981,6 +1028,14 @@ var allProps = [];
         });
       }
       return filters;
+    },
+    updateInnerSearchKey: function updateInnerSearchKey() {
+      var _this3 = this;
+
+      var timeout = this.innerSearchDef.debounceTime;
+      return __WEBPACK_IMPORTED_MODULE_4_javascript_debounce___default()(function (_) {
+        _this3.innerSearchKey = _this3.searchKey;
+      }, timeout);
     }
   },
   methods: {
@@ -990,10 +1045,6 @@ var allProps = [];
     formatToArray: function formatToArray(filters) {
       return filters ? [].concat(filters) : [];
     },
-
-    updateInnerSearchKey: __WEBPACK_IMPORTED_MODULE_4_javascript_debounce___default()(function () {
-      this.innerSearchKey = this.searchKey;
-    }, 200),
     handleSort: function handleSort(obj) {
       this.sortData = obj;
       this.innerTableProps.defaultSort = {
@@ -1002,37 +1053,22 @@ var allProps = [];
       };
     },
     handleSizeChange: function handleSizeChange(size) {
-      this.internalPageSize = size;
+      this.innerPageSize = size;
+      this.$emit('size-change', size);
     },
     handleCurrentChange: function handleCurrentChange(currentPage) {
       this.currentPage = currentPage;
+      this.$emit('current-change', currentPage);
     },
     handleFilterChange: function handleFilterChange(checkedFilters) {
       this.checkedFilters = checkedFilters;
-    },
-    handleRowClick: function handleRowClick(row, event, column) {
-      if (column && this.innerColNotRowClick.indexOf(column.property) === -1) {
-        this.$emit('row-click', row);
-      }
-    },
-    handleSelectChange: function handleSelectChange(selection) {
-      this.$emit('selection-change', selection);
-    },
-    handleSelect: function handleSelect(selection, row) {
-      this.$emit('select', selection, row);
-    },
-    handleSelectAll: function handleSelectAll(selection) {
-      this.$emit('select-all', selection);
-    },
-    handleCurrentRowChange: function handleCurrentRowChange(currentRow, oldCurrentRow) {
-      this.$emit('current-change', currentRow, oldCurrentRow);
     }
   },
   watch: {
     innerPaginationDef: {
       immediate: true,
       handler: function handler(val) {
-        this.internalPageSize = val.pageSize;
+        this.innerPageSize = val.pageSize;
         this.currentPage = val.currentPage;
       }
     },
@@ -1043,7 +1079,7 @@ var allProps = [];
     data: {
       immediate: true,
       handler: function handler(val) {
-        allProps = __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_object_keys___default()(val && val[0] || {});
+        this._allDataProps = __WEBPACK_IMPORTED_MODULE_0_babel_runtime_core_js_object_keys___default()(val && val[0] || {});
       }
     }
   }
@@ -1580,7 +1616,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "tool-bar"
   }, [(_vm.actionsShow) ? _c('el-col', _vm._b({
     staticClass: "actions"
-  }, 'el-col', _vm.innerActionsDef.colProps), _vm._l((_vm.innerActionsDef.def), function(action) {
+  }, 'el-col', _vm.innerActionsDef.colProps, false), _vm._l((_vm.innerActionsDef.def), function(action) {
     return _c('el-button', _vm._b({
       key: action.name,
       attrs: {
@@ -1590,10 +1626,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       on: {
         "click": action.handler
       }
-    }, 'el-button', action.buttonProps), [_vm._v(_vm._s(action.name))])
+    }, 'el-button', action.buttonProps, false), [_vm._v(_vm._s(action.name))])
   })) : _vm._e(), (_vm.checkboxShow) ? _c('el-col', _vm._b({
     staticClass: "filters"
-  }, 'el-col', _vm.innerCheckboxFilterDef.colProps), [_c('checkbox-group', {
+  }, 'el-col', _vm.innerCheckboxFilterDef.colProps, false), [_c('checkbox-group', {
     attrs: {
       "checks": _vm.innerCheckboxFilterDef.def
     },
@@ -1605,7 +1641,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "span": _vm.innerSearchDef.colProps && _vm.innerSearchDef.colProps.span || 5
     }
-  }, 'el-col', _vm.innerSearchDef.colProps), [_c('el-input', _vm._b({
+  }, 'el-col', _vm.innerSearchDef.colProps, false), [_c('el-input', _vm._b({
     attrs: {
       "icon": "search"
     },
@@ -1616,9 +1652,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       },
       expression: "searchKey"
     }
-  }, 'el-input', _vm.innerSearchDef.inputProps))], 1) : _vm._e()], 1) : _vm._e(), _c('div', {
+  }, 'el-input', _vm.innerSearchDef.inputProps, false))], 1) : _vm._e()], 1) : _vm._e(), _c('div', {
     staticClass: "custom-tool-bar"
   }, [_vm._t("custom-tool-bar")], 2), _c('el-table', _vm._b({
+    ref: "elTable",
     staticStyle: {
       "width": "100%"
     },
@@ -1626,14 +1663,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "data": _vm.curTableData
     },
     on: {
-      "sort-change": _vm.handleSort,
-      "row-click": _vm.handleRowClick,
-      "selection-change": _vm.handleSelectChange,
-      "select": _vm.handleSelect,
-      "select-all": _vm.handleSelectAll,
-      "current-change": _vm.handleCurrentRowChange
+      "sort-change": _vm.handleSort
     }
-  }, 'el-table', _vm.innerTableProps), [_vm._t("default"), (_vm.actionColShow) ? _c('el-table-column', {
+  }, 'el-table', _vm.innerTableProps, false), [_vm._t("default"), (_vm.actionColShow) ? _c('el-table-column', {
     attrs: {
       "prop": _vm.actionColProp,
       "fixed": _vm.innerActionColDef.fixed,
@@ -1655,7 +1687,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
             },
             on: {
               "click": function($event) {
-                action.handler(scope.row)
+                action.handler(scope.row, scope.$index, scope.column, scope.store)
               }
             }
           }, [_vm._v(_vm._s(action.name))])], 1)
@@ -1668,7 +1700,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "current-page": _vm.currentPage,
       "page-sizes": _vm.innerPaginationDef.pageSizes,
-      "page-size": _vm.internalPageSize,
+      "page-size": _vm.innerPageSize,
       "layout": _vm.innerPaginationDef.layout,
       "total": _vm.total
     },

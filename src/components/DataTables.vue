@@ -50,19 +50,15 @@
         el-input(
           v-model='searchKey',
           v-bind='innerSearchDef.inputProps'
-          icon='search')
+          :icon='innerSearchDef.inputProps.icon || "search"')
     .custom-tool-bar
       slot(name='custom-tool-bar')
 
     el-table(
+      ref='elTable',
       :data='curTableData',
       @sort-change='handleSort',
-      @row-click='handleRowClick',
-      @selection-change='handleSelectChange',
-      @select='handleSelect',
-      @select-all='handleSelectAll',
-      @current-change='handleCurrentRowChange',
-      v-bind='innerTableProps'
+      v-bind='innerTableProps',
       style='width: 100%')
       slot
       el-table-column(
@@ -79,7 +75,8 @@
               el-button(
                 :type='action.type || "text"',
                 :icon='action.icon',
-                @click='action.handler(scope.row)') {{action.name}}
+                @click='action.handler(scope.row, scope.$index, scope.column, scope.store)')
+                | {{action.name}}
 
     .pagination-wrap(v-if='paginationShow')
       el-pagination(
@@ -87,17 +84,15 @@
         @current-change='handleCurrentChange',
         :current-page='currentPage',
         :page-sizes='innerPaginationDef.pageSizes',
-        :page-size='internalPageSize',
+        :page-size='innerPageSize',
         :layout='innerPaginationDef.layout',
         :total='total')
 </template>
 
 <script>
-import CheckboxGroup from 'components/ScCheckboxGroup'
-import ErrorTips from 'components/ErrorTips.js'
+import CheckboxGroup from './ScCheckboxGroup'
+import ErrorTips from './ErrorTips.js'
 import debounce from 'javascript-debounce'
-
-let allProps = []
 
 export default {
   name: 'DataTables',
@@ -164,11 +159,27 @@ export default {
       }
     }
   },
+  mounted() {
+    let elTableVm = this.$refs['elTable']
+    const oldEmit = elTableVm.$emit
+    elTableVm.$emit = (...args) => {
+      let command = args[0]
+      if (command === 'row-click' || command === 'cell-click') {
+        let column = command === 'row-click' ? args[3] : args[2]
+        if (column && this.innerColNotRowClick.indexOf(column.property) === -1) {
+          this.$emit.apply(this, args)
+        }
+      } else {
+        this.$emit.apply(this, args)
+      }
+      oldEmit.apply(elTableVm, args)
+    }
+  },
   data() {
     return {
       sortData: {},
       currentPage: 1,
-      internalPageSize: 20,
+      innerPageSize: 20,
       searchKey: '',
       innerSearchKey: '',
       checkedFilters: [],
@@ -185,6 +196,7 @@ export default {
       }, this.actionsDef)
     },
     innerCheckboxFilterDef() {
+      let _allDataProps = this._allDataProps
       return Object.assign({
         props: undefined,
         def: [],
@@ -192,12 +204,16 @@ export default {
           span: 14
         },
         filterFunction: (el, filter) => {
-          let props = filter.props || allProps
+          let props = filter.props || _allDataProps
           return props.some(prop => {
             let elVal = el[prop]
-            if (!elVal) {
+            /* istanbul ignore if */
+            if (elVal === undefined) {
               console.error(ErrorTips.propError(prop))
+            } else if (elVal === null) {
+              return false
             }
+
             return filter.vals.some(val => {
               return elVal.toString() === val
             })
@@ -209,16 +225,28 @@ export default {
       return Object.assign({
         show: true,
         props: undefined,
-        filterFunction: undefined
+        filterFunction: undefined,
+        debounceTime: 200
       }, this.searchDef)
     },
     innerPaginationDef() {
-      return Object.assign({
+      let paginationDef = Object.assign({
         layout: 'prev, pager, next, jumper, sizes, total',
         pageSize: 20,
         pageSizes: [20, 50, 100],
         currentPage: 1
       }, this.paginationDef)
+
+      if (paginationDef.show === false) {
+        paginationDef.pageSize = this.data.length
+      } else {
+        if (paginationDef.pageSizes.indexOf(paginationDef.pageSize) === -1) {
+          console.warn(`pageSize ${paginationDef.pageSize} is not in pageSizes[${paginationDef.pageSizes}], use the first one(${paginationDef.pageSizes[0]}) in pageSizes`)
+          paginationDef.pageSize = paginationDef.pageSizes[0]
+        }
+      }
+
+      return paginationDef
     },
     innerActionColDef() {
       return Object.assign({
@@ -256,13 +284,39 @@ export default {
         fit: true
       }, this.tableProps)
     },
-    tableData() {
-      let newData = this.data.slice()
+    sortedData() {
+      let sortedData = this.data.slice()
 
-      let doFilter = function(defaultFilterFunction, filter, value) {
+      if (this.sortData.order) {
+        let order = this.sortData.order
+        let prop = this.sortData.prop
+        let isDescending = order === 'descending'
+
+        // todo: customize sort function
+        sortedData.sort(function(a, b) {
+          if (a[prop] > b[prop]) {
+            return 1
+          } else if (a[prop] < b[prop]) {
+            return -1
+          } else {
+            return 0
+          }
+        })
+        if (isDescending) {
+          sortedData.reverse()
+        }
+      }
+
+      return sortedData
+    },
+    tableData() {
+      let filteredData = this.sortedData.slice()
+      let _allDataProps = this._allDataProps
+
+      let doFilter = function(defaultFilterFunction, filter) {
         let filterFunction = filter.filterFunction || defaultFilterFunction
 
-        newData = newData.filter(el => {
+        filteredData = filteredData.filter(el => {
           return filterFunction(el, filter)
         })
       }
@@ -274,12 +328,16 @@ export default {
         }
 
         let defaultFilterFunction = function(el, filter) {
-          let props = filter.props || allProps
+          let props = filter.props || _allDataProps
           return props.some(prop => {
             let elVal = el[prop]
-            if (!elVal) {
+            /* istanbul ignore if */
+            if (elVal === undefined) {
               console.error(ErrorTips.propError(prop))
+            } else if (elVal === null) {
+              return false
             }
+
             return filter.vals.some(val => {
               return elVal.toString().toLowerCase().indexOf(val.toLowerCase()) > -1
             })
@@ -289,32 +347,12 @@ export default {
         doFilter(defaultFilterFunction, filter)
       })
 
-      if (this.sortData.order) {
-        let order = this.sortData.order
-        let prop = this.sortData.prop
-        let isDescending = order === 'descending'
-
-        // todo: customize sort function
-        newData.sort(function(a, b) {
-          if (a[prop] > b[prop]) {
-            return 1
-          } else if (a[prop] < b[prop]) {
-            return -1
-          } else {
-            return 0
-          }
-        })
-        if (isDescending) {
-          newData.reverse()
-        }
-      }
-
-      this.$emit('filtered-data', newData)
-      return newData
+      this.$emit('filtered-data', filteredData)
+      return filteredData
     },
     curTableData() {
-      let from = this.internalPageSize * (this.currentPage - 1)
-      let to = from + this.internalPageSize
+      let from = this.innerPageSize * (this.currentPage - 1)
+      let to = from + this.innerPageSize
       return this.tableData.slice(from, to)
     },
     total() {
@@ -349,6 +387,12 @@ export default {
         })
       }
       return filters
+    },
+    updateInnerSearchKey() {
+      const timeout = this.innerSearchDef.debounceTime
+      return debounce(_ => {
+        this.innerSearchKey = this.searchKey
+      }, timeout)
     }
   },
   methods: {
@@ -358,9 +402,6 @@ export default {
     formatToArray(filters) {
       return filters ? [].concat(filters) : []
     },
-    updateInnerSearchKey: debounce(function() {
-      this.innerSearchKey = this.searchKey
-    }, 200),
     handleSort(obj) {
       this.sortData = obj
       this.innerTableProps.defaultSort = {
@@ -369,37 +410,22 @@ export default {
       }
     },
     handleSizeChange(size) {
-      this.internalPageSize = size
+      this.innerPageSize = size
+      this.$emit('size-change', size)
     },
     handleCurrentChange(currentPage) {
       this.currentPage = currentPage
+      this.$emit('current-change', currentPage)
     },
     handleFilterChange(checkedFilters) {
       this.checkedFilters = checkedFilters
-    },
-    handleRowClick(row, event, column) {
-      if (column && this.innerColNotRowClick.indexOf(column.property) === -1) {
-        this.$emit('row-click', row)
-      }
-    },
-    handleSelectChange(selection) {
-      this.$emit('selection-change', selection)
-    },
-    handleSelect(selection, row) {
-      this.$emit('select', selection, row)
-    },
-    handleSelectAll(selection) {
-      this.$emit('select-all', selection)
-    },
-    handleCurrentRowChange(currentRow, oldCurrentRow) {
-      this.$emit('current-change', currentRow, oldCurrentRow)
     }
   },
   watch: {
     innerPaginationDef: {
       immediate: true,
       handler(val) {
-        this.internalPageSize = val.pageSize
+        this.innerPageSize = val.pageSize
         this.currentPage = val.currentPage
       }
     },
@@ -409,7 +435,7 @@ export default {
     data: {
       immediate: true,
       handler(val) {
-        allProps = Object.keys(val && val[0] || {})
+        this._allDataProps = Object.keys(val && val[0] || {})
       }
     }
   }

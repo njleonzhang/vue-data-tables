@@ -198,4 +198,75 @@ describe('checkedFilters', _ => {
 
     test()
   })
+
+  it('null in table', done => {
+    let titles = [{
+      prop: 'name',
+      label: '姓名'
+    }, {
+      prop: 'age',
+      label: '姓名'
+    }]
+
+    let tableData = [{
+      name: 'leon',
+      age: 9
+    }, {
+      name: 'candy',
+      age: null
+    }]
+
+    let vm = createVue({
+      template: `
+        <data-tables
+          :data="tableData"
+          ref="dataTable"
+          :checkbox-filter-def="checkboxFilterDef">
+          <el-table-column v-for="title in titles"
+            :prop="title.prop"
+            :label="title.label"
+            :key="title.prop"
+            sortable="custom"/>
+        </data-tables>
+      `,
+      data() {
+        return {
+          tableData,
+          titles,
+          checkboxFilterDef: {
+            def: [{
+              'code': 'leon',
+              'name': 'leon'
+            }, {
+              'code': 'candy',
+              'name': 'candy'
+            }]
+          }
+        }
+      }
+    }, true)
+
+    let test = async function() {
+      try {
+        await sleep(DELAY)
+
+        let filters = vm.$el.querySelector('.filters')
+        let checkboxGroup = filters.querySelector('.el-checkbox-group')
+        let checkboxs = checkboxGroup.children
+
+        await sleep(DELAY)
+        checkboxs[0].click()
+        await sleep(DELAY)
+        let rows = getBody(vm.$el).querySelectorAll('tr')
+        rows.length.should.equal(1)
+        rows[0].querySelectorAll('.cell')[0].should.have.text('leon')
+        done()
+      } catch (e) {
+        console.log(e)
+        done(e)
+      }
+    }
+
+    test()
+  })
 })

@@ -1,4 +1,9 @@
 language: node_js
 node_js: stable
-cache: yarn
+cache:
+  yarn: true
+  directories:
+    - node_modules
 script: timeout=6000 npm run test
+after_success:
+    - cat ./test/unit/coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js

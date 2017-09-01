@@ -494,4 +494,168 @@ describe('searchDef', _ => {
 
     test()
   })
+
+  it('search 0', done => {
+    let titles = [{
+      prop: 'name',
+      label: '姓名'
+    }, {
+      prop: 'age',
+      label: '姓名'
+    }]
+
+    let tableData = [{
+      name: 'leon',
+      age: 0
+    }, {
+      name: 'candy',
+      age: 1
+    }]
+
+    let bus = new Vue()
+
+    let vm = createVue({
+      template: `
+        <data-tables
+          :data="tableData"
+          ref="dataTable"
+          @filtered-data='filtered'>
+          <el-table-column v-for="title in titles"
+            :prop="title.prop"
+            :label="title.label"
+            :key="title.prop"
+            sortable="custom"/>
+        </data-tables>
+      `,
+      data() {
+        return {
+          tableData,
+          titles
+        }
+      },
+      methods: {
+        filtered(filteredData) {
+          bus.$emit('filtered', filteredData)
+        }
+      }
+    }, true)
+
+    let test = async function() {
+      let bus = new Vue()
+
+      try {
+        await sleep(DELAY)
+        let search = vm.$el.querySelector('.search')
+        should.exist(search)
+
+        let input = search.querySelector('input')
+        input.value = 0
+
+        const spy = sinon.spy()
+
+        let filterCallBack = function() {
+          spy()
+          vm.$nextTick(_ => {
+            let body = getBody(vm.$el)
+            let rows = getRows(body)
+            rows.length.should.equal(1)
+
+            setTimeout(_ => {
+              spy.should.have.been.called.once
+              done()
+            }, 200)
+          })
+        }
+
+        bus.$on('filtered', filterCallBack)
+
+        triggerEvent(input, 'input')
+
+        done()
+      } catch (e) {
+        console.log(e)
+        done(e)
+      }
+    }
+
+    test()
+  })
+
+
+
+  it('search table with null', done => {
+    let titles = [{
+      prop: 'name',
+      label: '姓名'
+    }, {
+      prop: 'age',
+      label: '姓名'
+    }]
+
+    let tableData = [{
+      name: 'leon',
+      age: null
+    }, {
+      name: 'candy',
+      age: 1
+    }]
+
+    let bus = new Vue()
+
+    let vm = createVue({
+      template: `
+        <data-tables
+          :data="tableData"
+          ref="dataTable"
+          @filtered-data='filtered'>
+          <el-table-column v-for="title in titles"
+            :prop="title.prop"
+            :label="title.label"
+            :key="title.prop"
+            sortable="custom"/>
+        </data-tables>
+      `,
+      data() {
+        return {
+          tableData,
+          titles
+        }
+      },
+      methods: {
+        filtered(filteredData) {
+          bus.$emit('filtered', filteredData)
+        }
+      }
+    }, true)
+
+    let test = async function() {
+      try {
+        await sleep(DELAY)
+        let search = vm.$el.querySelector('.search')
+        should.exist(search)
+
+        let input = search.querySelector('input')
+        input.value = 'candy'
+
+        let filterCallBack = function() {
+          vm.$nextTick(_ => {
+            let body = getBody(vm.$el)
+            let rows = getRows(body)
+            rows.length.should.equal(1)
+            rows[0].querySelectorAll('.cell')[0].should.have.text('candy')
+            done()
+          })
+        }
+
+        bus.$on('filtered', filterCallBack)
+
+        triggerEvent(input, 'input')
+      } catch (e) {
+        console.log(e)
+        done(e)
+      }
+    }
+
+    test()
+  })
 })

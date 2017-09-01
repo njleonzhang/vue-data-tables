@@ -1,0 +1,28 @@
+.pagination-wrap .el-pagination .el-pager{
+  padding-left: 0;
+}
+
+.el-table table {
+  margin-bottom: 0;
+}
+
+/*.el-table table td, .el-table table th {
+  border: 0;
+  padding: 0;
+}*/
+
+.demo-block {
+  margin-bottom: 30px;
+}
+
+.markdown-section .demo-block td, .markdown-section .demo-block th {
+  border: 0;
+}
+
+.demo-block .el-table--border td, .demo-block .el-table--border th {
+  border-right: 1px solid #dfe6ec;
+}
+
+.markdown-section .demo-block p.tip, .markdown-section .demo-block tr:nth-child(2n) {
+  background-color: white;
+}

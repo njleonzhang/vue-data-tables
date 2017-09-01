@@ -1,9 +1,9 @@
 {
   "name": "vue-data-tables",
-  "version": "1.1.1",
-  "description": "vue2.0 DataTables, based on element-ui, el-table + el-pagination + custom filter and sort",
+  "version": "2.0.4",
+  "description": "A simple and customizable, front-end pagination datatables，based on vue2 and element-ui.",
   "author": "njleonzhang <scream3616@sina.com>",
-  "main": "dist/data-tables.js",
+  "main": "dist/data-tables.min.js",
   "homepage": "https://github.com/njleonzhang/vue-data-tables",
   "keywords": [
     "vue-data-tables",
@@ -25,8 +25,8 @@
     "tdd": "cross-env BABEL_ENV=test karma start test/unit/karma.conf.js"
   },
   "dependencies": {
-    "element-ui": "^1.3.6",
-    "vue": "^2.3.3"
+    "element-ui": "^1.4.0",
+    "vue": "^2.4.2"
   },
   "devDependencies": {
     "autoprefixer": "^6.7.2",
@@ -44,6 +44,7 @@
     "compression-webpack-plugin": "^0.4.0",
     "connect-history-api-fallback": "^1.3.0",
     "copy-webpack-plugin": "^4.0.1",
+    "coveralls": "^2.13.1",
     "cross-env": "^4.0.0",
     "cross-spawn": "^5.0.1",
     "css-loader": "^0.28.0",

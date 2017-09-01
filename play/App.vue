@@ -204,7 +204,6 @@
         this.selection = selection
         console.log(selection)
       },
-
       handleRowClick() {
         console.log('clicked')
       }
