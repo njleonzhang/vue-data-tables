@@ -50,7 +50,7 @@
         el-input(
           v-model='searchKey',
           v-bind='innerSearchDef.inputProps'
-          icon='search')
+          :icon='innerSearchDef.inputProps.icon || "search"')
     .custom-tool-bar
       slot(name='custom-tool-bar')
 
