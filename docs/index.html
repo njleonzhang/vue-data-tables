@@ -14,8 +14,8 @@
 </body>
 <script src="//unpkg.com/vue/dist/vue.js"></script>
 <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
-<script src="https://rawgit.com/njleonzhang/docsify-demo-box/master/dist/docsify-demo-box-plugin.js"></script>
-<script src="//unpkg.com/docsify-edit-on-github@1.0.1/index.js"></script>
+<script src="https://unpkg.com/docsify-demo-box-vue@1.0.0/dist/docsify-demo-box-vue.min.js"></script>
+<script src="//unpkg.com/docsify-edit-on-github@1.0.0/index.js"></script>
 <script src="https://unpkg.com/element-ui/lib/index.js"></script>
 <script src="//unpkg.com/element-ui/lib/umd/locale/en.js"></script>
 <script src="https://rawgit.com/njleonzhang/vue-data-tables/master/dist/data-tables.min.js"></script>
@@ -78,7 +78,7 @@ titles = [{
     loadSidebar: true,
 
     plugins: [
-      DemoBoxPlugin.create(jsResources, cssResources, bootCode),
+      DemoBoxVue.create(jsResources, cssResources, bootCode),
       EditOnGithubPlugin.create(
         'https://github.com/njleonzhang/vue-data-tables/edit/master/docs/'
       ),
