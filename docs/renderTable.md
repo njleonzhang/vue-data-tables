@@ -69,6 +69,42 @@ export default {
 }
 </script>
 ```
+# el-table table slot
+Same as [el-table](http://element.eleme.io/#/en-US/component/table) table slot  
+```html
+/*vue*/
+<template>
+  <data-tables :data='data'
+    :table-props='tableProps'>
+    <el-table-column v-for="title in titles"
+      :prop="title.prop"
+      :label="title.label"
+      :key="title.label"
+      sortable="custom">
+    </el-table-column>
+    <p slot="append">table slot</p>
+  </data-tables>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      data,
+      titles,
+      tableProps: {
+        border: false,
+        stripe: false,
+        defaultSort: {
+          prop: 'flow_no',
+          order: 'descending'
+        }
+      }
+    }
+  }
+}
+</script>
+```
 
 # Related properties
 
