@@ -61,8 +61,7 @@
       v-bind='innerTableProps',
       style='width: 100%')
       slot
-      div(
-        slot='append')
+      div(slot='append')
         slot(name='append')
       el-table-column(
         :prop='actionColProp',
