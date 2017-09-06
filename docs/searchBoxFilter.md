@@ -186,7 +186,7 @@ The `date` property in `data` is in `JS Date String` format. For legibility, it 
 <script>
 Vue.use(DataTables)
 
-var data = [{
+let data = [{
   "content": "Water flood",
   "flow_no": "FW201601010001",
   "date": "Wed Jul 08 2017 09:18:41 GMT+0800 (CST)"
@@ -199,6 +199,17 @@ var data = [{
   "flow_no": "FW201601010003",
   "date": "Wed Jul 03 2017 19:08:54 GMT+0800 (CST)"
 }]
+
+let titles = [{
+  prop: "flow_no",
+  label: "NO."
+  }, {
+  prop: "content",
+  label: "Content"
+  }, {
+  prop: "flow_type",
+  label: "Type"
+}
 
 export default {
   data() {
