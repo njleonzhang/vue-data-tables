@@ -209,7 +209,7 @@ let titles = [{
   }, {
   prop: "flow_type",
   label: "Type"
-}
+}]
 
 export default {
   data() {
