@@ -70,7 +70,12 @@ export default {
 </script>
 ```
 # el-table table slot
-Same as [el-table](http://element.eleme.io/#/en-US/component/table) table slot  
+Same as [el-table](http://element.eleme.io/#/en-US/component/table#table-slot) table slot
+
+| Name | Description |
+|------|--------|
+| append | Contents to be inserted after the last row. It is still nested inside the `<tbody>` tag. You may need this slot if you want to implement infinite scroll for the table. This slot will be displayed above the summary row if there is one. |
+
 ```html
 /*vue*/
 <template>
