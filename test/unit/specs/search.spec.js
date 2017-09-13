@@ -1,4 +1,4 @@
-import {createVue, destroyVM, sleep, getTableItems, getHead, getBody, getTable, getRows, triggerEvent} from '../tools/util'
+import {createVue, destroyVM, sleep, getTableItems, getHead, getBody, getTable, getRows, triggerEvent, waitForVMready} from '../tools/util'
 import Vue from 'vue'
 import {DELAY, tableData, titles} from '../tools/source'
 
@@ -581,8 +581,6 @@ describe('searchDef', _ => {
     test()
   })
 
-
-
   it('search table with null', done => {
     let titles = [{
       prop: 'name',
@@ -650,6 +648,58 @@ describe('searchDef', _ => {
         bus.$on('filtered', filterCallBack)
 
         triggerEvent(input, 'input')
+      } catch (e) {
+        console.log(e)
+        done(e)
+      }
+    }
+
+    test()
+  })
+
+  it('search icon change', done => {
+    let vm = createVue({
+      template: `
+        <data-tables
+          :data="tableData"
+          ref="dataTable"
+          :search-def="searchDef">
+          <el-table-column 
+            v-for="title in titles"
+            :prop="title.prop"
+            :label="title.label"
+            :key="title.prop"
+            sortable="custom"/>
+        </data-tables>
+      `,
+      data() {
+        return {
+          tableData,
+          titles,
+          searchDef: {
+            inputProps: {
+              icon: undefined
+            }
+          }
+        }
+      }
+    }, true)
+
+    let test = async function() {
+      try {
+        await sleep(DELAY)
+        let search = vm.$el.querySelector('.search')
+        should.exist(search)
+
+        let searchIcon = search.querySelector('.el-input__icon.el-icon-search')
+        should.exist(searchIcon)
+
+        vm.searchDef.inputProps.icon = 'loading'
+        await waitForVMready(vm)
+        should.exist(search.querySelector('.el-input__icon.el-icon-loading'))
+        should.not.exist(search.querySelector('.el-input__icon.el-icon-search'))
+
+        done()
       } catch (e) {
         console.log(e)
         done(e)

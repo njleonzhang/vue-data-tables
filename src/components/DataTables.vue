@@ -37,7 +37,7 @@
           @click="action.handler",
           :icon='action.icon',
           :key="action.name",
-          :type='action.buttonProps && action.buttonProps.type || `primary`'
+          :type='action.buttonProps && action.buttonProps.type || "primary"'
           v-bind='action.buttonProps') {{action.name}}
       el-col.filters(
         v-bind='innerCheckboxFilterDef.colProps'
@@ -49,8 +49,8 @@
         v-if='searchShow')
         el-input(
           v-model='searchKey',
-          v-bind='innerSearchDef.inputProps'
-          icon='search')
+          :icon='innerSearchDef.inputProps && innerSearchDef.inputProps.icon || "search"',
+          v-bind='innerSearchDef.inputProps')
     .custom-tool-bar
       slot(name='custom-tool-bar')
 
