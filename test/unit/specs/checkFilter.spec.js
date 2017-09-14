@@ -66,7 +66,7 @@ describe('checkedFilters', _ => {
 
           checkbox.click()
           await sleep(DELAY)
-          let innerCheckboxFilters = vm.$refs.dataTable.checkedFilters
+          let innerCheckboxFilters = vm.$refs.dataTable.checkBoxValues
           innerCheckboxFilters.length.should.equal(1 + i)
           checkboxsExpectedResult.push(def[i].code)
           JSON.stringify(innerCheckboxFilters).should.equal(JSON.stringify(checkboxsExpectedResult))
