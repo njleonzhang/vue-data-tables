@@ -15,6 +15,41 @@
 
 <template lang="pug">
   .app-wrapper
+    data-tables-server(
+    :data='serverData',
+    :total='total',
+    :show-action-bar='false',
+    :actions-def='actionsDef',
+    :checkbox-filter-def='checkFilterDef',
+    :load-data='loadData',
+    :custom-filters='customFilters',
+    @load-data-success='loadDataSuccess',
+    @load-data-fail='loadDataFail')
+      el-row(slot='custom-tool-bar')
+        el-col(:span='5')
+          el-dropdown
+            el-button(type='primary')
+              | 更多菜单
+              i.el-icon-caret-bottom.el-icon--right
+            el-dropdown-menu(slot='dropdown')
+              el-dropdown-item 黄金糕
+              el-dropdown-item 狮子头
+              el-dropdown-item 螺蛳粉
+              el-dropdown-item 双皮奶
+              el-dropdown-item 蚵仔煎
+        el-col(:span='14')
+          el-input(class='test', v-model='customFilters[0].vals')
+        el-col(:span='5')
+          el-select(v-model='customFilters[1].vals', multiple)
+            el-option(label='维修', value='repair')
+            el-option(label='帮忙', value='help')
+
+      el-table-column(prop='flow_no', label='No.', sortable='custom')
+      el-table-column(prop='content', label='Content', sortable='custom')
+      el-table-column(prop='create_time', label='Time', sortable='custom')
+      el-table-column(prop='state', label='State', sortable='custom')
+      el-table-column(prop='flow_type', label='Type', sortable='custom')
+
     data-tables(
       :data='tableData',
       :show-action-bar='false',
@@ -24,9 +59,7 @@
       :action-col-def='actionColDef',
       :custom-filters='customFilters',
       :tableProps='tableProps',
-      :pagination-def='paginationDef',
-      @selection-change='handleSelectChange'
-      @row-click='handleRowClick')
+      :pagination-def='paginationDef')
 
       el-row(slot='custom-tool-bar')
         el-col(:span='5')
@@ -42,7 +75,7 @@
               el-dropdown-item 蚵仔煎
 
         el-col(:span='14')
-          el-input(class='test', v-model='customFilters[0].vals', @change='change()')
+          el-input(class='test', v-model='customFilters[0].vals')
         el-col(:span='5')
           el-select(v-model='customFilters[1].vals', multiple)
             el-option(label='维修', value='repair')
@@ -62,10 +95,13 @@
 </template>
 
 <script>
-  import DataTables from '@/index.js'
+  import {DataTables, DataTablesServer} from '@/index.js'
 
   export default {
-    components: {DataTables},
+    components: {
+      DataTables,
+      DataTablesServer
+    },
     data() {
       return {
         tableData: [],
@@ -79,6 +115,7 @@
           }
         },
         customFilters: [{
+          props: ['flow_no', 'flow'],
           vals: ''
         }, {
           vals: []
@@ -146,7 +183,9 @@
         },
         paginationDef: {
           layout: 'prev, pager, next, jumper, sizes, total'
-        }
+        },
+        serverData: [],
+        total: 0
       }
     },
     created() {
@@ -198,14 +237,66 @@
       }
     },
     methods: {
-      change(val) {
+      loadData(queryInfo, lastData) {
+        console.log(queryInfo)
+        return new Promise(resolve => {
+          setTimeout(_ => {
+            resolve({
+              data: [{
+                'building': '5',
+                'building_group': 'North',
+                'cellphone': '13400000000',
+                'content': 'Water flood',
+                'create_time': lastData.ts && lastData.ts.getTime() || '',
+                'flow_no': 'FW201601010001' + queryInfo.currentPage,
+                'flow_type': 'Repair',
+                'flow_type_code': 'repair',
+                'id': '111111',
+                'room_id': '00501',
+                'room_no': '501',
+                'state': 'Created',
+                'state_code': 'created'
+              }, {
+                'building': '6',
+                'building_group': 'Sourth',
+                'cellphone': '13400000000',
+                'content': 'Lock broken',
+                'create_time': '2016-10-01 22:25',
+                'flow_no': 'FW201601010002',
+                'flow_type': 'Repair',
+                'flow_type_code': 'repair',
+                'id': '2222222',
+                'room_id': '00701',
+                'room_no': '701',
+                'state': 'Assigned',
+                'state_code': 'assigned'
+              }, {
+                'building': '9',
+                'building_group': 'North',
+                'cellphone': '13400000000',
+                'content': 'Help to buy some drinks',
+                'create_time': '2016-10-02 22:25',
+                'flow_no': 'FW201601010003',
+                'flow_type': 'Help',
+                'flow_type_code': 'help',
+                'id': '2222222',
+                'room_id': '00601',
+                'room_no': '601',
+                'state': 'Closed',
+                'state_code': 'closed'
+              }],
+              total: 1000,
+              ts: new Date()
+            })
+          }, 1000)
+        })
       },
-      handleSelectChange(selection) {
-        this.selection = selection
-        console.log(selection)
+      loadDataSuccess(data) {
+        this.serverData = data.data
+        this.total = data.total
       },
-      handleRowClick() {
-        console.log('clicked')
+      loadDataFail(error) {
+        console.log(error)
       }
     }
   }
