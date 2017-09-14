@@ -406,10 +406,6 @@ export default {
     },
     handleSort(obj) {
       this.sortData = obj
-      this.innerTableProps.defaultSort = {
-        prop: obj.prop,
-        order: obj.order
-      }
     },
     handleSizeChange(size) {
       this.innerPageSize = size
