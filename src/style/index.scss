@@ -1,0 +1,25 @@
+.sc-table {
+  .tool-bar {
+    margin-bottom: 20px;
+  }
+
+  .action-list {
+    text-align: center;
+    & > span {
+      margin-right: 10px;
+
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+  }
+
+  .el-tooltip__rel, .el-tooltip {
+    display: inline-block !important;
+  }
+
+  .pagination-wrap {
+    text-align: center;
+    margin-top: 20px;
+  }
+}

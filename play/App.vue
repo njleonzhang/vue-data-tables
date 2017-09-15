@@ -17,6 +17,7 @@
   .app-wrapper
     data-tables-server(
     :data='serverData',
+    loading-str='loading...',
     :total='total',
     :show-action-bar='false',
     :actions-def='actionsDef',
