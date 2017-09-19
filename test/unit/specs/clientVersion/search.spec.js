@@ -1,8 +1,14 @@
-import {createVue, destroyVM, sleep, getTableItems, getHead, getBody, getTable, getRows, triggerEvent, waitForVMready} from '../tools/util'
+import {createVue, destroyVM, sleep, getTableItems, getHead, getBody, getTable, getRows, triggerEvent, waitForVMready} from '../../tools/util'
 import Vue from 'vue'
-import {DELAY, tableData, titles} from '../tools/source'
+import {DELAY, tableData, titles} from '../../tools/source'
 
-describe('searchDef', _ => {
+describe('client searchDef', _ => {
+  let vm
+
+  afterEach(function() {
+    vm && destroyVM(vm)
+  })
+
   let template =  `
     <data-tables
       :data="tableData"
@@ -17,7 +23,7 @@ describe('searchDef', _ => {
   `
 
   it('show and hide search bar', done => {
-    let vm = createVue({
+    vm = createVue({
       template,
       data() {
         return {
@@ -34,7 +40,7 @@ describe('searchDef', _ => {
       try {
         await sleep(DELAY)
         should.not.exist(vm.$el.querySelector('.search'))
-        vm.searchDef.show = true;
+        vm.searchDef.show = true
 
         await sleep(DELAY)
         should.exist(vm.$el.querySelector('.search'))
@@ -51,7 +57,7 @@ describe('searchDef', _ => {
   it('normal filter', done => {
     let bus = new Vue()
 
-    let vm = createVue({
+    vm = createVue({
       template: `
         <data-tables
           :data="tableData"
@@ -117,7 +123,7 @@ describe('searchDef', _ => {
   it('custom filter function match', done => {
     let bus = new Vue()
 
-    let vm = createVue({
+    vm = createVue({
       template: `
         <data-tables
           :data="tableData"
@@ -192,7 +198,7 @@ describe('searchDef', _ => {
   it('custom filter function not match', done => {
     let bus = new Vue()
 
-    let vm = createVue({
+    vm = createVue({
       template: `
         <data-tables
           :data="tableData"
@@ -267,7 +273,7 @@ describe('searchDef', _ => {
   it('specific prop filter not match', done => {
     let bus = new Vue()
 
-    let vm = createVue({
+    vm = createVue({
       template: `
         <data-tables
           :data="tableData"
@@ -336,7 +342,7 @@ describe('searchDef', _ => {
   it('specific prop filter match', done => {
     let bus = new Vue()
 
-    let vm = createVue({
+    vm = createVue({
       template: `
         <data-tables
           :data="tableData"
@@ -404,7 +410,7 @@ describe('searchDef', _ => {
   })
 
   it('search box colProps', done => {
-    let vm = createVue({
+    vm = createVue({
       template: `
         <data-tables
           :data="tableData"
@@ -451,7 +457,7 @@ describe('searchDef', _ => {
   })
 
   it('search box inputProps', done => {
-    let vm = createVue({
+    vm = createVue({
       template: `
         <data-tables
           :data="tableData"
@@ -496,6 +502,8 @@ describe('searchDef', _ => {
   })
 
   it('search 0', done => {
+    let bus = new Vue()
+
     let titles = [{
       prop: 'name',
       label: '姓名'
@@ -512,9 +520,7 @@ describe('searchDef', _ => {
       age: 1
     }]
 
-    let bus = new Vue()
-
-    let vm = createVue({
+    vm = createVue({
       template: `
         <data-tables
           :data="tableData"
@@ -541,7 +547,6 @@ describe('searchDef', _ => {
     }, true)
 
     let test = async function() {
-      let bus = new Vue()
 
       try {
         await sleep(DELAY)
@@ -554,6 +559,7 @@ describe('searchDef', _ => {
         const spy = sinon.spy()
 
         let filterCallBack = function() {
+          console.log('test')
           spy()
           vm.$nextTick(_ => {
             let body = getBody(vm.$el)
@@ -570,8 +576,6 @@ describe('searchDef', _ => {
         bus.$on('filtered', filterCallBack)
 
         triggerEvent(input, 'input')
-
-        done()
       } catch (e) {
         console.log(e)
         done(e)
@@ -600,7 +604,7 @@ describe('searchDef', _ => {
 
     let bus = new Vue()
 
-    let vm = createVue({
+    vm = createVue({
       template: `
         <data-tables
           :data="tableData"
@@ -658,7 +662,7 @@ describe('searchDef', _ => {
   })
 
   it('search icon change', done => {
-    let vm = createVue({
+    vm = createVue({
       template: `
         <data-tables
           :data="tableData"

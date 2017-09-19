@@ -1,8 +1,14 @@
-import {createVue, destroyVM, sleep, getTableItems, getHead, getBody, getTable, getRows, triggerEvent, waitForVMready} from '../tools/util'
+import {createVue, destroyVM, sleep, getTableItems, getHead, getBody, getTable, getRows, triggerEvent, waitForVMready} from '../../tools/util'
 import Vue from 'vue'
-import {DELAY, tableData, titles} from '../tools/source'
+import {DELAY, tableData, titles} from '../../tools/source'
 
-describe('custom action bar', _ => {
+describe('client custom action bar', _ => {
+  let vm
+
+  afterEach(function() {
+    vm && destroyVM(vm)
+  })
+
   let bus = new Vue()
 
   let template =  `
@@ -35,7 +41,7 @@ describe('custom action bar', _ => {
     </data-tables>
   `
   it('button and filters1', done => {
-    let vm = createVue({
+    vm = createVue({
       template,
       data() {
         return {
@@ -93,7 +99,7 @@ describe('custom action bar', _ => {
 
 
   it('button and filters2', done => {
-    let vm = createVue({
+    vm = createVue({
       template,
       data() {
         return {

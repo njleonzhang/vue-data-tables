@@ -14,7 +14,7 @@ mixin template()
       el-col.filters(
         v-bind='innerCheckboxFilterDef.colProps'
         v-if='checkboxShow')
-        checkbox-group(:checks='innerCheckboxFilterDef.def', @checkChange='handleFilterChange')
+        checkbox-group(:checks='innerCheckboxFilterDef.def', @checkChange='handleCheckBoxValChange')
       el-col.search(
         :span='innerSearchDef.colProps && innerSearchDef.colProps.span || 5'
         v-bind='innerSearchDef.colProps'
@@ -55,7 +55,7 @@ mixin template()
     .pagination-wrap(v-if='paginationShow')
       el-pagination(
         @size-change='handleSizeChange',
-        @current-change='handleCurrentChange',
+        @current-change='handlePageChange',
         :current-page='currentPage',
         :page-sizes='innerPaginationDef.pageSizes',
         :page-size='innerPageSize',

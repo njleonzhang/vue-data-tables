@@ -1,10 +1,15 @@
-import {createVue, destroyVM, sleep, getTableItems, getHead, getBody, getTable, getRows, triggerEvent} from '../tools/util'
-import Vue from 'vue'
-import {DELAY, tableData, titles} from '../tools/source'
+import {createVue, destroyVM, sleep, getTableItems, getHead, getBody, getTable, getRows, triggerEvent} from '../../tools/util'
+import {DELAY, tableData, titles} from '../../tools/source'
 
-describe('sort data', _ => {
+describe('client sort data', _ => {
+  let vm
+
+  afterEach(function() {
+    vm && destroyVM(vm)
+  })
+
   it('sort', done => {
-    let vm = createVue({
+    vm = createVue({
       template: `
         <data-tables
           :data="tableData"

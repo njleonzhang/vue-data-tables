@@ -74,3 +74,43 @@ let titles = [{
   prop: 'cellphone',
   label: 'tel'
 }]
+
+let serverData = []
+
+for (let i = 0; i < 1000; i++) {
+  serverData.push({
+    'building': '6',
+    'building_group': 'Sourth',
+    'cellphone': '13400000000',
+    'content': 'Lock broken',
+    'create_time': '2016-10-01 22:25',
+    'flow_no': 'FW20160101000' + i,
+    'flow_type': 'Repair',
+    'flow_type_code': 'repair',
+    'id': i,
+    'room_id': '00701',
+    'room_no': '701',
+    'state': 'Assigned',
+    'state_code': 'assigned'
+  })
+}
+
+/*
+page: this.currentPage,
+pageSize: this.innerPageSize,
+sortInfo: this.sortData,
+filters: this.filters
+*/
+
+export let mockServer = function(res, time = 200) {
+  return new Promise((resolve) => {
+    setTimeout(_ => {
+      resolve({
+        data: serverData.slice((res.page - 1) * res.pageSize, res.page * res.pageSize),
+        req: res,
+        ts: new Date(),
+        total: 1000
+      })
+    }, time)
+  })
+}

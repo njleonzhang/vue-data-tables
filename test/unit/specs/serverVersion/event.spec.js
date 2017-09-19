@@ -1,14 +1,20 @@
-import {createVue, destroyVM, sleep, getTableItems, getHead, getBody, getTable, getRows, triggerEvent, waitForVMready} from '../tools/util'
-import Vue from 'vue'
-import {DELAY, tableData, titles} from '../tools/source'
+import {createVue, destroyVM, sleep, getTableItems, getHead, getBody, getTable, getRows, triggerEvent, waitForVMready} from '../../tools/util'
+import {DELAY, tableData, titles} from '../../tools/source'
 
-describe('events', _ => {
+describe('server events', _ => {
+  let vm
+
+  afterEach(function() {
+    vm && destroyVM(vm)
+  })
+
   it('row-click col can not click', done => {
     let rowClickCnt = 0
 
-    let vm = createVue({
+    vm = createVue({
       template: `
-        <data-tables :data="tableData"
+        <data-tables-server 
+          :data="tableData"
           :col-not-row-click="canNotClickList"
           :action-col-def="actionColDef"
           @row-click="itemClick()">
@@ -16,7 +22,7 @@ describe('events', _ => {
             :prop="title.prop"
             :label="title.label"
             :key="title.prop" sortable="custom"/>
-        </data-tables>
+        </data-tables-server>
       `,
       data() {
         return {
@@ -76,9 +82,9 @@ describe('events', _ => {
   it('cell-click col can not click', done => {
     let rowClickCnt = 0
 
-    let vm = createVue({
+    vm = createVue({
       template: `
-        <data-tables :data="tableData"
+        <data-tables-server :data="tableData"
           :col-not-row-click="canNotClickList"
           :action-col-def="actionColDef"
           @cell-click="itemClick">
@@ -86,7 +92,7 @@ describe('events', _ => {
             :prop="title.prop"
             :label="title.label"
             :key="title.prop" sortable="custom"/>
-        </data-tables>
+        </data-tables-server>
       `,
       data() {
         return {
@@ -135,58 +141,6 @@ describe('events', _ => {
         await sleep(DELAY)
         secondItemTds[9].click()
         rowClickCnt.should.equal(11)
-
-        done();
-      } catch (err) {
-        done(err);
-      }
-    } ()
-  })
-
-  it('sort-change event', done => {
-    let sortObject
-
-    let vm = createVue({
-      template: `
-        <data-tables :data="tableData"
-          :col-not-row-click="canNotClickList"
-          :action-col-def="actionColDef"
-          @sort-change="sortChange">
-          <el-table-column v-for="title in titles"
-            :prop="title.prop"
-            :label="title.label"
-            :key="title.prop" sortable="custom"/>
-        </data-tables>
-      `,
-      data() {
-        return {
-          tableData,
-          titles,
-          canNotClickList: ['flow_no', 'room_no'],
-          actionColDef: {
-            def: [{
-              name: 'test'
-            }]
-          }
-        }
-      },
-      methods: {
-        sortChange(object) {
-          sortObject = object
-        }
-      }
-    }, true)
-
-    var test = async function() {
-      try {
-        // include a width0 column seems from element
-        await sleep(DELAY)
-        let ths = vm.$el.querySelectorAll('th')
-
-        await sleep(DELAY)
-        ths[2].click()
-
-        sortObject.prop.should.equal('create_time')
 
         done();
       } catch (err) {

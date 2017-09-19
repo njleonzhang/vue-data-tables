@@ -1,8 +1,13 @@
-import {createVue, destroyVM, sleep, getTableItems, getHead, getBody, getTable, getRows, triggerEvent} from '../tools/util'
-import Vue from 'vue'
-import {DELAY, tableData, titles} from '../tools/source'
+import {createVue, destroyVM, sleep, getTableItems, getHead, getBody, getTable, getRows, triggerEvent} from '../../tools/util'
+import {DELAY, tableData, titles} from '../../tools/source'
 
-describe('actionColDef', _ => {
+describe('client actionColDef', _ => {
+  let vm
+
+  afterEach(function() {
+    vm && destroyVM(vm)
+  })
+
   let template =  `
     <data-tables
       :data="tableData"
@@ -16,7 +21,7 @@ describe('actionColDef', _ => {
     </data-tables>
   `
   it('property', done => {
-    let vm = createVue({
+    vm = createVue({
       template,
       data() {
         return {
@@ -55,7 +60,7 @@ describe('actionColDef', _ => {
     let spy1 = sinon.spy()
     let spy2 = sinon.spy()
 
-    let vm = createVue({
+    vm = createVue({
       template,
       data() {
         return {

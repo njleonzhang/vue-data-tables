@@ -1,10 +1,11 @@
 import Vue from 'vue'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-default/index.css'
-import DataTables from '@/index'
+import {DataTables, DataTablesServer} from '@/index'
 
 Vue.use(ElementUI)
 Vue.use(DataTables)
+Vue.use(DataTablesServer)
 
 let id = 0
 
@@ -97,16 +98,16 @@ exports.triggerClick = function(elm, ...opts) {
   return elm
 }
 
-exports.sleep = function(time) {
-  return new Promise(function (resolve) {
-    setTimeout(function () {
-        resolve()
+exports.sleep = function(time = 200) {
+  return new Promise(function(resolve) {
+    setTimeout(function() {
+      resolve()
     }, time)
   })
 }
 
 exports.waitForVMready = function(vm) {
-  return new Promise(function (resolve) {
+  return new Promise(function(resolve) {
     vm.$nextTick(_ => {
       resolve()
     })

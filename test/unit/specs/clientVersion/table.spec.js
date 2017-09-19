@@ -1,11 +1,15 @@
-import {createVue, destroyVM, sleep, getTableItems, getHead, getBody, getTable, getRows, triggerEvent} from '../tools/util'
-import Vue from 'vue'
-import {DELAY, tableData, titles} from '../tools/source'
+import {createVue, destroyVM, sleep, getTableItems, getHead, getBody, getTable, getRows, triggerEvent} from '../../tools/util'
+import {DELAY, tableData, titles} from '../../tools/source'
 
+describe('client render table', _ => {
+  let vm
 
-describe('render table', _ => {
+  afterEach(function() {
+    vm && destroyVM(vm)
+  })
+
   it('shoule render correct content', done => {
-    let vm = createVue({
+    vm = createVue({
       template: `
         <data-tables :data="tableData">
           <el-table-column v-for="title in titles"
@@ -39,7 +43,7 @@ describe('render table', _ => {
   })
 
   it('no data', done => {
-    let vm = createVue({
+    vm = createVue({
       template: `
         <data-tables>
           <el-table-column v-for="title in titles"
@@ -64,8 +68,14 @@ describe('render table', _ => {
 })
 
 describe('data table property', _ => {
+  let vm
+
+  afterEach(function() {
+    vm && destroyVM(vm)
+  })
+
   it('hide action', done => {
-    let vm = createVue({
+    vm = createVue({
       template: `
         <data-tables :data="tableData" :action-col-def="actionColDef">
           <el-table-column v-for="title in titles"
@@ -95,7 +105,7 @@ describe('data table property', _ => {
   })
 
   it('tableProps', done => {
-    let vm = createVue({
+    vm = createVue({
       template: `
         <data-tables :data="tableData" :tableProps='tableProps'>
           <el-table-column v-for="title in titles"

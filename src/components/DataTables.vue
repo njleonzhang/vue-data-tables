@@ -10,6 +10,7 @@
 <script>
   import ErrorTips from './ErrorTips.js'
   import ShareMixin from '../mixins/ShareMixin'
+  import debounce from 'javascript-debounce'
 
   export default {
     name: 'DataTables',
@@ -147,6 +148,12 @@
           }
         }
         return filters
+      },
+      updateInnerSearchKey() {
+        const timeout = this.innerSearchDef.debounceTime
+        return debounce(_ => {
+          this.innerSearchKey = this.searchKey
+        }, timeout)
       }
     },
     methods: {
@@ -154,12 +161,15 @@
         this.innerPageSize = size
         this.$emit('size-change', size)
       },
-      handleCurrentChange(currentPage) {
+      handlePageChange(currentPage) {
         this.currentPage = currentPage
         this.$emit('current-change', currentPage)
       },
-      handleFilterChange(checkBoxValues) {
+      handleCheckBoxValChange(checkBoxValues) {
         this.checkBoxValues = checkBoxValues
+      },
+      handleSort(obj) {
+        this.sortData = obj
       }
     },
     watch: {

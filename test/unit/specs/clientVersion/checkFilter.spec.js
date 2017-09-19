@@ -1,8 +1,13 @@
-import {createVue, destroyVM, sleep, getTableItems, getHead, getBody, getTable, getRows, triggerEvent} from '../tools/util'
-import Vue from 'vue'
-import {DELAY, tableData, titles} from '../tools/source'
+import {createVue, destroyVM, sleep, getTableItems, getHead, getBody, getTable, getRows, triggerEvent} from '../../tools/util'
+import {DELAY, tableData, titles} from '../../tools/source'
 
-describe('checkedFilters', _ => {
+describe('client checkedFilters', _ => {
+  let vm
+
+  afterEach(function() {
+    vm && destroyVM(vm)
+  })
+
   let template =  `
     <data-tables
       :data="tableData"
@@ -36,7 +41,7 @@ describe('checkedFilters', _ => {
     let newClickedCnt = 0;
     let importClickedCnt = 0;
 
-    let vm = createVue({
+    vm = createVue({
       template,
       data() {
         return {
@@ -83,7 +88,7 @@ describe('checkedFilters', _ => {
   })
 
   it('custom filter', done => {
-    let vm = createVue({
+    vm = createVue({
       template,
       data() {
         return {
@@ -131,7 +136,7 @@ describe('checkedFilters', _ => {
 
   it('checkbox filter and search filter', function(done) {
     this.timeout(5000)
-    let vm = createVue({
+    vm = createVue({
       template: `
         <data-tables
           :data="tableData"
@@ -216,7 +221,7 @@ describe('checkedFilters', _ => {
       age: null
     }]
 
-    let vm = createVue({
+    vm = createVue({
       template: `
         <data-tables
           :data="tableData"

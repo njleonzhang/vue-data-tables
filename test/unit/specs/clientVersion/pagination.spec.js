@@ -1,10 +1,15 @@
-import {createVue, destroyVM, sleep, getTableItems, getHead, getBody, getTable, getRows, triggerEvent} from '../tools/util'
-import Vue from 'vue'
-import {DELAY, tableData, titles} from '../tools/source'
+import {createVue, destroyVM, sleep, getTableItems, getHead, getBody, getTable, getRows, triggerEvent} from '../../tools/util'
+import {DELAY, tableData, titles} from '../../tools/source'
 
-describe('pagination def', _ => {
+describe('client pagination def', _ => {
+  let vm
+
+  afterEach(function() {
+    vm && destroyVM(vm)
+  })
+
   it('pagination', done => {
-    let vm = createVue({
+    vm = createVue({
       template: `
         <data-tables :data="tableData" :pagination-def="paginationDef" ref="dataTable">
           <el-table-column v-for="title in titles"
@@ -41,7 +46,7 @@ describe('pagination def', _ => {
   })
 
   it('pagination is disabled', done => {
-    let vm = createVue({
+    vm = createVue({
       template: `
         <data-tables :data="tableData" :paginationDef="paginationDef" ref="dataTable">
           <el-table-column v-for="title in titles"
@@ -74,7 +79,7 @@ describe('pagination def', _ => {
     let spy1 = sinon.spy()
     let spy2 = sinon.spy()
 
-    let vm = createVue({
+    vm = createVue({
       template: `
         <data-tables :data="tableData"
         :pagination-def="paginationDef"

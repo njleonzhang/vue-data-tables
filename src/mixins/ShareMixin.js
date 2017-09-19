@@ -1,5 +1,4 @@
 import CheckboxGroup from '../components/ScCheckboxGroup'
-import debounce from 'javascript-debounce'
 
 export default {
   components: {
@@ -88,6 +87,7 @@ export default {
       searchKey: '',
       innerSearchKey: '',
       checkBoxValues: [],
+      sortData: {},
       actionColProp: 'e6e4c9de-7cf5-4f19-bb73-838e5182a372'
     }
   },
@@ -137,13 +137,10 @@ export default {
       let customFilterArray = this.formatToArray(this.customFilters)
       let customFilters = []
       customFilterArray.forEach(filter => {
-        let filterCopy = Object.assign({}, filter)
-
-        filterCopy = {
-          props: this.formatProps(filterCopy.props),
+        let filterCopy = Object.assign({}, filter, {
+          props: this.formatProps(filter.props),
           vals: this.formatToArray(filter.vals)
-        }
-
+        })
         customFilters.push(filterCopy)
       })
       return customFilters
@@ -166,12 +163,6 @@ export default {
     },
     paginationShow() {
       return this.paginationDef.show !== false
-    },
-    updateInnerSearchKey() {
-      const timeout = this.innerSearchDef.debounceTime
-      return debounce(_ => {
-        this.innerSearchKey = this.searchKey
-      }, timeout)
     }
   },
   methods: {
@@ -180,9 +171,6 @@ export default {
     },
     formatToArray(filters) {
       return filters ? [].concat(filters) : []
-    },
-    handleSort(obj) {
-      this.sortData = obj
     }
   },
   watch: {

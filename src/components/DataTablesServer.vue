@@ -11,6 +11,7 @@
 
 <script>
   import ShareMixin from '../mixins/ShareMixin'
+  import debounce from 'javascript-debounce'
 
   export default {
     name: 'DataTablesServer',
@@ -28,7 +29,7 @@
       }
     },
     created() {
-      this.innerLoadData()
+      this.loadData && this.innerLoadData()
     },
     data() {
       return {
@@ -37,6 +38,22 @@
       }
     },
     computed: {
+      innerCheckboxFilterDef() {
+        return Object.assign({
+          props: undefined,
+          def: [],
+          colProps: {
+            span: 14
+          }
+        }, this.checkboxFilterDef)
+      },
+      innerSearchDef() {
+        return Object.assign({
+          show: true,
+          props: undefined,
+          debounceTime: 200
+        }, this.searchDef)
+      },
       filters() {
         let filters = this.formatToArray(this.innerCustomFilters)
 
@@ -64,40 +81,44 @@
       },
       queryInfo() {
         return {
-          currentPage: this.currentPage,
+          page: this.currentPage,
           pageSize: this.innerPageSize,
-          sortData: this.sortData,
+          sortInfo: this.sortData,
           filters: this.filters
         }
+      },
+      updateInnerSearchKey() {
+        const timeout = this.innerSearchDef.debounceTime
+        return debounce(_ => {
+          this.innerSearchKey = this.searchKey
+          this.queryChange('searchBoxChange')
+        }, timeout)
       }
     },
     methods: {
+      queryChange(type) {
+        this.$emit('query-change', {
+          type,
+          ...this.queryInfo
+        })
+
+        this.loadData && this.innerLoadData()
+      },
       handleSizeChange(size) {
         this.innerPageSize = size
-        this.$emit('query-change', {
-          type: 'sizeChange',
-          ...this.queryInfo
-        })
-
-        this.loadData && this.innerLoadData()
+        this.queryChange('sizeChange')
       },
-      handleCurrentChange(currentPage) {
+      handlePageChange(currentPage) {
         this.currentPage = currentPage
-        this.$emit('query-change', {
-          type: 'pageChange',
-          ...this.queryInfo
-        })
-
-        this.loadData && this.innerLoadData()
+        this.queryChange('pageChange')
       },
-      handleFilterChange(checkBoxValues) {
+      handleCheckBoxValChange(checkBoxValues) {
         this.checkBoxValues = checkBoxValues
-        this.$emit('query-change', {
-          type: 'checkBoxChange',
-          ...this.queryInfo
-        })
-
-        this.loadData && this.innerLoadData()
+        this.queryChange('checkBoxChange')
+      },
+      handleSort(obj) {
+        this.sortData = obj
+        this.queryChange('sortChange')
       },
       innerLoadData() {
         this.loading = true
@@ -111,6 +132,11 @@
             this.loading = false
             this.$emit('load-data-fail', error, this.queryInfo)
           })
+      }
+    },
+    watch: {
+      innerCustomFilters() {
+        this.queryChange('customFilterChange')
       }
     }
   }
