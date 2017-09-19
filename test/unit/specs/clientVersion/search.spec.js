@@ -559,7 +559,6 @@ describe('client searchDef', _ => {
         const spy = sinon.spy()
 
         let filterCallBack = function() {
-          console.log('test')
           spy()
           vm.$nextTick(_ => {
             let body = getBody(vm.$el)

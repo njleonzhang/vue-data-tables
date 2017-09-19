@@ -204,16 +204,15 @@ describe('server pagination def', _ => {
 
         bus.$once('info', info => {
           try {
-            info.type.should.equal('sizeChange')
+            info.type.should.equal('pageChange')
             info.page.should.equal(8)
+            done()
           } catch (e) {
             done(e)
           }
         })
 
         triggerEvent(jump, 'change')
-
-        done()
       } catch (e) {
         console.log(e)
         done(e)
