@@ -1230,7 +1230,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   },
   data: function data() {
     return {
-      innerData: {}
+      innerLoading: false
     };
   },
 
@@ -1322,7 +1322,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       var _this2 = this;
 
       this.innerLoading = true;
-      this.loadData(info).then(function (data) {
+      this.loadData && this.loadData(info).then(function (data) {
         _this2.innerLoading = false;
         _this2.$emit('load-data-success', data, info);
       }).catch(function (error) {
