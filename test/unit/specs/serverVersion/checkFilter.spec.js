@@ -59,11 +59,8 @@ describe('server checkedFilters', _ => {
         }
       },
       methods: {
-        loadData(queryInfo, lastData) {
-          return mockServer({
-            ...queryInfo,
-            ts: lastData.ts
-          })
+        loadData(queryInfo) {
+          return mockServer(queryInfo)
         },
         loadDataSuccess(data) {
           this.tableData = data.data
@@ -101,8 +98,10 @@ describe('server checkedFilters', _ => {
 
         done()
       } catch (e) {
-        console.log(e)
-        done(e)
+        done({
+          message: e.message,
+          stack: e.stack
+        })
       }
     }
 
@@ -126,11 +125,8 @@ describe('server checkedFilters', _ => {
         }
       },
       methods: {
-        loadData(queryInfo, lastData) {
-          return mockServer({
-            ...queryInfo,
-            ts: lastData.ts
-          }, 100)
+        loadData(queryInfo) {
+          return mockServer(queryInfo, 100)
         },
         loadDataSuccess(data, info) {
           bus.$emit('success', data, info)
@@ -157,7 +153,10 @@ describe('server checkedFilters', _ => {
             data.req.filters[0].vals[0].should.equal('repair')
             data.req.filters[1].vals.toString().should.equal('')
           } catch (e) {
-            done(e)
+            done({
+              message: e.message,
+              stack: e.stack
+            })
           }
         })
 
@@ -166,7 +165,10 @@ describe('server checkedFilters', _ => {
             info.type.should.equal('searchBoxChange')
             info.filters[1].vals.toString().should.equal('')
           } catch (e) {
-            done(e)
+            done({
+              message: e.message,
+              stack: e.stack
+            })
           }
         })
 
@@ -189,7 +191,10 @@ describe('server checkedFilters', _ => {
             data.req.filters[0].vals[0].should.equal('repair')
             data.req.filters[1].vals.toString().should.equal('created,assigned')
           } catch (e) {
-            done(e)
+            done({
+              message: e.message,
+              stack: e.stack
+            })
           }
         })
 
@@ -198,7 +203,10 @@ describe('server checkedFilters', _ => {
             info.type.should.equal('checkBoxChange')
             info.filters[1].vals.toString().should.equal('created,assigned')
           } catch (e) {
-            done(e)
+            done({
+              message: e.message,
+              stack: e.stack
+            })
           }
         })
 
@@ -210,7 +218,10 @@ describe('server checkedFilters', _ => {
             data.req.filters[0].vals[0].should.equal('repair')
             data.req.filters[1].vals.toString().should.equal('assigned')
           } catch (e) {
-            done(e)
+            done({
+              message: e.message,
+              stack: e.stack
+            })
           }
         })
 
@@ -219,7 +230,10 @@ describe('server checkedFilters', _ => {
             info.type.should.equal('checkBoxChange')
             info.filters[1].vals.toString().should.equal('assigned')
           } catch (e) {
-            done(e)
+            done({
+              message: e.message,
+              stack: e.stack
+            })
           }
         })
 
@@ -231,7 +245,10 @@ describe('server checkedFilters', _ => {
             data.req.filters[0].vals[0].should.equal('repair')
             data.req.filters[1].vals.toString().should.equal('')
           } catch (e) {
-            done(e)
+            done({
+              message: e.message,
+              stack: e.stack
+            })
           }
         })
 
@@ -240,7 +257,10 @@ describe('server checkedFilters', _ => {
             info.type.should.equal('checkBoxChange')
             info.filters[1].vals.toString().should.equal('')
           } catch (e) {
-            done(e)
+            done({
+              message: e.message,
+              stack: e.stack
+            })
           }
         })
 
@@ -252,7 +272,10 @@ describe('server checkedFilters', _ => {
             data.req.filters[0].vals[0].should.equal('repair')
             data.req.filters[1].vals.toString().should.equal('cancelled')
           } catch (e) {
-            done(e)
+            done({
+              message: e.message,
+              stack: e.stack
+            })
           }
         })
 
@@ -262,14 +285,19 @@ describe('server checkedFilters', _ => {
             info.filters[1].vals.toString().should.equal('cancelled')
             done()
           } catch (e) {
-            done(e)
+            done({
+              message: e.message,
+              stack: e.stack
+            })
           }
         })
 
         checkboxs[4].click()
       } catch (e) {
-        console.log(e)
-        done(e)
+        done({
+          message: e.message,
+          stack: e.stack
+        })
       }
     }
 

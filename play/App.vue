@@ -97,7 +97,7 @@
 
 <script>
   import {DataTables, DataTablesServer} from '@/index.js'
-
+  import {mockServer} from '../test/unit/tools/source'
   export default {
     components: {
       DataTables,
@@ -238,59 +238,8 @@
       }
     },
     methods: {
-      loadData(queryInfo, lastData) {
-        console.log(queryInfo)
-        return new Promise(resolve => {
-          setTimeout(_ => {
-            resolve({
-              data: [{
-                'building': '5',
-                'building_group': 'North',
-                'cellphone': '13400000000',
-                'content': 'Water flood',
-                'create_time': lastData.ts && lastData.ts.getTime() || '',
-                'flow_no': 'FW201601010001' + queryInfo.currentPage,
-                'flow_type': 'Repair',
-                'flow_type_code': 'repair',
-                'id': '111111',
-                'room_id': '00501',
-                'room_no': '501',
-                'state': 'Created',
-                'state_code': 'created'
-              }, {
-                'building': '6',
-                'building_group': 'Sourth',
-                'cellphone': '13400000000',
-                'content': 'Lock broken',
-                'create_time': '2016-10-01 22:25',
-                'flow_no': 'FW201601010002',
-                'flow_type': 'Repair',
-                'flow_type_code': 'repair',
-                'id': '2222222',
-                'room_id': '00701',
-                'room_no': '701',
-                'state': 'Assigned',
-                'state_code': 'assigned'
-              }, {
-                'building': '9',
-                'building_group': 'North',
-                'cellphone': '13400000000',
-                'content': 'Help to buy some drinks',
-                'create_time': '2016-10-02 22:25',
-                'flow_no': 'FW201601010003',
-                'flow_type': 'Help',
-                'flow_type_code': 'help',
-                'id': '2222222',
-                'room_id': '00601',
-                'room_no': '601',
-                'state': 'Closed',
-                'state_code': 'closed'
-              }],
-              total: 1000,
-              ts: new Date()
-            })
-          }, 1000)
-        })
+      loadData(queryInfo) {
+        return mockServer(queryInfo, 2000)
       },
       loadDataSuccess(data) {
         this.serverData = data.data

@@ -51,8 +51,10 @@ describe('client sort data', _ => {
 
         done()
       } catch (e) {
-        console.log(e)
-        done(e)
+        done({
+          message: e.message,
+          stack: e.stack
+        })
       }
     }
 

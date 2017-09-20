@@ -36,11 +36,8 @@ describe('server render table', _ => {
         }
       },
       methods: {
-        loadData(queryInfo, lastData) {
-          return mockServer({
-            ...queryInfo,
-            ts: lastData.ts
-          })
+        loadData(queryInfo) {
+          return mockServer(queryInfo)
         },
         loadDataSuccess(data, info) {
           this.tableData = data.data
@@ -169,11 +166,8 @@ describe('data table property', _ => {
         }
       },
       methods: {
-        loadData(queryInfo, lastData) {
-          return mockServer({
-            ...queryInfo,
-            ts: lastData.ts
-          })
+        loadData(queryInfo) {
+          return mockServer(queryInfo)
         },
         loadDataSuccess(data, info) {
           this.tableData = data.data
@@ -203,12 +197,18 @@ describe('data table property', _ => {
             head.querySelectorAll('th')[0].should.have.class('descending')
             done()
           } catch (e) {
-            done(e)
+            done({
+              message: e.message,
+              stack: e.stack
+            })
           }
         }, 200)
         done()
       } catch (e) {
-        done(e)
+        done({
+          message: e.message,
+          stack: e.stack
+        })
       }
     })
   })

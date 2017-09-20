@@ -35,11 +35,8 @@ describe('server sort data', _ => {
         }
       },
       methods: {
-        loadData(queryInfo, lastData) {
-          return mockServer({
-            ...queryInfo,
-            ts: lastData.ts
-          })
+        loadData(queryInfo) {
+          return mockServer(queryInfo)
         },
         loadDataSuccess(data, info) {
           this.tableData = data.data
@@ -69,7 +66,10 @@ describe('server sort data', _ => {
             data.req.sortInfo.order.should.equal("ascending")
             data.req.sortInfo.prop.should.equal("flow_type")
           } catch (e) {
-            done(e)
+            done({
+              message: e.message,
+              stack: e.stack
+            })
           }
         })
 
@@ -80,14 +80,20 @@ describe('server sort data', _ => {
             info.type.should.equal("sortChange")
             done()
           } catch (e) {
-            done(e)
+            done({
+              message: e.message,
+              stack: e.stack
+            })
           }
         })
 
         ths[4].click()
       } catch (e) {
         console.log(e)
-        done(e)
+        done({
+          message: e.message,
+          stack: e.stack
+        })
       }
     }
 

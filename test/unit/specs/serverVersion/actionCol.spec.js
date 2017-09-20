@@ -45,8 +45,10 @@ describe('server actionColDef', _ => {
         cells[9].querySelector('.cell').should.have.text('action')
         done()
       } catch (e) {
-        console.log(e)
-        done(e)
+        done({
+          message: e.message,
+          stack: e.stack
+        })
       }
     }
 
@@ -100,11 +102,8 @@ describe('server actionColDef', _ => {
         }
       },
       methods: {
-        loadData(queryInfo, lastData) {
-          return mockServer({
-            ...queryInfo,
-            ts: lastData.ts
-          })
+        loadData(queryInfo) {
+          return mockServer(queryInfo)
         },
         loadDataSuccess(data) {
           this.tableData = data.data
@@ -148,8 +147,10 @@ describe('server actionColDef', _ => {
         spy2.should.have.have.callCount(20)
         done()
       } catch (e) {
-        console.log(e)
-        done(e)
+        done({
+          message: e.message,
+          stack: e.stack
+        })
       }
     }
 

@@ -90,7 +90,10 @@ describe('client custom action bar', _ => {
         triggerEvent(input, 'input')
       } catch (e) {
         console.log(e)
-        done(e)
+        done({
+          message: e.message,
+          stack: e.stack
+        })
       }
     }
 
@@ -160,7 +163,9 @@ describe('client custom action bar', _ => {
         triggerEvent(input, 'input')
       } catch (e) {
         console.log(e)
-        done(e)
+        done({
+  message: e.message,
+  stack: e.stack})
       }
     }
 

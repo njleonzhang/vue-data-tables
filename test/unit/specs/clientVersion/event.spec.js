@@ -71,9 +71,12 @@ describe('client events', _ => {
         secondItemTds[9].click()
         rowClickCnt.should.equal(11)
 
-        done();
+        done()
       } catch (err) {
-        done(err);
+        done({
+          message: err.message,
+          stack: err.stack
+        })
       }
     } ()
   })
@@ -141,9 +144,12 @@ describe('client events', _ => {
         secondItemTds[9].click()
         rowClickCnt.should.equal(11)
 
-        done();
+        done()
       } catch (err) {
-        done(err);
+        done({
+          message: err.message,
+          stack: err.stack
+        })
       }
     } ()
   })
@@ -193,9 +199,12 @@ describe('client events', _ => {
 
         sortObject.prop.should.equal('create_time')
 
-        done();
+        done()
       } catch (err) {
-        done(err);
+        done({
+          message: err.message,
+          stack: err.stack
+        })
       }
     } ()
   })

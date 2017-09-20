@@ -47,7 +47,10 @@ describe('client searchDef', _ => {
         done()
       } catch (e) {
         console.log(e)
-        done(e)
+        done({
+          message: e.message,
+          stack: e.stack
+        })
       }
     }
 
@@ -113,7 +116,10 @@ describe('client searchDef', _ => {
         triggerEvent(input, 'input')
       } catch (e) {
         console.log(e)
-        done(e)
+        done({
+          message: e.message,
+          stack: e.stack
+        })
       }
     }
 
@@ -185,10 +191,12 @@ describe('client searchDef', _ => {
         bus.$on('filtered', filterCallBack)
 
         triggerEvent(input, 'input')
-
       } catch (e) {
         console.log(e)
-        done(e)
+        done({
+          message: e.message,
+          stack: e.stack
+        })
       }
     }
 
@@ -263,7 +271,10 @@ describe('client searchDef', _ => {
         triggerEvent(input, 'input')
       } catch (e) {
         console.log(e)
-        done(e)
+        done({
+          message: e.message,
+          stack: e.stack
+        })
       }
     }
 
@@ -332,7 +343,10 @@ describe('client searchDef', _ => {
         triggerEvent(input, 'input')
       } catch (e) {
         console.log(e)
-        done(e)
+        done({
+          message: e.message,
+          stack: e.stack
+        })
       }
     }
 
@@ -401,8 +415,10 @@ describe('client searchDef', _ => {
 
         triggerEvent(input, 'input')
       } catch (e) {
-        console.log(e)
-        done(e)
+        done({
+          message: e.message,
+          stack: e.stack
+        })
       }
     }
 
@@ -448,8 +464,10 @@ describe('client searchDef', _ => {
         search.should.have.class('el-col-5')
         done()
       } catch (e) {
-        console.log(e)
-        done(e)
+        done({
+          message: e.message,
+          stack: e.stack
+        })
       }
     }
 
@@ -493,8 +511,10 @@ describe('client searchDef', _ => {
         input.should.have.attr('readonly', 'readonly')
         done()
       } catch (e) {
-        console.log(e)
-        done(e)
+        done({
+          message: e.message,
+          stack: e.stack
+        })
       }
     }
 
@@ -576,8 +596,10 @@ describe('client searchDef', _ => {
 
         triggerEvent(input, 'input')
       } catch (e) {
-        console.log(e)
-        done(e)
+        done({
+          message: e.message,
+          stack: e.stack
+        })
       }
     }
 
@@ -652,8 +674,10 @@ describe('client searchDef', _ => {
 
         triggerEvent(input, 'input')
       } catch (e) {
-        console.log(e)
-        done(e)
+        done({
+          message: e.message,
+          stack: e.stack
+        })
       }
     }
 
@@ -704,8 +728,10 @@ describe('client searchDef', _ => {
 
         done()
       } catch (e) {
-        console.log(e)
-        done(e)
+        done({
+          message: e.message,
+          stack: e.stack
+        })
       }
     }
 

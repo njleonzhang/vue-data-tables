@@ -63,11 +63,8 @@ describe('server custom action bar', _ => {
         }
       },
       methods: {
-        loadData(queryInfo, lastData) {
-          return mockServer({
-            ...queryInfo,
-            ts: lastData.ts
-          })
+        loadData(queryInfo) {
+          return mockServer(queryInfo)
         },
         loadDataSuccess(data, info) {
           bus.$emit('success', data, info)
@@ -101,7 +98,10 @@ describe('server custom action bar', _ => {
             data.req.filters[1].type.should.equal('selector')
             data.req.filters[1].vals.toString().should.equal('')
           } catch (e) {
-            done(e)
+            done({
+              message: e.message,
+              stack: e.stack
+            })
           }
         })
 
@@ -110,7 +110,10 @@ describe('server custom action bar', _ => {
             info.type.should.equal('searchBoxChange')
             info.filters[1].vals.toString().should.equal('')
           } catch (e) {
-            done(e)
+            done({
+              message: e.message,
+              stack: e.stack
+            })
           }
         })
 
@@ -131,14 +134,18 @@ describe('server custom action bar', _ => {
             data.req.filters[1].vals.toString().should.equal('help')
             done()
           } catch (e) {
-            console.error(e)
-            done(e)
+            done({
+              message: e.message,
+              stack: e.stack
+            })
           }
         })
         selectItems[1].click()
       } catch (e) {
-        console.log(e)
-        done(e)
+        done({
+          message: e.message,
+          stack: e.stack
+        })
       }
     }
 

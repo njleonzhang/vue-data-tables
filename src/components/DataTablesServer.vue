@@ -5,7 +5,7 @@
 <template lang="pug">
   include ../template/index.pug
   +template()(
-    v-loading="loading",
+    v-loading="innerLoading",
     :element-loading-text="loadingStr")
 </template>
 
@@ -26,15 +26,21 @@
       },
       loadData: {
         type: Function
+      },
+      loading: {
+        type: Boolean,
+        default: false
       }
     },
     created() {
-      this.loadData && this.innerLoadData()
+      this.loadData && this.innerLoadData({
+        type: 'init',
+        ...this.queryInfo
+      })
     },
     data() {
       return {
-        lastData: {},
-        loading: false
+        innerLoading: false
       }
     },
     computed: {
@@ -97,12 +103,14 @@
     },
     methods: {
       queryChange(type) {
-        this.$emit('query-change', {
+        let info = {
           type,
           ...this.queryInfo
-        })
+        }
 
-        this.loadData && this.innerLoadData()
+        this.$emit('query-change', info)
+
+        this.loadData && this.innerLoadData(info)
       },
       handleSizeChange(size) {
         this.innerPageSize = size
@@ -120,23 +128,25 @@
         this.sortData = obj
         this.queryChange('sortChange')
       },
-      innerLoadData() {
-        this.loading = true
-        this.loadData(this.queryInfo, this.lastData)
+      innerLoadData(info) {
+        this.innerLoading = true
+        this.loadData && this.loadData(info)
           .then(data => {
-            this.lastData = data
-            this.loading = false
-            this.$emit('load-data-success', data, this.queryInfo)
+            this.innerLoading = false
+            this.$emit('load-data-success', data, info)
           })
           .catch(error => {
-            this.loading = false
-            this.$emit('load-data-fail', error, this.queryInfo)
+            this.innerLoading = false
+            this.$emit('load-data-fail', error, info)
           })
       }
     },
     watch: {
       innerCustomFilters() {
         this.queryChange('customFilterChange')
+      },
+      loading(val) {
+        this.innerLoading = val
       }
     }
   }

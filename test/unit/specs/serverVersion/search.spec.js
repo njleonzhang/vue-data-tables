@@ -46,8 +46,10 @@ describe('server searchDef', _ => {
         should.exist(vm.$el.querySelector('.search'))
         done()
       } catch (e) {
-        console.log(e)
-        done(e)
+        done({
+          message: e.message,
+          stack: e.stack
+        })
       }
     }
 
@@ -93,8 +95,10 @@ describe('server searchDef', _ => {
         search.should.have.class('el-col-5')
         done()
       } catch (e) {
-        console.log(e)
-        done(e)
+        done({
+          message: e.message,
+          stack: e.stack
+        })
       }
     }
 
@@ -138,8 +142,10 @@ describe('server searchDef', _ => {
         input.should.have.attr('readonly', 'readonly')
         done()
       } catch (e) {
-        console.log(e)
-        done(e)
+        done({
+          message: e.message,
+          stack: e.stack
+        })
       }
     }
 
@@ -174,11 +180,8 @@ describe('server searchDef', _ => {
         }
       },
       methods: {
-        loadData(queryInfo, lastData) {
-          return mockServer({
-            ...queryInfo,
-            ts: lastData.ts
-          })
+        loadData(queryInfo) {
+          return mockServer(queryInfo)
         },
         loadDataSuccess(data, info) {
           this.tableData = data.data
@@ -209,7 +212,10 @@ describe('server searchDef', _ => {
           try {
             data.req.filters[0].vals[0].should.equal("0")
           } catch (e) {
-            done(e)
+            done({
+              message: e.message,
+              stack: e.stack
+            })
           }
         })
 
@@ -219,13 +225,18 @@ describe('server searchDef', _ => {
             info.filters[0].vals[0].should.equal("0")
             done()
           } catch (e) {
-            done(e)
+            done({
+              message: e.message,
+              stack: e.stack
+            })
           }
         })
         triggerEvent(input, 'input')
       } catch (e) {
-        console.log(e)
-        done(e)
+        done({
+          message: e.message,
+          stack: e.stack
+        })
       }
     }
 
@@ -276,8 +287,10 @@ describe('server searchDef', _ => {
 
         done()
       } catch (e) {
-        console.log(e)
-        done(e)
+        done({
+          message: e.message,
+          stack: e.stack
+        })
       }
     }
 

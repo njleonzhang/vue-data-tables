@@ -80,7 +80,10 @@ describe('client checkedFilters', _ => {
         done()
       } catch (e) {
         console.log(e)
-        done(e)
+        done({
+          message: e.message,
+          stack: e.stack
+        })
       }
     }
 
@@ -126,7 +129,10 @@ describe('client checkedFilters', _ => {
         done()
       } catch (e) {
         console.log(e)
-        done(e)
+        done({
+          message: e.message,
+          stack: e.stack
+        })
       }
     }
 
@@ -197,7 +203,10 @@ describe('client checkedFilters', _ => {
         done()
       } catch (e) {
         console.log(e)
-        done(e)
+        done({
+          message: e.message,
+          stack: e.stack
+        })
       }
     }
 
@@ -268,7 +277,10 @@ describe('client checkedFilters', _ => {
         done()
       } catch (e) {
         console.log(e)
-        done(e)
+        done({
+          message: e.message,
+          stack: e.stack
+        })
       }
     }
 

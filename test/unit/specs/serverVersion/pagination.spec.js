@@ -40,11 +40,8 @@ describe('server pagination def', _ => {
         }
       },
       methods: {
-        loadData(queryInfo, lastData) {
-          return mockServer({
-            ...queryInfo,
-            ts: lastData.ts
-          })
+        loadData(queryInfo) {
+          return mockServer(queryInfo)
         },
         loadDataSuccess(data) {
           this.tableData = data.data
@@ -137,11 +134,8 @@ describe('server pagination def', _ => {
         }
       },
       methods: {
-        loadData(queryInfo, lastData) {
-          return mockServer({
-            ...queryInfo,
-            ts: lastData.ts
-          })
+        loadData(queryInfo) {
+          return mockServer(queryInfo)
         },
         loadDataSuccess(data, info) {
           this.tableData = data.data
@@ -175,7 +169,10 @@ describe('server pagination def', _ => {
           try {
             data.data.length.should.equal(20)
           } catch (e) {
-            done(e)
+            done({
+              message: e.message,
+              stack: e.stack
+            })
           }
         })
 
@@ -184,7 +181,10 @@ describe('server pagination def', _ => {
             info.type.should.equal('sizeChange')
             info.page.should.equal(2)
           } catch (e) {
-            done(e)
+            done({
+              message: e.message,
+              stack: e.stack
+            })
           }
         })
 
@@ -198,7 +198,10 @@ describe('server pagination def', _ => {
           try {
             data.data.length.should.equal(20)
           } catch (e) {
-            done(e)
+            done({
+              message: e.message,
+              stack: e.stack
+            })
           }
         })
 
@@ -208,14 +211,19 @@ describe('server pagination def', _ => {
             info.page.should.equal(8)
             done()
           } catch (e) {
-            done(e)
+            done({
+              message: e.message,
+              stack: e.stack
+            })
           }
         })
 
         triggerEvent(jump, 'change')
       } catch (e) {
-        console.log(e)
-        done(e)
+        done({
+          message: e.message,
+          stack: e.stack
+        })
       }
     }
 

@@ -36,11 +36,8 @@ describe('server loading', _ => {
         }
       },
       methods: {
-        loadData(queryInfo, lastData) {
-          return mockServerError({
-            ...queryInfo,
-            ts: lastData.ts
-          })
+        loadData(queryInfo) {
+          return mockServerError(queryInfo)
         },
         loadDataSuccess(data) {
         },
@@ -61,11 +58,17 @@ describe('server loading', _ => {
               loading.should.not.be.displayed
               done()
             } catch (e) {
-              done(e)
+              done({
+                message: e.message,
+                stack: e.stack
+              })
             }
-          }, 500)
+          }, 1000)
         } catch (e) {
-          done(e)
+          done({
+            message: e.message,
+            stack: e.stack
+          })
         }
       })
 
@@ -75,7 +78,10 @@ describe('server loading', _ => {
         should.exist(loading)
         loading.should.be.displayed
       } catch (e) {
-        done(e)
+        done({
+          message: e.message,
+          stack: e.stack
+        })
       }
     }
 
@@ -109,11 +115,8 @@ describe('server loading', _ => {
         }
       },
       methods: {
-        loadData(queryInfo, lastData) {
-          return mockServer({
-            ...queryInfo,
-            ts: lastData.ts
-          })
+        loadData(queryInfo) {
+          return mockServer(queryInfo)
         },
         loadDataSuccess(data) {
           bus.$emit('success')
@@ -133,11 +136,17 @@ describe('server loading', _ => {
               loading.should.not.be.displayed
               done()
             } catch (e) {
-              done(e)
+              done({
+                message: e.message,
+                stack: e.stack
+              })
             }
           }, 500)
         } catch (e) {
-          done(e)
+          done({
+            message: e.message,
+            stack: e.stack
+          })
         }
       })
 
@@ -147,7 +156,10 @@ describe('server loading', _ => {
         should.exist(loading)
         loading.should.be.displayed
       } catch (e) {
-        done(e)
+        done({
+          message: e.message,
+          stack: e.stack
+        })
       }
     }
 

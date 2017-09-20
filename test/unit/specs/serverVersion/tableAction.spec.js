@@ -80,8 +80,10 @@ describe('server table actions def', _ => {
         importClickedCnt.should.equal(20)
         done()
       } catch (e) {
-        console.log(e)
-        done(e)
+        done({
+          message: e.message,
+          stack: e.stack
+        })
       }
     }
 

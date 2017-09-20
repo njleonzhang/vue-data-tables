@@ -74,7 +74,10 @@ describe('server events', _ => {
 
         done();
       } catch (err) {
-        done(err);
+        done({
+          message: err.message,
+          stack: err.stack
+        })
       }
     } ()
   })
@@ -142,9 +145,12 @@ describe('server events', _ => {
         secondItemTds[9].click()
         rowClickCnt.should.equal(11)
 
-        done();
+        done()
       } catch (err) {
-        done(err);
+        done({
+          message: err.message,
+          stack: err.stack
+        })
       }
     } ()
   })
