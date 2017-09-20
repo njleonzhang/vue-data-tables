@@ -969,6 +969,7 @@ module.exports = Component.exports
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "install", function() { return install; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_DataTables__ = __webpack_require__(18);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__components_DataTables___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__components_DataTables__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_DataTablesServer__ = __webpack_require__(19);
@@ -978,9 +979,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 
-__WEBPACK_IMPORTED_MODULE_0__components_DataTables___default.a.install = function (Vue) {
+var install = function install(Vue) {
   Vue.component(__WEBPACK_IMPORTED_MODULE_0__components_DataTables___default.a.name, __WEBPACK_IMPORTED_MODULE_0__components_DataTables___default.a);
 };
+
+__WEBPACK_IMPORTED_MODULE_0__components_DataTables___default.a.install = install;
 
 __WEBPACK_IMPORTED_MODULE_1__components_DataTablesServer___default.a.install = function (Vue) {
   Vue.component(__WEBPACK_IMPORTED_MODULE_1__components_DataTablesServer___default.a.name, __WEBPACK_IMPORTED_MODULE_1__components_DataTablesServer___default.a);

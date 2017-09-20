@@ -1,9 +1,11 @@
 import DataTables from './components/DataTables'
 import DataTablesServer from './components/DataTablesServer'
 
-DataTables.install = function(Vue) {
+let install = function(Vue) {
   Vue.component(DataTables.name, DataTables)
 }
+
+DataTables.install = install
 
 DataTablesServer.install = function(Vue) {
   Vue.component(DataTablesServer.name, DataTablesServer)
@@ -12,6 +14,7 @@ DataTablesServer.install = function(Vue) {
 export default DataTables
 
 export {
+  install,
   DataTables,
-  DataTablesServer
+  DataTablesServer,
 }
