@@ -1,8 +1,8 @@
 ![logo](_media/icon.svg)
 
-# vue-data-tables <small>2.0.3</small>
+# vue-data-tables <small>2.1</small>
 
-> A simple and customizable, front-end pagination datatables, based on vue2 and element-ui.
+> A simple, customizable and pageable table, based on vue2 and element-ui
 
 <p align="center">
   <a href="https://github.com/njleonzhang/vue-data-tables"><img alt="star this repo" src="http://githubbadges.com/star.svg?user=njleonzhang&repo=vue-data-tables&style=flat" /></a>
@@ -12,7 +12,8 @@
 </p>
 
 - Simple and lightweight (~6.8kb gzipped)
-- Customizable and powerful
+- Support both font-side and server-side data source
+- Customizable, flexible and powerful
 - Based on element-ui
 
 [GitHub](https://github.com/njleonzhang/vue-data-tables/)

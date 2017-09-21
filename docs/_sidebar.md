@@ -12,3 +12,4 @@
   - [Customize Action column](defineActionCol)
   - [Pagination](pagination)
   - [Event](event)
+  - [Load massive data](serverData)

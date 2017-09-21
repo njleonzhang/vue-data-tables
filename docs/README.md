@@ -1,6 +1,6 @@
 # [vue-data-tables](https://github.com/njleonzhang/vue-data-tables/)
 
-> A simple and customizable, front-end pagination datatables，based on vue2 and element-ui.
+> A simple, customizable and pageable table, based on vue2 and element-ui.
 
 This lib depends on the following [element-ui](http://element.eleme.io/#/en-US) components:
 * el-table
@@ -12,3 +12,5 @@ This lib depends on the following [element-ui](http://element.eleme.io/#/en-US) 
 * el-pagination
 * el-checkbox
 * el-checkbox-group
+
+** Support both font-side and server-side data source from version 2.1 **

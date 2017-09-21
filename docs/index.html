@@ -18,10 +18,11 @@
 <script src="//unpkg.com/docsify-edit-on-github@1.0.1/index.js"></script>
 <script src="https://unpkg.com/element-ui/lib/index.js"></script>
 <script src="//unpkg.com/element-ui/lib/umd/locale/en.js"></script>
-<script src="https://rawgit.com/njleonzhang/vue-data-tables/master/dist/data-tables.min.js"></script>
+<script src="https://rawgit.com/njleonzhang/vue-data-tables/master/dist/data-tables.js"></script>
 <script src="//unpkg.com/json2csv@3.9.1/dist/json2csv.js"></script>
 <script>
   Vue.use(DataTables)
+  Vue.use(DataTables.DataTablesServer)
   ELEMENT.locale(ELEMENT.lang.en)
 
   var data, titles;
@@ -68,6 +69,7 @@ titles = [{
   var bootCode =
     'ELEMENT.locale(ELEMENT.lang.en)\n'
     + 'Vue.use(DataTables)\n'
+    + 'Vue.use(DataTables.DataTablesServer)\n'
     + 'var data, titles\n\n' + define + '\n\n';
 
   window.$docsify = {
