@@ -6,11 +6,13 @@
   <a href="https://www.npmjs.com/package/vue-data-tables" target="_blank"><img src='https://img.shields.io/npm/v/vue-data-tables.svg' alt='Node' /></a>
 </p>
 
+<a target='_blank' rel='nofollow' href='https://app.codesponsor.io/link/ihaq87AknxR2SsuxcHraNiGz/njleonzhang/vue-data-tables'>
+  <img alt='Sponsor' width='888' height='68' src='https://app.codesponsor.io/embed/ihaq87AknxR2SsuxcHraNiGz/njleonzhang/vue-data-tables.svg' />
+</a>
+
 ## Documentation
 * [Full Doc](https://njleonzhang.github.io/vue-data-tables)
 * [Online Demo](http://jsfiddle.net/zpczjl/9tp3z4bn/)
-
-> I hope that native English speakers can help to review the documentation and revise accordingly. Please contact me if you would like to contribute.
 
 ## Submitting an issue
 Please provide a reproducible demo via referencing [boilerplate](http://jsfiddle.net/zpczjl/9tp3z4bn/)
