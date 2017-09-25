@@ -5,6 +5,7 @@
   <a href="https://coveralls.io/github/njleonzhang/vue-data-tables?branch=master" target="_blank"><img src='https://coveralls.io/repos/github/njleonzhang/vue-data-tables/badge.svg?branch=master' alt='Coverage Status' /></a>
   <a href="https://www.npmjs.com/package/vue-data-tables" target="_blank"><img src='https://img.shields.io/npm/v/vue-data-tables.svg' alt='Node' /></a>
   <a href="https://github.com/njleonzhang/vue-data-tables" target="_blank"><img src='http://img.badgesize.io/https://unpkg.com/vue-data-tables?compression=gzip' alt='badgesize' /></a>
+  <a href="https://github.com/njleonzhang/vue-data-tables" target="_blank"><img src='https://img.shields.io/npm/dm/vue-data-tables.svg' alt='download' /></a>
 </p>
 
 <a target='_blank' rel='nofollow' href='https://app.codesponsor.io/link/ihaq87AknxR2SsuxcHraNiGz/njleonzhang/vue-data-tables'>
