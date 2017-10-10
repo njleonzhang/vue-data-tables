@@ -49,7 +49,8 @@ docsify serve docs
 You can preview your site in your browser on http://localhost:3000 with hot reload.
 
 ## Buy me a coffee
-
+* Click the advertisement in this page and [document](https://njleonzhang.github.io/vue-data-tables/#/?id=vue-data-tables) page
+* Donate
 <p align="center">
   <a target='_blank' rel='nofollow' href='https://www.paypal.me/njleon?yours=true'>
   <img width='650' src="_media/all.png">
