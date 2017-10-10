@@ -14,7 +14,8 @@
 
 ## Documentation
 * [Full Doc](https://njleonzhang.github.io/vue-data-tables)
-* [Online Demo](http://jsfiddle.net/zpczjl/9tp3z4bn/)
+* [Online Demo for front-end pagination](http://jsfiddle.net/zpczjl/9tp3z4bn/)
+* [Online Demo for server-end pagination](https://jsfiddle.net/zpczjl/xboja87c/)
 
 ## Submitting an issue
 Please provide a reproducible demo via referencing [boilerplate](http://jsfiddle.net/zpczjl/9tp3z4bn/)
@@ -33,9 +34,23 @@ yarn install
 npm run play
 ```
 
-## legacy version(1.x)
-[Code](https://github.com/njleonzhang/vue-data-tables/tree/1.x)
+## Contribute and preview Doc
+The document is powered by [docsify](https://docsify.js.org/#/) and [docsify-demo-box-vue](https://njleonzhang.github.io/docsify-demo-box-vue/#/)
 
-[Doc](https://njleonzhang.github.io/vue-data-tables-1.x-doc/)
+* install docsify
+```
+npm i docsify-cli -g
+```
 
-1.x is unmaintained now, use it at your own risk.
+* go to project folder and run local server
+```
+docsify serve docs
+```
+You can preview your site in your browser on http://localhost:3000 with hot reload.
+
+## Buy me a coffee
+
+<p align="center">
+  <a target='_blank' rel='nofollow' href='https://www.paypal.me/njleon?yours=true'>
+  <img width='650' src="_media/all.png">
+</p>
