@@ -31,7 +31,7 @@ export default {
 ```
 
 # el-table table property
-All `el-table` [priperties](http://element.eleme.io/#/en-US/component/table#table-attributes) can be used by property `tableProps`
+All `el-table` [properties](http://element.eleme.io/#/en-US/component/table#table-attributes) can be used by property `tableProps`
 
 ```html
 /*vue*/
@@ -118,4 +118,4 @@ export default {
 | Property | Desc | Type | Default value |
 | -- | -- | -- | -- |
 | data | The data array which will be render in the table. | Array | - |
-| table-props | an object to pass any [proptery](http://element.eleme.io/#/en-US/component/table#table-attributes) to embed el-table. | Object | - |
+| table-props | an object to pass any [property](http://element.eleme.io/#/en-US/component/table#table-attributes) to embed el-table. | Object | - |
