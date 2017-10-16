@@ -175,7 +175,7 @@ export default {
 >  Notice: `load-data` function must return a `Promise` instance, it should be resolved when http request successes,
    should be reject when http request fails.
 
-## free mode
+### free mode
   In this mode, `DataTablesServer` just render the table according to the property you provide, you need to handle `loading` yourself.
   `auto loading mode` should be enough for most scenario, but if you want to handle `loading` yourself for some special
   reason, use `free mode`
