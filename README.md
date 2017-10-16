@@ -17,9 +17,6 @@
 * [Online Demo for front-end pagination](http://jsfiddle.net/zpczjl/9tp3z4bn/)
 * [Online Demo for server-end pagination](https://jsfiddle.net/zpczjl/xboja87c/)
 
-## Submitting an issue
-Please provide a reproducible demo via referencing [boilerplate](http://jsfiddle.net/zpczjl/9tp3z4bn/)
-
 ## Dev
 
 * install dependencies
