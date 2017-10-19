@@ -43,7 +43,7 @@ mixin template()
         :type='innerActionColDef.type',
         :width='innerActionColDef.width',
         :minWidth='innerActionColDef.minWidth')
-        template(scope='scope')
+        template(slot-scope='scope')
           .action-list
             span(v-for='action in innerActionColDef.def')
               el-button(
