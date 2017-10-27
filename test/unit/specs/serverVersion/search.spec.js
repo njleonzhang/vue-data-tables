@@ -264,7 +264,7 @@ describe('server searchDef', _ => {
           titles,
           searchDef: {
             inputProps: {
-              icon: undefined
+              prefixIcon: undefined
             }
           }
         }
@@ -280,7 +280,7 @@ describe('server searchDef', _ => {
         let searchIcon = search.querySelector('.el-input__icon.el-icon-search')
         should.exist(searchIcon)
 
-        vm.searchDef.inputProps.icon = 'loading'
+        vm.searchDef.inputProps.prefixIcon = 'el-icon-loading'
         await waitForVMready(vm)
         should.exist(search.querySelector('.el-input__icon.el-icon-loading'))
         should.not.exist(search.querySelector('.el-input__icon.el-icon-search'))

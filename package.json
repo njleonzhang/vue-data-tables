@@ -23,7 +23,7 @@
     "tdd": "cross-env BABEL_ENV=test karma start test/unit/karma.conf.js"
   },
   "dependencies": {
-    "element-ui": "^1.4.0",
+    "element-ui": "^2.0.0",
     "vue": "^2.5.2"
   },
   "devDependencies": {
