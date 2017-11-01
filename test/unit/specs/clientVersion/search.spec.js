@@ -704,9 +704,7 @@ describe('client searchDef', _ => {
           tableData,
           titles,
           searchDef: {
-            inputProps: {
-              icon: undefined
-            }
+            inputProps: {}
           }
         }
       }
@@ -718,13 +716,15 @@ describe('client searchDef', _ => {
         let search = vm.$el.querySelector('.search')
         should.exist(search)
 
-        let searchIcon = search.querySelector('.el-input__icon.el-icon-search')
+        let searchIcon = search.querySelector('[prefixicon="el-icon-search"]')
         should.exist(searchIcon)
 
-        vm.searchDef.inputProps.icon = 'loading'
+        vm.searchDef.inputProps = {
+          prefixIcon: 'el-icon-loading'
+        }
         await waitForVMready(vm)
-        should.exist(search.querySelector('.el-input__icon.el-icon-loading'))
-        should.not.exist(search.querySelector('.el-input__icon.el-icon-search'))
+        should.exist(search.querySelector('[prefixicon="el-icon-loading"]'))
+        should.not.exist(search.querySelector('[prefixicon="el-icon-search"]'))
 
         done()
       } catch (e) {

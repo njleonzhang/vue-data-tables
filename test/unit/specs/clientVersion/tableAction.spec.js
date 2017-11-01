@@ -43,7 +43,7 @@ describe('client table actions def', _ => {
               handler: () => {
                 importClickedCnt++
               },
-              icon: 'upload',
+              icon: 'el-icon-upload',
               buttonProps: {
                 type: 'text'
               }

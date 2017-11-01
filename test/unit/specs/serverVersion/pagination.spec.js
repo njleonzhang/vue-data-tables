@@ -158,7 +158,7 @@ describe('server pagination def', _ => {
         body.querySelectorAll('tr').length.should.equal(10)
 
         let pagination = vm.$el.querySelector('.el-pagination')
-        let jump = pagination.querySelector('.el-pagination__jump').querySelector('.el-pagination__editor')
+        let jump = pagination.querySelector('.el-pagination__jump').querySelector('.el-pagination__editor input')
         let select = pagination.querySelector('.el-select')
         select.click()
         await sleep(DELAY)
@@ -218,7 +218,7 @@ describe('server pagination def', _ => {
           }
         })
 
-        triggerEvent(jump, 'change')
+        triggerEvent(jump, 'input')
       } catch (e) {
         done({
           message: e.message,

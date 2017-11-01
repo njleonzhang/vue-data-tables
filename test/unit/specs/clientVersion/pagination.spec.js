@@ -100,7 +100,7 @@ describe('client pagination def', _ => {
           paginationDef: {
             pageSize: 1,
             pageSizes: [1, 2, 3],
-            currentPage: 2
+            currentPage: 1
           }
         }
       },
@@ -118,7 +118,7 @@ describe('client pagination def', _ => {
       try {
         await sleep(DELAY)
         let pagination = vm.$el.querySelector('.el-pagination')
-        let jump = pagination.querySelector('.el-pagination__jump').querySelector('.el-pagination__editor')
+        let jump = pagination.querySelector('.el-pagination__jump').querySelector('.el-pagination__editor input')
         let select = pagination.querySelector('.el-select')
         select.click()
         await sleep(DELAY)
@@ -126,20 +126,19 @@ describe('client pagination def', _ => {
         let selectItems = pagination.querySelectorAll('.el-select-dropdown__item')
         selectItems[1].click()
         await sleep(DELAY)
-
+        
         spy1.should.have.been.calledOnce
         spy1.should.have.been.calledWith(2)
 
         jump.focus()
-        jump.value = 1
-        triggerEvent(jump, 'change')
+        jump.value = 2
+        triggerEvent(jump, 'input')
 
         await sleep(DELAY)
         spy2.should.have.been.calledOnce
-        spy2.should.have.been.calledWith(1)
+        spy2.should.have.been.calledWith(2)
         done()
       } catch (e) {
-        console.log(e)
         done({
           message: e.message,
           stack: e.stack
