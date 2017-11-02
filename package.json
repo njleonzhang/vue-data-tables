@@ -20,7 +20,8 @@
     "lint": "eslint --ext .js,.vue src",
     "pub": "node publish/publish.js",
     "test": "cross-env BABEL_ENV=test karma start test/unit/karma.conf.js --single-run",
-    "tdd": "cross-env BABEL_ENV=test karma start test/unit/karma.conf.js"
+    "tdd": "cross-env BABEL_ENV=test karma start test/unit/karma.conf.js",
+    "doc": "docsify serve docs"
   },
   "dependencies": {
     "element-ui": "^2.0.0",
