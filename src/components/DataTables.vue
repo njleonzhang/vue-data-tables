@@ -52,7 +52,8 @@
           show: true,
           props: undefined,
           filterFunction: undefined,
-          debounceTime: 200
+          debounceTime: 200,
+          prefixIcon: 'el-icon-search'
         }, this.searchDef)
       },
       sortedData() {

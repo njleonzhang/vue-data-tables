@@ -29,6 +29,9 @@ export default {
       data,
       titles,
       actionsDef: {
+        colProps: {
+          span: 8
+        },
         def: [{
           name: 'new',
           handler: () => {
@@ -36,6 +39,7 @@ export default {
           }
         }, {
           name: 'import',
+          icon: 'el-icon-info',
           handler: () => {
             this.$message("import clicked")
           }
@@ -134,7 +138,7 @@ export default {
           handler: () => {
             this.$message("import clicked")
           },
-          icon: 'upload',
+          icon: 'el-icon-upload',
           buttonProps: {
             type: 'text'
           }

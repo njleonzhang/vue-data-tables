@@ -21,7 +21,7 @@ mixin template()
         v-if='searchShow')
         el-input(
           v-model='searchKey',
-          :icon='innerSearchDef.inputProps && innerSearchDef.inputProps.icon || "search"',
+          :prefix-icon='innerSearchDef.inputProps && innerSearchDef.inputProps.prefixIcon || "el-icon-search"',
           v-bind='innerSearchDef.inputProps')
     .custom-tool-bar
       slot(name='custom-tool-bar')

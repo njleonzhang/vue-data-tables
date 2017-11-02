@@ -90,7 +90,7 @@ describe('server actionColDef', _ => {
               },
               name: 'Edit'
             }, {
-              icon: 'message',
+              icon: 'el-icon-message',
               type: 'primary',
               handler: row => {
                 spy2()
