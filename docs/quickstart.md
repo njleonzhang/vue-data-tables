@@ -11,7 +11,7 @@ npm install vue-data-tables
 
 ```js
 import ElementUI from 'element-ui'
-import 'element-ui/lib/theme-default/index.css'
+import 'element-ui/lib/theme-chalk/index.css'
 import DataTables from 'vue-data-tables'
 
 Vue.use(ElementUI)
@@ -26,7 +26,7 @@ import locale from 'element-ui/lib/locale'
 
 locale.use(lang)
 ```
-check [element-ui doc](http://element.eleme.io/#/en-US/component/i18n) for more detail
+check [element-ui doc](http://element.eleme.io/#/en-US/component/i18n#internationalization) for more detail
 
 # Hello word
 ```html
