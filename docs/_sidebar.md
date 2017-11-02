@@ -13,3 +13,4 @@
   - [Pagination](pagination)
   - [Event](event)
   - [Load massive data](serverData)
+  - [work with element-ui 1.x](https://njleonzhang.github.io/vue-data-tables-2.x-doc/)
