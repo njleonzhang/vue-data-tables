@@ -8,6 +8,11 @@
   <a href="https://github.com/njleonzhang/vue-data-tables" target="_blank"><img src='https://img.shields.io/npm/dm/vue-data-tables.svg' alt='download' /></a>
 </p>
 
+<a target='_blank' rel='nofollow' href='https://app.codesponsor.io/link/SKE13oF6e7QtoMDtqxQSysDM/jsleonzhang/test'>
+  <img alt='Sponsor' width='888' height='68' src='https://app.codesponsor.io/embed/SKE13oF6e7QtoMDtqxQSysDM/jsleonzhang/test.svg' />
+</a>
+
+
 ## Documentation
 * [Full Doc](https://njleonzhang.github.io/vue-data-tables)
 * [Online Demo for front-end pagination](http://jsfiddle.net/zpczjl/9tp3z4bn/)
