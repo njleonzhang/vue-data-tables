@@ -63,20 +63,8 @@
           let order = this.sortData.order
           let prop = this.sortData.prop
           let isDescending = order === 'descending'
-
-          // todo: customize sort function
-          sortedData.sort(function(a, b) {
-            if (a[prop] > b[prop]) {
-              return 1
-            } else if (a[prop] < b[prop]) {
-              return -1
-            } else {
-              return 0
-            }
-          })
-          if (isDescending) {
-            sortedData.reverse()
-          }
+          let _sortMethod = (a, b) => isDescending ? -this.sortMethod(a[prop], b[prop]) : this.sortMethod(a[prop], b[prop])
+          sortedData.sort(_sortMethod)
         }
 
         return sortedData

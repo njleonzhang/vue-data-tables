@@ -62,6 +62,10 @@ export default {
       default() {
         return {}
       }
+    },
+    sortMethod: {
+      type: Function,
+      default: (a, b) => a > b ? 1 : a < b ? -1 : 0
     }
   },
   mounted() {
