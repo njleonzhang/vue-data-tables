@@ -1,14 +1,13 @@
 # server-side data source (Load massive data)
-In previous section, we always fetch all data from server with single http request. But sometimes,
-you may have massive data in sever and it is impossible to load all data to the web page. In this
-scenario, component `DataTablesServer` can be used.
+In the previous section, we always fetch all data from the server with a single http request. But sometimes,
+you may have massive data on the sever and it's impossible to load all that data to the web page. In this
+scenario, the component `DataTablesServer` can be used.
 
-`DataTablesServer` basically have same feature to `DataTables`, which means you also have customizable
+`DataTablesServer` basically has the same features to `DataTables`, which means you also have a customizable
 action bar, action columns, pagination and so on.
 
-> when you use `DataTables`, you may provide `filterFunction` for some props to define special filter logic.
-for `DataTablesServer` `filterFunction` doesn't work, because the filter is not made in front-end but in server-side,
-when you use `DataTablesServer`
+> When you use `DataTables`, you may provide `filterFunction` for some props to define special filter logic.
+For `DataTablesServer` `filterFunction` doesn't work, because the filter is not made on the front-end but on the server-side when you use `DataTablesServer`.
 
 
 ## import DataTablesServer to your project
@@ -20,8 +19,8 @@ Vue.use(DataTablesServer)
 
 ## working mode
 
-`DataTablesServer` can be used in two mode: `auto loading mode` and `free mode`.
-In both mode, you must provide the following props:
+`DataTablesServer` can be used in two modes: `auto loading mode` and `free mode`.
+In both modes, you must provide the following props:
 
  | Property | Desc | Type | Default value |
  | -- | -- | -- | -- |
@@ -30,12 +29,12 @@ In both mode, you must provide the following props:
 
 ### auto loading mode
 
- In this mode, `DataTablesServer` help to show and hide `loading` along with Http request.
+ In this mode, `DataTablesServer` helps to show and hide `loading` along with Http requests.
  Provide property `load-data` to enable this mode.
 
  | Property | Desc | Type | Parameter | Return value |
  | -- | -- | -- | -- | -- |
- | load-data | The function called by `DataTablesServer` to loading data when table initializing or any changes happens on page, page size, search value, checkbox filter value or custom filter  | Function | `Object` which represents the table state | must return a `Promise` instance |
+ | load-data | The function called by `DataTablesServer` to load data when the table is initializing or any changes happens on page, page size, search value, checkbox filter value or custom filter  | Function | `Object` which represents the table state | must return a `Promise` instance |
 
 
  properties of load-data parameter
@@ -50,7 +49,7 @@ In both mode, you must provide the following props:
 ```html
 /*vue*/
 <desc>
-* load data and handle http result both in `load-data`
+* load data and handle the http result both in `load-data`
 </desc>
 <template>
   <data-tables-server
@@ -172,15 +171,15 @@ export default {
 </script>
 ```
 
->  Notice: `load-data` function must return a `Promise` instance, it should be resolved when http request successes,
-   should be reject when http request fails.
+>  Notice: The `load-data` function must return a `Promise` instance, it should be resolved when the http request succeeds,
+   and it should be rejected when http request fails.
 
 ### free mode
-  In this mode, `DataTablesServer` just render the table according to the property you provide, you need to handle `loading` yourself.
-  `auto loading mode` should be enough for most scenario, but if you want to handle `loading` yourself for some special
+  In this mode, `DataTablesServer` just renders the table according to the property you provide, you need to handle `loading` yourself.
+  `auto loading mode` should be enough for most scenarios, but if you want to handle `loading` yourself for some special
   reason, use `free mode`
 
-  To enable this mode, don't provide `load-data` property, but provide `loading` property and leverage event `query-change`.
+  To enable this mode, don't provide the `load-data` property, but provide the `loading` property and leverage the `query-change` event.
 
 
   | Property | Desc | Type |
@@ -190,7 +189,7 @@ export default {
 
  | Event | Desc | Payload |
  | - | - | - |
- | query-change | emit when any changes happens on page, page size, search value, checkbox filter value or custom filter | `Object` which represents the table state, same to `load-data`'s parameter |
+ | query-change | emit when any changes happen on the page, page size, search value, checkbox filter value or custom filter | `Object` which represents the table state, same as `load-data`'s parameter |
 
 
 ```html
