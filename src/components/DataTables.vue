@@ -104,14 +104,15 @@
             return props.some(prop => {
               let elVal = el[prop]
               /* istanbul ignore if */
-              if (elVal === undefined) {
-                console.error(ErrorTips.propError(prop))
-              } else if (elVal === null) {
+              if (elVal === null || elVal === undefined) {
                 return false
               }
 
               return filter.vals.some(val => {
-                return elVal.toString().toLowerCase().indexOf(val.toLowerCase()) > -1
+                if (elVal !== undefined) {
+                  return elVal.toString().toLowerCase().indexOf(val.toLowerCase()) > -1
+                }
+                return false
               })
             })
           }
