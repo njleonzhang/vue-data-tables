@@ -106,6 +106,7 @@
               /* istanbul ignore if */
               if (elVal === undefined) {
                 console.error(ErrorTips.propError(prop))
+                return false
               } else if (elVal === null) {
                 return false
               }
