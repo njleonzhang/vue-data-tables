@@ -17,9 +17,11 @@
     mixins: [ShareMixin],
     data() {
       return {
-        sortData: {}
+        sortData: {},
+        filtersFromElTable: []
       }
     },
+
     computed: {
       innerCheckboxFilterDef() {
         let _allDataProps = this._allDataProps
@@ -82,6 +84,7 @@
         return sortedData
       },
       tableData() {
+        console.log(this, this.$props)
         let filteredData = this.sortedData.slice()
         let _allDataProps = this._allDataProps
 
@@ -93,6 +96,7 @@
           })
         }
 
+        let propErrors = {}
         this.filters.forEach(filter => {
           let vals = filter.vals
           if (!vals || vals.length === 0) {
@@ -105,7 +109,10 @@
               let elVal = el[prop]
               /* istanbul ignore if */
               if (elVal === undefined) {
-                console.error(ErrorTips.propError(prop))
+                if (!propErrors[prop]) {
+                  propErrors[prop] = true
+                  console.error(ErrorTips.propError(prop))
+                }
                 return false
               } else if (elVal === null) {
                 return false
@@ -133,6 +140,9 @@
       },
       filters() {
         let filters = this.formatToArray(this.innerCustomFilters)
+
+        filters.push.apply(filters, this.filtersFromElTable)
+
         if (this.showActionBar) {
           if (this.searchShow) {
             filters.push({
@@ -172,6 +182,21 @@
       },
       handleSort(obj) {
         this.sortData = obj
+      },
+      handleFilterChange(payload) {
+        // handle filter-changed event from children data-table
+
+        for (let prop in payload) {
+          this.filtersFromElTable = this.filtersFromElTable.filter(item => item.key !== prop)
+          let values = payload[prop]
+          if (values.length !== 0) {
+            this.filtersFromElTable.push({
+              key: prop,
+              props: [prop],
+              vals: values
+            })
+          }
+        }
       }
     },
     watch: {
