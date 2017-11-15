@@ -84,7 +84,6 @@
         return sortedData
       },
       tableData() {
-        console.log(this, this.$props)
         let filteredData = this.sortedData.slice()
         let _allDataProps = this._allDataProps
 
