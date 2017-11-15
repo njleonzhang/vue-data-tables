@@ -3,7 +3,7 @@
 
 To leverage this feature,  property `sortable` of `el-table-column` must be set as `custom`.
 
-> if sortable = "custom" is nt set, it also work, but the table will be sort by both el-table and vue-data-table, which may cause performance issue.
+> if sortable = "custom" is not set, it also work, but the table will be sort by both el-table and vue-data-table, which may cause performance issue.
 
 ```html
 /*vue*/
