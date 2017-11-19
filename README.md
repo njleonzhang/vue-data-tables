@@ -1,5 +1,3 @@
-<p align="center"><a href="https://github.com/njleonzhang/vue-data-tables" target="_blank"><img width="100"src="https://njleonzhang.github.io/vue-data-tables/_media/icon.svg"></a></p>
-
 <p align="center">
   <a href="https://travis-ci.org/njleonzhang/vue-data-tables" target="_blank"><img src="https://travis-ci.org/njleonzhang/vue-data-tables.svg?branch=master" alt="Build Status"></a>
   <a href="https://coveralls.io/github/njleonzhang/vue-data-tables?branch=master" target="_blank"><img src='https://coveralls.io/repos/github/njleonzhang/vue-data-tables/badge.svg?branch=master' alt='Coverage Status' /></a>
