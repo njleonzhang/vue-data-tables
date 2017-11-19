@@ -1,3 +1,5 @@
+<p align="center"><a href="https://github.com/njleonzhang/vue-data-tables" target="_blank"><img width="100"src="https://njleonzhang.github.io/vue-data-tables/_media/icon.svg"></a></p>		
+
 <p align="center">
   <a href="https://travis-ci.org/njleonzhang/vue-data-tables" target="_blank"><img src="https://travis-ci.org/njleonzhang/vue-data-tables.svg?branch=master" alt="Build Status"></a>
   <a href="https://coveralls.io/github/njleonzhang/vue-data-tables?branch=master" target="_blank"><img src='https://coveralls.io/repos/github/njleonzhang/vue-data-tables/badge.svg?branch=master' alt='Coverage Status' /></a>
@@ -5,11 +7,6 @@
   <a href="https://github.com/njleonzhang/vue-data-tables" target="_blank"><img src='http://img.badgesize.io/https://unpkg.com/vue-data-tables?compression=gzip' alt='badgesize' /></a>
   <a href="https://github.com/njleonzhang/vue-data-tables" target="_blank"><img src='https://img.shields.io/npm/dm/vue-data-tables.svg' alt='download' /></a>
 </p>
-
-<a target='_blank' rel='nofollow' href='https://app.codesponsor.io/link/SKE13oF6e7QtoMDtqxQSysDM/jsleonzhang/vue-data-table'>
-  <img alt='Sponsor' width='888' height='68' src='https://app.codesponsor.io/embed/SKE13oF6e7QtoMDtqxQSysDM/jsleonzhang/vue-data-table.svg' />
-</a>
-
 
 ## Documentation
 * [Full Doc](https://njleonzhang.github.io/vue-data-tables)
