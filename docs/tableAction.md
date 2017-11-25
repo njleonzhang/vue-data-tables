@@ -2,7 +2,7 @@
 > customize the whole table
 
 # render the table Actions
-property `action-def` is used to defined the table actions, you can define `button`s here
+property `actions-def` is used to defined the table actions, you can define `button`s here
 
 ```html
 /*vue*/
