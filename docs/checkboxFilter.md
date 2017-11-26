@@ -129,3 +129,4 @@ property of object in `checkbox-filter-def.def`
 | ------------- | ------------- | --- | --- |
 | code | value of the checkbox represented | Object | - |
 | name | label of the checkbox | Object | - |
+| checked | value of the checkbox | boolean | false |
