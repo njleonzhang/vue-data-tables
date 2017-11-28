@@ -116,7 +116,7 @@ describe('server loading', _ => {
       },
       methods: {
         loadData(queryInfo) {
-          return mockServer(queryInfo)
+          return mockServer(queryInfo, 1000)
         },
         loadDataSuccess(data) {
           bus.$emit('success')
@@ -130,6 +130,7 @@ describe('server loading', _ => {
 
     let test = async function() {
       bus.$once('success', _ => {
+        console.log('success')
         try {
           setTimeout(_ => {
             try {

@@ -66,12 +66,14 @@
         if (this.showActionBar) {
           if (this.searchShow) {
             filters.push({
+              type: 'search',
               props: this.formatProps(this.innerSearchDef.props),
               vals: this.formatToArray(this.innerSearchKey)
             })
           }
           if (this.checkboxShow) {
             filters.push({
+              type: 'checkbox',
               props: this.formatProps(this.innerCheckboxFilterDef.props),
               vals: this.checkBoxValues
             })

@@ -76,11 +76,11 @@ export default {
     }
   },
   methods: {
-    sortMethod() {
+    sortMethod(a, b) {
       // for Chinese
       let collator = new Intl.Collator(['zh-Hans-CN', 'zh-CN'])
       let flag = a - b
-      return Number.isNaN(flag) ? collator.compare(a, b) : flage
+      return Number.isNaN(flag) ? collator.compare(a, b) : flag
     }
   },
   created() {
