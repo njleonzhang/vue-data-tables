@@ -62,7 +62,7 @@ describe('client sort data', _ => {
 
   })
 
-  it('customize sort method', done => {
+  it.only('customize sort method', done => {
     vm = createVue({
       template: `
         <data-tables
@@ -112,9 +112,14 @@ describe('client sort data', _ => {
       },
       methods: {
         sortMethod(a, b) {
-          // for Chinese
-          let flag = a - b
-          return Number.isNaN(flag) ? a.localeCompare(b, 'zh-Hans-CN') : flag
+          let map = {
+            '王小虎': 3,
+            '李小虎': 1,
+            '罗小虎': 2,
+            '张小虎': 4
+          }
+
+          return map[a] > map[b] ? 1 : -1
         }
       }
     }, true)
