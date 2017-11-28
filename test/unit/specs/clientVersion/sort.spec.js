@@ -62,7 +62,7 @@ describe('client sort data', _ => {
 
   })
 
-  it.only('customize sort method', done => {
+  it('customize sort method', done => {
     vm = createVue({
       template: `
         <data-tables
