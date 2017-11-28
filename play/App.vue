@@ -116,9 +116,11 @@
           }
         },
         customFilters: [{
+          type: 'multi',
           props: ['flow_no', 'flow'],
           vals: ''
         }, {
+          type: 'test',
           vals: []
         }],
         selection: {},

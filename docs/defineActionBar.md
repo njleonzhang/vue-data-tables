@@ -8,7 +8,8 @@ If default action bar can not match requirement, it can be entirely customized.
 ```html
 /*vue*/
 <desc>
-object in `customFilters` can has 3 properties: `vals`, `props` and `filterFunction`
+object in `customFilters` can has 3 properties: `vals`, `props`,
+`filterFunction`(special for vue-data-tables) and `type`(special for [vue-data-tables-server](https://njleonzhang.github.io/vue-data-tables/#/serverData))
 </desc>
 <template>
   <data-tables
@@ -84,4 +85,5 @@ export default {
 | ------------- | ------------- | --- | --- |
 | vals | target value of this filters | Array/String | - |
 | props | indicate property scopes of this filter | Array | - |
-| vals | the filter target values of this filter | Array | - |
+| filterFunction | customize filter function of the filter for `vue-data-tables`  | Function | - |
+| type | a string to mark this filter for `vue-data-tables-server` | String | - |

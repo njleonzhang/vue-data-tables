@@ -45,6 +45,7 @@ In both modes, you must provide the following props:
  | page | current page of the table | number | - | - |
  | pageSize | page size of the table | number | - | - |
  | sortInfo | sort info of the table | Object | {<br>&nbsp;&nbsp;order, <br>&nbsp;&nbsp;prop<br>} | order: 'ascending or descending' |
+ | filters | filter info of the table | Array | [{<br>&nbsp;&nbsp;props,<br>&nbsp;&nbsp;vals,<br>&nbsp;&nbsp;type<br>}] | type: 'checkbox', 'search' or [other customize string](https://njleonzhang.github.io/vue-data-tables/#/defineActionBar?id=related-properties) |
 
 ```html
 /*vue*/

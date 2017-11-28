@@ -15,6 +15,12 @@
   export default {
     name: 'DataTables',
     mixins: [ShareMixin],
+    props: {
+      sortMethod: {
+        type: Function,
+        default: (a, b) => a > b ? 1 : a < b ? -1 : 0
+      }
+    },
     data() {
       return {
         sortData: {}
@@ -57,29 +63,19 @@
         }, this.searchDef)
       },
       sortedData() {
-        let sortedData = this.data.slice()
-
         if (this.sortData.order) {
+          let sortedData = this.data.slice()
+
           let order = this.sortData.order
           let prop = this.sortData.prop
           let isDescending = order === 'descending'
+          let _sortMethod = (a, b) => this.sortMethod(a[prop], b[prop]) * (isDescending ? -1 : 1)
+          sortedData.sort(_sortMethod)
 
-          // todo: customize sort function
-          sortedData.sort(function(a, b) {
-            if (a[prop] > b[prop]) {
-              return 1
-            } else if (a[prop] < b[prop]) {
-              return -1
-            } else {
-              return 0
-            }
-          })
-          if (isDescending) {
-            sortedData.reverse()
-          }
+          return sortedData
         }
 
-        return sortedData
+        return this.data
       },
       tableData() {
         let filteredData = this.sortedData.slice()
