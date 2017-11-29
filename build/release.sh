@@ -26,6 +26,7 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
   sed -i '' "s/<small>\(.*\)<\/small>/<small>$VERSION<\/small>/" docs/_coverpage.md
 
   # commit
+  git add docs
   git commit -m "build: build $VERSION"
   npm version $VERSION --message "build: release $VERSION"
 
