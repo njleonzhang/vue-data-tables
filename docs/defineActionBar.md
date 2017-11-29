@@ -83,7 +83,7 @@ export default {
 
 | Property   | Desc    | Type | Default value |
 | ------------- | ------------- | --- | --- |
-| vals | target value of this filters | Array/String | - |
-| props | indicate property scopes of this filter | Array | - |
+| vals | target value of this filters | Array/String/Number/Boolean | - |
+| props | indicate property scopes of this filter | Array/String | - |
 | filterFunction | customize filter function of the filter for `vue-data-tables`  | Function | - |
 | type | a string to mark this filter for `vue-data-tables-server` | String | - |
