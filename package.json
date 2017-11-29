@@ -18,7 +18,7 @@
     "play": "node build/dev-server.js play",
     "build": "node build/build.js",
     "lint": "eslint --ext .js,.vue src",
-    "pub": "node publish/publish.js",
+    "release": "bash build/release.sh",
     "test": "cross-env BABEL_ENV=test karma start test/unit/karma.conf.js --single-run",
     "tdd": "cross-env BABEL_ENV=test karma start test/unit/karma.conf.js",
     "doc": "docsify serve docs"
