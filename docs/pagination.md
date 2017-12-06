@@ -36,6 +36,37 @@ export default {
 </script>
 ```
 
+## show or hide
+
+```html
+/*vue*/
+<desc>
+hide the pagination
+</desc>
+<template>
+  <data-tables :data="data" :pagination-def="paginationDef">
+    <el-table-column v-for="title in titles"
+      :prop="title.prop"
+      :label="title.label"
+      :key="title.prop"
+      sortable="custom"/>
+  </data-tables>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      data,
+      titles,
+      paginationDef: {
+        show: false
+      }
+    }
+  }
+}
+</script>
+```
 
 # Related properties
 
@@ -49,6 +80,7 @@ export default {
 
 | Property   | Desc    | Type | Accepted Values | Default value |
 | ------------- | ------------- | --- | --- |
+| show  | show or hide the pagination | Boolean | - | true |
 | pageSize  | item count of each page | Number | - | 20 |
 | pageSizes  | options of item count per page	 | Array of Number | - | [20, 50, 100] |
 | currentPage  | current page | Number | - | 1 |
