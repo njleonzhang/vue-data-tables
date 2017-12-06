@@ -31,6 +31,7 @@ mixin template()
       :data='curTableData',
       @sort-change='handleSort',
       v-bind='innerTableProps',
+      v-on:filter-change='handleFilterChange',
       style='width: 100%')&attributes(attributes)
       slot
       div(slot='append')
