@@ -98,50 +98,6 @@ titles = [{
         hook.afterEach(function (html) {
           return html + footer
         })
-      },
-      function (hook, vm) {
-        const dom = Docsify.dom
-        const disqus = vm.config.disqus
-        if (!disqus) {
-          throw Error('$docsify.disqus is required')
-        }
-
-        hook.init(_ => {
-          const script = dom.create('script')
-
-          script.async = true
-          script.src = `https://${disqus}.disqus.com/embed.js`
-          script.setAttribute('data-timestamp', +new Date())
-          dom.appendTo(dom.body, script)
-        })
-
-        hook.mounted(_ => {
-          const div = dom.create('div')
-          div.id = 'disqus_thread'
-          const main = dom.getNode('#main')
-          div.style = `width: ${main.clientWidth}px; margin: 0 auto 20px;`
-          dom.appendTo(dom.find('.content'), div)
-
-          // eslint-disable-next-line
-          window.disqus_config = function() {
-            this.page.url = location.origin + '/-' + vm.route.path
-            this.page.identifier = vm.route.path
-            this.page.title = document.title
-          }
-        })
-
-        hook.doneEach(_ => {
-          if (typeof window.DISQUS !== 'undefined') {
-            window.DISQUS.reset({
-              reload: true,
-              config: function () {
-                this.page.url = location.origin + '/-' + vm.route.path
-                this.page.identifier = vm.route.path
-                this.page.title = document.title
-              }
-            })
-          }
-        })
       }
     ]
   }
@@ -149,7 +105,7 @@ titles = [{
 <script src="//unpkg.com/docsify/lib/docsify.min.js"></script>
 <script src="//unpkg.com/docsify/lib/plugins/external-script.min.js"></script>
 <script src="//unpkg.com/docsify/lib/plugins/search.min.js"></script>
-<!--<script src="//unpkg.com/docsify/lib/plugins/disqus.min.js"></script>-->
+<script src="//unpkg.com/docsify/lib/plugins/disqus.min.js"></script>
 
 
 <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -160,10 +116,5 @@ titles = [{
   gtag('js', new Date());
 
   gtag('config', 'UA-110377374-1');
-
-  const fixedPath = location.href.replace('/-/', '/#/')
-  if (fixedPath != location.href) {
-    location.href = fixedPath
-  }
 </script>
 </html>
