@@ -691,7 +691,7 @@ describe('client searchDef', _ => {
           :data="tableData"
           ref="dataTable"
           :search-def="searchDef">
-          <el-table-column 
+          <el-table-column
             v-for="title in titles"
             :prop="title.prop"
             :label="title.label"

@@ -70,6 +70,10 @@ describe('client actionColDef', _ => {
           titles,
           actionColDef: {
             def: [{
+              buttonProps: {
+                type: 'warning',
+                round: true
+              },
               handler: row => {
                 spy1()
                 this.$message('Edit clicked')
@@ -103,7 +107,8 @@ describe('client actionColDef', _ => {
         let buttons = actionList.querySelectorAll('button')
         buttons.length.should.equals(2)
         buttons[0].querySelector('span').should.have.text('Edit')
-        buttons[0].should.have.class('el-button--text')
+        buttons[0].should.have.class('el-button--warning')
+        buttons[0].should.have.class('is-round')
         buttons[1].querySelector('span').should.have.text('RUA')
         buttons[1].should.have.class('el-button--primary')
         should.exist(buttons[1].querySelector('i.el-icon-message'))

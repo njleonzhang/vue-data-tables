@@ -145,6 +145,7 @@ describe('client custom action bar', _ => {
         select.click()
 
         let selectItems = vm.$el.querySelectorAll('.el-select-dropdown__item')
+        await sleep(DELAY)
         selectItems[0].click()
 
 

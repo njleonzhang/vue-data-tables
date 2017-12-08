@@ -2,15 +2,18 @@
 @import "../style/index.scss";
 </style>
 
+<!--
 <template lang="pug">
   include ../template/index.pug
   +template()
 </template>
+-->
 
 <script>
   import ErrorTips from './ErrorTips.js'
   import ShareMixin from '../mixins/ShareMixin'
   import debounce from 'javascript-debounce'
+  import { merge } from 'lodash'
 
   export default {
     name: 'DataTables',
@@ -26,10 +29,153 @@
         sortData: {}
       }
     },
+    render() {
+      // let tableListener = Object.assign({}, this.$listeners, {
+      //   'sort-change': this.handleSort,
+      //   'row-click': this.handleRowClick,
+      //   'cell-click': this.handleCellClick
+      // })
+
+      return (
+        <div class='sc-table'>
+          {
+            this.showActionBar
+            ? (
+              <el-row class='tool-bar'>
+                <el-col class='actions' { ...{props: this.innerActionsDef.colProps} }>
+                  {
+                    this.innerActionsDef.def.map(action => {
+                      let buttonAttrs = Object.assign({}, {
+                        type: action.type || 'primary',
+                        icon: action.icon
+                      }, action.buttonProps)
+
+                      return (
+                        <el-button
+                          { ...{attrs: buttonAttrs} }
+                          onClick={ action.handler } > { action.name }
+                        </el-button>
+                      )
+                    })
+                  }
+                </el-col>
+                {
+                  this.checkboxShow
+                    ? (
+                      <el-col class='filters' {...{ props: this.innerCheckboxFilterDef.colProps }}>
+                        <checkbox-group
+                          checks={ this.innerCheckboxFilterDef.def }
+                          onCheckChange={ this.handleCheckBoxValChange }>
+                        </checkbox-group>
+                      </el-col>
+                    )
+                    : null
+                }
+                {
+                  this.searchShow
+                    ? (
+                      <el-col class='search' { ...{props: this.innerSearchDef.colProps} }>
+                        <el-input
+                          v-model={ this.searchKey }
+                          { ...{attrs: this.innerSearchDef.inputProps} }>
+                        </el-input>
+                      </el-col>
+                    )
+                    : null
+                }
+              </el-row>
+            ) : null
+          }
+
+          <div class='custom-tool-bar'>
+            {
+              this.$slots['custom-tool-bar']
+            }
+          </div>
+
+          <el-table ref='elTable'
+            on-sort-change={ this.handleSort }
+            data={ this.curTableData }
+            { ...{attrs: this.innerTableProps} }
+            style='width: 100%'
+            >
+            {
+              this.$slots.default
+            }
+            <div slot='append'>
+              {
+                this.$slots.append
+              }
+            </div>
+
+            {
+              this.actionColShow
+                ? (
+                  <el-table-column
+                    prop={ this.actionColProp }
+                    { ...{attrs: this.innerActionColDef} }
+                    { ...{
+                      scopedSlots: {
+                        default: scope => {
+                          return (
+                            <div class='action-list'>
+                              {
+                                this.innerActionColDef.def.map(actionInCol => {
+                                  let buttonProps = Object.assign({}, {
+                                    type: actionInCol.type || 'text',
+                                    icon: actionInCol.icon
+                                  }, actionInCol.buttonProps)
+
+                                  let clickHandler = function() {
+                                    actionInCol.handler(scope.row, scope.$index, scope.column, scope.store)
+                                  }
+
+                                  return (
+                                    <span>
+                                      <el-button onClick={ clickHandler }
+                                        { ...{attrs: buttonProps} }>
+                                        { actionInCol.name }
+                                      </el-button>
+                                    </span>
+                                  )
+                                })
+                              }
+                            </div>
+                          )
+                        }
+                      }
+                    } }>
+                  </el-table-column>
+                )
+                : null
+            }
+          </el-table>
+
+          {
+            this.paginationShow
+              ? (
+                <div class='pagination-wrap'>
+                  <el-pagination
+                    current-page={ this.currentPage }
+                    page-sizes={ this.innerPaginationDef.pageSizes }
+                    page-size={ this.innerPaginationDef.pageSize }
+                    layout={ this.innerPaginationDef.layout }
+                    total={ this.total }
+                    on-size-change={ this.handleSizeChange }
+                    on-current-change={ this.handlePageChange }
+                    >
+                  </el-pagination>
+                </div>
+              )
+              : null
+          }
+        </div>
+      )
+    },
     computed: {
       innerCheckboxFilterDef() {
         let _allDataProps = this._allDataProps
-        return Object.assign({
+        return merge({
           props: undefined,
           def: [],
           colProps: {
@@ -54,12 +200,17 @@
         }, this.checkboxFilterDef)
       },
       innerSearchDef() {
-        return Object.assign({
+        return merge({
           show: true,
           props: undefined,
           filterFunction: undefined,
           debounceTime: 200,
-          prefixIcon: 'el-icon-search'
+          colProps: {
+            span: 5
+          },
+          inputProps: {
+            prefixIcon: 'el-icon-search',
+          }
         }, this.searchDef)
       },
       sortedData() {

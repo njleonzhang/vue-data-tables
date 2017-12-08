@@ -1,4 +1,5 @@
 import CheckboxGroup from '../components/ScCheckboxGroup'
+import { merge } from 'lodash'
 
 export default {
   components: {
@@ -93,7 +94,7 @@ export default {
   },
   computed: {
     innerActionsDef() {
-      return Object.assign({
+      return merge({
         colProps: {
           span: 5
         },
@@ -171,7 +172,13 @@ export default {
     },
     formatToArray(filters) {
       return filters ? [].concat(filters) : []
-    }
+    },
+    // handleRowClick() {
+
+    // },
+    // handleCellClick() {
+
+    // }
   },
   watch: {
     innerPaginationDef: {

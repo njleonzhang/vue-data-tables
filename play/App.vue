@@ -15,50 +15,48 @@
 
 <template lang="pug">
   .app-wrapper
-    data-tables-server(
-    :data='serverData',
-    loading-str='loading...',
-    :total='total',
-    :show-action-bar='false',
-    :actions-def='actionsDef',
-    :checkbox-filter-def='checkFilterDef',
-    :load-data='loadData',
-    :custom-filters='customFilters',
-    @load-data-success='loadDataSuccess',
-    @load-data-fail='loadDataFail')
-      el-row(slot='custom-tool-bar')
-        el-col(:span='5')
-          el-dropdown
-            el-button(type='primary')
-              | 更多菜单
-              i.el-icon-caret-bottom.el-icon--right
-            el-dropdown-menu(slot='dropdown')
-              el-dropdown-item 黄金糕
-              el-dropdown-item 狮子头
-              el-dropdown-item 螺蛳粉
-              el-dropdown-item 双皮奶
-              el-dropdown-item 蚵仔煎
-        el-col(:span='14')
-          el-input(class='test', v-model='customFilters[0].vals')
-        el-col(:span='5')
-          el-select(v-model='customFilters[1].vals', multiple)
-            el-option(label='维修', value='repair')
-            el-option(label='帮忙', value='help')
+    //- data-tables-server(
+    //- :data='serverData',
+    //- loading-str='loading...',
+    //- :total='total',
+    //- :show-action-bar='false',
+    //- :actions-def='actionsDef',
+    //- :checkbox-filter-def='checkFilterDef',
+    //- :load-data='loadData',
+    //- :custom-filters='customFilters',
+    //- @load-data-success='loadDataSuccess',
+    //- @load-data-fail='loadDataFail')
+    //-   el-row(slot='custom-tool-bar')
+    //-     el-col(:span='5')
+    //-       el-dropdown
+    //-         el-button(type='primary')
+    //-           | 更多菜单
+    //-           i.el-icon-caret-bottom.el-icon--right
+    //-         el-dropdown-menu(slot='dropdown')
+    //-           el-dropdown-item 黄金糕
+    //-           el-dropdown-item 狮子头
+    //-           el-dropdown-item 螺蛳粉
+    //-           el-dropdown-item 双皮奶
+    //-           el-dropdown-item 蚵仔煎
+    //-     el-col(:span='14')
+    //-       el-input(class='test', v-model='customFilters[0].vals')
+    //-     el-col(:span='5')
+    //-       el-select(v-model='customFilters[1].vals', multiple)
+    //-         el-option(label='维修', value='repair')
+    //-         el-option(label='帮忙', value='help')
 
-      el-table-column(prop='flow_no', label='No.', sortable='custom')
-      el-table-column(prop='content', label='Content', sortable='custom')
-      el-table-column(prop='create_time', label='Time', sortable='custom')
-      el-table-column(prop='state', label='State', sortable='custom')
-      el-table-column(prop='flow_type', label='Type', sortable='custom')
+    //-   el-table-column(prop='flow_no', label='No.', sortable='custom')
+    //-   el-table-column(prop='content', label='Content', sortable='custom')
+    //-   el-table-column(prop='create_time', label='Time', sortable='custom')
+    //-   el-table-column(prop='state', label='State', sortable='custom')
+    //-   el-table-column(prop='flow_type', label='Type', sortable='custom')
 
     data-tables(
       :data='tableData',
-      :show-action-bar='false',
       :actions-def='actionsDef',
       :checkbox-filter-def='checkFilterDef',
       :search-def='searchDef',
       :action-col-def='actionColDef',
-      :custom-filters='customFilters',
       :tableProps='tableProps',
       :pagination-def='paginationDef')
 
@@ -169,6 +167,9 @@
         actionColDef: {
           minWidth: '200',
           def: [{
+            buttonProps: {
+              type: 'primary'
+            },
             handler: row => {
               this.$message('Edit clicked')
               console.log('Edit in row clicked', row)

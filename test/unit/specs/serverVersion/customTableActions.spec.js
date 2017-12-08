@@ -125,6 +125,7 @@ describe('server custom action bar', _ => {
         select.click()
 
         let selectItems = vm.$el.querySelectorAll('.el-select-dropdown__item')
+        await sleep(DELAY)
 
         bus.$once('success', (data, info) => {
           try {

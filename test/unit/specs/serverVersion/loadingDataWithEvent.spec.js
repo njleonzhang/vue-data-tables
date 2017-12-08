@@ -13,8 +13,8 @@ describe('server loading with event', _ => {
 
     vm = createVue({
       template: `
-        <data-tables-server 
-          :data="tableData" 
+        <data-tables-server
+          :data="tableData"
           :loading="loading"
           :total="total"
           @query-change='queryChange'
@@ -79,6 +79,7 @@ describe('server loading with event', _ => {
         select.click()
         sleep(DELAY)
         let selectItems = pagination.querySelectorAll('.el-select-dropdown__item')
+        await sleep(DELAY)
         selectItems[1].click()
         await sleep(1500)
         body.querySelectorAll('tr').length.should.equal(50)

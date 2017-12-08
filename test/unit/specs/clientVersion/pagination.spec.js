@@ -124,15 +124,16 @@ describe('client pagination def', _ => {
         await sleep(DELAY)
 
         let selectItems = pagination.querySelectorAll('.el-select-dropdown__item')
+        await sleep(DELAY)
         selectItems[1].click()
         await sleep(DELAY)
-        
+
         spy1.should.have.been.calledOnce
         spy1.should.have.been.calledWith(2)
 
         jump.focus()
         jump.value = 2
-        triggerEvent(jump, 'input')
+        triggerEvent(jump, 'change')
 
         await sleep(DELAY)
         spy2.should.have.been.calledOnce

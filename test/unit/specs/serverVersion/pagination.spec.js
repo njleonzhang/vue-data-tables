@@ -12,10 +12,10 @@ describe('server pagination def', _ => {
   it('pagination', done => {
     vm = createVue({
       template: `
-        <data-tables-server 
-          :data="tableData" 
+        <data-tables-server
+          :data="tableData"
           :pagination-def="paginationDef"
-          :load-data="loadData" 
+          :load-data="loadData"
           @load-data-success='loadDataSuccess'
           @load-data-fail='loadDataFail'
           @query-change='queryChange'
@@ -108,7 +108,7 @@ describe('server pagination def', _ => {
       template: `
         <data-tables-server :data="tableData"
         :pagination-def="paginationDef"
-        :load-data="loadData" 
+        :load-data="loadData"
         :total="total"
         @load-data-success='loadDataSuccess'
         @load-data-fail='loadDataFail'
@@ -164,6 +164,7 @@ describe('server pagination def', _ => {
         await sleep(DELAY)
 
         let selectItems = pagination.querySelectorAll('.el-select-dropdown__item')
+        await sleep(DELAY)
 
         bus.$once('success', (data, info) => {
           try {
@@ -218,7 +219,7 @@ describe('server pagination def', _ => {
           }
         })
 
-        triggerEvent(jump, 'input')
+        triggerEvent(jump, 'change')
       } catch (e) {
         done({
           message: e.message,

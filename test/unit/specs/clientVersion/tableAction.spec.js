@@ -9,8 +9,8 @@ describe('client table actions def', _ => {
   })
 
   it('action render', done => {
-    let newClickedCnt = 0;
-    let importClickedCnt = 0;
+    let newClickedCnt = 0
+    let importClickedCnt = 0
 
     vm = createVue({
       template: `
