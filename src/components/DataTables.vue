@@ -2,13 +2,6 @@
 @import "../style/index.scss";
 </style>
 
-<!--
-<template lang="pug">
-  include ../template/index.pug
-  +template()
-</template>
--->
-
 <script>
   import ErrorTips from './ErrorTips.js'
   import ShareMixin from '../mixins/ShareMixin'
@@ -30,12 +23,6 @@
       }
     },
     render() {
-      // let tableListener = Object.assign({}, this.$listeners, {
-      //   'sort-change': this.handleSort,
-      //   'row-click': this.handleRowClick,
-      //   'cell-click': this.handleCellClick
-      // })
-
       return (
         <div class='sc-table'>
           {
@@ -113,7 +100,7 @@
                 ? (
                   <el-table-column
                     prop={ this.actionColProp }
-                    { ...{attrs: this.innerActionColDef} }
+                    { ...{attrs: this.innerActionColDef.tableColProps} }
                     { ...{
                       scopedSlots: {
                         default: scope => {

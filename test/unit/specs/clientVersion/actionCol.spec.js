@@ -69,6 +69,10 @@ describe('client actionColDef', _ => {
           tableData,
           titles,
           actionColDef: {
+            tableColProps: {
+              align: 'center',
+              'label-class-name': 'my-header'
+            },
             def: [{
               buttonProps: {
                 type: 'warning',
@@ -98,7 +102,10 @@ describe('client actionColDef', _ => {
         await sleep(DELAY)
         let head = getHead(vm.$el)
         let cells = head.querySelectorAll('th')
-        cells[9].querySelector('.cell').should.have.text('操作')
+        let actionHeader = cells[9]
+        actionHeader.querySelector('.cell').should.have.text('操作')
+        actionHeader.should.have.class('my-header')
+        actionHeader.should.have.class('is-center')
 
         let body = getBody(vm.$el)
         let rows = getRows(body)

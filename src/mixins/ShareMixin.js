@@ -121,12 +121,19 @@ export default {
       return paginationDef
     },
     innerActionColDef() {
-      return Object.assign({
+      let { label, fixed, type, width, minWidth, ...actionColDef } = this.actionColDef
+
+      return merge({
         show: true,
-        label: '操作',
-        fixed: false,
-        def: []
-      }, this.actionColDef)
+        def: [],
+        tableColProps: {
+          label: label || '操作',
+          fixed: fixed || false,
+          type,
+          width,
+          minWidth
+        }
+      }, actionColDef)
     },
     actionColShow() {
       return this.innerActionColDef.def.length > 0
