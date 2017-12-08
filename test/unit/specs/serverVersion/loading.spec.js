@@ -6,7 +6,7 @@ describe('server loading', _ => {
   let vm
 
   afterEach(function() {
-    vm && destroyVM(vm)
+    // vm && destroyVM(vm)
   })
 
   it('loading should disappear when error occur', done => {
@@ -14,9 +14,9 @@ describe('server loading', _ => {
 
     vm = createVue({
       template: `
-        <data-tables-server 
-          :data="tableData" 
-          :load-data="loadData" 
+        <data-tables-server
+          :data="tableData"
+          :load-data="loadData"
           @load-data-success='loadDataSuccess'
           @load-data-fail='loadDataFail'
           @query-change='queryChange'
@@ -93,9 +93,9 @@ describe('server loading', _ => {
 
     vm = createVue({
       template: `
-        <data-tables-server 
-          :data="tableData" 
-          :load-data="loadData" 
+        <data-tables-server
+          :data="tableData"
+          :load-data="loadData"
           @load-data-success='loadDataSuccess'
           @load-data-fail='loadDataFail'
           @query-change='queryChange'

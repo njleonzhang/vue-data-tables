@@ -1,11 +1,12 @@
 import {createVue, destroyVM, sleep, getTableItems, getHead, getBody, getTable, getRows, triggerEvent} from '../../tools/util'
 import {DELAY, tableData, titles, mockServer, mockServerError} from '../../tools/source'
+import '../main.css'
 
 describe('server loading with event', _ => {
   let vm
 
   afterEach(function() {
-    vm && destroyVM(vm)
+    // vm && destroyVM(vm)
   })
 
   it('load without loadData', function(done) {
@@ -66,10 +67,9 @@ describe('server loading with event', _ => {
     let test = async function() {
       try {
         await sleep(1500)
-        let loading = document.querySelector('.el-loading-mask')
-        loading.should.be.displayed
+        document.querySelector('.el-loading-mask').should.be.displayed
         await sleep(1500)
-        loading.should.not.be.displayed
+        document.querySelector('.el-loading-mask').should.not.be.displayed
 
         let body = getBody(vm.$el)
         body.querySelectorAll('tr').length.should.equal(20)

@@ -6,7 +6,7 @@ describe('client searchDef', _ => {
   let vm
 
   afterEach(function() {
-    vm && destroyVM(vm)
+    // vm && destroyVM(vm)
   })
 
   let template =  `

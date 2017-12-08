@@ -152,14 +152,14 @@ describe('server searchDef', _ => {
     test()
   })
 
-  it('search 0', done => {
-
+  it('search 0', function(done) {
+    this.timeout(5000)
     let bus = new Vue()
 
     vm = createVue({
       template: `
         <data-tables-server :data="tableData"
-        :load-data="loadData" 
+        :load-data="loadData"
         :total="total"
         @load-data-success='loadDataSuccess'
         @load-data-fail='loadDataFail'
@@ -250,7 +250,7 @@ describe('server searchDef', _ => {
           :data="tableData"
           ref="dataTable"
           :search-def="searchDef">
-          <el-table-column 
+          <el-table-column
             v-for="title in titles"
             :prop="title.prop"
             :label="title.label"

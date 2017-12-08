@@ -2,13 +2,6 @@
   @import "../style/index.scss";
 </style>
 
-<template lang="pug">
-  include ../template/index.pug
-  +template()(
-    v-loading="innerLoading",
-    :element-loading-text="loadingStr")
-</template>
-
 <script>
   import ShareMixin from '../mixins/ShareMixin'
   import debounce from 'javascript-debounce'
@@ -33,6 +26,7 @@
       }
     },
     created() {
+      this._server = true
       this.loadData && this.innerLoadData({
         type: 'init',
         ...this.queryInfo
@@ -44,44 +38,6 @@
       }
     },
     computed: {
-      innerCheckboxFilterDef() {
-        return Object.assign({
-          props: undefined,
-          def: [],
-          colProps: {
-            span: 14
-          }
-        }, this.checkboxFilterDef)
-      },
-      innerSearchDef() {
-        return Object.assign({
-          show: true,
-          props: undefined,
-          debounceTime: 200
-        }, this.searchDef)
-      },
-      filters() {
-        let filters = this.formatToArray(this.innerCustomFilters)
-
-        if (this.showActionBar) {
-          if (this.searchShow) {
-            filters.push({
-              type: 'search',
-              props: this.formatProps(this.innerSearchDef.props),
-              vals: this.formatToArray(this.innerSearchKey)
-            })
-          }
-          if (this.checkboxShow) {
-            filters.push({
-              type: 'checkbox',
-              props: this.formatProps(this.innerCheckboxFilterDef.props),
-              vals: this.checkBoxValues
-            })
-          }
-        }
-
-        return filters
-      },
       curTableData() {
         return this.data.length > this.innerPageSize
           ? this.data.slice(0, this.innerPageSize)
