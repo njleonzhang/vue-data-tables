@@ -60,7 +60,6 @@ describe('server render table', _ => {
       let secondItemTds = secondItem.querySelectorAll('td')
       secondItemTds[0].innerText.should.contains('FW201601010001')
       rows[19].querySelectorAll('td')[0].innerText.should.contains('FW2016010100019')
-      should.not.exist(head.querySelectorAll('th')[9])
       should.not.exist(head.querySelector('td.ascending'))
       table.should.have.class('el-table--border')
       table.should.have.class('el-table--striped')
@@ -99,35 +98,6 @@ describe('data table property', _ => {
 
   afterEach(function() {
     vm && destroyVM(vm)
-  })
-
-  it('hide action', done => {
-    vm = createVue({
-      template: `
-        <data-tables-server :data="tableData" :action-col-def="actionColDef">
-          <el-table-column v-for="title in titles"
-            :prop="title.prop"
-            :label="title.label"
-            :key="title.prop" sortable="custom"/>
-        </data-tables-server>
-      `,
-      data() {
-        return {
-          tableData,
-          titles,
-          actionColDef: {
-            show: false
-          }
-        }
-      },
-    }, true)
-
-    setTimeout(_ => {
-      let head = getHead(vm.$el)
-      head.querySelectorAll('th').length.should.equal(9)
-      should.not.exist(vm.$el.querySelector('thead').querySelectorAll('th')[9])
-      done()
-    })
   })
 
   it('tableProps', done => {

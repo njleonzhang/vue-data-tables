@@ -33,7 +33,12 @@ describe('client render table', _ => {
       let secondItemTds = secondItem.querySelectorAll('td')
       secondItemTds[0].innerText.should.contains('FW201601010002')
       secondItemTds[5].innerText.should.contains('Sourth')
-      should.not.exist(head.querySelectorAll('th')[9])
+      try {
+        should.not.exist(head.querySelectorAll('th')[9])
+      } catch(e) {
+        head.querySelectorAll('th')[9].should.have.class('gutter')
+      }
+
       should.not.exist(head.querySelector('td.ascending'))
       table.should.have.class('el-table--border')
       table.should.have.class('el-table--striped')
@@ -97,8 +102,14 @@ describe('data table property', _ => {
 
     setTimeout(_ => {
       let head = getHead(vm.$el)
-      head.querySelectorAll('th').length.should.equal(9)
-      should.not.exist(vm.$el.querySelector('thead').querySelectorAll('th')[9])
+      try {
+        head.querySelectorAll('th').length.should.equal(9)
+        should.not.exist(vm.$el.querySelector('thead').querySelectorAll('th')[9])
+      } catch (e) {
+        head.querySelectorAll('th').length.should.equal(10)
+        vm.$el.querySelector('thead').querySelectorAll('th')[9].should.have.class('gutter')
+      }
+
       done()
     })
   })
