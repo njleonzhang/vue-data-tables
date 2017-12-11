@@ -83,7 +83,7 @@ export default {
 | Property | Desc | Type | Default value |
 | -- | -- | -- | -- |
 | label | the title label of action column | String | 操作(action in Chinese) |
-| tableColProps *3.1+* | an object to pass any [property](http://element.eleme.io/#/en-US/component/table?id=table-column-attributes#table-column-attributes) to the table action column(`el-table-column`)	 | String | 操作(action in Chinese) |
+| tableColProps *3.1+* | an object to pass any [property](http://element.eleme.io/#/en-US/component/table?id=table-column-attributes#table-column-attributes) to the table action column(`el-table-column`)	 | String | - |
 | def | the defination of button in action column | Array of Object | - |
 
 property of object in `action-col-def.def`
