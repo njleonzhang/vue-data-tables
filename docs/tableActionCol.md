@@ -28,6 +28,9 @@ export default {
       titles,
       actionColDef: {
         label: 'Actions',
+        tableColProps: {
+          align: 'center'
+        },
         def: [{
           handler: row => {
             this.$message('Edit clicked')
@@ -75,6 +78,7 @@ export default {
 | Property | Desc | Type | Default value |
 | -- | -- | -- | -- |
 | label | the title label of action column | String | 操作(action in Chinese) |
+| tableColProps | an object to pass any [property](http://element.eleme.io/#/en-US/component/table?id=table-column-attributes#table-column-attributes) to the table action column	 | String | 操作(action in Chinese) |
 | def | the defination of button in action column | Array of Object | - |
 
 property of object in `action-col-def.def`
@@ -82,5 +86,6 @@ property of object in `action-col-def.def`
 | Property | Desc | Type | Accepted Values | Default value | parameters |
 | -- | -- | -- | -- | -- | -- |
 | type | the type of `el-button` | String | primary<br/>success<br/>warning<br/>danger<br/>info<br/>text | text | - |
+| buttonProps | `el-button` [property](http://element.eleme.io/#/en-US/component/button#attributes) of the button | String | primary<br/>success<br/>warning<br/>danger<br/>info<br/>text | text | - |
 | name | label of the button | String | - |  - | - |
 | handler(row, index, column, store) | callback for button click. | Function | - | - | 1. `row` represents the element corresponded to this row in `data` <br> 2. `index` indicate the index of the element in current page <br> 3. `column` and `store` are `e-table` internal variable, you may nearly never use them directly, export here for advanced usage |

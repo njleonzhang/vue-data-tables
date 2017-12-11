@@ -90,7 +90,7 @@ export default {
               <el-col class='actions' { ...{props: this.innerActionsDef.colProps} }>
                 {
                   this.innerActionsDef.def.map(action => {
-                    let buttonAttrs = Object.assign({}, {
+                    let buttonAttrs = Object.assign({
                       type: action.type || 'primary',
                       icon: action.icon
                     }, action.buttonProps)
@@ -167,7 +167,7 @@ export default {
                           <div class='action-list'>
                             {
                               this.innerActionColDef.def.map(actionInCol => {
-                                let buttonProps = Object.assign({}, {
+                                let buttonProps = Object.assign({
                                   type: actionInCol.type || 'text',
                                   icon: actionInCol.icon
                                 }, actionInCol.buttonProps)
