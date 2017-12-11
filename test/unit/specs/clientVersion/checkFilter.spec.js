@@ -139,7 +139,6 @@ describe('client checkedFilters', _ => {
     test()
   })
 
-
   it('checkbox filter and search filter', function(done) {
     this.timeout(5000)
     vm = createVue({

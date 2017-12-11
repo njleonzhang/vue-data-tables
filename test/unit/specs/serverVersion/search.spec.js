@@ -153,7 +153,6 @@ describe('server searchDef', _ => {
   })
 
   it('search 0', function(done) {
-    this.timeout(5000)
     let bus = new Vue()
 
     vm = createVue({
@@ -199,18 +198,18 @@ describe('server searchDef', _ => {
 
     let test = async function() {
       try {
-        await sleep(DELAY)
+        await sleep(1000)
         let search = vm.$el.querySelector('.search')
         should.exist(search)
 
         let input = search.querySelector('input')
+        window.input = input
         input.value = 0
-
-        await sleep(300)
+        triggerEvent(input, 'input')
 
         bus.$once('success', (data, info) => {
           try {
-            data.req.filters[0].vals[0].should.equal("0")
+            data.req.filters[0].vals[0].should.equal('0')
           } catch (e) {
             done({
               message: e.message,
@@ -231,7 +230,6 @@ describe('server searchDef', _ => {
             })
           }
         })
-        triggerEvent(input, 'input')
       } catch (e) {
         done({
           message: e.message,

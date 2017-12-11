@@ -9,13 +9,13 @@ describe('server render table', _ => {
     vm && destroyVM(vm)
   })
 
-  it('shoule render correct content', done => {
+  it('should render correct content', done => {
     let bus = new Vue()
     vm = createVue({
       template: `
-        <data-tables-server 
+        <data-tables-server
         :data="tableData"
-        :load-data="loadData" 
+        :load-data="loadData"
         :total="total"
         @load-data-success='loadDataSuccess'
         @load-data-fail='loadDataFail'
@@ -60,7 +60,7 @@ describe('server render table', _ => {
       let secondItemTds = secondItem.querySelectorAll('td')
       secondItemTds[0].innerText.should.contains('FW201601010001')
       rows[19].querySelectorAll('td')[0].innerText.should.contains('FW2016010100019')
-      head.querySelectorAll('th')[9].innerText.should.not.contains('操作')
+      should.not.exist(head.querySelectorAll('th')[9])
       should.not.exist(head.querySelector('td.ascending'))
       table.should.have.class('el-table--border')
       table.should.have.class('el-table--striped')
@@ -123,10 +123,9 @@ describe('data table property', _ => {
     }, true)
 
     setTimeout(_ => {
-      // include a width0 column seems from element
       let head = getHead(vm.$el)
-      head.querySelectorAll('th').length.should.equal(10)
-      vm.$el.querySelector('thead').querySelectorAll('th')[9].innerText.should.equal("")
+      head.querySelectorAll('th').length.should.equal(9)
+      should.not.exist(vm.$el.querySelector('thead').querySelectorAll('th')[9])
       done()
     })
   })
@@ -136,10 +135,10 @@ describe('data table property', _ => {
 
     vm = createVue({
       template: `
-        <data-tables-server 
-        :data="tableData" 
+        <data-tables-server
+        :data="tableData"
         :tableProps='tableProps'
-        :load-data="loadData" 
+        :load-data="loadData"
         :total="total"
         @load-data-success='loadDataSuccess'
         @load-data-fail='loadDataFail'

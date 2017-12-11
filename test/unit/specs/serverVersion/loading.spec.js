@@ -6,7 +6,7 @@ describe('server loading', _ => {
   let vm
 
   afterEach(function() {
-    // vm && destroyVM(vm)
+    vm && destroyVM(vm)
   })
 
   it('loading should disappear when error occur', done => {
@@ -130,7 +130,6 @@ describe('server loading', _ => {
 
     let test = async function() {
       bus.$once('success', _ => {
-        console.log('success')
         try {
           setTimeout(_ => {
             try {

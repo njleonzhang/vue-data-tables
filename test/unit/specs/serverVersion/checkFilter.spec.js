@@ -142,11 +142,10 @@ describe('server checkedFilters', _ => {
 
     let test = async function() {
       try {
-        await sleep(DELAY)
+        await sleep(500)
+
         let search = vm.$el.querySelector('.search')
         let input = search.querySelector('input')
-
-        input.value = 'repair'
 
         bus.$once('success', (data, info) => {
           try {
@@ -172,6 +171,7 @@ describe('server checkedFilters', _ => {
           }
         })
 
+        input.value = 'repair'
         triggerEvent(input, 'input')
 
         await sleep(500)

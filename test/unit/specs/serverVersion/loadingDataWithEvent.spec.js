@@ -1,16 +1,17 @@
 import {createVue, destroyVM, sleep, getTableItems, getHead, getBody, getTable, getRows, triggerEvent} from '../../tools/util'
 import {DELAY, tableData, titles, mockServer, mockServerError} from '../../tools/source'
-import '../main.css'
+import Vue from 'vue'
 
 describe('server loading with event', _ => {
   let vm
 
   afterEach(function() {
-    // vm && destroyVM(vm)
+    vm && destroyVM(vm)
   })
 
   it('load without loadData', function(done) {
     this.timeout(5000)
+    const bus = new Vue()
 
     vm = createVue({
       template: `
@@ -37,42 +38,50 @@ describe('server loading with event', _ => {
         }
       },
       created() {
-        setTimeout(_ => {
-          this.loadData({
-            page: 1,
-            pageSize: 20
-          })
-        }, 1000)
+        this.loadData(500, {
+          page: 1,
+          pageSize: 20
+        })
       },
       methods: {
-        loadData(info) {
-          this.loading = true
-          mockServer(info, 1000)
-            .then(data => {
-              this.tableData = data.data
-              this.total = data.total
-              this.loading = false
-            })
-            .catch(error => {
-              console.log(error)
-              this.loading = false
-            })
+        loadData(time = 200, info) {
+          setTimeout(_ => {
+            bus.$emit('loading-data', info)
+          }, time)
         },
         queryChange(info) {
-          this.loadData(info)
+          this.loadData(DELAY, info)
         }
       }
     }, true)
 
     let test = async function() {
-      try {
-        await sleep(1500)
-        document.querySelector('.el-loading-mask').should.be.displayed
-        await sleep(1500)
-        document.querySelector('.el-loading-mask').should.not.be.displayed
-
+      bus.$once('loading-data', async info => {
+        vm.loading = true
+        await sleep(DELAY)
+        const mask = vm.$el.querySelector('.el-loading-mask')
         let body = getBody(vm.$el)
+
+        mask.should.be.displayed
+
+        let { data, total } = await mockServer(info, DELAY)
+        vm.tableData = data
+        vm.total = total
+        vm.loading = false
+
+        await sleep(1000) // why it need 1s to refresh to page?
+        mask.should.not.be.displayed
+
         body.querySelectorAll('tr').length.should.equal(20)
+
+        bus.$once('loading-data', async info => {
+          let { data, total } = await mockServer(info, DELAY)
+          vm.tableData = data
+          vm.total = total
+          await sleep(DELAY)
+          body.querySelectorAll('tr').length.should.equal(50)
+          done()
+        })
 
         let pagination = vm.$el.querySelector('.el-pagination')
         let select = pagination.querySelector('.el-select')
@@ -81,15 +90,7 @@ describe('server loading with event', _ => {
         let selectItems = pagination.querySelectorAll('.el-select-dropdown__item')
         await sleep(DELAY)
         selectItems[1].click()
-        await sleep(1500)
-        body.querySelectorAll('tr').length.should.equal(50)
-        done()
-      } catch (e) {
-        done({
-          message: e.message,
-          stack: e.stack
-        })
-      }
+      })
     }
     test()
   })

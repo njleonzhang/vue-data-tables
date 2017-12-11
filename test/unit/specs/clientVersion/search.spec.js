@@ -107,7 +107,7 @@ describe('client searchDef', _ => {
             cells[0].should.have.text('FW201601010001')
 
             setTimeout(_ => {
-              spy.should.have.been.called.once
+              spy.should.have.been.calledOnce
               done()
             }, 200);
           })
@@ -182,7 +182,7 @@ describe('client searchDef', _ => {
             let rows = getRows(body)
             rows.length.should.equal(1)
             setTimeout(_ => {
-              spy.should.have.been.called.once
+              spy.should.have.been.calledOnce
               done()
             }, 500);
           })
@@ -260,7 +260,7 @@ describe('client searchDef', _ => {
             rows.length.should.equal(0)
 
             setTimeout(_ => {
-              spy.should.have.been.called.once
+              spy.should.have.been.calledOnce
               done()
             }, 200);
           })
@@ -332,7 +332,7 @@ describe('client searchDef', _ => {
             let rows = getRows(body)
             rows.length.should.equal(0)
             setTimeout(_ => {
-              spy.should.have.been.called.once
+              spy.should.have.been.calledOnce
               done()
             }, 200);
           })
@@ -405,7 +405,7 @@ describe('client searchDef', _ => {
             rows.length.should.equal(1)
 
             setTimeout(_ => {
-              spy.should.have.been.called.once
+              spy.should.have.been.calledOnce
               done()
             }, 200);
           })
@@ -586,7 +586,7 @@ describe('client searchDef', _ => {
             rows.length.should.equal(1)
 
             setTimeout(_ => {
-              spy.should.have.been.called.once
+              spy.should.have.been.calledOnce
               done()
             }, 200)
           })
