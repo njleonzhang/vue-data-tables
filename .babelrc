@@ -3,7 +3,7 @@
     ["env", { "modules": false }],
     "stage-2"
   ],
-  "plugins": ["transform-runtime", "jsx-v-model", "transform-vue-jsx"],
+  "plugins": ["transform-runtime", "lodash", "jsx-v-model", "transform-vue-jsx"],
   "comments": false,
   "env": {
     "test": {
