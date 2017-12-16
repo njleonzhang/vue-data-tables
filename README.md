@@ -44,5 +44,5 @@ You can preview your site in your browser on http://localhost:3000 with hot relo
 ## Buy me a coffee
 <p align="center">
   <a target='_blank' rel='nofollow' href='https://www.paypal.me/njleon?yours=true'>
-  <img width='650' src="_media/all.png">
+  <img width='650' src="https://cdn.rawgit.com/njleonzhang/vue-data-tables/a49769e2/_media/all.png">
 </p>
