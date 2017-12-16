@@ -1,5 +1,8 @@
+## 3.1.2 (2017-12-16)
+fix #127 default sort cause duplicate data load
+
 ## 3.1.1 (2017-12-14)
-lodash treeshaking 
+lodash treeshaking
 
 ## 3.1.0 (2017-12-11)
 * rewrite the template with jsx
