@@ -83,8 +83,12 @@
         this.queryChange('checkBoxChange')
       },
       handleSort(obj) {
-        this.sortData = obj
-        this.queryChange('sortChange')
+        if (this.sortData.prop === obj.prop && this.sortData.order === obj.order) {
+          this.sortData = obj
+        } else {
+          this.sortData = obj
+          this.queryChange('sortChange')
+        }
       },
       innerLoadData(info) {
         this.innerLoading = true
@@ -105,6 +109,12 @@
       },
       loading(val) {
         this.innerLoading = val
+      },
+      'tableProps.defaultSort': {
+        immediate: true,
+        handler(val) {
+          this.sortData = val || {}
+        }
       }
     }
   }

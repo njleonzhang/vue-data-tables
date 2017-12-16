@@ -111,8 +111,7 @@ describe('data table property', _ => {
         :load-data="loadData"
         :total="total"
         @load-data-success='loadDataSuccess'
-        @load-data-fail='loadDataFail'
-        @query-change='queryChange'>
+        @load-data-fail='loadDataFail'>
           <el-table-column v-for="title in titles"
             :prop="title.prop"
             :label="title.label"
@@ -145,18 +144,15 @@ describe('data table property', _ => {
         },
         loadDataFail(error) {
           console.log(error)
-        },
-        queryChange(info) {
-          bus.$emit('info', info)
         }
       }
     }, true)
 
-    bus.$once('info', info => {
+    bus.$once('success', (data, info) => {
       try {
         info.sortInfo.order.should.equal("descending")
         info.sortInfo.prop.should.equal("flow_no")
-        info.type.should.equal("sortChange")
+        info.type.should.equal("init")
         let table = getTable(vm.$el)
         table.should.not.have.class('el-table--border')
         table.should.not.have.class('el-table--striped')
