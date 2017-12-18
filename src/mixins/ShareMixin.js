@@ -154,6 +154,12 @@ export default {
             }
           </div>
 
+          <div slot='empty'>
+            {
+              this.$slots.empty
+            }
+          </div>
+
           {
             this.actionColShow
               ? (
