@@ -27,10 +27,7 @@
     },
     created() {
       this._server = true
-      this.loadData && this.innerLoadData({
-        type: 'init',
-        ...this.queryInfo
-      })
+      this.queryChange('init')
     },
     data() {
       return {
@@ -65,7 +62,6 @@
           type,
           ...this.queryInfo
         }
-
         this.$emit('query-change', info)
 
         this.loadData && this.innerLoadData(info)
