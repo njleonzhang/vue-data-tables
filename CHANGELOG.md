@@ -1,7 +1,7 @@
 ## 3.1.4 (2018-3-6)
 fix #154 `current-change` event is duplicated on `el-table` and `el-pagination`
 
-*breaking changes:* `current-change` of `el-pagination` is renamed to `current-page-change`
+> *breaking changes:* `current-change` of `el-pagination` is renamed to `current-page-change`
 
 ## 3.1.3(2018-1-12)
 fix bug: dataTableServer not emit query-change event when init
