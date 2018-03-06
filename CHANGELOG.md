@@ -1,3 +1,7 @@
+## 3.1.3 (2018-3-6)
+fix #154 `current-change` event is duplicated on `el-table` and `el-pagination`
+*breaking changes:* `current-change` of `el-pagination` is renamed to `current-page-change`
+
 ## 3.1.2 (2017-12-16)
 fix #127 default sort cause duplicate data load
 

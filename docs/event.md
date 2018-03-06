@@ -2,6 +2,8 @@
 
 All `el-table` [events](http://element.eleme.io/#/en-US/component/table#table-events) and all `el-pagination` [events](http://element.eleme.io/#/en-US/component/pagination#events) have been proxied by `vue-data-tables`
 
+> Both `el-table` and `el-pagination` emits event named `current-change`, to distinguish the two event with same name,  `current-change` of `el-pagination` is renamed to `current-page-change` in *3.1.3+*.
+
 # row-click and cell-click
 
 `row-click` and `cell-click` are treated differently(not a simple proxy).

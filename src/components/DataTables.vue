@@ -101,7 +101,7 @@
       },
       handlePageChange(currentPage) {
         this.currentPage = currentPage
-        this.$emit('current-change', currentPage)
+        this.$emit('current-page-change', currentPage)
       },
       handleCheckBoxValChange(checkBoxValues) {
         this.checkBoxValues = checkBoxValues
