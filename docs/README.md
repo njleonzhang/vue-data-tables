@@ -13,4 +13,4 @@ This lib depends on the following [element-ui](http://element.eleme.io/#/en-US) 
 * el-checkbox
 * el-checkbox-group
 
-** Support both font-side and server-side data source from version 2.1 **
+** Support both front-side and server-side data source from version 2.1 **
