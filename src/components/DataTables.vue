@@ -99,10 +99,6 @@
         this.innerPageSize = size
         this.$emit('size-change', size)
       },
-      handlePageChange(currentPage) {
-        this.currentPage = currentPage
-        this.$emit('current-page-change', currentPage)
-      },
       handleCheckBoxValChange(checkBoxValues) {
         this.checkBoxValues = checkBoxValues
       },
@@ -116,6 +112,9 @@
         handler(val) {
           this._allDataProps = Object.keys(val && val[0] || {})
         }
+      },
+      currentPage(val) {
+        this.$emit('current-page-change', val)
       }
     }
   }

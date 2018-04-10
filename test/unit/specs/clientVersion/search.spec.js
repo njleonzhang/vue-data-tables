@@ -716,15 +716,15 @@ describe('client searchDef', _ => {
         let search = vm.$el.querySelector('.search')
         should.exist(search)
 
-        let searchIcon = search.querySelector('[prefixicon="el-icon-search"]')
+        let searchIcon = search.querySelector('.el-icon-search')
         should.exist(searchIcon)
 
         vm.searchDef.inputProps = {
           prefixIcon: 'el-icon-loading'
         }
         await waitForVMready(vm)
-        should.exist(search.querySelector('[prefixicon="el-icon-loading"]'))
-        should.not.exist(search.querySelector('[prefixicon="el-icon-search"]'))
+        should.exist(search.querySelector('.el-icon-loading'))
+        should.not.exist(search.querySelector('.el-icon-search'))
 
         done()
       } catch (e) {

@@ -202,13 +202,12 @@ export default {
             ? (
               <div class='pagination-wrap'>
                 <el-pagination
-                  current-page={ this.currentPage }
+                  current-page$sync={ this.currentPage }
                   page-sizes={ this.innerPaginationDef.pageSizes }
                   page-size={ this.innerPaginationDef.pageSize }
                   layout={ this.innerPaginationDef.layout }
                   total={ this.total }
                   on-size-change={ this.handleSizeChange }
-                  on-current-change={ this.handlePageChange }
                   >
                 </el-pagination>
               </div>

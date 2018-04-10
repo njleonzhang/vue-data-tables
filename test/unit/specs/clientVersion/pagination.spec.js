@@ -123,7 +123,7 @@ describe('client pagination def', _ => {
         select.click()
         await sleep(DELAY)
 
-        let selectItems = pagination.querySelectorAll('.el-select-dropdown__item')
+        let selectItems = vm.$el.parentNode.querySelectorAll('.el-select-dropdown__item')
         await sleep(DELAY)
         selectItems[1].click()
         await sleep(DELAY)

@@ -71,11 +71,6 @@
         this.queryChange('sizeChange')
         this.$emit('size-change', size)
       },
-      handlePageChange(currentPage) {
-        this.currentPage = currentPage
-        this.queryChange('pageChange')
-        this.$emit('current-page-change', currentPage)
-      },
       handleCheckBoxValChange(checkBoxValues) {
         this.checkBoxValues = checkBoxValues
         this.queryChange('checkBoxChange')
@@ -113,6 +108,10 @@
         handler(val) {
           this.sortData = val || {}
         }
+      },
+      currentPage(val) {
+        this.queryChange('pageChange')
+        this.$emit('current-page-change', val)
       }
     }
   }

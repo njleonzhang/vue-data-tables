@@ -159,7 +159,7 @@ describe('server pagination def', _ => {
 
         let pagination = vm.$el.querySelector('.el-pagination')
         let jump = pagination.querySelector('.el-pagination__jump').querySelector('.el-pagination__editor input')
-        let select = pagination.querySelector('.el-select')
+        let select = vm.$el.parentNode.querySelector('.el-select')
         select.click()
         await sleep(DELAY)
 
