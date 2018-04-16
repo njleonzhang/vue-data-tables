@@ -46,3 +46,6 @@ You can preview your site in your browser on http://localhost:3000 with hot relo
   <a target='_blank' rel='nofollow' href='https://www.paypal.me/njleon?yours=true'>
   <img width='650' src="https://cdn.rawgit.com/njleonzhang/vue-data-tables/a49769e2/_media/all.png">
 </p>
+
+## Star Trend
+[![Stargazers over time](https://starcharts.herokuapp.com/njleonzhang/vue-data-tables.svg)](https://starcharts.herokuapp.com/njleonzhang/vue-data-tables)
