@@ -1,4 +1,4 @@
-<p align="center"><a href="https://github.com/njleonzhang/vue-data-tables" target="_blank"><img width="100"src="https://njleonzhang.github.io/vue-data-tables/_media/icon.svg"></a></p>		
+<p align="center"><a href="https://github.com/njleonzhang/vue-data-tables" target="_blank"><img width="100"src="https://njleonzhang.github.io/vue-data-tables/_media/icon.svg"></a></p>
 
 <p align="center">
   <a href="https://travis-ci.org/njleonzhang/vue-data-tables" target="_blank"><img src="https://travis-ci.org/njleonzhang/vue-data-tables.svg?branch=master" alt="Build Status"></a>
@@ -27,25 +27,14 @@ yarn install
 npm run play
 ```
 
-## Contribute and preview Doc
-The document is powered by [docsify](https://docsify.js.org/#/) and [docsify-demo-box-vue](https://njleonzhang.github.io/docsify-demo-box-vue/#/)
-
-* install docsify
-```
-npm i docsify-cli -g
-```
-
-* go to project folder and run local server
-```
-docsify serve docs
-```
-You can preview your site in your browser on http://localhost:3000 with hot reload.
-
 ## Buy me a coffee
 <p align="center">
   <a target='_blank' rel='nofollow' href='https://www.paypal.me/njleon?yours=true'>
   <img width='650' src="https://cdn.rawgit.com/njleonzhang/vue-data-tables/a49769e2/_media/all.png">
 </p>
 
-## Star Trend
-[![Stargazers over time](https://starcharts.herokuapp.com/njleonzhang/vue-data-tables.svg)](https://starcharts.herokuapp.com/njleonzhang/vue-data-tables)
+## Author's projects related to Vue
+* [babel-plugin-vue-jsx-sync](https://github.com/njleonzhang/babel-plugin-vue-jsx-sync) jsx plugin for vue sync modifier
+* [el-form-dialog](https://github.com/njleonzhang/el-form-dialog) A tool to make [el-dialog](http://element.eleme.io/#/en-US/component/dialog) and [el-form](http://element.eleme.io/#/en-US/component/form) work eaiser, especially for creating dialog to support two states, such as `add` and `edit`.
+* [element-ui-pro](https://github.com/njleonzhang/element-ui-pro) Boilerplate for element-ui 2.0 management website, simulate [ant design pro](https://github.com/ant-design/ant-design-pro)
+* [docsify-demo-box-vue](https://njleonzhang.github.io/docsify-demo-box-vue/#/) A plugin for docsify to write Vue demo with instant preview and jsfiddle integration
