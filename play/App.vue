@@ -19,14 +19,11 @@
     //- :data='serverData',
     //- loading-str='loading...',
     //- :total='total',
-    //- :show-action-bar='false',
-    //- :actions-def='actionsDef',
-    //- :checkbox-filter-def='checkFilterDef',
     //- :load-data='loadData',
-    //- :custom-filters='customFilters',
+    //- :filters='customFilters',
     //- @load-data-success='loadDataSuccess',
     //- @load-data-fail='loadDataFail')
-    //-   el-row(slot='custom-tool-bar')
+    //-   el-row(slot='tool-bar')
     //-     el-col(:span='5')
     //-       el-dropdown
     //-         el-button(type='primary')
@@ -53,14 +50,12 @@
 
     data-tables(
       :data='tableData',
-      :actions-def='actionsDef',
-      :checkbox-filter-def='checkFilterDef',
-      :search-def='searchDef',
-      :action-col-def='actionColDef',
       :tableProps='tableProps',
-      :pagination-def='paginationDef')
+      :pagination-def='paginationDef',
+      :filters='customFilters',
+      )
 
-      el-row(slot='custom-tool-bar')
+      el-row(slot='tool-bar')
         el-col(:span='5')
           el-dropdown
             el-button(type='primary')
@@ -74,9 +69,9 @@
               el-dropdown-item 蚵仔煎
 
         el-col(:span='14')
-          el-input(class='test', v-model='customFilters[0].vals')
+          el-input(class='test', v-model='customFilters[0].value')
         el-col(:span='5')
-          el-select(v-model='customFilters[1].vals', multiple)
+          el-select(v-model='customFilters[1].value', multiple)
             el-option(label='维修', value='repair')
             el-option(label='帮忙', value='help')
 
@@ -90,7 +85,6 @@
       el-table-column(prop='building', label='building', sortable='custom')
       el-table-column(prop='room_no', label='no', sortable='custom')
       el-table-column(prop='cellphone', label='tel', sortable='custom')
-    //- div {{selection}}
 </template>
 
 <script>
@@ -114,56 +108,11 @@
           }
         },
         customFilters: [{
-          type: 'multi',
-          props: ['flow_no', 'flow'],
-          vals: ''
+          prop: ['flow_no'],
+          value: ''
         }, {
-          type: 'test',
-          vals: []
+          value: []
         }],
-        selection: {},
-        actionsDef: {
-          colProps: {
-            span: 5
-          },
-          def: [{
-            name: 'new',
-            handler: () => {
-              this.$message('new clicked')
-            },
-            buttonProps: {
-              type: 'text'
-            }
-          }, {
-            name: 'import',
-            handler: () => {
-              this.$message('import clicked')
-            },
-            icon: 'upload'
-          }]
-        },
-        checkFilterDef: {
-          props: 'state_code',
-          def: [{
-            'code': 'created',
-            'name': 'Created'
-          }, {
-            'code': 'assigned',
-            'name': 'Assigned'
-          }, {
-            'code': 'accepted',
-            'name': 'Accepted'
-          }, {
-            'code': 'closed',
-            'name': 'Closed'
-          }, {
-            'code': 'cancelled',
-            'name': 'Cancelled'
-          }]
-        },
-        searchDef: {
-          props: ['flow_no', 'state_code']
-        },
         actionColDef: {
           minWidth: '200',
           def: [{
@@ -202,8 +151,8 @@
           'content': 'Water flood',
           'create_time': '2016-10-01 22:25',
           'flow_no': `FW20160101000${i}`,
-          'flow_type': 'Repair',
-          'flow_type_code': 'repair',
+          'flow_type': i % 2 === 1 ? 'Repair' : 'Help',
+          'flow_type_code': i % 2 === 1 ? 'repair' : 'help',
           'id': '111111',
           'room_id': '00501',
           'room_no': '501',

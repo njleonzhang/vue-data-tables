@@ -3,9 +3,8 @@
 </style>
 
 <script>
-  import ErrorTips from '../tools/ErrorTips.js'
+  import { propError } from '../tools'
   import ShareMixin from '../mixins/ShareMixin'
-  import debounce from 'javascript-debounce'
 
   export default {
     name: 'DataTables',
@@ -14,20 +13,19 @@
       sortMethod: {
         type: Function,
         default: (a, b) => a > b ? 1 : a < b ? -1 : 0
-      }
+      },
+      allFilterProps: Array
     },
-    data() {
-      return {
-        sortData: {}
-      }
+    created() {
+      this._allFilterProps = this.allFilterProps || Object.keys(this.data && this.data[0] || {})
+      this._filterFnCache = Object.create(null)
     },
     computed: {
       sortedData() {
         if (this.sortData.order) {
           let sortedData = this.data.slice()
 
-          let order = this.sortData.order
-          let prop = this.sortData.prop
+          let { order, prop } = this.sortData
           let isDescending = order === 'descending'
           let _sortMethod = (a, b) => this.sortMethod(a[prop], b[prop]) * (isDescending ? -1 : 1)
           sortedData.sort(_sortMethod)
@@ -39,41 +37,19 @@
       },
       tableData() {
         let filteredData = this.sortedData.slice()
-        let _allDataProps = this._allDataProps
 
-        let doFilter = function(defaultFilterFunction, filter) {
-          let filterFunction = filter.filterFunction || defaultFilterFunction
-
-          filteredData = filteredData.filter(el => {
-            return filterFunction(el, filter)
-          })
-        }
-
-        this.filters.forEach(filter => {
+        this.innerFilters.forEach(filter => {
           let vals = filter.vals
           if (!vals || vals.length === 0) {
             return true
           }
 
-          let defaultFilterFunction = function(el, filter) {
-            let props = filter.props || _allDataProps
-            return props.some(prop => {
-              let elVal = el[prop]
-              /* istanbul ignore if */
-              if (elVal === undefined) {
-                console.error(ErrorTips.propError(prop))
-                return false
-              } else if (elVal === null) {
-                return false
-              }
+          let filterFunction = filter.filterFunction ||
+            this.createFilterFn(filter.props, this._allFilterProps)
 
-              return filter.vals.some(val => {
-                return elVal.toString().toLowerCase().indexOf(val.toLowerCase()) > -1
-              })
-            })
-          }
-
-          doFilter(defaultFilterFunction, filter)
+          filteredData = filteredData.filter(el => {
+            return filterFunction(el, filter)
+          })
         })
 
         this.$emit('filtered-data', filteredData)
@@ -87,32 +63,46 @@
       total() {
         return this.tableData.length
       },
-      updateInnerSearchKey() {
-        const timeout = this.innerSearchDef.debounceTime
-        return debounce(_ => {
-          this.innerSearchKey = this.searchKey
-        }, timeout)
-      }
     },
     methods: {
       handleSizeChange(size) {
         this.innerPageSize = size
         this.$emit('size-change', size)
       },
-      handleCheckBoxValChange(checkBoxValues) {
-        this.checkBoxValues = checkBoxValues
-      },
       handleSort(obj) {
         this.sortData = obj
+      },
+      // cache filter function
+      createFilterFn(props, allFilterProps) {
+        let key = props && props.join('')
+        const hit = this._filterFnCache[key]
+
+        if (hit) {
+          return hit
+        }
+
+        this._filterFnCache[key] = function(el, filter) {
+          let props = filter.props || allFilterProps
+          return props.some(prop => {
+            let elVal = el[prop]
+            /* istanbul ignore if */
+            if (elVal === undefined) {
+              console.error(propError(prop))
+              return false
+            } else if (elVal === null) {
+              return false
+            }
+
+            return filter.vals.some(val => {
+              return elVal.toString().toLowerCase().indexOf(val.toLowerCase()) > -1
+            })
+          })
+        }
+
+        return this._filterFnCache[key]
       }
     },
     watch: {
-      data: {
-        immediate: true,
-        handler(val) {
-          this._allDataProps = Object.keys(val && val[0] || {})
-        }
-      },
       currentPage(val) {
         this.$emit('current-page-change', val)
       }

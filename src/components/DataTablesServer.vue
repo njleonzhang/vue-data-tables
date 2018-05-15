@@ -4,7 +4,6 @@
 
 <script>
   import ShareMixin from '../mixins/ShareMixin'
-  import debounce from 'javascript-debounce'
 
   export default {
     name: 'DataTablesServer',
@@ -48,13 +47,6 @@
           filters: this.filters
         }
       },
-      updateInnerSearchKey() {
-        const timeout = this.innerSearchDef.debounceTime
-        return debounce(_ => {
-          this.innerSearchKey = this.searchKey
-          this.queryChange('searchBoxChange')
-        }, timeout)
-      }
     },
     methods: {
       queryChange(type) {
@@ -70,10 +62,6 @@
         this.innerPageSize = size
         this.queryChange('sizeChange')
         this.$emit('size-change', size)
-      },
-      handleCheckBoxValChange(checkBoxValues) {
-        this.checkBoxValues = checkBoxValues
-        this.queryChange('checkBoxChange')
       },
       handleSort(obj) {
         if (this.sortData.prop === obj.prop && this.sortData.order === obj.order) {
