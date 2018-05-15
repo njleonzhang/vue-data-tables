@@ -1,5 +1,9 @@
 export default {
   props: {
+    layout: {
+      type: String,
+      default: 'tool, table, pagination'
+    },
     data: {
       type: Array,
       default() {
@@ -52,14 +56,15 @@ export default {
       }
     }
 
-    return (
-      <div class='sc-table'>
+    let layoutMap = {
+      tool: (
         <div class='tool-bar'>
           {
             this.$slots['tool-bar']
           }
         </div>
-
+      ),
+      table: (
         <el-table ref='elTable'
           on-sort-change={ this.handleSort }
           data={ this.curTableData }
@@ -118,9 +123,11 @@ export default {
               : null
           }
         </el-table>
-
-        {
-          this.paginationShow
+      ),
+      pagination: (
+        <div class='pagination-bar'>
+          {
+            this.paginationShow
             ? (
               <div class='pagination-wrap'>
                 <el-pagination
@@ -135,6 +142,15 @@ export default {
               </div>
             )
             : null
+          }
+        </div>
+      )
+    }
+
+    return (
+      <div class='sc-table'>
+        {
+          this.layout.split(',').map(item => layoutMap[item.trim()])
         }
       </div>
     )
