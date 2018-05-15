@@ -1,6 +1,3 @@
-// import { merge } from 'lodash'
-// import ErrorTips from '../tools/ErrorTips.js'
-
 export default {
   props: {
     data: {
@@ -188,14 +185,6 @@ export default {
     },
     innerColNotRowClick() {
       return this.colNotRowClick.concat([this.actionColProp])
-    },
-    innerFilters() {
-      return this.filters.map(filter => {
-        return Object.assign({}, filter, {
-          props: this.formatProps(filter.prop),
-          vals: this.formatToArray(filter.value)
-        })
-      })
     },
     innerTableProps() {
       return Object.assign({

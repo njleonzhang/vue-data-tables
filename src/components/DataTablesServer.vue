@@ -16,9 +16,6 @@
       total: {
         type: Number
       },
-      loadData: {
-        type: Function
-      },
       loading: {
         type: Boolean,
         default: false
@@ -27,11 +24,6 @@
     created() {
       this._server = true
       this.queryChange('init')
-    },
-    data() {
-      return {
-        innerLoading: false
-      }
     },
     computed: {
       curTableData() {
@@ -55,8 +47,6 @@
           ...this.queryInfo
         }
         this.$emit('query-change', info)
-
-        this.loadData && this.innerLoadData(info)
       },
       handleSizeChange(size) {
         this.innerPageSize = size
@@ -71,25 +61,13 @@
           this.queryChange('sortChange')
         }
       },
-      innerLoadData(info) {
-        this.innerLoading = true
-        this.loadData && this.loadData(info)
-          .then(data => {
-            this.innerLoading = false
-            this.$emit('load-data-success', data, info)
-          })
-          .catch(error => {
-            this.innerLoading = false
-            this.$emit('load-data-fail', error, info)
-          })
-      }
     },
     watch: {
-      innerCustomFilters() {
-        this.queryChange('customFilterChange')
-      },
-      loading(val) {
-        this.innerLoading = val
+      filters: {
+        handler() {
+          this.queryChange('filterChange')
+        },
+        deep: true
       },
       'tableProps.defaultSort': {
         immediate: true,

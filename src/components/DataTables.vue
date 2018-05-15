@@ -21,6 +21,14 @@
       this._filterFnCache = Object.create(null)
     },
     computed: {
+      innerFilters() {
+        return this.filters.map(filter => {
+          return Object.assign({}, filter, {
+            props: this.formatProps(filter.prop),
+            vals: this.formatToArray(filter.value)
+          })
+        })
+      },
       sortedData() {
         if (this.sortData.order) {
           let sortedData = this.data.slice()
