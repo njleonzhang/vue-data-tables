@@ -16,7 +16,7 @@
 <template lang="pug">
   .app-wrapper
     data-tables-server(
-      layout='pagination, table, tool',
+      layout='tool, pagination, table',
       :data='serverData',
       loading-str='loading...',
       :total='total',
