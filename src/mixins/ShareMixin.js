@@ -1,3 +1,5 @@
+import { merge } from 'lodash'
+
 export default {
   props: {
     layout: {
@@ -214,7 +216,7 @@ export default {
     innerActionColDef() {
       let { label, fixed, type, width, minWidth, ...actionColDef } = this.actionColDef
 
-      return Object.assign({
+      return merge({
         show: true,
         def: [],
         tableColProps: {
