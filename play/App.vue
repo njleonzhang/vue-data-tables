@@ -15,7 +15,7 @@
 
 <template lang="pug">
   .app-wrapper
-    data-tables-server(
+    //- data-tables-server(
       layout='tool, pagination, table',
       :data='serverData',
       loading-str='loading...',
@@ -48,12 +48,11 @@
         el-table-column(prop='state', label='State', sortable='custom')
         el-table-column(prop='flow_type', label='Type', sortable='custom')
 
-    //- data-tables(
+    data-tables(
       :data='tableData',
       :tableProps='tableProps',
       :pagination-def='paginationDef',
-      :filters='customFilters',
-      )
+      :filters='customFilters',)
 
       el-row(slot='tool-bar')
         el-col(:span='5')
@@ -108,9 +107,13 @@
           }
         },
         customFilters: [{
-          prop: ['flow_no'],
-          value: ''
+          prop: ['flow_type_code', 'flow_no'],
+          value: '',
+          filterFn(el, filter) {
+            return el.flow_no === filter.value
+          }
         }, {
+          prop: 'flow_type_code',
           value: []
         }],
         actionColDef: {

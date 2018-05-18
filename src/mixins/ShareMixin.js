@@ -233,14 +233,6 @@ export default {
       return this.innerActionColDef.def.length > 0
     },
   },
-  methods: {
-    formatProps(props) {
-      return props ? [].concat(props) : undefined
-    },
-    formatToArray(filters) {
-      return filters ? [].concat(filters) : []
-    },
-  },
   watch: {
     innerPaginationDef: {
       immediate: true,

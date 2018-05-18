@@ -3,8 +3,9 @@
 </style>
 
 <script>
-  import { propError } from '../tools'
+  import { stringPropFilterFn } from '../tools'
   import ShareMixin from '../mixins/ShareMixin'
+  import { isArray, isString } from 'lodash'
 
   export default {
     name: 'DataTables',
@@ -21,14 +22,6 @@
       this._filterFnCache = Object.create(null)
     },
     computed: {
-      innerFilters() {
-        return this.filters.map(filter => {
-          return Object.assign({}, filter, {
-            props: this.formatProps(filter.prop),
-            vals: this.formatToArray(filter.value)
-          })
-        })
-      },
       sortedData() {
         if (this.sortData.order) {
           let sortedData = this.data.slice()
@@ -46,17 +39,18 @@
       tableData() {
         let filteredData = this.sortedData.slice()
 
-        this.innerFilters.forEach(filter => {
-          let vals = filter.vals
-          if (!vals || vals.length === 0) {
+        this.filters.forEach(filter => {
+          let value = filter.value
+          if ((isArray(value) && value.length === 0) ||
+            (value === undefined || value === '')) {
             return true
           }
 
-          let filterFunction = filter.filterFunction ||
-            this.createFilterFn(filter.props, this._allFilterProps)
+          let filterFn = filter.filterFn ||
+            this.createFilterFn(filter.prop, this._allFilterProps)
 
           filteredData = filteredData.filter(el => {
-            return filterFunction(el, filter)
+            return filterFn(el, filter)
           })
         })
 
@@ -81,30 +75,35 @@
         this.sortData = obj
       },
       // cache filter function
-      createFilterFn(props, allFilterProps) {
-        let key = props && props.join('')
-        const hit = this._filterFnCache[key]
+      createFilterFn(prop, allFilterProps) {
+        let key
+        let props = prop || allFilterProps
+        if (isArray(props)) {
+          key = props.join('')
+        } else if (isString(prop)) {
+          key = props
+        } else {
+          console.error('prop must be string or array')
+          return () => false
+        }
 
+        const hit = this._filterFnCache[key]
         if (hit) {
           return hit
         }
 
+        /**
+         * el: the row in table
+         * filter: the filter Object.
+         *    {
+         *      prop: string | array
+         *      value: any
+         *    }
+         */
         this._filterFnCache[key] = function(el, filter) {
-          let props = filter.props || allFilterProps
-          return props.some(prop => {
-            let elVal = el[prop]
-            /* istanbul ignore if */
-            if (elVal === undefined) {
-              console.error(propError(prop))
-              return false
-            } else if (elVal === null) {
-              return false
-            }
-
-            return filter.vals.some(val => {
-              return elVal.toString().toLowerCase().indexOf(val.toLowerCase()) > -1
-            })
-          })
+          return isArray(props)
+            ? props.some(prop => stringPropFilterFn(prop, el, filter))
+            : stringPropFilterFn(props, el, filter)
         }
 
         return this._filterFnCache[key]
