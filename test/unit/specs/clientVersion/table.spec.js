@@ -40,8 +40,6 @@ describe('client render table', _ => {
       }
 
       should.not.exist(head.querySelector('td.ascending'))
-      table.should.have.class('el-table--border')
-      table.should.have.class('el-table--striped')
       destroyVM(vm)
       done()
     }, DELAY)

@@ -68,8 +68,12 @@ export default {
         <el-table ref='elTable'
           on-sort-change={ this.handleSort }
           data={ this.curTableData }
-          { ...{attrs: tableAttrs} }
-          { ...{directives: tableDirectives} }
+          {
+            ...{
+              attrs: tableAttrs,
+              directives: tableDirectives
+            }
+          }
           style='width: 100%'
           >
           {
@@ -86,8 +90,8 @@ export default {
               ? (
                 <el-table-column
                   prop={ this.actionColProp }
-                  { ...{attrs: this.innerActionColDef.tableColProps} }
                   { ...{
+                    attrs: this.innerActionColDef.tableColProps,
                     scopedSlots: {
                       default: scope => {
                         return (
@@ -207,9 +211,27 @@ export default {
         fit: true
       }, this.tableProps)
     },
+    innerActionColDef() {
+      let { label, fixed, type, width, minWidth, ...actionColDef } = this.actionColDef
+
+      return Object.assign({
+        show: true,
+        def: [],
+        tableColProps: {
+          label: label || '操作',
+          fixed: fixed || false,
+          type,
+          width,
+          minWidth
+        }
+      }, actionColDef)
+    },
     paginationShow() {
       return this.paginationDef.show !== false
-    }
+    },
+    actionColShow() {
+      return this.innerActionColDef.def.length > 0
+    },
   },
   methods: {
     formatProps(props) {

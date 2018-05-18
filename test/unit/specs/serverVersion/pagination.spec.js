@@ -6,7 +6,7 @@ describe('server pagination def', _ => {
   let vm
 
   afterEach(function() {
-    vm && destroyVM(vm)
+    // vm && destroyVM(vm)
   })
 
   it('pagination', done => {
@@ -14,10 +14,8 @@ describe('server pagination def', _ => {
       template: `
         <data-tables-server
           :data="tableData"
+          :total='total'
           :pagination-def="paginationDef"
-          :load-data="loadData"
-          @load-data-success='loadDataSuccess'
-          @load-data-fail='loadDataFail'
           @query-change='queryChange'
           ref="dataTable">
           <el-table-column v-for="title in titles"
@@ -36,21 +34,16 @@ describe('server pagination def', _ => {
             pageSize: 1,
             pageSizes: [1, 2, 3],
             currentPage: 2
-          }
+          },
+          total: 0
         }
       },
       methods: {
-        loadData(queryInfo) {
-          return mockServer(queryInfo)
-        },
-        loadDataSuccess(data) {
-          this.tableData = data.data
-          this.total = data.total
-        },
-        loadDataFail(error) {
-          console.log(error)
-        },
-        queryChange(info) {
+        async queryChange(info) {
+          let { total, data } = await mockServer(info)
+
+          this.total = total
+          this.data = data
         }
       }
     }, true)
@@ -106,12 +99,9 @@ describe('server pagination def', _ => {
 
     vm = createVue({
       template: `
-        <data-tables-server :data="tableData"
+        <data-tables-server :data="data"
         :pagination-def="paginationDef"
-        :load-data="loadData"
         :total="total"
-        @load-data-success='loadDataSuccess'
-        @load-data-fail='loadDataFail'
         @query-change='queryChange'
         ref="dataTable">
           <el-table-column v-for="title in titles"
@@ -123,7 +113,7 @@ describe('server pagination def', _ => {
       `,
       data() {
         return {
-          tableData,
+          data: [],
           titles,
           total: 0,
           paginationDef: {
@@ -134,18 +124,10 @@ describe('server pagination def', _ => {
         }
       },
       methods: {
-        loadData(queryInfo) {
-          return mockServer(queryInfo)
-        },
-        loadDataSuccess(data, info) {
-          this.tableData = data.data
-          this.total = data.total
-          bus.$emit('success', data, info)
-        },
-        loadDataFail(error) {
-          console.log(error)
-        },
-        queryChange(info) {
+        async queryChange(info) {
+          let { total, data } = await mockServer(info, 0)
+          this.total = total
+          this.data = data
           bus.$emit('info', info)
         }
       }
@@ -163,7 +145,7 @@ describe('server pagination def', _ => {
         select.click()
         await sleep(DELAY)
 
-        let selectItems = pagination.querySelectorAll('.el-select-dropdown__item')
+        let selectItems = vm.$el.parentNode.querySelectorAll('.el-select-dropdown__item')
         await sleep(DELAY)
 
         bus.$once('success', (data, info) => {

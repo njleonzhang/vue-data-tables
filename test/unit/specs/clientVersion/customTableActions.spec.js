@@ -11,21 +11,20 @@ describe('client custom action bar', _ => {
 
   let bus = new Vue()
 
-  let template =  `
+  let template = `
     <data-tables
       :data="tableData"
       ref="dataTable"
-      :custom-filters="customFilters"
-      :show-action-bar="false"
+      :filters="customFilters"
       @filtered-data="filteredData">
 
-      <div slot="custom-tool-bar">
+      <div slot="tool-bar">
         <el-row class='custom-tools'>
           <el-col :span="14">
-            <el-input v-model="customFilters[0].vals" @change='change'/>
+            <el-input v-model="customFilters[0].value" @change='change'/>
           </el-col>
           <el-col :span="5">
-            <el-select v-model="customFilters[1].vals" multiple="multiple">
+            <el-select v-model="customFilters[1].value" multiple="multiple">
               <el-option label="维修" value="repair"></el-option>
               <el-option label="帮忙" value="help"></el-option>
             </el-select>
@@ -49,9 +48,9 @@ describe('client custom action bar', _ => {
           titles,
           inputVal: "",
           customFilters: [{
-            vals: ''
+            value: ''
           }, {
-            vals: []
+            value: []
           }]
         }
       },

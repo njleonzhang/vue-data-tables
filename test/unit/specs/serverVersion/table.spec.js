@@ -15,10 +15,7 @@ describe('server render table', _ => {
       template: `
         <data-tables-server
         :data="tableData"
-        :load-data="loadData"
         :total="total"
-        @load-data-success='loadDataSuccess'
-        @load-data-fail='loadDataFail'
         @query-change='queryChange'
         ref="dataTable">
           <el-table-column v-for="title in titles"
@@ -36,18 +33,10 @@ describe('server render table', _ => {
         }
       },
       methods: {
-        loadData(queryInfo) {
-          return mockServer(queryInfo)
-        },
-        loadDataSuccess(data, info) {
-          this.tableData = data.data
-          this.total = data.total
-          bus.$emit('success', data, info)
-        },
-        loadDataFail(error) {
-          console.log(error)
-        },
-        queryChange(info) {
+        async queryChange(info) {
+          let { total, data } = await mockServer(info)
+          this.total = total
+          this.data = data
           bus.$emit('info', info)
         }
       }
@@ -61,8 +50,6 @@ describe('server render table', _ => {
       secondItemTds[0].innerText.should.contains('FW201601010001')
       rows[19].querySelectorAll('td')[0].innerText.should.contains('FW2016010100019')
       should.not.exist(head.querySelector('td.ascending'))
-      table.should.have.class('el-table--border')
-      table.should.have.class('el-table--striped')
       destroyVM(vm)
       done()
     }, 500)

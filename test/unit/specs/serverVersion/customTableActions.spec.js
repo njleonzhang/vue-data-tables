@@ -6,7 +6,7 @@ describe('server custom action bar', _ => {
   let vm
 
   afterEach(function() {
-    vm && destroyVM(vm)
+    // vm && destroyVM(vm)
   })
 
   let bus = new Vue()
@@ -16,20 +16,16 @@ describe('server custom action bar', _ => {
       :data="tableData"
       ref="dataTable"
       :total="total"
-      :load-data='loadData'
-      @load-data-success='loadDataSuccess'
-      @load-data-fail='loadDataFail'
       @query-info="queryInfo"
-      :custom-filters="customFilters"
-      :show-action-bar="false">
+      :filters="customFilters">
 
-      <div slot="custom-tool-bar">
+      <div slot="tool-bar">
         <el-row class='custom-tools'>
           <el-col :span="14">
-            <el-input v-model="customFilters[0].vals"/>
+            <el-input v-model="customFilters[0].value"/>
           </el-col>
           <el-col :span="5">
-            <el-select v-model="customFilters[1].vals" multiple="multiple">
+            <el-select v-model="customFilters[1].value" multiple="multiple">
               <el-option label="维修" value="repair"></el-option>
               <el-option label="帮忙" value="help"></el-option>
             </el-select>
@@ -53,32 +49,26 @@ describe('server custom action bar', _ => {
           titles,
           inputVal: '',
           customFilters: [{
-            vals: '',
+            value: '',
             type: 'input'
           }, {
-            vals: [],
+            value: [],
             type: 'selector'
           }],
           total: 0
         }
       },
       methods: {
-        loadData(queryInfo) {
-          return mockServer(queryInfo)
-        },
-        loadDataSuccess(data, info) {
-          bus.$emit('success', data, info)
-        },
-        loadDataFail(error) {
-          console.log(error)
-        },
-        queryInfo(info) {
+        async queryInfo(info) {
+          let { total, data } = await mockServer(info)
+          this.total = total
+          this.data = data
           bus.$emit('info', info)
         }
       }
     }, true)
 
-    let test = async function () {
+    let test = async function() {
       try {
         await waitForVMready(vm)
         let actionBarRow = vm.$el.querySelector('.custom-tools')
@@ -94,9 +84,9 @@ describe('server custom action bar', _ => {
         bus.$once('success', (data, info) => {
           try {
             data.req.filters[0].type.should.equal('input')
-            data.req.filters[0].vals.toString().should.equal('Water flood')
+            data.req.filters[0].value.toString().should.equal('Water flood')
             data.req.filters[1].type.should.equal('selector')
-            data.req.filters[1].vals.toString().should.equal('')
+            data.req.filters[1].value.toString().should.equal('')
           } catch (e) {
             done({
               message: e.message,
