@@ -49,10 +49,8 @@
         this.$emit('query-change', info)
       },
       handleSort(obj) {
-        // need comments
-        if (this.sortData.prop === obj.prop && this.sortData.order === obj.order) {
-          this.sortData = obj
-        } else {
+        // when multi-column share the same prop, avoid the request, if both prop and order are not change.
+        if (this.sortData.prop !== obj.prop || this.sortData.order !== obj.order) {
           this.sortData = obj
           this.queryChange('sortChange')
         }

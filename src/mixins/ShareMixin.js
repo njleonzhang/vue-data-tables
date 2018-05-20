@@ -193,7 +193,6 @@ export default {
   },
   computed: {
     layouts() {
-      window.vm = this
       return this.layout.split(',').map(item => item.trim())
     },
     innerColNotRowClick() {
@@ -211,7 +210,6 @@ export default {
           delete tableProps[prop]
         }
       })
-      console.log(tableProps)
       return tableProps
     },
     innerActionColDef() {
