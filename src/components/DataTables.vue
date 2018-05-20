@@ -58,7 +58,7 @@
         return filteredData
       },
       curTableData() {
-        let from = this.innerPageSize * (this.currentPage - 1)
+        let from = this.innerPageSize * (this.innerCurrentPage - 1)
         let to = from + this.innerPageSize
         return this.tableData.slice(from, to)
       },
@@ -67,12 +67,11 @@
       },
     },
     methods: {
-      handleSizeChange(size) {
-        this.innerPageSize = size
-        this.$emit('size-change', size)
-      },
       handleSort(obj) {
         this.sortData = obj
+      },
+      handleSizeChange(size) {
+        this.innerPageSize = size
       },
       // cache filter function
       createFilterFn(prop, allFilterProps) {
@@ -107,11 +106,6 @@
         }
 
         return this._filterFnCache[key]
-      }
-    },
-    watch: {
-      currentPage(val) {
-        this.$emit('current-page-change', val)
       }
     }
   }

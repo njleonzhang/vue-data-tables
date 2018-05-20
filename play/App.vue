@@ -15,13 +15,15 @@
 
 <template lang="pug">
   .app-wrapper
-    //- data-tables-server(
+    data-tables-server(
       layout='tool, pagination, table',
       :data='serverData',
-      loading-str='loading...',
       :total='total',
       :loading='loading',
       :filters='customFilters'
+      :currentPage.sync='currentPage'
+      :pageSize.sync='pageSize'
+      :table-props='tableProps',
       @query-change='loadData')
         el-row(slot='tool-bar')
           el-col(:span='5')
@@ -48,11 +50,13 @@
         el-table-column(prop='state', label='State', sortable='custom')
         el-table-column(prop='flow_type', label='Type', sortable='custom')
 
-    data-tables(
+    //- data-tables(
       :data='tableData',
       :tableProps='tableProps',
-      :pagination-def='paginationDef',
-      :filters='customFilters',)
+      :filters='customFilters',
+      :currentPage.sync='currentPage'
+      :pageSize.sync='pageSize'
+      )
 
       el-row(slot='tool-bar')
         el-col(:span='5')
@@ -99,8 +103,9 @@
         tableData: [],
         tableProps: {
           rowClassName: 'test-class',
-          border: false,
-          stripe: false,
+          'elementLoadingText': '拼命加载中',
+          'elementLoadingSpinner': 'el-icon-loading',
+          'elementLoadingBackground': 'rgba(0, 0, 0, 0.8)',
           defaultSort: {
             prop: 'flow_no',
             order: 'descending'
@@ -137,12 +142,11 @@
             name: 'RUA'
           }]
         },
-        paginationDef: {
-          layout: 'prev, pager, next, jumper, sizes, total'
-        },
         serverData: [],
         total: 0,
-        loading: false
+        loading: false,
+        currentPage: 2,
+        pageSize: 30
       }
     },
     created() {
@@ -169,7 +173,9 @@
     methods: {
       async loadData(queryInfo) {
         this.loading = true
-        await mockServer(queryInfo, 2000)
+        let { data, total } = await mockServer(queryInfo, 2000)
+        this.serverData = data
+        this.total = total
         this.loading = false
       },
     }

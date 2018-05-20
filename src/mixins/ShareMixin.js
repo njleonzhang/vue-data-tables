@@ -1,4 +1,4 @@
-import { merge } from 'lodash'
+import { merge, kebabCase } from 'lodash'
 
 export default {
   props: {
@@ -36,7 +36,15 @@ export default {
         return {}
       }
     },
-    paginationDef: {
+    currentPage: {
+      type: Number,
+      default: 1
+    },
+    pageSize: {
+      type: Number,
+      default: 20
+    },
+    paginationProps: {
       type: Object,
       default() {
         return {}
@@ -45,17 +53,11 @@ export default {
   },
   render() {
     let tableDirectives = []
-    let tableAttrs = this.innerTableProps
 
     if (this._server) {
       tableDirectives = [
-        { name: 'loading', value: this.innerLoading }
+        { name: 'loading', value: this.loading }
       ]
-
-      tableAttrs = {
-        'element-loading-text': this.loadingStr,
-        ...this.innerTableProps
-      }
     }
 
     let layoutMap = {
@@ -72,7 +74,7 @@ export default {
           data={ this.curTableData }
           {
             ...{
-              attrs: tableAttrs,
+              attrs: this.innerTableProps,
               directives: tableDirectives
             }
           }
@@ -137,12 +139,15 @@ export default {
             ? (
               <div class='pagination-wrap'>
                 <el-pagination
-                  current-page$sync={ this.currentPage }
-                  page-sizes={ this.innerPaginationDef.pageSizes }
-                  page-size={ this.innerPaginationDef.pageSize }
-                  layout={ this.innerPaginationDef.layout }
-                  total={ this.total }
+                  current-page$sync={ this.innerCurrentPage }
+                  page-size={ this.innerPageSize }
                   on-size-change={ this.handleSizeChange }
+                  total={ this.total }
+                  {
+                    ...{
+                      attrs: this.innerPaginationProps
+                    }
+                  }
                   >
                 </el-pagination>
               </div>
@@ -156,7 +161,7 @@ export default {
     return (
       <div class='sc-table'>
         {
-          this.layout.split(',').map(item => layoutMap[item.trim()])
+          this.layouts.map(layout => layoutMap[layout])
         }
       </div>
     )
@@ -179,39 +184,35 @@ export default {
   },
   data() {
     return {
-      currentPage: 1,
+      innerCurrentPage: 1,
       innerPageSize: 20,
       sortData: {},
-      actionColProp: 'e6e4c9de-7cf5-4f19-bb73-838e5182a372'
+      actionColProp: 'e6e4c9de-7cf5-4f19-bb73-838e5182a372',
+      innerPaginationProps: {}
     }
   },
   computed: {
-    innerPaginationDef() {
-      let paginationDef = Object.assign({
-        layout: 'prev, pager, next, jumper, sizes, total',
-        pageSize: 20,
-        pageSizes: [20, 50, 100],
-        currentPage: 1
-      }, this.paginationDef)
-
-      if (paginationDef.show === false) {
-        paginationDef.pageSize = this.data.length
-      } else {
-        if (paginationDef.pageSizes.indexOf(paginationDef.pageSize) === -1) {
-          console.warn(`pageSize ${paginationDef.pageSize} is not in pageSizes[${paginationDef.pageSizes}], use the first one(${paginationDef.pageSizes[0]}) in pageSizes`)
-          paginationDef.pageSize = paginationDef.pageSizes[0]
-        }
-      }
-
-      return paginationDef
+    layouts() {
+      window.vm = this
+      return this.layout.split(',').map(item => item.trim())
     },
     innerColNotRowClick() {
       return this.colNotRowClick.concat([this.actionColProp])
     },
     innerTableProps() {
-      return Object.assign({
+      let loadingProps = ['elementLoadingText', 'elementLoadingSpinner', 'elementLoadingBackground']
+      let tableProps = Object.assign({
         fit: true
       }, this.tableProps)
+
+      loadingProps.forEach(prop => {
+        if (tableProps[prop]) {
+          tableProps[kebabCase(prop)] = tableProps[prop]
+          delete tableProps[prop]
+        }
+      })
+      console.log(tableProps)
+      return tableProps
     },
     innerActionColDef() {
       let { label, fixed, type, width, minWidth, ...actionColDef } = this.actionColDef
@@ -229,19 +230,53 @@ export default {
       }, actionColDef)
     },
     paginationShow() {
-      return this.paginationDef.show !== false
+      return this.layouts.includes('pagination')
     },
     actionColShow() {
       return this.innerActionColDef.def.length > 0
     },
   },
   watch: {
-    innerPaginationDef: {
+    // make innerCurrentPage and innerPageSize as data,
+    // and watch currentPage to update innerCurrentPage, pageSize to update innerPageSize
+    // at the same time watch innerCurrentPage and innerPageSize to emit sync emit.
+    // the two watch cannot be replaced by computed getter and setter here,
+    // because currentPage and pageSize can be not provided(undefinded).
+    currentPage: {
       immediate: true,
       handler(val) {
-        this.innerPageSize = val.pageSize
-        this.currentPage = val.currentPage
+        this.innerCurrentPage = val
       }
-    }
-  }
+    },
+    innerCurrentPage(val) {
+      this.$emit('update:currentPage', val)
+    },
+    pageSize: {
+      immediate: true,
+      handler(val) {
+        this.innerPageSize = val
+      }
+    },
+    innerPageSize(val) {
+      this.$emit('update:pageSize', val)
+    },
+    paginationProps: {
+      immediate: true,
+      handler(val) {
+        if (this.paginationShow) {
+          this.innerPaginationProps = Object.assign({
+            pageSizes: [20, 50, 100],
+            layout: 'prev, pager, next, jumper, sizes, total',
+          }, val)
+
+          if (this.innerPaginationProps.pageSizes.indexOf(this.innerPageSize) === -1) {
+            console.warn(`pageSize ${this.innerPageSize} is not included in pageSizes[${this.innerPaginationProps.pageSizes}], set pageSize to pageSizes[0]: 20`)
+            this.innerPageSize = this.innerPaginationProps.pageSizes[0]
+          }
+        } else {
+          this.innerPageSize = this.data.length
+        }
+      }
+    },
+  },
 }

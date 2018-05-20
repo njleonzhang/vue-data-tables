@@ -48,18 +48,18 @@
         }
         this.$emit('query-change', info)
       },
-      handleSizeChange(size) {
-        this.innerPageSize = size
-        this.queryChange('sizeChange')
-        this.$emit('size-change', size)
-      },
       handleSort(obj) {
+        // need comments
         if (this.sortData.prop === obj.prop && this.sortData.order === obj.order) {
           this.sortData = obj
         } else {
           this.sortData = obj
           this.queryChange('sortChange')
         }
+      },
+      handleSizeChange(size) {
+        this.innerPageSize = size
+        this.queryChange('sizeChange')
       },
     },
     watch: {
@@ -75,9 +75,8 @@
           this.sortData = val || {}
         }
       },
-      currentPage(val) {
+      innerCurrentPage(val) {
         this.queryChange('pageChange')
-        this.$emit('current-page-change', val)
       }
     }
   }
