@@ -203,6 +203,9 @@ export default {
               <div class='pagination-wrap'>
                 <el-pagination
                   current-page$sync={ this.currentPage }
+                  background={ this.innerPaginationDef.background }
+                  small={ this.innerPaginationDef.small }
+                  pager-count={ this.innerPaginationDef.pagerCount }
                   page-sizes={ this.innerPaginationDef.pageSizes }
                   page-size={ this.innerPaginationDef.pageSize }
                   layout={ this.innerPaginationDef.layout }
@@ -280,6 +283,9 @@ export default {
     innerPaginationDef() {
       let paginationDef = Object.assign({
         layout: 'prev, pager, next, jumper, sizes, total',
+        background: false,
+        small: false,
+        pagerCount: 7,
         pageSize: 20,
         pageSizes: [20, 50, 100],
         currentPage: 1

@@ -80,7 +80,10 @@ export default {
 
 | Property   | Desc    | Type | Accepted Values | Default value |
 | ------------- | ------------- | --- | --- |
-| show  | show or hide the pagination | Boolean | - | true |
+| show  | use small pagination | Boolean | - | false |
+| background  | buttons have a background color | Boolean | - | false |
+| small  | show or hide the pagination | Boolean | - | true |
+| pagerCount  | number of pagers. Pagination collapses when the total page count exceeds this value | Number | odd number between 5 and 21 | 7 |
 | pageSize  | item count of each page | Number | - | 20 |
 | pageSizes  | options of item count per page	 | Array of Number | - | [20, 50, 100] |
 | currentPage  | current page | Number | - | 1 |
