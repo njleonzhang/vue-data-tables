@@ -33,6 +33,9 @@ describe('server pagination def', _ => {
           tableData,
           titles,
           paginationDef: {
+            background: true,
+            small: true,
+            pagerCount: 11,
             pageSize: 1,
             pageSizes: [1, 2, 3],
             currentPage: 2
@@ -60,6 +63,9 @@ describe('server pagination def', _ => {
       jump.should.have.property('value', '2')
       vm.$refs.dataTable.innerPaginationDef.should.deep.equal({
         layout: 'prev, pager, next, jumper, sizes, total',
+        background: true,
+        small: true,
+        pagerCount: 11,
         pageSize: 1,
         pageSizes: [1, 2, 3],
         currentPage: 2
