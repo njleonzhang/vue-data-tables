@@ -27,9 +27,7 @@
     },
     computed: {
       curTableData() {
-        return this.data.length > this.innerPageSize
-          ? this.data.slice(0, this.innerPageSize)
-          : this.data
+        return this.data
       },
       queryInfo() {
         return {
@@ -49,7 +47,7 @@
         this.$emit('query-change', info)
       },
       handleSort(obj) {
-        // when multi-column share the same prop, avoid the request, if both prop and order are not change.
+        // avoid event emit, if both prop and order are not change, special scenario 'multi-columns share the same prop'
         if (this.sortData.prop !== obj.prop || this.sortData.order !== obj.order) {
           this.sortData = obj
           this.queryChange('sortChange')

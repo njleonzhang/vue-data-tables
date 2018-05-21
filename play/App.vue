@@ -172,6 +172,7 @@
     },
     methods: {
       async loadData(queryInfo) {
+        console.log(queryInfo)
         this.loading = true
         let { data, total } = await mockServer(queryInfo, 200)
         this.serverData = data
