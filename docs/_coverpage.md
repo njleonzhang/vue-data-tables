@@ -1,6 +1,6 @@
 ![logo](_media/icon.svg)
 
-# vue-data-tables <small>3.3.1</small>
+# vue-data-tables <small>3.3.2</small>
 
 > A simple, customizable and pageable table, based on vue2 and element-ui
 
