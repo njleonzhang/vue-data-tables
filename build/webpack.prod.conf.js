@@ -31,8 +31,8 @@ const webpackConfig = merge(baseWebpackConfig, {
   devtool: config.build.productionSourceMap ? config.build.devtool : false,
   output: {
     path: config.build.assetsRoot,
-    filename: 'helloword.min.js',
-    library: 'Helloword',
+    filename: 'data-tables.min.js',
+    library: 'DataTables',
     libraryTarget: 'umd'
   },
   externals: {
@@ -42,9 +42,6 @@ const webpackConfig = merge(baseWebpackConfig, {
       commonjs2: 'vue',
       amd: 'vue'
     },
-    'vue-loader': 'vue-loader',
-    'vue-style-loader': 'vue-style-loader',
-    'css-loader': 'css-loader'
   },
   plugins: [
     // http://vuejs.github.io/vue-loader/en/workflow/production.html
