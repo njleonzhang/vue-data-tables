@@ -118,7 +118,7 @@ export let mockServer = function(res, time = 200) {
 export let mockServerError = function(res, time = 200) {
   return new Promise((resolve, reject) => {
     setTimeout(_ => {
-      reject('network error')
+      reject(new Error('network error'))
     }, time)
   })
 }

@@ -1,14 +1,18 @@
 {
   "presets": [
-    ["env", { "modules": false }],
+    ["env", {
+      "modules": false,
+      "targets": {
+        "browsers": ["> 1%", "last 2 versions", "not ie <= 8"]
+      }
+    }],
     "stage-2"
   ],
   "plugins": ["transform-runtime", "lodash", "vue-jsx-sync", "jsx-v-model", "transform-vue-jsx"],
-  "comments": false,
   "env": {
     "test": {
       "presets": ["env", "stage-2"],
-      "plugins": [ "istanbul" ]
+      "plugins": ["transform-runtime", "lodash", "vue-jsx-sync", "jsx-v-model", "transform-vue-jsx", "transform-es2015-modules-commonjs", "dynamic-import-node"]
     }
   }
 }

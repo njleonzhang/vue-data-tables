@@ -72,14 +72,12 @@ export default {
         <el-table ref='elTable'
           on-sort-change={ this.handleSort }
           data={ this.curTableData }
-          {
-            ...{
-              attrs: this.innerTableProps,
-              directives: tableDirectives
-            }
-          }
+          {...{
+            attrs: this.innerTableProps,
+            directives: tableDirectives
+          }}
           style='width: 100%'
-          >
+        >
           {
             this.$slots.default
           }
@@ -136,23 +134,21 @@ export default {
         <div class='pagination-bar'>
           {
             this.paginationShow
-            ? (
-              <div class='pagination-wrap'>
-                <el-pagination
-                  current-page$sync={ this.innerCurrentPage }
-                  page-size={ this.innerPageSize }
-                  on-size-change={ this.handleSizeChange }
-                  total={ this.total }
-                  {
-                    ...{
+              ? (
+                <div class='pagination-wrap'>
+                  <el-pagination
+                    current-page$sync={ this.innerCurrentPage }
+                    page-size={ this.innerPageSize }
+                    on-size-change={ this.handleSizeChange }
+                    total={ this.total }
+                    {...{
                       attrs: this.innerPaginationProps
-                    }
-                  }
+                    }}
                   >
-                </el-pagination>
-              </div>
-            )
-            : null
+                  </el-pagination>
+                </div>
+              )
+              : null
           }
         </div>
       )
