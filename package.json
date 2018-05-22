@@ -21,7 +21,8 @@
     "test": "npm run unit",
     "lint": "eslint --ext .js,.vue src test/unit",
     "build": "node build/build.js",
-    "doc": "docsify serve docs"
+    "doc": "docsify serve docs",
+    "release": "bash build/release.sh"
   },
   "dependencies": {
     "element-ui": "^2.3.9",
