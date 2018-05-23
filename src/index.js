@@ -9,7 +9,13 @@ DataTablesServer.install = function(Vue) {
   Vue.component(DataTablesServer.name, DataTablesServer)
 }
 
+let install = function(Vue) {
+  DataTables.install(Vue)
+  DataTablesServer.install(Vue)
+}
+
 export {
+  install,
   DataTables,
   DataTablesServer,
 }

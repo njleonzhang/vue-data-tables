@@ -31,7 +31,7 @@ export default {
     },
     queryInfo() {
       return {
-        page: this.currentPage,
+        page: this.innerCurrentPage,
         pageSize: this.innerPageSize,
         sortInfo: this.sortData,
         filters: this.filters
