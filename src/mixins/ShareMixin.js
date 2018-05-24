@@ -30,7 +30,7 @@ export default {
         return []
       }
     },
-    actionColDef: {
+    actionCol: {
       type: Object,
       default() {
         return {}
@@ -97,27 +97,27 @@ export default {
                 <el-table-column
                   prop={ this.actionColProp }
                   { ...{
-                    attrs: this.innerActionColDef.tableColProps,
+                    attrs: this.innerActionCol.props,
                     scopedSlots: {
                       default: scope => {
                         return (
                           <div class='action-list'>
                             {
-                              this.innerActionColDef.def.map(actionInCol => {
+                              this.innerActionCol.buttons.map(button => {
                                 let buttonProps = Object.assign({
-                                  type: actionInCol.type || 'text',
-                                  icon: actionInCol.icon
-                                }, actionInCol.buttonProps)
+                                  type: button.type || 'text',
+                                  icon: button.icon,
+                                }, button.props)
 
                                 let clickHandler = function() {
-                                  actionInCol.handler(scope.row, scope.$index, scope.column, scope.store)
+                                  button.handler(scope.row, scope.$index, scope.column, scope.store)
                                 }
 
                                 return (
                                   <span>
                                     <el-button onClick={ clickHandler }
                                       { ...{attrs: buttonProps} }>
-                                      { actionInCol.name }
+                                      { button.label }
                                     </el-button>
                                   </span>
                                 )
@@ -212,26 +212,22 @@ export default {
       })
       return tableProps
     },
-    innerActionColDef() {
-      let { label, fixed, type, width, minWidth, ...actionColDef } = this.actionColDef
+    innerActionCol() {
+      let { label, ...actionCol } = this.actionCol
 
       return merge({
         show: true,
-        def: [],
-        tableColProps: {
+        buttons: [],
+        props: {
           label: label || '操作',
-          fixed: fixed || false,
-          type,
-          width,
-          minWidth
         }
-      }, actionColDef)
+      }, actionCol)
     },
     paginationShow() {
       return this.layouts.includes('pagination')
     },
     actionColShow() {
-      return this.innerActionColDef.def.length > 0
+      return this.innerActionCol.buttons.length > 0
     },
   },
   watch: {

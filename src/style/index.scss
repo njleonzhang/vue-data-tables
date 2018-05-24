@@ -1,6 +1,12 @@
 .sc-table {
   .pagination-wrap {
     text-align: center;
-    margin-top: 20px;
+  }
+
+  .action-list {
+    text-align: center;
+    & > span + span {
+      margin-left: 10px;
+    }
   }
 }
