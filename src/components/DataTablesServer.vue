@@ -33,7 +33,7 @@ export default {
       return {
         page: this.innerCurrentPage,
         pageSize: this.innerPageSize,
-        sortInfo: this.sortData,
+        sort: this.sortData,
         filters: this.filters
       }
     },
@@ -50,18 +50,18 @@ export default {
       // avoid event emit, if both prop and order are not change, special scenario 'multi-columns share the same prop'
       if (this.sortData.prop !== obj.prop || this.sortData.order !== obj.order) {
         this.sortData = obj
-        this.queryChange('sortChange')
+        this.queryChange('sort')
       }
     },
     handleSizeChange(size) {
       this.innerPageSize = size
-      this.queryChange('sizeChange')
+      this.queryChange('size')
     },
   },
   watch: {
     filters: {
       handler() {
-        this.queryChange('filterChange')
+        this.queryChange('filter')
       },
       deep: true
     },
@@ -72,7 +72,7 @@ export default {
       }
     },
     innerCurrentPage(val) {
-      this.queryChange('pageChange')
+      this.queryChange('page')
     }
   }
 }
