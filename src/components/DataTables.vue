@@ -7,19 +7,29 @@ import { stringPropFilterFn } from '../tools'
 import ShareMixin from '../mixins/ShareMixin'
 import { isArray, isString } from 'lodash'
 
+let defaultSortFn = (a, b, prop) => a > b ? 1 : a < b ? -1 : 0
+
 export default {
   name: 'DataTables',
   mixins: [ShareMixin],
   props: {
     sortMethod: {
-      type: Function,
-      default: (a, b) => a > b ? 1 : a < b ? -1 : 0
+      type: Object,
+      default() {
+        return {}
+      }
     },
-    allFilterProps: Array
+    allFilterProps: Array,
+  },
+  data() {
+    return {
+      innerAllFilterProps: []
+    }
   },
   created() {
-    this._allFilterProps = this.allFilterProps || Object.keys(((this.data && this.data[0]) || {}))
+    this.innerAllFilterProps = this.allFilterProps || Object.keys(((this.data && this.data[0]) || {}))
     this._filterFnCache = Object.create(null)
+    this._sortFnCache = Object.create(null)
   },
   computed: {
     sortedData() {
@@ -28,7 +38,8 @@ export default {
 
         let { order, prop } = this.sortData
         let isDescending = order === 'descending'
-        let _sortMethod = (a, b) => this.sortMethod(a[prop], b[prop]) * (isDescending ? -1 : 1)
+
+        let _sortMethod = this.createSortFn(prop, isDescending)
         sortedData.sort(_sortMethod)
 
         return sortedData
@@ -47,7 +58,7 @@ export default {
         }
 
         let filterFn = filter.filterFn ||
-          this.createFilterFn(filter.prop, this._allFilterProps)
+          this.createFilterFn(filter.prop)
 
         filteredData = filteredData.filter(el => {
           return filterFn(el, filter)
@@ -74,9 +85,9 @@ export default {
       this.innerPageSize = size
     },
     // cache filter function
-    createFilterFn(prop, allFilterProps) {
+    createFilterFn(prop) {
       let key
-      let props = prop || allFilterProps
+      let props = prop || this.innerAllFilterProps
       if (isArray(props)) {
         key = props.join('')
       } else if (isString(prop)) {
@@ -106,6 +117,25 @@ export default {
       }
 
       return this._filterFnCache[key]
+    },
+    createSortFn(prop, isDescending) {
+      let key = prop + isDescending
+
+      const hit = this._sortFnCache[key]
+      if (hit) {
+        return hit
+      }
+
+      this._sortFnCache[key] = (a, b) => (this.sortMethod[prop] || defaultSortFn)(a[prop], b[prop]) * (isDescending ? -1 : 1)
+      return this._sortFnCache[key]
+    }
+  },
+  watch: {
+    allFilterProps(val) {
+      this.innerAllFilterProps = val
+    },
+    sortMethod() {
+      this._sortFnCache = []
     }
   }
 }
