@@ -55,7 +55,9 @@ module.exports = {
       {
         test: /\.js$/,
         loader: 'babel-loader',
-        include: [resolve('src'), resolve('test'), resolve('node_modules/webpack-dev-server/client')]
+        exclude: file => {
+          return /node_modules/.test(file) && (!/\.vue\.js/.test(file) && !/vue-data-tables\/src\/mixins\/ShareMixin\.js/.test(file))
+        }
       },
       {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,

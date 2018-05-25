@@ -1,4 +1,9 @@
 # Define you own action bar
+If default action bar can not match requirement, it can be entirely customized.
+
+1. set property `show-action-bar` to false to hide default action bar
+2. write action bar template in `slot` `custom-tool-bar`
+3. leverage property `custom-filters` to filter data
 
 ```html
 /*vue*/

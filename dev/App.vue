@@ -15,12 +15,12 @@
 
 <template>
   <div class="app-wrapper">
-    <!-- <data-tables-server
-      layout="tool, pagination, table"
+    <data-tables-server
       :data="serverData"
       :total="total"
       :loading="loading"
       :filters="customFilters"
+      :action-col="actionColDef"
       :currentPage.sync="currentPage"
       :pageSize.sync="pageSize"
       :table-props="tableProps"
@@ -53,8 +53,8 @@
       <el-table-column prop="create_time" label="Time" sortable="custom"></el-table-column>
       <el-table-column prop="state" label="State" sortable="custom"></el-table-column>
       <el-table-column prop="flow_type" label="Type" sortable="custom"></el-table-column>
-    </data-tables-server> -->
-    <data-tables :data="tableData" :tableProps="tableProps" :filters="customFilters" :currentPage.sync="currentPage" :pageSize.sync="pageSize">
+    </data-tables-server>
+    <!-- <data-tables :data="tableData" :tableProps="tableProps" :filters="customFilters">
       <el-row slot="tool-bar">
         <el-col :span="5">
           <el-dropdown>
@@ -88,12 +88,14 @@
       <el-table-column prop="building" label="building" sortable="custom"></el-table-column>
       <el-table-column prop="room_no" label="no" sortable="custom"></el-table-column>
       <el-table-column prop="cellphone" label="tel" sortable="custom"></el-table-column>
-    </data-tables>
+    </data-tables> -->
   </div>
 </template>
 
 <script>
 import { DataTables, DataTablesServer } from '@/index.js'
+// import { DataTables, DataTablesServer } from 'vue-data-tables/src/index.js'
+
 import { mockServer } from '../test/unit/tools/source'
 export default {
   components: {
@@ -125,7 +127,7 @@ export default {
       }],
       actionColDef: {
         minWidth: '200',
-        def: [{
+        items: [{
           buttonProps: {
             type: 'primary'
           },
