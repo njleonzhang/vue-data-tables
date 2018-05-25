@@ -4,7 +4,7 @@ export default {
   props: {
     layout: {
       type: String,
-      default: 'tool, table, pagination'
+      default: 'table, pagination'
     },
     data: {
       type: Array,
