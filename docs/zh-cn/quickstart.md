@@ -91,6 +91,9 @@ export default {
         value: ''
       }],
       actionCol: {
+        props: {
+          label: 'Actionssss',
+        },
         buttons: [{
           props: {
             type: 'primary'

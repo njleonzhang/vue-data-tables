@@ -3319,13 +3319,13 @@ module.exports = listCacheGet;
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 
-// EXTERNAL MODULE: ./node_modules/babel-runtime/core-js/object/create.js
-var create = __webpack_require__("AyUB");
-var create_default = /*#__PURE__*/__webpack_require__.n(create);
-
 // EXTERNAL MODULE: ./node_modules/babel-runtime/core-js/object/keys.js
 var keys = __webpack_require__("GQeE");
 var keys_default = /*#__PURE__*/__webpack_require__.n(keys);
+
+// EXTERNAL MODULE: ./node_modules/babel-runtime/core-js/object/create.js
+var create = __webpack_require__("AyUB");
+var create_default = /*#__PURE__*/__webpack_require__.n(create);
 
 // EXTERNAL MODULE: ./node_modules/lodash/isString.js
 var isString = __webpack_require__("4qC0");
@@ -3401,7 +3401,7 @@ var merge_default = /*#__PURE__*/__webpack_require__.n(merge);
   props: {
     layout: {
       type: String,
-      default: 'tool, table, pagination'
+      default: 'table, pagination'
     },
     data: {
       type: Array,
@@ -3707,15 +3707,15 @@ var defaultSortFn = function defaultSortFn(a, b, prop) {
         return {};
       }
     },
-    allFilterProps: Array
+    filterProps: Array
   },
   data: function data() {
     return {
-      innerAllFilterProps: []
+      innerfilterProps: []
     };
   },
   created: function created() {
-    this.innerAllFilterProps = this.allFilterProps || keys_default()(this.data && this.data[0] || {});
+    this.setInnerFilterProps(this.filterProps);
     this._filterFnCache = create_default()(null);
     this._sortFnCache = create_default()(null);
   },
@@ -3780,7 +3780,7 @@ var defaultSortFn = function defaultSortFn(a, b, prop) {
     // cache filter function
     createFilterFn: function createFilterFn(prop) {
       var key = void 0;
-      var props = prop || this.innerAllFilterProps;
+      var props = prop || this.innerfilterProps;
       if (isArray_default()(props)) {
         key = props.join('');
       } else if (isString_default()(prop)) {
@@ -3827,11 +3827,14 @@ var defaultSortFn = function defaultSortFn(a, b, prop) {
         return (_this2.sortMethod[prop] || defaultSortFn)(a[prop], b[prop]) * (isDescending ? -1 : 1);
       };
       return this._sortFnCache[key];
+    },
+    setInnerFilterProps: function setInnerFilterProps(val) {
+      this.innerfilterProps = val || keys_default()(this.data && this.data[0] || {});
     }
   },
   watch: {
-    allFilterProps: function allFilterProps(val) {
-      this.innerAllFilterProps = val;
+    filterProps: function filterProps(val) {
+      this.setInnerFilterProps(val);
     },
     sortMethod: function sortMethod() {
       this._sortFnCache = [];

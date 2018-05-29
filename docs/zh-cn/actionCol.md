@@ -8,19 +8,19 @@
 ```
 // 以类似typescript的定义格式描述
 {
-  label: String;                // 动作列的表头
-  props: {                      // 用于传入动作列 el-table-column 的 prop
+  label?: String;                // 动作列的表头
+  props?: {                      // 用于传入动作列 el-table-column 的 prop
     [prop: string]: any;
   },
-  buttons: [                    // 定义动作列里的 el-button 元素
+  buttons: [                     // 定义动作列里的 el-button 元素
     {
-      props: {                  // 用于传入 el-button 的 prop
+      props?: {                  // 用于传入 el-button 的 prop
         [prop: string]: any;
       },
-      handler: (row) => void;   // 点击事件的 callback, 注意使用箭头函数，
-                                // 否则 `this` 就不是使用 `vue-data-table` 组件了。
-                                // 参数 row 为此列的数据。
-      label: String;            // 按钮的 label
+      handler?: (row) => void;   // 点击事件的 callback, 注意使用箭头函数，
+                                 // 否则 `this` 就不是使用 `vue-data-table` 组件了。
+                                 // 参数 row 为此列的数据。
+      label: String;             // 按钮的 label
     },
     ...
   ]
