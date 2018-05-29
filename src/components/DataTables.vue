@@ -19,15 +19,15 @@ export default {
         return {}
       }
     },
-    allFilterProps: Array,
+    filterProps: Array,
   },
   data() {
     return {
-      innerAllFilterProps: []
+      innerfilterProps: []
     }
   },
   created() {
-    this.innerAllFilterProps = this.allFilterProps || Object.keys(((this.data && this.data[0]) || {}))
+    this.setInnerFilterProps(this.filterProps)
     this._filterFnCache = Object.create(null)
     this._sortFnCache = Object.create(null)
   },
@@ -87,7 +87,7 @@ export default {
     // cache filter function
     createFilterFn(prop) {
       let key
-      let props = prop || this.innerAllFilterProps
+      let props = prop || this.innerfilterProps
       if (isArray(props)) {
         key = props.join('')
       } else if (isString(prop)) {
@@ -128,11 +128,14 @@ export default {
 
       this._sortFnCache[key] = (a, b) => (this.sortMethod[prop] || defaultSortFn)(a[prop], b[prop]) * (isDescending ? -1 : 1)
       return this._sortFnCache[key]
+    },
+    setInnerFilterProps(val) {
+      this.innerfilterProps = val || Object.keys(((this.data && this.data[0]) || {}))
     }
   },
   watch: {
-    allFilterProps(val) {
-      this.innerAllFilterProps = val
+    filterProps(val) {
+      this.setInnerFilterProps(val)
     },
     sortMethod() {
       this._sortFnCache = []
