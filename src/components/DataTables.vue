@@ -83,6 +83,7 @@ export default {
     },
     handleSizeChange(size) {
       this.innerPageSize = size
+      this.$emit('size-change', size)
     },
     // cache filter function
     createFilterFn(prop) {

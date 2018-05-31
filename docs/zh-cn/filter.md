@@ -442,8 +442,8 @@ export default {
   </script>
   ```
 
-## 使用 filterFn
-在一些情况下，默认的比较方式，不能满足过滤要求，此时可以使用 filterFn, 来自定义过滤函数。
+### 使用 filterFn
+在一些情况下，默认的比较方式不能满足过滤要求，此时可以使用 filterFn, 来自定义过滤函数。
 
 比如下例中，data 里的日期格式，是 Data String 化之后的值，展示的时候，我们将其转成了，方便阅读的 `yyyy-MM-dd` 格式。过滤的时候，用户肯定是期望也使用 `yyyy-MM-dd` 的格式来过滤。
 
@@ -537,6 +537,62 @@ export default {
       return elDate.getFullYear() + '-'
         + (elDate.getMonth() + 1) + '-'
         + elDate.getDate()
+    }
+  }
+}
+</script>
+```
+
+## data-tables-server 的过滤
+与 <a href="/#/zh-cn/sort?id=data-tables-server-的排序">data-tables-server 的排序</a> 类似, 本质上
+ `data-tables-server` 也不参与数据的过滤工作，因为数据均来自于后台, 过滤也发生在后台，`data-tables-server` 只是需要把过滤规则发给后台。
+在过滤条件变化的时，`data-tables-server` 发射一个类型为 `filter` 的 `query-change` 事件，外层组件需要监听该事件，并把向服务器发送请求来获取数据。
+
+`query-info` 事件发射的数据的 `filter` 字段的值就等于 `this.filters`, 除了 value 字段是必须外，可以在定义 `this.filters` 的时候添加任何需要的字段，为后台的过滤提供其需要的信息。
+
+```html
+/*vue*/
+<template>
+  <div>
+    <div style='margin-bottom: 10px; width: 200px;'>
+      <el-input v-model='filters[0].value'></el-input>
+    </div>
+    <data-tables-server
+      :data='data'
+      :total='total'
+      :filters='filters'
+      :pagination-props='{ pageSizes: [5, 10, 15] }'
+      @query-change='loadData'>
+      <el-table-column v-for="title in titles"
+        :prop="title.prop"
+        :label="title.label"
+        :key="title.label">
+      </el-table-column>
+    </data-tables-server>
+  </div>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      data,
+      titles,
+      total: 0,
+      filters: [
+        {
+          value: '',
+          'search_prop': 'flow_no' // define search_prop for backend usage.
+        }
+      ]
+    }
+  },
+  methods: {
+    async loadData(queryInfo) {
+      console.log('queryInfo: ', queryInfo.filters)
+      let { data, total } = await http(queryInfo)
+      this.data = data
+      this.total = total
     }
   }
 }

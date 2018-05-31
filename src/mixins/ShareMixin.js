@@ -24,12 +24,6 @@ export default {
         return {}
       }
     },
-    colNotRowClick: {
-      type: Array,
-      default() {
-        return []
-      }
-    },
     actionCol: {
       type: Object,
       default() {
@@ -52,14 +46,6 @@ export default {
     }
   },
   render() {
-    let tableDirectives = []
-
-    if (this._server) {
-      tableDirectives = [
-        { name: 'loading', value: this.loading }
-      ]
-    }
-
     let layoutMap = {
       tool: (
         <div class='tool-bar'>
@@ -74,7 +60,9 @@ export default {
           data={ this.curTableData }
           {...{
             attrs: this.innerTableProps,
-            directives: tableDirectives
+            directives: this._server
+              ? [{ name: 'loading', value: this.loading }]
+              : undefined
           }}
           style='width: 100%'
         >
@@ -141,12 +129,18 @@ export default {
               ? (
                 <div class='pagination-wrap'>
                   <el-pagination
+                    ref='elPagination'
                     current-page$sync={ this.innerCurrentPage }
                     page-size={ this.innerPageSize }
-                    on-size-change={ this.handleSizeChange }
-                    total={ this.total }
+                    total={ this._server ? this.innerTotal : this.total }
                     {...{
-                      attrs: this.innerPaginationProps
+                      attrs: this.innerPaginationProps,
+                      on: {
+                        'size-change': this.handleSizeChange,
+                        'prev-click': this.$listeners['prev-click'],
+                        'next-click': this.$listeners['next-click'],
+                        'current-change': this.$listeners['current-page-change']
+                      }
                     }}
                   >
                   </el-pagination>
@@ -170,15 +164,7 @@ export default {
     let elTableVm = this.$refs['elTable']
     const oldEmit = elTableVm.$emit
     elTableVm.$emit = (...args) => {
-      let command = args[0]
-      if (command === 'row-click' || command === 'cell-click') {
-        let column = command === 'row-click' ? args[3] : args[2]
-        if (column && this.innerColNotRowClick.indexOf(column.property) === -1) {
-          this.$emit.apply(this, args)
-        }
-      } else {
-        this.$emit.apply(this, args)
-      }
+      this.$emit.apply(this, args)
       oldEmit.apply(elTableVm, args)
     }
   },
@@ -194,9 +180,6 @@ export default {
   computed: {
     layouts() {
       return this.layout.split(',').map(item => item.trim())
-    },
-    innerColNotRowClick() {
-      return this.colNotRowClick.concat([this.actionColProp])
     },
     innerTableProps() {
       let loadingProps = ['elementLoadingText', 'elementLoadingSpinner', 'elementLoadingBackground']
@@ -236,15 +219,6 @@ export default {
     // at the same time watch innerCurrentPage and innerPageSize to emit sync emit.
     // the two watch cannot be replaced by computed getter and setter here,
     // because currentPage and pageSize can be not provided(undefinded).
-    currentPage: {
-      immediate: true,
-      handler(val) {
-        this.innerCurrentPage = val
-      }
-    },
-    innerCurrentPage(val) {
-      this.$emit('update:currentPage', val)
-    },
     pageSize: {
       immediate: true,
       handler(val) {
@@ -253,6 +227,15 @@ export default {
     },
     innerPageSize(val) {
       this.$emit('update:pageSize', val)
+    },
+    currentPage: {
+      immediate: true,
+      handler(val) {
+        this.innerCurrentPage = val
+      }
+    },
+    innerCurrentPage(val) {
+      this.$emit('update:currentPage', val)
     },
     paginationProps: {
       immediate: true,

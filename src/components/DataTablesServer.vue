@@ -21,9 +21,22 @@ export default {
       default: false
     }
   },
+  data() {
+    return {
+      innerTotal: 0
+    }
+  },
   created() {
     this._server = true
     this.queryChange('init')
+
+    // fix https://github.com/njleonzhang/vue-data-tables/issues/172
+    let totalPage = this.total / this.pageSize
+    let ceilTotalPage = totalPage.ceil ? totalPage.ceil() : totalPage
+
+    this.innerTotal = ceilTotalPage >= this.currentPage
+      ? this.total
+      : this.pageSize * this.currentPage
   },
   computed: {
     curTableData() {
@@ -56,9 +69,13 @@ export default {
     handleSizeChange(size) {
       this.innerPageSize = size
       this.queryChange('size')
+      this.$emit('size-change', size)
     },
   },
   watch: {
+    total(val) {
+      this.innerTotal = val
+    },
     filters: {
       handler() {
         this.queryChange('filter')

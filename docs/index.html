@@ -78,12 +78,12 @@ let mockServer = function(res) {
   // do filter
   res && res.filters && res.filters.forEach(filter => {
     datas = datas.filter(data => {
-      let props = filter.props || allKeys
+      let props = (filter.search_prop && [].concat(filter.search_prop)) || allKeys
       return props.some(prop => {
-        if (!filter.vals || filter.vals.length === 0) {
+        if (!filter.value || filter.value.length === 0) {
           return true
         }
-        return filter.vals.some(val => {
+        return [].concat(filter.value).some(val => {
            return data[prop].toString().toLowerCase().indexOf(val.toLowerCase()) > -1
         })
       })

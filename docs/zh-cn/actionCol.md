@@ -92,6 +92,8 @@ export default {
   <data-tables-server
     :data='data'
     :total='1000'
+    @query-change='loadData'
+    :pagination-props='{ pageSizes: [5, 10, 15] }'
   >
     <el-table-column v-for="title in titles"
       :prop="title.prop"
@@ -126,6 +128,11 @@ export default {
   methods: {
     handleClick(command) {
       this.$message(`click drapdown button ${command}`)
+    },
+    async loadData(queryInfo) {
+      let { data, total } = await http(queryInfo)
+      this.data = data
+      this.total = total
     },
     customButtonsForRow(row) {
        if (row.flow_type_code === 'repair') {

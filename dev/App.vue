@@ -21,8 +21,8 @@
       :loading="loading"
       :filters="customFilters"
       :action-col="actionColDef"
-      :currentPage.sync="currentPage"
-      :pageSize.sync="pageSize"
+      :current-page.sync="currentPage"
+      :page-size.sync="pageSize"
       :table-props="tableProps"
       @query-change="loadData">
       <el-row slot="tool-bar">

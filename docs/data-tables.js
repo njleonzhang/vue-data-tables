@@ -3534,17 +3534,21 @@ var merge_default = /*#__PURE__*/__webpack_require__.n(merge);
             attrs: {
               'current-page': _this.innerCurrentPage,
               'page-size': this.innerPageSize,
-
-              total: this.total
+              total: this._server ? this.innerTotal : this.total
             },
             on: {
               'update:currentPage': function updateCurrentPage($$val) {
                 _this.innerCurrentPage = $$val;
-              },
-              'size-change': this.handleSizeChange
+              }
             }
           }, {
-            attrs: this.innerPaginationProps
+            attrs: this.innerPaginationProps,
+            on: {
+              'size-change': this.handleSizeChange,
+              'prev-click': this.$listeners['prev-click'],
+              'next-click': this.$listeners['next-click'],
+              'current-change': this.$listeners['current-page-change']
+            }
           }]))]
         ) : null]
       )
@@ -3639,16 +3643,6 @@ var merge_default = /*#__PURE__*/__webpack_require__.n(merge);
     // at the same time watch innerCurrentPage and innerPageSize to emit sync emit.
     // the two watch cannot be replaced by computed getter and setter here,
     // because currentPage and pageSize can be not provided(undefinded).
-    currentPage: {
-      immediate: true,
-      handler: function handler(val) {
-        this.innerCurrentPage = val;
-      }
-    },
-    innerCurrentPage: function innerCurrentPage(val) {
-      this.$emit('update:currentPage', val);
-    },
-
     pageSize: {
       immediate: true,
       handler: function handler(val) {
@@ -3657,6 +3651,16 @@ var merge_default = /*#__PURE__*/__webpack_require__.n(merge);
     },
     innerPageSize: function innerPageSize(val) {
       this.$emit('update:pageSize', val);
+    },
+
+    currentPage: {
+      immediate: true,
+      handler: function handler(val) {
+        this.innerCurrentPage = val;
+      }
+    },
+    innerCurrentPage: function innerCurrentPage(val) {
+      this.$emit('update:currentPage', val);
     },
 
     paginationProps: {
@@ -3775,6 +3779,7 @@ var defaultSortFn = function defaultSortFn(a, b, prop) {
     },
     handleSizeChange: function handleSizeChange(size) {
       this.innerPageSize = size;
+      this.$emit('size-change', size);
     },
 
     // cache filter function
@@ -3991,9 +3996,20 @@ var extends_default = /*#__PURE__*/__webpack_require__.n(helpers_extends);
       default: false
     }
   },
+  data: function data() {
+    return {
+      innerTotal: 0
+    };
+  },
   created: function created() {
     this._server = true;
     this.queryChange('init');
+
+    // fix https://github.com/njleonzhang/vue-data-tables/issues/172
+    var totalPage = this.total / this.pageSize;
+    var ceilTotalPage = totalPage.ceil ? totalPage.ceil() : totalPage;
+
+    this.innerTotal = ceilTotalPage >= this.currentPage ? this.total : this.pageSize * this.currentPage;
   },
 
   computed: {
@@ -4026,9 +4042,14 @@ var extends_default = /*#__PURE__*/__webpack_require__.n(helpers_extends);
     handleSizeChange: function handleSizeChange(size) {
       this.innerPageSize = size;
       this.queryChange('size');
+      this.$emit('size-change', size);
     }
   },
   watch: {
+    total: function total(val) {
+      this.innerTotal = val;
+    },
+
     filters: {
       handler: function handler() {
         this.queryChange('filter');

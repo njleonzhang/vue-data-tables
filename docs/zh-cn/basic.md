@@ -15,7 +15,8 @@
   ```html
     /*vue*/
     <template>
-      <data-tables :data='data'>
+      <data-tables :data='data'
+        :pagination-props='{ pageSizes: [5, 10, 15] }'>
         <el-table-column v-for="title in titles"
           :prop="title.prop"
           :label="title.label"
@@ -51,7 +52,8 @@
     <data-tables-server
       :data='data'
       :total='total'
-      @query-change='loadData'>
+      @query-change='loadData'
+      :pagination-props='{ pageSizes: [5, 10, 15] }'>
       <el-table-column v-for="title in titles"
         :prop="title.prop"
         :label="title.label"
@@ -186,12 +188,3 @@ export default {
   }
   </script>
   ```
-
-<!--
-# Related properties
-`data-tables` property
-
-| Property | Desc | Type | Default value |
-| -- | -- | -- | -- |
-| data | The data array which will be render in the table. | Array | - |
-| table-props | an object to pass any [property](http://element.eleme.io/#/en-US/component/table#table-attributes) to embed el-table. | Object | - | -->
