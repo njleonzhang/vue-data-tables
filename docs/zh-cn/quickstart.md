@@ -32,6 +32,7 @@ locale.use(lang)
 
 ## 引入 vue-data-tables
 
+### 引入 vue-data-tables (推荐)
 ```js
 // 分别导入 DataTables 和 DataTableServer
 import { DataTables, DataTableServer } from 'vue-data-tables'
@@ -40,6 +41,37 @@ Vue.use(DataTables)
 // 同时使用 DataTables 和 DataTableServer
 import VueDataTables from 'vue-data-tables'
 Vue.use(VueDataTables)
+```
+
+## 引入 vue-data-tables 源码
+如果你对引入库的大小有苛刻的要求，可以通过引入本库源码的方式来，降低引入代码的体积。
+
+> 引入源码的前提是你使用的 vue-loader 是 15+ 的版本。
+
+1. 安装并配置本库的依赖 [lodash](https://lodash.com/) 和 babel 插件:
+  * [babel-plugin-lodash](https://github.com/lodash/babel-plugin-lodash)
+  * [babel-plugin-vue-jsx-sync](https://github.com/njleonzhang/babel-plugin-vue-jsx-sync)
+  * [babel-plugin-jsx-v-model](https://github.com/nickmessing/babel-plugin-jsx-v-model)
+  * [babel-plugin-transform-vue-jsx](https://github.com/vuejs/babel-plugin-transform-vue-jsx)
+
+* 修改 webpack 配置，让 babal 去处理 vue-data-tables 的源码
+```
+  // webpack config
+  {
+    test: /\.js$/,
+    loader: 'babel-loader',
+    exclude: file => {
+      return /node_modules/.test(file) &&
+        (!/\.vue\.js/.test(file) &&
+          !/vue-data-tables\/src\/mixins\/ShareMixin\.js/.test(file))
+    }
+  },
+```
+
+* 修改引入的代码为
+
+```
+import { DataTables, DataTablesServer } from 'vue-data-tables/src/index.js'
 ```
 
 # Hello world
