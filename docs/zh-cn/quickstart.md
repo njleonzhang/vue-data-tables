@@ -87,11 +87,13 @@ import { DataTables, DataTablesServer } from 'vue-data-tables/src/index.js'
   <div>
     <div style='margin-bottom: 10px'>
       <el-row>
-        <el-col :span='12'>
+        <el-col :span='18'>
           <el-button @click='onCreate'>create 1 row</el-button>
           <el-button @click='onCreate100'>create 100 row</el-button>
+          <el-button @click='bulkDelete'>bulk delete</el-button>
         </el-col>
-        <el-col :offset='6' :span='6'>
+
+        <el-col :span='6'>
           <el-input placeholder='search NO.' v-model='filters[0].value'></el-input>
         </el-col>
       </el-row>
@@ -100,7 +102,13 @@ import { DataTables, DataTablesServer } from 'vue-data-tables/src/index.js'
     <data-tables
       :data='data'
       :action-col='actionCol'
-      :filters='filters'>
+      :filters='filters'
+      @selection-change="handleSelectionChange">
+      <el-table-column
+        type="selection"
+        width="55">
+      </el-table-column>
+
       <el-table-column v-for="title in titles"
         :prop="title.prop"
         :label="title.label"
@@ -140,10 +148,12 @@ export default {
         }, {
           handler: row => {
             this.data.splice(this.data.indexOf(row), 1)
+            this.$message('delete success')
           },
           label: 'delete'
         }]
-      }
+      },
+      selectedRow: []
     }
   },
   methods: {
@@ -159,6 +169,15 @@ export default {
       [...new Array(100)].map(_ => {
         this.onCreate()
       })
+    },
+    handleSelectionChange(val) {
+      this.selectedRow = val
+    },
+    bulkDelete() {
+      this.selectedRow.map(row => {
+        this.data.splice(this.data.indexOf(row), 1)
+      })
+      this.$message('bulk delete success')
     }
   }
 }
