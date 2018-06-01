@@ -474,7 +474,7 @@ export default {
         prop="date"
         label="Date"
         sortable="custom">
-        <template scope="scope">
+        <template slot-scope="scope">
           <div>{{getDate(scope.row.date)}}</div>
         </template>
       </el-table-column>

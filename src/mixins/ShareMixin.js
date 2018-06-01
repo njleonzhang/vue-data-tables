@@ -247,7 +247,7 @@ export default {
           }, val)
 
           if (this.innerPaginationProps.pageSizes.indexOf(this.innerPageSize) === -1) {
-            console.warn(`pageSize ${this.innerPageSize} is not included in pageSizes[${this.innerPaginationProps.pageSizes}], set pageSize to pageSizes[0]: 20`)
+            console.warn(`pageSize ${this.innerPageSize} is not included in pageSizes[${this.innerPaginationProps.pageSizes}], set pageSize to pageSizes[0]: ${this.innerPaginationProps.pageSizes[0]}`)
             this.innerPageSize = this.innerPaginationProps.pageSizes[0]
           }
         } else {
