@@ -188,3 +188,71 @@ export default {
   }
   </script>
   ```
+
+# layout
+layout 传入值是一个 `String`，是一个通过 `,` 隔开的元素组合, `vue-data-tables` 会根据顺序来显示表格的内容。可选的元素对应于 `vue-data-tables` 的3个部分：
+* table 表格
+* pagination 分页栏
+* tool 工具栏, 请参照<a href='/#/zh-cn/actionBar'>工具栏</a>的章节
+
+其默认值为 `"table, pagination"`, 即显示 `表格`和`分页栏`，不显示`工具栏`。
+
+下例中，定义表格的显示`分页栏`和`表格`:
+
+```html
+  /*vue*/
+  <template>
+    <data-tables
+      :data='data'
+      :pagination-props='{ pageSizes: [5, 10, 15] }'
+      layout='pagination, table'>
+      <el-table-column v-for="title in titles"
+        :prop="title.prop"
+        :label="title.label"
+        :key="title.label">
+      </el-table-column>
+    </data-tables>
+  </template>
+
+  <script>
+  export default {
+    data() {
+      return {
+        data: [...new Array(30)].reduce((previous) => {
+          return previous.concat(data)
+        }, []),
+        titles,
+        layout: 'pagination, table'
+      }
+    }
+  }
+  </script>
+```
+
+我们也可以不显示 `分页栏`:
+
+```html
+  /*vue*/
+  <template>
+    <data-tables
+      :data='data'
+      layout='table'>
+      <el-table-column v-for="title in titles"
+        :prop="title.prop"
+        :label="title.label"
+        :key="title.label">
+      </el-table-column>
+    </data-tables>
+  </template>
+
+  <script>
+  export default {
+    data() {
+      return {
+        data,
+        titles,
+      }
+    }
+  }
+  </script>
+```

@@ -99,3 +99,69 @@ export default {
 </script>
 
 ```
+
+# 工具栏插槽
+`vue-data-table` 提供了一个 `tool-bar` 插槽, 允许将工具条作为插槽放在表格内部，并通过 layout 属性来定义排列顺序。
+比如下例中, 我们定义`工具栏`在`分页栏`和`表格`之间。
+
+> 除非需要`工具条`在`分页栏`和`表格`之间，不然用不到这个功能。
+
+```html
+/*vue*/
+<template>
+  <data-tables
+    :data='data'
+    :filters="customFilters"
+    layout='pagination, tool, table'>
+    <el-row slot='tool-bar' style="margin: 10px 0">
+      <el-col :span="5">
+        <el-dropdown @command="handleClick">
+          <el-button type="primary">Actions<i class="el-icon-caret-bottom el-icon--right"></i></el-button>
+          <el-dropdown-menu slot="dropdown">
+            <el-dropdown-item command='new'>new</el-dropdown-item>
+            <el-dropdown-item command='import'>import</el-dropdown-item>
+          </el-dropdown-menu>
+        </el-dropdown>
+      </el-col>
+      <el-col :span="10">
+        <el-select v-model="customFilters[1].value" multiple="multiple">
+          <el-option label="Repair" value="repair"></el-option>
+          <el-option label="Help" value="help"></el-option>
+        </el-select>
+      </el-col>
+      <el-col :span="5" :offset="4">
+        <el-input v-model="customFilters[0].value"/>
+      </el-col>
+    </el-row>
+
+    <el-table-column v-for="title in titles"
+      :prop="title.prop"
+      :label="title.label"
+      :key="title.prop"
+    >
+    </el-table-column/>
+  </data-tables>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      data,
+      titles,
+      customFilters: [{
+        value: '',
+        prop: 'flow_type',
+      }, {
+        value: []
+      }]
+    }
+  },
+  methods: {
+    handleClick(command) {
+      this.$message(`click drapdown button ${command}`)
+    }
+  }
+}
+</script>
+```
