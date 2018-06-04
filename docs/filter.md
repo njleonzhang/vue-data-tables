@@ -1,53 +1,57 @@
-# 过滤
+# Filter
 
-`vue-data-tables` 接受属性 `filters` 来现实对表格内容的过滤。传入 `filters` 的值是一个列表，其每一项称为一个`过滤项`，格式如下：
+`vue-data-tables` accepts prop `filters` for filtering the data. Value passed to `filers` should be a list, every item in it is called to `filter Item`. The `filters` is in the following format:
 
 ```
-// 以类似typescript的定义格式描述
+// Typescript-like definition
 [
-  {                                        // 一个过滤项
-    prop?: String | Array | Undefined;     // 用于指定这个过滤项是针对哪个(些)列的
-    value: any;                            // 过滤值
-    filterFn?: (row, filter) => Boolean;   // 过滤函数，`data-tables` 用此函数自定义过滤规则
-    [key: string]: any;                    // 如果需要，`data-tables-server` 可添加任意属性，
-                                           // 用于定制数据更新的 http 请求。
+  {                                           // a filter Item
+    prop?: String | Array | Undefined;        // indicates prop(s) the filter item is for
+    value: any;                               // the filter value
+    filterFn?: (row, filterItem) => Boolean;  // filter function leveraged by
+                                              // `data-tables` to filter the data
+    [key: string]: any;                       // `data-tables-server` can define any property(s) for
+                                              // customizing the http request for data update
   },
   ...
 ]
 ```
 
-filterFn 的第一个参数 row 代表列数据，第二个参数 filter 则是本过滤项。
+`row`, the 1st parameter of filterFn, represents a item in the data set; the 2nd parameter, `filter`, is a reference to the `filter item`
 
-## data-tables 的过滤原理
+## Principle of data-tables' sort
 
-`data-tables` 根据 `filters` 传入的`过滤项`列表中的每一个`过滤项`生成一个 [Array.prototype.filter](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter) 的过滤函数，并逐项调用 [Array.prototype.filter](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter) 来过滤数据, 其逻辑如下:
+`data-tables` generate filter functions of [Array.prototype.filter](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter) according to `filter item` in `filters`, and then filter the data through [Array.prototype.filter](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter) using the generated filter functions one by one.
 
+The following flow diagram shows how it works:
 ![](../_media/filter.svg)
 
-* 如果 value 值是 `[]`, `undefined` 或 `""`, 则不做过滤。
-* 如果 filterFn 不存在，那么根据 value 和 prop 的类型, `data-tables` 会构造不同的过滤函数，即图中的F1 ~ F4。
-  * prop 是 String, value 不是 Array (`F1`)
-  * prop 是 String, value 是 Array (`F2`)
-  * prop 是 Array 或 undefined, value 不是 Array (`F3`)
-  * prop 是 Array 或 undefined, value 是 Array (`F4`)
-* 如果 filterFn 存在的话, 则用 filterFn 来过滤
+* if `value` is `[]`, `undefined` or `""`, then skip the filter.
+* if property `filterFn` doesn't exist， `data-tables` creates different filter functions (F1 ~ F4), according to the value type of property `value` and `prop`。
+  * `prop` is `String`, `value` is not `Array` (`F1`)
+  * `prop` is `String`, `value` is `Array` (`F2`)
+  * `prop` is `Array` or `undefined`, `value` is not `Array` (`F3`)
+  * `prop` is `Array` or `undefined`, `value` is `Array` (`F4`)
+* if `filterFn` exists, then filter with `filterFn`
 
-> 从流程图中可以看出来，`prop 是 undefined` 可以看作是 `prop 是 Array` 的一种特殊情况。
+> As you can find from the flow diagram, `prop is undefined` can be considered as a special case of `prop is Array`.
 
-### prop 是 String, value 不是 Array (`F1`)
+### `prop` is `String`, `value` is not `Array` (`F1`)
 
-过滤函数 `F1` 逻辑为:
+The logic of filter function `F1` is:
 
 ```
-在`参与比较的值`都 string 化 (简单的通过 toString 函数) 并忽略大小写的前提下，
-row 的 prop 属性值(row[prop]) 如果包含过滤值(value)，则保留这项。
+On the premise of all comparison value being stringified (simply by toString())
+and ignoring case sensitivity, if the value of row[prop]
+contains the filter value(`value`), then keep the row.
 ```
 
-比如下例中，我们对属性 `name` 进行过滤，过滤值为 `us`。那么只有 name 只为 'USA' 的第一条数据会保留在表中。
+In the following example，if we filter the table with property `name` and value `us`, then only the 1st row with `name` `'USA'` can keep in the table.
+
 ```html
 /*vue*/
 <desc>
-  把input里的值改为 `us` 尝试下
+  enter `us` to the input and have a try
 </desc>
 <template>
   <div>
@@ -98,20 +102,22 @@ export default {
 }
 </script>
 ```
-### prop 是 String, value 是 Array (`F2`)
+### `prop` is `String`, `value` is `Array` (`F2`)
 
-过滤函数 `F2` 逻辑为:
+The logic of filter function `F2` is:
 
 ```
-在`参与比较的值`都 string 化 (简单的通过 toString 函数) 并忽略大小写的前提下，
-row 的 prop 属性值(row[prop])如果包含多个过滤值(value)中的任意一个，则保留这项。
+On the premise of all comparison value being stringified (simply by toString())
+and ignoring case sensitivity, if the value of row[prop]
+contains one of the filter values, then keep the row.
 ```
-比如下例中，我们对属性 `name` 进行过滤，过滤值为 `us` 和 `china`时，两条数据都会被保留。
+
+In the following example, there are 2 rows in the table, we filter the data with property `name` and value `us` and `china`, both rows can be kept.
 
 ```html
 /*vue*/
 <desc>
-  选择 China 和 USA 来尝试下
+  select 'China' and 'USA' to try
 </desc>
 <template>
   <div>
@@ -166,16 +172,17 @@ export default {
 </script>
 ```
 
-### prop 是 Array, value 不是 Array (`F3`)
+### `prop` is `Array`, `value` is not `Array` (`F3`)
 
-过滤函数 `F3` 逻辑为:
+The logic of filter function `F3` is:
 
 ```
-在`参与比较的值`都 string 化 (简单的通过 toString 函数) 并忽略大小写的前提下，
-row 的 多个 prop 属性值(row[prop])中有一个包含过滤值(value)，则保留这项。
+On the premise of all comparison value being stringified (simply by toString())
+and ignoring case sensitivity, if one of the row property values contains
+the filter value, then keep the row.
 ```
 
-比如下例中，我们对属性 `name` 和 `rank` 进行过滤，过滤值为 `us` 或 `1`, 第一条数据会保留在表中。
+In the following example, we have 2 rows, and then filter the table with property [`name`, `rank`]. No matter that the value is `us` or `1`, the 1st row will always be kept.
 ```html
 /*vue*/
 <template>
@@ -228,18 +235,19 @@ export default {
 </script>
 ```
 
-### prop 是 Array, value 是 Array (`F4`)
+### `prop` is `Array`, `value` is `Array` (`F4`)
 
-> 这个场景似乎令人费解，所以不建议使用，如果没有特别需求，可以跳过这一节。
+> This scenario is obscure. we don't recommend to leverage. so just skip this section if you don't have special requirement.
 
-过滤函数 `F4` 逻辑为:
+The logic of filter function `F4` is:
 
 ```
-在`参与比较的值`都 string 化 (简单的通过 toString 函数) 并忽略大小写的前提下，
-row 的多个 prop 属性值(row[prop])中有一个包含多个过滤值(value)中的任意一个，则保留这项。
+On the premise of all comparison value being stringified (simply by toString())
+and ignoring case sensitivity, if one of the row property values contains one of
+the filter values, then keep the row.
 ```
 
-比如下例中，我们又有2条数据, 我们对属性 `name` 和 `neighbor` 进行过滤，过滤值为 'China' 和 'Canada' 时，两条数据都会被保留。
+In the following example, there are 2 rows in the table, we filter the table with property [`name`, `neighbor`], and value [`China`, `Canada`], then both data will be kept.
 
 ```html
 /*vue*/
@@ -299,14 +307,13 @@ export default {
 ```
 
 
-### prop 是 `undefined`
+### prop is `undefined`
 
-如上文提到的，`prop 是 undefined` 可以认为是 `prop 是 Array` 的一种特殊情况。
+As mentioned in in previous section, `prop is undefined` can be considered as a special case of `prop is Array`.
 
-* 如果未设置 `data-tables` 的 `filterProps` 属性， 那么 `prop` 会被赋值为 data 队列里第一个元素的所有的属性。过滤逻辑按 `prop 为一个 Array` 来处理
+* if prop `filterProps` of `data-tables` is not defined, then `prop` is assigned as all properties of 1st data in data set, then the filter logic become `prop is Array`
 
-  比如下例中，我们没有设置过滤项的 prop 值，此时 prop 被自动认为是 `data[0]` 的所有属性，即: name 和 rank。
-
+  In the following example, we don't define `prop` for the `filter item`. the `prop` is automatically set to all properties of `data[0]`, `name` and `rank`.
   ```html
   /*vue*/
   <template>
@@ -358,16 +365,16 @@ export default {
   </script>
   ```
 
-* 有些情况下，我们需要灵活性，不想让 `data-tables` 自动为我们赋值，这时可以使用 `data-tables` 的 `filterProps` 属性来定义缺省的 prop 列表。
+* Some times, we need more flexibility and don't want `data-tables` assign default prop for us, property `filterProps` of `data-tables` can be leveraged to define the default `prop`s.
 
-  例如下例中，2条数据的 `members` 属性都为 `['USA', 'China']`, 如果我们不设置过滤项的 prop, 然后用 `us` 去过滤，会发现列表不会变化，因为 `members` 也被用于了过滤，所有的列都符合过滤条件。设置 `filterProps` 可以解决这个问题。
+  In the following example, data of 2 rows both contain a property `members`, whose value is `['USA', 'China']`. If we don't define `prop` in the `filter item` and set the filter value to `us`, we will find the filter can not work, because all properties is set as filter prop, including `members`. To solve this problem, `filterProps` is provided.
 
-  > 当然，我们可以通过为每一个过滤项配置 prop 属性来处理，但是如果有多个过滤项，`filterProps` 来做全局配置会更方便。
+  > Of course, we can solve this problem by providing every `filter item` a `prop`, but if there are multiple `filter item`s, a global setting by `filterProps` may be more convenient.
 
   ```html
   /*vue*/
   <desc>
-    去选，勾选的 filterProps，来体验区别。
+    check and uncheck the `filterProps` to see the difference.
   </desc>
   <template>
     <div>
@@ -436,16 +443,16 @@ export default {
   </script>
   ```
 
-### 使用 filterFn
-在一些情况下，默认的比较方式不能满足过滤要求，此时可以使用 filterFn, 来自定义过滤函数。
+### Leverage filterFn
+Sometimes, the above methods can not meet your requirement, you can leverage `filterFn` to define filter function directly.
 
-比如下例中，data 里的日期格式是 Data String 化之后的值，展示的时候，我们将其转成了，方便阅读的 `yyyy-MM-dd` 格式。过滤的时候，用户肯定是期望也使用 `yyyy-MM-dd` 的格式来过滤。此时普通的字符串比较就解决不了问题了，我们需要 filterFn。
+Im the following example, the date is stored as Date string (new Date().toString()). For readability, we convert the date to `yyyy-MM-dd` format. When user filter the date, they surely want to use `yyyy-MM-dd` format. Simple string comparison can not work in this scenario, we need `filterFn` to rescue.
 
 ```html
 /*vue*/
 /*no-boot-code*/
 <desc>
-  键入 2017-7-2 试一试
+  enter `2017-7-2` to try
 </desc>
 
 <template>
@@ -464,7 +471,7 @@ export default {
         label="Content."
         sortable="custom">
       </el-table-column>
-    <el-table-column
+      <el-table-column
         prop="date"
         label="Date"
         sortable="custom">
@@ -537,14 +544,14 @@ export default {
 </script>
 ```
 
-## data-tables-server 的过滤
-与 <a href="/#/zh-cn/sort?id=data-tables-server-的排序">data-tables-server 的排序</a> 类似, 本质上
- `data-tables-server` 也不参与数据的过滤工作. 数据均来自于后台, 过滤也只能发生在后台，`data-tables-server` 只是需要把过滤规则发给后台。
-在过滤条件变化的时，`data-tables-server` 发射一个类型为 `filter` 的 `query-change` 事件，外层组件需要监听该事件，并把向服务器发送请求来获取数据。
+## Filter of data-tables-server
+Similar to <a href="/#/sort?id=sort-of-data-tables-server">Sort of data-tables-server</a>, `data-tables-server` doesn't take charge the data `filter` either. Only the back-end server have the entire data set, and the `filter` can also be handled by back-end server. What `data-tables-server` need to do is emitting the `filter item`s out when the filter changes, so that the back-end server can sort and return new data according to the condition.
 
-`query-info` 事件发射的数据的 `filter` 字段的值就等于 `this.filters`, 除了 value 字段是必须外，可以在定义 `this.filters` 的时候添加任何需要的字段，为后台的过滤提供其需要的信息。
+When `filter item`s change, `data-tables-server` emits emits a event named `query-change` with type `filter`.
 
-下例中，由于后台需要一个 `search_prop` 属性来标记过滤的属性，我们就在定义过滤项的时候添加了这个属性。
+The payload of `query-info` event has a `filter` property, whose value is a copy of `this.filters`. Beside of `value`，any property(s) can be defined to provide info for back-end server to filter data.
+
+In the following example, the back-end server need a `search_prop` value to determine which property to filter, so we add this property to the `filter item` when define it.
 
 ```html
 /*vue*/

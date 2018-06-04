@@ -4,7 +4,7 @@
 
 > 注意虽然把 `sortable` 属性为 `true` 也可以工作，但是此时 `vue-data-table` 和内置的 `el-table` 都会对数据进行排序，会影响表格的性能。
 
-我们可以通过 `el-table` 的 `default-sort` 属性来设置默认的排序列和方向。对于 `data-tables` 和 `data-tables-server` 来说所有的内置 `el-table` 的属性，都可以通过 `table-props` 来传递，所以我们可以通过 `:table-props='{ defaultSort: VALUE }'`, 来为  `data-tables` 和 `data-tables-server` 定义默认排序。
+我们可以通过 `el-table` 的 `default-sort` 属性来设置默认的排序列和方向。对于 `vue-data-tables` 来说所有的内置 `el-table` 的属性，都可以通过 <a href='/#/zh-cn/basic?id=传递-prop-给内置的-el-table'>table-props</a> 来传递，所以我们可以通过 `:table-props='{ defaultSort: VALUE }'`, 来为  `vue-data-tables` 定义默认排序。
 
 ```html
 /*vue*/
@@ -44,7 +44,7 @@ export default {
 ```
 
 ## data-tables 的排序原理
-当选择对某一个列进行排序时，`data-tables` 会根据这一列对应的 prop 属性来对表格数据进行排序，默认的排序算法为：
+当选择对某一个列进行排序时，`data-tables` 会利用[Array.prototype.sort](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/sort), 并根据这一列对应的 prop 属性来对表格数据进行排序，默认的排序算法为：
 
 ```
 (a, b) => a > b
@@ -54,7 +54,7 @@ export default {
     : 0
 ```
 
-下例中，表格里的数据有3个属性：`flow_no`, `content`, `flow_type`, 对应着表格的3列。此时如果我们对表格的第一列做升序排序，则`data-tables`会对数据以的 `flow_no` 属性的值通过[JavaScript sort()](http://www.w3school.com.cn/js/jsref_sort.asp)函数，使用上面的默认排序算法进行排序。
+下例中，表格里的数据有3个属性：`flow_no`, `content`, `flow_type`, 对应着表格的3列。此时如果我们对表格的第一列做升序排序，则`data-tables`会对数据以的 `flow_no` 属性的值通过[JavaScript sort()](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/sort)函数，使用上面的默认排序算法进行排序。
 
 ```html
 /*vue*/
@@ -107,13 +107,16 @@ export default {
 ## data-tables 自定义排序函数
 有时候默认的排序函数并不符合你的需求，测试可以通过 `sort-method` 为 `data-tables` 传入自定义的排序函数。
 sort-method传入数据格式如下：
+
 ```
+type sortFn = (any, any) => number
+
 {
-  prop: filterFn
+  [prop: string]: sorFn
 }
 ```
 
-`prop` 是需要自定义排序的属性，`filterFn` 是该属性对应的排序函数。对于没有定义在这个对象的属性，则使用默认的排序函数。
+`prop` 是需要自定义排序的属性，`sortFn` 是该属性对应的排序函数。对于没有定义在这个对象的属性，则使用默认的排序函数。
 
 下例中，我们为 `content` 属性定义了自定义排序函数，从而处理中文排序。
 
@@ -176,7 +179,7 @@ export default {
 ```
 
 ## data-tables-server 的排序
-本质上，`data-tables-server` 并不参与数据的排序工作，因为数据均来自于后台, 排序也发生在后台，`data-tables-server` 只是需要把排序规则发给后台。
+本质上，`data-tables-server` 并不参与数据的排序工作。数据均来自于后台, 排序也只能发生在后台。`data-tables-server` 只是需要把排序规则发给后台。
 在排序条件变化的时，`data-tables-server`发射一个类型为 `sort` 的 `query-change` 事件，外层组件需要监听该事件，并把向服务器发送请求来获取数据。
 
 `query-info` 事件发射的数据的 `sort` 字段的值包含了排序的信息，其结构如下：
@@ -187,6 +190,8 @@ export default {
   prop: String                          // 排序字段
 }
 ```
+
+下例展示了如何通过监听 query-info 事件来处理排序：
 
 ```html
 /*vue*/
@@ -216,7 +221,7 @@ export default {
   },
   methods: {
     async loadData(queryInfo) {
-      console.log('queryInfo: ', queryInfo)
+      console.log('queryInfo.sort: ', queryInfo.sort)
       let { data, total } = await http(queryInfo)
       this.data = data
       this.total = total

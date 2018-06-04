@@ -14,9 +14,9 @@
 </p>
 
 - Simple and lightweight
-- Support both font-side and server-side data source
+- Support both font-side and server-side pagination
 - Customizable, flexible and powerful
-- Based on element-ui (both 1.x and 2.x)
+- Based on element-ui
 
 [GitHub](https://github.com/njleonzhang/vue-data-tables/)
 [Get Started](#vue-data-tables)

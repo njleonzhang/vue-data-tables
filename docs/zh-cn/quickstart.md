@@ -15,12 +15,15 @@ yarn install vue-data-tables
 正如[前文](/#/zh-cn/)中提到的，本库依赖于 [element-ui](http://element.eleme.io/) 的 [el-table](http://element.eleme.io/#/zh-CN/component/table), [el-table-column](http://element.eleme.io/#/zh-CN/component/table), [el-button](http://element.eleme.io/#/zh-CN/component/button) 和 [el-pagination](http://element.eleme.io/#/zh-CN/component/pagination) 组件，所以在引入 `vue-data-tables` 之前, 我们需要先完整的引入 `element-ui` 或者[按需引入](http://element.eleme.io/#/zh-CN/component/quickstart) `el-table`, `el-table-column`, `el-button` 和 `el-pagination` 这4个组件。
 
 ```
+// entirely import
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 Vue.use(ElementUI)
 ```
 
-`el-pagination` 这个组件设计 L10N, 所以如果需要的话，可以参考[文档](http://element.eleme.io/#/en-US/component/i18n#internationalization)配置L10N
+> 参考 [element-ui](http://element.eleme.io/#/en-US/component/quickstart) 文档去了解如果做按需引入。
+
+`el-pagination` 这个组件涉及 L10N, 所以如果需要的话，可以参考[文档](http://element.eleme.io/#/en-US/component/i18n#internationalization)配置L10N
 
 ```
 // 设置L10N语言为英语
@@ -32,7 +35,7 @@ locale.use(lang)
 
 ## 引入 vue-data-tables
 
-### 引入 vue-data-tables (推荐)
+### 引入打包之后的 vue-data-tables (推荐, 简单)
 ```js
 // 分别导入 DataTables 和 DataTableServer
 import { DataTables, DataTableServer } from 'vue-data-tables'
@@ -54,7 +57,7 @@ Vue.use(VueDataTables)
   * [babel-plugin-jsx-v-model](https://github.com/nickmessing/babel-plugin-jsx-v-model)
   * [babel-plugin-transform-vue-jsx](https://github.com/vuejs/babel-plugin-transform-vue-jsx)
 
-* 修改 webpack 配置，让 babal 去处理 vue-data-tables 的源码
+* 修改 webpack 配置，让 babel 去处理 vue-data-tables 的源码
 ```
   // webpack config
   {
@@ -75,14 +78,13 @@ import { DataTables, DataTablesServer } from 'vue-data-tables/src/index.js'
 ```
 
 # Hello world
-```html
-/*vue*/
-<desc>
 * 按这几个按钮试一试
 * 试着排序一下列表
 * 试着多创建一些数据，然后试试翻页
 * 试着通过用在输入框里输入编号来过滤表格
-</desc>
+
+```html
+/*vue*/
 <template>
   <div>
     <div style='margin-bottom: 10px'>

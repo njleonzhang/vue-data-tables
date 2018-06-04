@@ -1,32 +1,26 @@
 # Introduce
-> Introduce to parts of th generated table
 
-This table is made up of the following parts:
+`vue-data-tables` is compose of the following 3 parts:
 
-* Tool bar
+* Action Bar
 * Table
-  * Table content
-  * Table Action col
-* pagination
+  * Content
+  * Column action
+* Pagination
 
-![](/_media/table parts.png)
+![](../_media/table parts.png)
 
-### Table bar
+## Action Bar
+Action Bar is entirely created by users. Most of the time, Action Bar can be dependent to `vue-data-tables`, but if needed, we can insert it into `vue-data-tables` by a [slot](https://cn.vuejs.org/v2/guide/components-slots.html#%E5%85%B7%E5%90%8D%E6%8F%92%E6%A7%BD) named `tool-bar`. Refer to the <a href="/#/actionBar">Action Bar</a> section for more details.
 
-### Table Actions
-Buttons can be defined in this area to do some **table level** task. For example, **adding a row, exporting the table data to excel**, etc.
+## Table
+A embedded [el-table](http://element.eleme.io/#/component/table). If you are not familiar to [el-table](http://element.eleme.io/#/component/table), please read its document。
 
-### Checkbox filter
-Multi-select Checkbox can be defined in this area to filter the table according to **special property[s]** of the table data.
+### Content
+Show the data
 
-### Table Content
-This part is rendered according to the provided data. The data should be a list of Object.
-For Details, please read [element-ui doc](http://element.eleme.io/#/en-US/component/table)
-
-### Table Action col
-Buttons can be defined in this area to do **row lavel** task. For example, **revising the row, deleting the row**.
+### Action Column
+A embedded [el-table-column](http://element.eleme.io/#/en-US/component/table) for quick creating column actions. Refer to the <a href="/#/actionCol">Action Column</a> section for more details.
 
 ## Pagination
-no special explain, just notice the [L10N](quickstart?id=l10n-show-english-in-pagination)
-
-> Play with the [Helloword sample](http://jsfiddle.net/zpczjl/0f3k501L/) for better understanding
+A embedded [el-pagination](http://element.eleme.io/#/zh-CN/component/pagination). If you are not familiar to [el-pagination](http://element.eleme.io/#/zh-CN/component/pagination), please read its document。For usage in `vue-data-tables`, refer to the <a href="/#/pagination">Pagination</a> section.

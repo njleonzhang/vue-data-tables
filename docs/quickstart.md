@@ -1,51 +1,124 @@
-# Quick start
-> Start the journey
+# Quick Start
 
-# Install
+## Installation
 
 ```
 npm install vue-data-tables
+or
+yarn install vue-data-tables
 ```
 
-# Import in your project
+# Import vue-data-tables
 
-```js
+## import element-ui
+As mentioned in the front section, `vue-data-tables` depends on [el-table](http://element.eleme.io/#/zh-CN/component/table), [el-table-column](http://element.eleme.io/#/zh-CN/component/table), [el-button](http://element.eleme.io/#/zh-CN/component/button) and [el-pagination](http://element.eleme.io/#/zh-CN/component/pagination) of [element-ui](http://element.eleme.io/), so we need entirely import `element-ui` or import the 4 components on demand before importing `vue-data-tables`.
+
+```
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
-import DataTables from 'vue-data-tables'
-
 Vue.use(ElementUI)
-Vue.use(DataTables)
 ```
 
-# L10N (show English in pagination)
+> refer to [element-ui](http://element.eleme.io/#/en-US/component/quickstart) doc for how to import components on demand
 
-```js
+
+refer to the [i18n doc](http://element.eleme.io/#/en-US/component/i18n#internationalization), when use in non-chinese environment.
+
+```
+// set language to EN
 import lang from 'element-ui/lib/locale/lang/en'
 import locale from 'element-ui/lib/locale'
 
 locale.use(lang)
 ```
-check [element-ui doc](http://element.eleme.io/#/en-US/component/i18n#internationalization) for more detail
 
-# Hello word
+## import vue-data-tables
+
+### import bundled vue-data-tables (recommended and straightforward)
+```js
+// import DataTables and DataTableServer separately
+import { DataTables, DataTableServer } from 'vue-data-tables'
+Vue.use(DataTables)
+
+// import DataTables and DataTableServer together
+import VueDataTables from 'vue-data-tables'
+Vue.use(VueDataTables)
+```
+
+## import vue-data-tables source code
+You can import the source code of this lib to decrease the code size, if you really care about it.
+
+> vue-loader 15+ is needed to make this work.
+
+1. install and configure [lodash](https://lodash.com/) and the following babel plugins:
+  * [babel-plugin-lodash](https://github.com/lodash/babel-plugin-lodash)
+  * [babel-plugin-vue-jsx-sync](https://github.com/njleonzhang/babel-plugin-vue-jsx-sync)
+  * [babel-plugin-jsx-v-model](https://github.com/nickmessing/babel-plugin-jsx-v-model)
+  * [babel-plugin-transform-vue-jsx](https://github.com/vuejs/babel-plugin-transform-vue-jsx)
+
+* revise webpack configuration to make babel parse the source code of `vue-data-tables`
+```
+  // webpack config
+  {
+    test: /\.js$/,
+    loader: 'babel-loader',
+    exclude: file => {
+      return /node_modules/.test(file) &&
+        (!/\.vue\.js/.test(file) &&
+          !/vue-data-tables\/src\/mixins\/ShareMixin\.js/.test(file))
+    }
+  },
+```
+
+* revise the `import`
+
+```
+import { DataTables, DataTablesServer } from 'vue-data-tables/src/index.js'
+```
+
+# Hello world
+* try the buttons
+* try to sort the data
+* try to create some data, and then page left and right
+* try to enter something in the input box to filter the data
+
 ```html
 /*vue*/
-<desc>
-  * click button `new` to add `row` to the table. 
-  * click button `Edit` to edit the row
-  * try to filter the table by checkbox filter and searchbox
-</desc>
 <template>
-  <data-tables :data='data'
-    :actions-def='actionsDef'
-    :checkbox-filter-def='checkFilterDef'
-    :action-col-def='actionColDef'>
-    <el-table-column v-for="title in titles"
-      :prop="title.prop"
-      :label="title.label" sortable="custom">
-    </el-table-column>
-  </data-tables>
+  <div>
+    <div style='margin-bottom: 10px'>
+      <el-row>
+        <el-col :span='18'>
+          <el-button @click='onCreate'>create 1 row</el-button>
+          <el-button @click='onCreate100'>create 100 row</el-button>
+          <el-button @click='bulkDelete'>bulk delete</el-button>
+        </el-col>
+
+        <el-col :span='6'>
+          <el-input placeholder='search NO.' v-model='filters[0].value'></el-input>
+        </el-col>
+      </el-row>
+    </div>
+
+    <data-tables
+      :data='data'
+      :action-col='actionCol'
+      :filters='filters'
+      @selection-change="handleSelectionChange">
+      <el-table-column
+        type="selection"
+        width="55">
+      </el-table-column>
+
+      <el-table-column v-for="title in titles"
+        :prop="title.prop"
+        :label="title.label"
+        :key="title.prop"
+        sortable="custom"
+      >
+      </el-table-column>
+    </data-tables>
+  </div>
 </template>
 
 <script>
@@ -54,73 +127,59 @@ export default {
     return {
       data,
       titles,
-      actionsDef: {
-          colProps: {
-            span: 5
-          },
-          def: [{
-            name: 'new',
-            handler: () => {
-              this.data.push({
-                'content': 'hello world',
-                'flow_no': 'FW201601010004',
-                'flow_type': 'Help',
-                'flow_type_code': 'help',
-              })
-            },
-            buttonProps: {
-              type: 'text'
-            }
-          }, {
-            name: 'import',
-            handler: () => {
-              this.$message('import clicked')
-            },
-            icon: 'upload'
-          }]
+      filters: [{
+        prop: 'flow_no',
+        value: ''
+      }],
+      actionCol: {
+        props: {
+          label: 'Actionssss',
         },
-        checkFilterDef: {
-          props: 'flow_type_code',
-          def: [{
-            'code': 'repair',
-            'name': 'Repair'
-          }, {
-            'code': 'help',
-            'name': 'Help'
-          }]
-       },
-       actionColDef: {
-           label: 'Actions',
-          def: [{
-            handler: row => {
-              this.$message('Edit clicked')
-              row.flow_no = "hello word"
-            },
-            name: 'Edit'
-          }, {
-            icon: 'message',
-            type: 'text',
-            handler: row => {
-              this.$message('RUA in row clicked')
-              console.log('RUA in row clicked', row)
-            },
-            name: 'RUA'
-          }]
-        }
+        buttons: [{
+          props: {
+            type: 'primary'
+          },
+          handler: row => {
+            this.$message('Edit clicked')
+            row.flow_no = 'hello word' + Math.random()
+            row.content = Math.random() > 0.5 ? 'Water flood' : 'Lock broken'
+            row.flow_type = Math.random() > 0.5 ? 'Repair' : 'Help'
+          },
+          label: 'Edit'
+        }, {
+          handler: row => {
+            this.data.splice(this.data.indexOf(row), 1)
+            this.$message('delete success')
+          },
+          label: 'delete'
+        }]
+      },
+      selectedRow: []
     }
   },
   methods: {
-      getRowActionsDef() {
-        let self = this
-        return [{
-          type: 'primary',
-          handler(row) {
-            self.$message('Edit clicked')
-            console.log('Edit in row clicked', row)
-          },
-          name: 'Edit'
-        }]
-      }
+    onCreate() {
+      this.data.push({
+        content: "new created",
+        flow_no: "FW201601010003" + Math.floor(Math.random() * 100),
+        flow_type: "Help",
+        flow_type_code: "help"
+      })
+    },
+    onCreate100() {
+      [...new Array(100)].map(_ => {
+        this.onCreate()
+      })
+    },
+    handleSelectionChange(val) {
+      this.selectedRow = val
+    },
+    bulkDelete() {
+      this.selectedRow.map(row => {
+        this.data.splice(this.data.indexOf(row), 1)
+      })
+      this.$message('bulk delete success')
+    }
   }
 }
 </script>

@@ -1,36 +1,36 @@
-# 动作列
+# Action Column
 
-# 快速生成动作列
-通过 `action-col` 属性，我们可以在 `vue-data-tables` 上快速创建动作列。
+## Action column generator
+`action-col` property can help to generate action column in `vue-data-tables` conveniently.
 
-传入 `action-col` 的对象的格式如下：
+The value passed to `action-col` should be a `Object`.It's in the following format:
 
 ```
-// 以类似typescript的定义格式描述
+// Typescript-like definition
 {
-  label?: String;                // 动作列的表头
-  props?: {                      // 用于传入动作列 el-table-column 的 prop
+  label?: String;                // label of the action column
+  props?: {                      // props passing to the embedded el-table-column
     [prop: string]: any;
   },
-  buttons: [                     // 定义动作列里的 el-button 元素
+  buttons: [                     // definition of `el-button`s in the action column
     {
-      props?: {                  // 用于传入 el-button 的 prop
+      props?: {                  // props passing to the el-button
         [prop: string]: any;
       },
-      handler?: (row) => void;   // 点击事件的 callback, 注意使用箭头函数，
-                                 // 否则 `this` 就不是使用 `vue-data-table` 组件了。
-                                 // 参数 row 为此列的数据。
-      label: String;             // 按钮的 label
+      handler?: (row) => void;   // callback for the button click,
+                                 // use arrow function, otherwise `this`
+                                 // is not the component using `vue-data-table`.
+                                 // Parameter `row` represents the data of the row
+      label: String;             // el-button's label
     },
     ...
   ]
 }
 ```
 
-> 上面的两个 props 分别用于传入 [el-table-column](http://element.eleme.io/#/zh-CN/component/table#table-attributes) 和 [el-button](http://element.eleme.io/#/zh-CN/component/button#attributes) 的属性，与 <a href='/#/zh-cn/basic?id=传递-prop-给内置的-el-table'>table-props</a> 类似，建议使用 camelCase 风格来写书 js 对象的属性。
+> The 2 `props` in the above definition is used to pass props to  [el-table-column](http://element.eleme.io/#/zh-CN/component/table#table-attributes) and [el-button](http://element.eleme.io/#/zh-CN/component/button#attributes) respectively. Similar to <a href='/#/basic?id=pass-props-to-the-embedded-el-table'>table-props</a>, we suggest write the js property in `camelCase`
 
-
-下例中，我们设置了动作列的表头(`Actionsssssss`)、列内容的对齐方式(`center`), 并定义了2个按钮(`el-button`)，为它们绑定了点击的回调函数，还为第一个按钮设置了类型(`primary`) 和 图标 (`el-icon-edit`)。
+In the following example, label of action column is set to `Actionsssssss`; content align of action column is set to `center`; 2 buttons are defined with callback functions; the first button is set to primary type with icon `el-icon-edit`
 
 ```html
 /*vue*/
@@ -81,10 +81,10 @@ export default {
 </script>
 ```
 
-# 自定义动作列
-快速生成的动作列只能生成按钮，不支持按列定制。如果有需要，你可以自己定义动作列，可以通过 slot-scope 来把动作列自定义为你需要的任何内容。实际上这是 `el-table` 所提供的[自定义列模板](http://element.eleme.io/#/zh-CN/component/table#zi-ding-yi-lie-mo-ban)的方法
+## Customize the action column
+The action column created by generator can only contain `el-button`, at the same time, can not generate different buttons according to different rows. You can customize action column by slot-scope of `el-table-column`, refer to the [document]((http://element.eleme.io/#/en-US/component/table#custom-column-template)) for more details.
 
-下例中，动作列中不仅有 `el-button` 还有 `el-checkbox`, 同时不同的列显示的动作也不一样。
+In the following example, action column contains `el-button` and `el-checkbox`, and the content is different between rows.
 
 ```html
 /*vue*/
@@ -161,4 +161,4 @@ export default {
 </script>
 ```
 
-上例的逻辑，使用 vue 模板语言来写有点吃力，并且代码也不清晰。建议使用 jsx 来实现, 请参考 vue 的[相关文档](https://cn.vuejs.org/v2/guide/render-function.html) 和本库的[源码](https://github.com/njleonzhang/vue-data-tables/blob/master/src/mixins/ShareMixin.js)
+The above example is implemented in Vue template syntax, if we implements it in vue [jsx](https://vuejs.org/v2/guide/render-function.html), the logic may be more clean and easy to understand, refer to the [vue jsx document](https://vuejs.org/v2/guide/render-function.html) and [source code](https://github.com/njleonzhang/vue-data-tables/blob/master/src/mixins/ShareMixin.js) of this lib for details.

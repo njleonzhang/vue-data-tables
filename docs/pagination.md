@@ -1,21 +1,25 @@
-# Pagination
-> customize pagination
+# 分页
 
-`pagination-def` can be leveraged to define pagination.
+`vue-data-tables` 的分页栏实际上就是一个内置的 `el-pagination`. 我们可以通过 `pagination-props`, `current-page` 和 `page-size` 来对其进行定制。
 
+* `current-page` 用于设置当前选中的页面，可以使用 sync 后缀。
+* `page-size` 用于设置当前的每页面个数，可以使用 sync 后缀。
+* `pagination-props` 与 <a href="/#/zh-cn/basic?id=传递-prop-给内置的-el-table">table-props</a> 类似，支持通过 js 对象给内置的 `el-pagination` 传递属性。
+
+下例中, 我们把 `pageSizes` 设置成了 [1, 2, 3]。当前的每页数量 pageSize 设置成了 1, 当前的页为第 2 页，同时还是设置背景色。
 
 ```html
 /*vue*/
-<desc>
-define item count of each page to 1, pageSize options is [1, 2, 3], default page is 2
-</desc>
 <template>
-  <data-tables :data="data" :pagination-def="paginationDef">
+  <data-tables :data="data"
+    :current-page='2'
+    :page-size='1'
+    :pagination-props='{ background: true, pageSizes: [1, 2, 3] }'>
     <el-table-column v-for="title in titles"
       :prop="title.prop"
       :label="title.label"
       :key="title.prop"
-      sortable="custom"/>
+    />
   </data-tables>
 </template>
 
@@ -24,33 +28,37 @@ export default {
   data() {
     return {
       data,
-      titles,
-      paginationDef: {
-        pageSize: 1,
-        pageSizes: [1, 2, 3],
-        currentPage: 2
-      }
+      titles
     }
   }
 }
 </script>
 ```
 
-## show or hide
+使用 sync 后缀，让我们更加方便的通过 js 控制页面的翻页和每页大小：
+
 
 ```html
 /*vue*/
-<desc>
-hide the pagination
-</desc>
 <template>
-  <data-tables :data="data" :pagination-def="paginationDef">
-    <el-table-column v-for="title in titles"
-      :prop="title.prop"
-      :label="title.label"
-      :key="title.prop"
-      sortable="custom"/>
-  </data-tables>
+  <div>
+    <div style='margin-bottom: 10px;'>
+      <span>currentPage: </span>
+      <el-input-number v-model='currentPage'></el-input-number>
+    </div>
+    <data-tables-server
+      :data="data"
+      :total='total'
+      :current-page.sync='currentPage'
+      :page-size='pageSize'
+      :pagination-props='{ background: true, pageSizes: [1, 2, 3] }'
+      @query-change='loadData'>
+      <el-table-column v-for="title in titles"
+        :prop="title.prop"
+        :label="title.label"
+        :key="title.prop"/>
+    </data-tables>
+  </div>
 </template>
 
 <script>
@@ -59,29 +67,19 @@ export default {
     return {
       data,
       titles,
-      paginationDef: {
-        show: false
-      }
+      total: 0,
+      currentPage: 2,
+      pageSize: 1
+    }
+  },
+  methods: {
+    async loadData(queryInfo) {
+      console.log('queryInfo: ', queryInfo)
+      let { data, total } = await http(queryInfo)
+      this.data = data
+      this.total = total
     }
   }
 }
 </script>
 ```
-
-# Related properties
-
-`data-tables` property
-
-| Property   | Desc    | Type | Default value |
-| ------------- | ------------- | --- | --- |
-| pagination-def  | customize pagination | Object | - |
-
-`pagination-def` object property
-
-| Property   | Desc    | Type | Accepted Values | Default value |
-| ------------- | ------------- | --- | --- |
-| show  | show or hide the pagination | Boolean | - | true |
-| pageSize  | item count of each page | Number | - | 20 |
-| pageSizes  | options of item count per page	 | Array of Number | - | [20, 50, 100] |
-| currentPage  | current page | Number | - | 1 |
-| layout  | layout of Pagination, elements separated with a comma | Number | sizes, prev, pager, next, jumper, ->, total, slot | 'prev, pager, next, jumper, ->, total' |
