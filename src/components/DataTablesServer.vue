@@ -60,9 +60,13 @@ export default {
       this.$emit('query-change', info)
     },
     handleSort(obj) {
+      let { prop, order } = obj
       // avoid event emit, if both prop and order are not change, special scenario 'multi-columns share the same prop'
-      if (this.sortData.prop !== obj.prop || this.sortData.order !== obj.order) {
-        this.sortData = obj
+      if (this.sortData.prop !== prop || this.sortData.order !== order) {
+        this.sortData = {
+          prop,
+          order
+        }
         this.queryChange('sort')
       }
     },

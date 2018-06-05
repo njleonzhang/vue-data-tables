@@ -181,7 +181,7 @@ export default {
 
 ## Sort of data-tables-server
 
-In essence, `data-tables-server` doesn't take charge the data sort. Only the back-end server have the entire data set, so the `sort` can also be handled by back-end server. What `data-tables-server` need to do is emitting the `sort condition` out when the condition changes, so that the back-end server can sort and return new data according to the condition.
+In essence, `data-tables-server` doesn't take charge the data sort. Only the back-end server have the entire data set, so the `sort` can also be handled by back-end server. What `data-tables-server` need to do is emitting the `sort condition` when the condition changes, so that the back-end server can sort and return new data according to the condition.
 
 When the sort condition changes, `data-tables-server` emits a event named `query-change` with type `sort`.
 
@@ -195,6 +195,7 @@ The payload of `query-info` event has a `sort` property, whose format is:
 ```
 
 Example to demonstrate how to handle `query-info` for sort.
+
 
 ```html
 /*vue*/
@@ -224,7 +225,7 @@ export default {
   },
   methods: {
     async loadData(queryInfo) {
-      console.log('queryInfo.sort: ', queryInfo.sort)
+      queryInfo.type === 'sort' && this.$message(`prop: ${queryInfo.sort.prop}, order: ${queryInfo.sort.order}`)
       let { data, total } = await http(queryInfo)
       this.data = data
       this.total = total

@@ -162,3 +162,81 @@ export default {
 }
 </script>
 ```
+
+# query-info
+We have mentioned this event several times in previous sections. Apparently, `query-info` is the key event which `data-tables-server` relies on to refresh data. `data-tables-server` emits `query-info` event when any changes happen on `filter item`, `sort condition` or `pagination information`. The outer component listens on the event and pull data according to it.
+
+The payload of query-info is in the following format:
+
+```
+{
+  type: 'init' | 'filter' | 'page' | 'sort',    // indicate the reason
+                                                // why this event is triggered
+  filters: [
+    {                                           // filter item
+      value: any,                               // filter value
+      [prop: any]: any                          // customize property(s)
+    },
+    ...
+  ],
+  sort: {                                       // sort condition
+    order: 'ascending' | 'descending',          // sort order
+    prop: String                                // sort prop
+  },
+  page: number,                                 // current page
+  pageSize: number                              // item count of each page
+}
+```
+
+Except the type `init`, the above format has already been entirely introduced in previous sections. `query-info` with type `init` is emitted in `data-tables-server`'s lifecycle function [created](https://vuejs.org/v2/api/index.html#created).
+
+```html
+/*vue*/
+<template>
+  <div>
+    <div style='margin-bottom: 10px; width: 200px;'>
+      <el-input v-model='filters[0].value'></el-input>
+    </div>
+    <data-tables-server
+      :data='data'
+      :total='total'
+      :filters='filters'
+      :pagination-props='{ pageSizes: [5, 10, 15] }'
+      @query-change='loadData'>
+      <el-table-column v-for="title in titles"
+        :prop="title.prop"
+        :label="title.label"
+        :key="title.label"
+        sortable='custom'>
+      </el-table-column>
+    </data-tables-server>
+  </div>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      data,
+      titles,
+      total: 0,
+      filters: [
+        {
+          value: '',
+          'search_prop': 'flow_no' // define search_prop for backend usage.
+        }
+      ]
+    }
+  },
+  methods: {
+    async loadData(queryInfo) {
+      console.log(`queryInfo: `, queryInfo)
+      this.$message(`queryInfo: ${JSON.stringify(queryInfo)}`)
+      let { data, total } = await http(queryInfo)
+      this.data = data
+      this.total = total
+    }
+  }
+}
+</script>
+```

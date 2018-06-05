@@ -82,3 +82,56 @@ export default {
 }
 </script>
 ```
+
+# Pagination of data-tables-server
+
+Same to [Sort](en-us/sort?id=sort-of-data-tables-server) and [Filter](en-us/filter?id=filter-of-data-tables-server) of `data-tables-server`, `data-tables-server` doesn't take charge the data `pagination` either, the `pagination` is also handled by back-end server. What `data-tables-server` need to do is emitting the pagination information when the pagination information changes, so that the back-end server can paginate and return new data according to the information.
+
+Pagination information includes `item count of each page` and `current page`. When these 2 items change, `data-tables-server` emits emits a event named `query-change`.
+
+* When `item count of each page` changes, the event is emitted with type `size`.
+* When `current page` changes, the event is emitted with type `page`.
+
+The payload of `query-info` event has property `page` and `pageSize`, which respectively represent `item count of each page` and `current page`.
+
+Example to demonstrate how to handle `query-info` for pagination.
+
+```html
+/*vue*/
+<template>
+  <data-tables-server
+    :data='data'
+    :total='total'
+    @query-change='loadData'
+    :pagination-props='{ pageSizes: [5, 10, 15] }'>
+    <el-table-column v-for="title in titles"
+      :prop="title.prop"
+      :label="title.label"
+      :key="title.label"
+      sortable="custom">
+    </el-table-column>
+  </data-tables-server>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      data,
+      titles,
+      total: 0,
+    }
+  },
+  methods: {
+    async loadData(queryInfo) {
+      (queryInfo.type === 'page' ||
+        queryInfo.type === 'size') &&
+        this.$message(`page: ${queryInfo.page}, pageSize: ${queryInfo.pageSize}`)
+      let { data, total } = await http(queryInfo)
+      this.data = data
+      this.total = total
+    }
+  }
+}
+</script>
+```

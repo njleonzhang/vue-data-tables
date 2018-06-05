@@ -179,8 +179,9 @@ export default {
 ```
 
 ## data-tables-server 的排序
-本质上，`data-tables-server` 并不参与数据的排序工作。数据均来自于后台, 排序也只能发生在后台。`data-tables-server` 只是需要把排序规则发给后台。
-在排序条件变化的时，`data-tables-server`发射一个类型为 `sort` 的 `query-change` 事件，外层组件需要监听该事件，并把向服务器发送请求来获取数据。
+本质上，`data-tables-server` 并不参与数据的排序工作。数据均来自于后台, 排序也只能发生在后台。`data-tables-server` 只是需要在排序规则变化时，把排序规则发给后台。
+
+在排序条件变化的时，`data-tables-server` 发射一个类型为 `sort` 的 `query-change` 事件，外层组件需要监听该事件，并把向服务器发送请求来获取数据。
 
 `query-info` 事件发射的数据的 `sort` 字段的值包含了排序的信息，其结构如下：
 
@@ -221,7 +222,7 @@ export default {
   },
   methods: {
     async loadData(queryInfo) {
-      console.log('queryInfo.sort: ', queryInfo.sort)
+      queryInfo.type === 'sort' && this.$message(`prop: ${queryInfo.sort.prop}, order: ${queryInfo.sort.order}`)
       let { data, total } = await http(queryInfo)
       this.data = data
       this.total = total

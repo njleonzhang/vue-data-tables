@@ -45,45 +45,50 @@ At low level, the prop `data` is passed to the embedded [el-table](http://elemen
 
   - render the table according to `data` and `total`
   - when pagination navigates、per-page size changes、filter condition changes and sort condition changes, emit a `query-change` event, whose payload contains the information about newest filter condition、per-page size、current page and sort condition. The outer component can listen on this event, and pull data from server according the payload.
+  - toggle loading mask according to property `loading`
 
   > the value passed to `data` prop of `data-tables` should be the entire data, `total` shown in pagination is equal to `data.length`, so `data-tables` don't need a `total` prop. However, the `data` prop of `data-tables-server` is just the data of current page, `total` can not be calculated, so we need pass both `data` and `total` to `data-tables-server`.
 
-  ```html
-  /*vue*/
-  <template>
-    <data-tables-server
-      :data='data'
-      :total='total'
-      @query-change='loadData'
-      :pagination-props='{ pageSizes: [5, 10, 15] }'>
-      <el-table-column v-for="title in titles"
-        :prop="title.prop"
-        :label="title.label"
-        :key="title.label">
-      </el-table-column>
-    </data-tables-server>
-  </template>
+```html
+/*vue*/
+<template>
+  <data-tables-server
+    :data='data'
+    :total='total'
+    :loading='loading'
+    @query-change='loadData'
+    :pagination-props='{ pageSizes: [5, 10, 15] }'>
+    <el-table-column v-for="title in titles"
+      :prop="title.prop"
+      :label="title.label"
+      :key="title.label">
+    </el-table-column>
+  </data-tables-server>
+</template>
 
-  <script>
-  export default {
-    data() {
-      return {
-        data,
-        titles,
-        total: 0,
-      }
-    },
-    methods: {
-      async loadData(queryInfo) {
-        console.log(queryInfo)
-        let { data, total } = await http(queryInfo)
-        this.data = data
-        this.total = total
-      }
+<script>
+export default {
+  data() {
+    return {
+      data,
+      titles,
+      loading: false,
+      total: 0,
+    }
+  },
+  methods: {
+    async loadData(queryInfo) {
+      console.log(queryInfo)
+      this.loading = true
+      let { data, total } = await http(queryInfo, 500)
+      this.data = data
+      this.total = total
+      this.loading = false
     }
   }
-  </script>
-  ```
+}
+</script>
+```
 
 # Pass props to the embedded el-table
 

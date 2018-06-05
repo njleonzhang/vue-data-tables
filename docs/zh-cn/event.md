@@ -162,3 +162,80 @@ export default {
 }
 </script>
 ```
+
+# query-info
+前面的章节里已经多次提到了这个事件, 可以看出来 `query-info` 是 data-tables-server 刷新数据所依赖的关键事件。过滤条件, 排序条件和分页信息的任何变化, 这个事件都会被发射, 外层的组件通过监听该事件获取信息去拉去后台数据。
+
+这里做下总结，query-info 载荷对象的格式如下:
+
+```
+{
+  type: 'init' | 'filter' | 'page' | 'sort',    // 类型, 展示事件的原因。
+  filters: [
+    {                                           // 过滤项
+      value: any,                               // 过滤值
+      [prop: any]: any                          // 自定义属性
+    },
+    ...
+  ],
+  sort: {                                       // 排序条件
+    order: 'ascending' | 'descending',          // 排序方向
+    prop: String                                // 排序字段
+  },
+  page: number,                                 // 当前的页码
+  pageSize: number                              // 每页的数量
+}
+```
+
+上述的内容在前文中基本都提过，唯一要说明的是 'init' 类型, 这种类型的 `query-info` 事件发射于 `data-tables-server` 的 [created](https://cn.vuejs.org/v2/api/#created) 阶段.
+
+```html
+/*vue*/
+<template>
+  <div>
+    <div style='margin-bottom: 10px; width: 200px;'>
+      <el-input v-model='filters[0].value'></el-input>
+    </div>
+    <data-tables-server
+      :data='data'
+      :total='total'
+      :filters='filters'
+      :pagination-props='{ pageSizes: [5, 10, 15] }'
+      @query-change='loadData'>
+      <el-table-column v-for="title in titles"
+        :prop="title.prop"
+        :label="title.label"
+        :key="title.label"
+        sortable='custom'>
+      </el-table-column>
+    </data-tables-server>
+  </div>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      data,
+      titles,
+      total: 0,
+      filters: [
+        {
+          value: '',
+          'search_prop': 'flow_no' // define search_prop for backend usage.
+        }
+      ]
+    }
+  },
+  methods: {
+    async loadData(queryInfo) {
+      console.log(`queryInfo: `, queryInfo)
+      this.$message(`queryInfo: ${JSON.stringify(queryInfo)}`)
+      let { data, total } = await http(queryInfo)
+      this.data = data
+      this.total = total
+    }
+  }
+}
+</script>
+```

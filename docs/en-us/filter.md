@@ -545,11 +545,11 @@ export default {
 ```
 
 ## Filter of data-tables-server
-Similar to [Sort of data-tables-server](en-us/sort.md?id=sort-of-data-tables-server), `data-tables-server` doesn't take charge the data `filter` either. Only the back-end server have the entire data set, and the `filter` can also be handled by back-end server. What `data-tables-server` need to do is emitting the `filter item`s out when the filter changes, so that the back-end server can sort and return new data according to the condition.
+Same to [Sort of data-tables-server](en-us/sort.md?id=sort-of-data-tables-server), `data-tables-server` doesn't take charge the data `filter` either, the `filter` is also handled by back-end server. What `data-tables-server` need to do is emitting the `filter item`s when the filter changes, so that the back-end server can sort and return new data according to the condition.
 
-When `filter item`s change, `data-tables-server` emits emits a event named `query-change` with type `filter`.
+When `filter item` changes, `data-tables-server` emits emits a event named `query-change` with type `filter`.
 
-The payload of `query-info` event has a `filter` property, whose value is a copy of `this.filters`. Beside of `value`，any property(s) can be defined to provide info for back-end server to filter data.
+The payload of `query-info` event has a `filters` property, whose value is a copy of `this.filters`. Beside of `value`，any property(s) can be defined to provide info for back-end server to filter data.
 
 In the following example, the back-end server need a `search_prop` value to determine which property to filter, so we add this property to the `filter item` when define it.
 
@@ -592,7 +592,9 @@ export default {
   },
   methods: {
     async loadData(queryInfo) {
-      console.log('queryInfo: ', queryInfo.filters)
+      queryInfo.type === 'filter' &&
+        this.$message(`search_prop: ${queryInfo.filters[0].search_prop},
+          value: ${queryInfo.filters[0].value}`)
       let { data, total } = await http(queryInfo)
       this.data = data
       this.total = total

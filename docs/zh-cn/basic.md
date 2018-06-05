@@ -43,6 +43,7 @@
 
   - 根据 `total` 和 `data` 属性渲染表格。
   - 在翻页、过滤、每页数量变化、排序等情况发生的时候发出 `query-change` 事件，事件的 payload 里包含最新的过滤条件、每页数量、选中的页和排序规则等信息。外围组件可以根据这些信息去后台拉去数据。
+  - 通过 `loading` 属性显示或影藏加载蒙层。
 
   > data-tables 组件的 data 属性代表着所有的数据，pagination 上显示的所有的 total 值就等于 `data.length`，所以使用 data-tables 组件的时候并不需要传入 total 属性; 而 data-tables-server 的 data 属性只是当前页的数据，total 属性代表着全部的数据量， 他们都需要使用的时候来传入。
 
@@ -52,6 +53,7 @@
     <data-tables-server
       :data='data'
       :total='total'
+      :loading='loading'
       @query-change='loadData'
       :pagination-props='{ pageSizes: [5, 10, 15] }'>
       <el-table-column v-for="title in titles"
@@ -68,15 +70,18 @@
       return {
         data,
         titles,
+        loading: false,
         total: 0,
       }
     },
     methods: {
       async loadData(queryInfo) {
         console.log(queryInfo)
-        let { data, total } = await http(queryInfo)
+        this.loading = true
+        let { data, total } = await http(queryInfo, 500)
         this.data = data
         this.total = total
+        this.loading = false
       }
     }
   }
