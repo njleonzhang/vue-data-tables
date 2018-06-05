@@ -54,30 +54,8 @@
       <el-table-column prop="state" label="State" sortable="custom"></el-table-column>
       <el-table-column prop="flow_type" label="Type" sortable="custom"></el-table-column>
     </data-tables-server>
-    <!-- <data-tables :data="tableData" :tableProps="tableProps" :filters="customFilters">
-      <el-row slot="tool">
-        <el-col :span="5">
-          <el-dropdown>
-            <el-button type="primary">更多菜单<i class="el-icon-caret-bottom el-icon--right"></i></el-button>
-            <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item>黄金糕</el-dropdown-item>
-              <el-dropdown-item>狮子头</el-dropdown-item>
-              <el-dropdown-item>螺蛳粉</el-dropdown-item>
-              <el-dropdown-item>双皮奶</el-dropdown-item>
-              <el-dropdown-item>蚵仔煎</el-dropdown-item>
-            </el-dropdown-menu>
-          </el-dropdown>
-        </el-col>
-        <el-col :span="14">
-          <el-input v-model="customFilters[0].value" class="test"></el-input>
-        </el-col>
-        <el-col :span="5">
-          <el-select v-model="customFilters[1].value" multiple="multiple">
-            <el-option label="维修" value="repair"></el-option>
-            <el-option label="帮忙" value="help"></el-option>
-          </el-select>
-        </el-col>
-      </el-row>
+    <data-tables :data="tableData" :tableProps="tableProps" :filters="customFilters">
+
       <el-table-column type="selection" width="55"></el-table-column>
       <el-table-column prop="flow_no" label="No." sortable="custom"></el-table-column>
       <el-table-column prop="content" label="Content" sortable="custom"></el-table-column>
@@ -88,7 +66,7 @@
       <el-table-column prop="building" label="building" sortable="custom"></el-table-column>
       <el-table-column prop="room_no" label="no" sortable="custom"></el-table-column>
       <el-table-column prop="cellphone" label="tel" sortable="custom"></el-table-column>
-    </data-tables> -->
+    </data-tables>
   </div>
 </template>
 

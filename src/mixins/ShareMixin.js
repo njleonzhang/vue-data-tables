@@ -4,7 +4,7 @@ export default {
   props: {
     layout: {
       type: String,
-      default: 'table, pagination'
+      default: 'tool, table, pagination'
     },
     data: {
       type: Array,
@@ -48,11 +48,15 @@ export default {
   render() {
     let layoutMap = {
       tool: (
-        <div class='tool'>
-          {
-            this.$slots['tool']
-          }
-        </div>
+        this.toolBarShow
+          ? (
+            <div class='tool'>
+              {
+                this.$slots['tool']
+              }
+            </div>
+          )
+          : null
       ),
       table: (
         <el-table ref='elTable'
@@ -212,6 +216,9 @@ export default {
     actionColShow() {
       return this.innerActionCol.buttons.length > 0
     },
+    toolBarShow() {
+      return this.layouts.includes('tool') && this.$slots.tool
+    }
   },
   watch: {
     // make innerCurrentPage and innerPageSize as data,
