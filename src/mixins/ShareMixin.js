@@ -48,11 +48,11 @@ export default {
   render() {
     let layoutMap = {
       tool: (
-        <div class='tool-bar'>
+        <template class='tool'>
           {
-            this.$slots['tool-bar']
+            this.$slots['tool']
           }
-        </div>
+        </template>
       ),
       table: (
         <el-table ref='elTable'
@@ -69,16 +69,16 @@ export default {
           {
             this.$slots.default
           }
-          <div slot='empty'>
+          <template slot='empty'>
             {
               this.$slots.empty
             }
-          </div>
-          <div slot='append'>
+          </template>
+          <template slot='append'>
             {
               this.$slots.append
             }
-          </div>
+          </template>
           {
             this.actionColShow
               ? (
@@ -218,7 +218,7 @@ export default {
     // and watch currentPage to update innerCurrentPage, pageSize to update innerPageSize
     // at the same time watch innerCurrentPage and innerPageSize to emit sync emit.
     // the two watch cannot be replaced by computed getter and setter here,
-    // because currentPage and pageSize can be not provided(undefinded).
+    // because currentPage and pageSize can be not provided(undefined).
     pageSize: {
       immediate: true,
       handler(val) {
