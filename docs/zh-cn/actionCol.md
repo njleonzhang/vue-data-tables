@@ -127,7 +127,7 @@ export default {
   },
   methods: {
     handleClick(command) {
-      this.$message(`click drapdown button ${command}`)
+      this.$message(`click dropdown button ${command}`)
     },
     async loadData(queryInfo) {
       let { data, total } = await http(queryInfo)

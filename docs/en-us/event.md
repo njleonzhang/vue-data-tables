@@ -1,16 +1,19 @@
-# 事件
+# Event
 
-内置 `el-table` 和 `el-pagination` 的事件都全部通过监听 `vue-data-table` 来捕获。以下几个事件是例外的。
+## Event proxy
+`vue-data-tables` is proxy for all events of [el-table](http://element.eleme.io/#/en-US/component/table) and [el-pagination](http://element.eleme.io/#/en-US/component/pagination). except `current-page`, all other events are emitted by `vue-data-tables` with same name and payload.
 
-## current-change
+`el-table` and `el-pagination` both emit event `current-change` (same name, payload is totally different). To distinguish these 2 events, we rename `current-change` of `el-pagination` to `current-page-change` after version **3.1.3**.
 
-`el-table` 和 `el-pagination` 都会发射 current-change 事件。 为了让用户可以区分这2种事件，我们在版本 **3.1.3** 以后, 把 `el-pagination` 的 current-change 事件重命名成了 `current-page-change`.
+In the following sample, we listen on event `current-page` of `el-table`, `current-change`, `prev-click`, `size-change` of `el-pagination`. perform the following actions to try the event listening.
 
-下例中，我们对 `el-table` 的 current-page , `el-pagination` 的 current-change, prev-click, size-change 几个事件进行了监听。请分别通过以下动作来尝试：
-  * el-table current-page: 选中列表中的某一列
-  * el-pagination current-page: 改变当前页
-  * prev-click 点击分页组件的向前键
-  * size-change 改变分页组件的每页数量
+| Action | Event | Original Component |
+| -- | -- | -- |
+| click a row | current-page | el-table |
+| select a row with the checkbox | selection-change | el-table |
+| change current page | current-page | el-pagination |
+| click the previous page button on the el-pagination | prev-click | el-pagination |
+| change the item count of each page | size-change | el-pagination |
 
 ```html
 /*vue*/
@@ -21,8 +24,14 @@
     @current-change='handleCurrentChange'
     @prev-click='handlePrevClick'
     @size-change='handleSizeChange'
+    @selection-change='handleSelectionChange'
     :pagination-props='{ pageSizes: [5, 10, 15] }'
   >
+    <el-table-column
+      type="selection"
+      width="55">
+    </el-table-column>
+
     <el-table-column v-for="title in titles"
       :prop="title.prop"
       :label="title.label"
@@ -61,6 +70,11 @@ export default {
       this.$notify({
         message: `size-change: ${size}`
       })
+    },
+    handleSelectionChange(val) {
+      this.$notify({
+        message: `selection-change: ${val.map(row => row.flow_no).join(',')}`
+      })
     }
   }
 }
@@ -68,9 +82,9 @@ export default {
 ```
 
 # filtered-data
-`data-tables` 组件才有的事件，当过滤条件变化时发射，其 payload 是过滤后的数据。
+Only `data-tables` can emit this event. it emits when `filter item` changes with filtered data as payload.
 
-下例中，我们使用 [json2csv](https://github.com/zemirco/json2csv) 将完整的数据和过滤后的值导出。
+In the following example, we leverage [json2csv](https://github.com/zemirco/json2csv) to export entire data set and filtered data set.
 
 ```html
 /*vue*/

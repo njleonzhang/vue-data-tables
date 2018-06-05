@@ -24,4 +24,4 @@
 这部分实际上是一个用于快速创捷列动作的内置的 [el-table-column](http://element.eleme.io/#/en-US/component/table)。具体内容请参见<a href="/#/zh-CN/actionCol">动作列</a>章节。
 
 ## 分页栏
-实际上是一个内置的 [el-pagination](http://element.eleme.io/#/zh-CN/component/pagination), 如果不了解请仔细阅读其[文档](http://element.eleme.io/#/zh-CN/component/pagination)。`分页栏`在本库内的使用，请参见<a href="/#/zh-CN/pagination">分页</a>章节。
+实际上是一个内置的 [el-pagination](http://element.eleme.io/#/component/pagination), 如果不了解请仔细阅读其[文档](http://element.eleme.io/#/zh-CN/component/pagination)。`分页栏`在本库内的使用，请参见<a href="/#/zh-CN/pagination">分页</a>章节。

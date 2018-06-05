@@ -1,16 +1,19 @@
 # 事件
 
-内置 `el-table` 和 `el-pagination` 的事件都全部通过监听 `vue-data-table` 来捕获。以下几个事件是例外的。
+## 事件代理
+内置 [el-table](http://element.eleme.io/#/zh-CN/component/table) 和 [el-pagination](http://element.eleme.io/#/zh-CN/component/pagination) 的事件都全部通过监听 `vue-data-table` 来捕获，即 `vue-data-tables` 对 el-table 和 el-pagination 的事件做了代理。除了 `current-change` 事件外，其他的事件的名字和事件 payload 都维持了原样。
 
-## current-change
+`el-table` 和 `el-pagination` 都会发射 `current-change` 事件 (同名但不一样)。 为了让用户可以区分这2种事件，我们在版本 **3.1.3** 以后, 把 `el-pagination` 的 `current-change` 事件重命名成了 `current-page-change`.
 
-`el-table` 和 `el-pagination` 都会发射 current-change 事件。 为了让用户可以区分这2种事件，我们在版本 **3.1.3** 以后, 把 `el-pagination` 的 current-change 事件重命名成了 `current-page-change`.
+下例中，我们对 `el-table` 的 `current-page`, `el-pagination` 的 `current-change`, `prev-click`, `size-change` 几个事件进行了监听。请分别通过以下动作来尝试：
 
-下例中，我们对 `el-table` 的 current-page , `el-pagination` 的 current-change, prev-click, size-change 几个事件进行了监听。请分别通过以下动作来尝试：
-  * el-table current-page: 选中列表中的某一列
-  * el-pagination current-page: 改变当前页
-  * prev-click 点击分页组件的向前键
-  * size-change 改变分页组件的每页数量
+| Action | Event | Original Component |
+| -- | -- | -- |
+| 点击一列 | current-page | el-table |
+| 通过 checkbox 选择一列 | selection-change | el-table |
+| 改变当前页 | current-page | el-pagination |
+| 点击 el-pagination 上的向前按钮 | prev-click | el-pagination |
+| 改变每页的数量 | size-change | el-pagination |
 
 ```html
 /*vue*/
@@ -21,8 +24,14 @@
     @current-change='handleCurrentChange'
     @prev-click='handlePrevClick'
     @size-change='handleSizeChange'
+    @selection-change='handleSelectionChange'
     :pagination-props='{ pageSizes: [5, 10, 15] }'
   >
+    <el-table-column
+      type="selection"
+      width="55">
+    </el-table-column>
+
     <el-table-column v-for="title in titles"
       :prop="title.prop"
       :label="title.label"
@@ -60,6 +69,11 @@ export default {
     handleSizeChange(size) {
       this.$notify({
         message: `size-change: ${size}`
+      })
+    },
+    handleSelectionChange(val) {
+      this.$notify({
+        message: `selection-change: ${val.map(row => row.flow_no).join(',')}`
       })
     }
   }

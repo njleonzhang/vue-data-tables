@@ -164,9 +164,7 @@ export default {
     <data-tables-server
       :data='[]'
       :total='100'>
-      <div slot="empty">
-        <div style='color: red'>emptyyyyyyyyyyyyyy</div>
-      </div>
+      <div slot="empty" style='color: red'>emptyyyyyyyyyyyyyy</div>
       <el-table-column v-for="title in titles"
         :prop="title.prop"
         :label="title.label"
@@ -194,7 +192,7 @@ layout 传入值是一个 `String`，是一个通过 `,` 隔开的元素组合, 
 * pagination 分页栏
 * tool 工具栏, 请参照<a href='/#/zh-cn/actionBar'>工具栏</a>的章节
 
-其默认值为 `"table, pagination"`, 即显示 `表格`和`分页栏`，不显示`工具栏`。
+其默认值为 `"tool, table, pagination"`, 即依次显示`工具栏`, `表格`和`分页栏`。
 
 下例中，定义表格的显示`分页栏`和`表格`:
 

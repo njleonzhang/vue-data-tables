@@ -1,12 +1,12 @@
-# 分页
+# Pagination
 
-`vue-data-tables` 的分页栏实际上就是一个内置的 `el-pagination`. 我们可以通过 `pagination-props`, `current-page` 和 `page-size` 来对其进行定制。
+The pagination of `vue-data-tables` is a embedded [el-pagination](http://element.eleme.io/#/component/pagination), `vue-data-tables` provide property `pagination-props`, `current-page` and `page-size` to customize it.
 
-* `current-page` 用于设置当前选中的页面，可以使用 sync 后缀。
-* `page-size` 用于设置当前的每页面个数，可以使用 sync 后缀。
-* `pagination-props` 与 <a href="/#/zh-cn/basic?id=传递-prop-给内置的-el-table">table-props</a> 类似，支持通过 js 对象给内置的 `el-pagination` 传递属性。
+* `current-page`: set the current page number, supports the .sync modifier
+* `page-size`: set item count of each page，supports the .sync modifier
+* `pagination-props`: Similar to [table-props](en-us/basic.md?id=pass-props-to-the-embedded-el-table)，used to pass props to the embedded [el-pagination](http://element.eleme.io/#/component/pagination) with a `js` Object
 
-下例中, 我们把 `pageSizes` 设置成了 [1, 2, 3]。当前的每页数量 pageSize 设置成了 1, 当前的页为第 2 页，同时还是设置背景色。
+In the following example, options of item count per page is set to [1, 2, 3]; item count of each page is set to 1; current page is set to 2; pagination background is also set.
 
 ```html
 /*vue*/
@@ -35,8 +35,7 @@ export default {
 </script>
 ```
 
-使用 sync 后缀，让我们更加方便的通过 js 控制页面的翻页和每页大小：
-
+With sync modifier, it's convenient to control the page change with `javascript`:
 
 ```html
 /*vue*/

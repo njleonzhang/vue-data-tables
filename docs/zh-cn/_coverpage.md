@@ -1,8 +1,8 @@
-![logo](_media/icon.svg)
+![logo](../_media/icon.svg)
 
 # vue-data-tables <small>3.3.7</small>
 
-> A simple, customizable and pageable table, based on vue2 and element-ui
+> 一个基于 Vue 和 element-ui 简单易用, 可定制的分页表格
 
 <p align="center">
   <a href="https://github.com/njleonzhang/vue-data-tables"><img alt="star this repo" src="http://githubbadges.com/star.svg?user=njleonzhang&repo=vue-data-tables&style=flat" /></a>
@@ -13,13 +13,12 @@
   <a href="https://github.com/njleonzhang/vue-data-tables" target="_blank"><img src='https://img.shields.io/npm/dm/vue-data-tables.svg' alt='download' /></a>
 </p>
 
-- Simple and lightweight
-- Support both font-side and server-side pagination
-- Customizable, flexible and powerful
-- Based on element-ui
+- 使用便捷, 轻量
+- 支持前台分页和后台分页
+- 可定制, 灵活, 强大
+- 基于 Vue 和 Element-ui
 
 [GitHub](https://github.com/njleonzhang/vue-data-tables/)
-[English Document](en-us/README.md?id=vue-data-tables)
-[中文文档](zh-cn/README.md?id=vue-data-tables)
+[开始](#vue-data-tables)
 
 ![color](#b3daff)

@@ -1,4 +1,4 @@
-![logo](_media/icon.svg)
+![logo](../_media/icon.svg)
 
 # vue-data-tables <small>3.3.7</small>
 
@@ -19,7 +19,6 @@
 - Based on element-ui
 
 [GitHub](https://github.com/njleonzhang/vue-data-tables/)
-[English Document](en-us/README.md?id=vue-data-tables)
-[中文文档](zh-cn/README.md?id=vue-data-tables)
+[Get Started](#vue-data-tables)
 
 ![color](#b3daff)

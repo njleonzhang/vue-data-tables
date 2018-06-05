@@ -1,5 +1,7 @@
 # Action Bar
-在 `3.4` 以前的版本里, `vue-data-tables` 提供默认的工具栏，能够快速创建出一些按钮, checkbox、search 等几种用于过滤的组件，但是在实际项目中，我们发现这个默认的工具栏越来越显得鸡肋。因为实际业务对工具栏的要求千差万别, 默认的工具栏基本是用不上的, 而且增加了库本身的复杂性。从版本 `3.4` 开始，默认的工具栏被移除了, 需要使用工具栏, 则可以需要自己实现。
+In the version before `3.4`, `vue-data-tables` provides a default action bar with some filter tools, like checkbox and search. In practice, the action bar is entirely different from project to project, most of the time, the default tool bar is useless. To decrease the complexity of this library, the default action bar is removed from `3.4`. If you need action bar, just implement yourself according to your project requirement.
+
+In the following example, we implement a tool bar, and leverage the [filters](en-us/filter.md) property of `vue-data-tables` to make table filter work.
 
 ```html
 /*vue*/
@@ -16,19 +18,19 @@
         </el-dropdown>
       </el-col>
       <el-col :span="10">
-        <el-select v-model="customFilters[1].value" multiple="multiple">
+        <el-select v-model="filters[1].value"  placeholder='select type' multiple="multiple">
           <el-option label="Repair" value="repair"></el-option>
           <el-option label="Help" value="help"></el-option>
         </el-select>
       </el-col>
       <el-col :span="5" :offset="4">
-        <el-input v-model="customFilters[0].value"/>
+        <el-input v-model="filters[0].value"/>
       </el-col>
     </el-row>
 
     <data-tables
       :data='data'
-      :filters="customFilters">
+      :filters="filters">
       <el-table-column v-for="title in titles"
         :prop="title.prop"
         :label="title.label"
@@ -45,7 +47,7 @@ export default {
     return {
       data,
       titles,
-      customFilters: [{
+      filters: [{
         value: '',
         prop: 'flow_type',
       }, {
@@ -62,7 +64,7 @@ export default {
 </script>
 ```
 
-如果，项目中的工具条有很多工具条，其功能又十分类似，则我们可以把工具条封装成一个组件，比如叫 `tool-bar`, 则上面的代码就可以得到简化:
+If there are lots of similar tool bar in the project, we can consider to encapsulate it as a component. For example, we make `tool-bar` component, then the above code can be simplify to:
 
 ```html
 <template>
@@ -70,7 +72,7 @@ export default {
     <tool-bar v-model='filters'></tool-bar>
     <data-tables
       :data='data'
-      :filters="customFilters">
+      :filters="filters">
       <el-table-column v-for="title in titles"
         :prop="title.prop"
         :label="title.label"
@@ -82,38 +84,22 @@ export default {
 </template>
 
 <script>
-export default {
-  data() {
-    return {
-      data,
-      titles,
-      customFilters: [{
-        value: '',
-        prop: 'flow_type',
-      }, {
-        value: []
-      }]
-    }
-  },
-}
+....
 </script>
 
 ```
 
-# 工具栏插槽
-`vue-data-table` 提供了一个 `tool-bar` 插槽, 允许将工具条作为插槽放在表格内部，并通过 layout 属性来定义排列顺序。
-比如下例中, 我们定义`工具栏`在`分页栏`和`表格`之间。
-
-> 除非需要`工具条`在`分页栏`和`表格`之间，不然用不到这个功能。
+# Slot for action bar
+`vue-data-table` provide a `tool` slot for embedding the tool bar inside. Combined with property `layout`, we can make the action bar show between table and pagination, as in the following example.
 
 ```html
 /*vue*/
 <template>
   <data-tables
     :data='data'
-    :filters="customFilters"
+    :filters="filters"
     layout='pagination, tool, table'>
-    <el-row slot='tool-bar' style="margin: 10px 0">
+    <el-row slot='tool' style="margin: 10px 0">
       <el-col :span="5">
         <el-dropdown @command="handleClick">
           <el-button type="primary">Actions<i class="el-icon-caret-bottom el-icon--right"></i></el-button>
@@ -124,13 +110,13 @@ export default {
         </el-dropdown>
       </el-col>
       <el-col :span="10">
-        <el-select v-model="customFilters[1].value" multiple="multiple">
+        <el-select v-model="filters[1].value" multiple="multiple">
           <el-option label="Repair" value="repair"></el-option>
           <el-option label="Help" value="help"></el-option>
         </el-select>
       </el-col>
       <el-col :span="5" :offset="4">
-        <el-input v-model="customFilters[0].value"/>
+        <el-input v-model="filters[0].value"/>
       </el-col>
     </el-row>
 
@@ -149,7 +135,7 @@ export default {
     return {
       data,
       titles,
-      customFilters: [{
+      filters: [{
         value: '',
         prop: 'flow_type',
       }, {
@@ -159,7 +145,7 @@ export default {
   },
   methods: {
     handleClick(command) {
-      this.$message(`click drapdown button ${command}`)
+      this.$message(`click dropdown button ${command}`)
     }
   }
 }

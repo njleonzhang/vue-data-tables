@@ -168,9 +168,7 @@ Reference example:
     <data-tables-server
       :data='[]'
       :total='100'>
-      <div slot="empty">
-        <div style='color: red'>emptyyyyyyyyyyyyyy</div>
-      </div>
+      <div slot="empty" style='color: red'>emptyyyyyyyyyyyyyy</div>
       <el-table-column v-for="title in titles"
         :prop="title.prop"
         :label="title.label"
@@ -199,7 +197,7 @@ layout accept a `String`, which can be compose of the following 3 elements (join
 * pagination: pagination
 * tool: tool bar, refer to section <a href='/#/actionBar'>Tool bar</a>
 
-The default value is `"table, pagination"`, indicating render `table` and `pagination`, but no `tool bar` by default.
+The default value is `"tool, table, pagination"`, indicating render `tool bar`, `table` and `pagination` in sequence.
 
 example to render `pagination` and `table`:
 
