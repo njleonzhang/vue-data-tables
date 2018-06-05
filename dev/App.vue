@@ -25,7 +25,7 @@
       :page-size.sync="pageSize"
       :table-props="tableProps"
       @query-change="loadData">
-      <el-row slot="tool-bar">
+      <el-row slot="tool">
         <el-col :span="5">
           <el-dropdown>
             <el-button type="primary">更多菜单<i class="el-icon-caret-bottom el-icon--right"></i></el-button>
@@ -55,7 +55,7 @@
       <el-table-column prop="flow_type" label="Type" sortable="custom"></el-table-column>
     </data-tables-server>
     <!-- <data-tables :data="tableData" :tableProps="tableProps" :filters="customFilters">
-      <el-row slot="tool-bar">
+      <el-row slot="tool">
         <el-col :span="5">
           <el-dropdown>
             <el-button type="primary">更多菜单<i class="el-icon-caret-bottom el-icon--right"></i></el-button>

@@ -48,11 +48,11 @@ export default {
   render() {
     let layoutMap = {
       tool: (
-        <template class='tool'>
+        <div class='tool'>
           {
             this.$slots['tool']
           }
-        </template>
+        </div>
       ),
       table: (
         <el-table ref='elTable'
