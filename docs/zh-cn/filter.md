@@ -20,7 +20,7 @@ filterFn 的第一个参数 row 代表列数据，第二个参数 filter 则是�
 
 ## data-tables 的过滤原理
 
-`data-tables` 根据 `filters` 传入的`过滤项`列表中的每一个`过滤项`生成一个 [Array.prototype.filter](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter) 的过滤函数，并逐项调用 [Array.prototype.filter](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter) 来过滤数据, 其逻辑如下:
+`data-tables` 根据 `filters` 传入的`过滤项`列表中的每一个`过滤项`生成一个 [Array.prototype.filter](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/filter) 的过滤函数，并逐项调用 [Array.prototype.filter](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/filter) 来过滤数据, 其逻辑如下:
 
 ![](../_media/filter.svg)
 
@@ -538,7 +538,7 @@ export default {
 ```
 
 ## data-tables-server 的过滤
-与 <a href="/#/zh-cn/sort?id=data-tables-server-的排序">data-tables-server 的排序</a> 类似, 本质上
+与 [data-tables-server 的排序](zh-cn/sort.md?id=data-tables-server-的排序) 类似, 本质上
  `data-tables-server` 也不参与数据的过滤工作. 数据均来自于后台, 过滤也只能发生在后台，`data-tables-server` 只是需要把过滤规则发给后台。
 在过滤条件变化的时，`data-tables-server` 发射一个类型为 `filter` 的 `query-change` 事件，外层组件需要监听该事件，并把向服务器发送请求来获取数据。
 

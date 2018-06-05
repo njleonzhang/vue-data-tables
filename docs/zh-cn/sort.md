@@ -4,7 +4,7 @@
 
 > 注意虽然把 `sortable` 属性为 `true` 也可以工作，但是此时 `vue-data-table` 和内置的 `el-table` 都会对数据进行排序，会影响表格的性能。
 
-我们可以通过 `el-table` 的 `default-sort` 属性来设置默认的排序列和方向。对于 `vue-data-tables` 来说所有的内置 `el-table` 的属性，都可以通过 <a href='/#/zh-cn/basic?id=传递-prop-给内置的-el-table'>table-props</a> 来传递，所以我们可以通过 `:table-props='{ defaultSort: VALUE }'`, 来为  `vue-data-tables` 定义默认排序。
+我们可以通过 `el-table` 的 `default-sort` 属性来设置默认的排序列和方向。对于 `vue-data-tables` 来说所有的内置 `el-table` 的属性，都可以通过 [table-props](zh-cn/basic.md?id=传递-prop-给内置的-el-table) 来传递，所以我们可以通过 `:table-props='{ defaultSort: VALUE }'`, 来为  `vue-data-tables` 定义默认排序。
 
 ```html
 /*vue*/
@@ -54,7 +54,7 @@ export default {
     : 0
 ```
 
-下例中，表格里的数据有3个属性：`flow_no`, `content`, `flow_type`, 对应着表格的3列。此时如果我们对表格的第一列做升序排序，则`data-tables`会对数据以的 `flow_no` 属性的值通过[JavaScript sort()](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/sort)函数，使用上面的默认排序算法进行排序。
+下例中，表格里的数据有3个属性：`flow_no`, `content`, `flow_type`, 对应着表格的3列。此时如果我们对表格的第一列做升序排序，则`data-tables`会对数据以的 `flow_no` 属性的值通过 [Array.prototype.sort](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/sort) 函数，使用上面的默认排序算法进行排序。
 
 ```html
 /*vue*/

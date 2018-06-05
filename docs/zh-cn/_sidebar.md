@@ -6,6 +6,6 @@
   - [动作列](zh-cn/actionCol)
   - [排序](zh-cn/sort)
   - [过滤](zh-cn/filter)
-  - [工具条](zh-cn/actionBar)
+  - [工具栏](zh-cn/actionBar)
   - [分页](zh-cn/pagination)
   - [事件](zh-cn/event)

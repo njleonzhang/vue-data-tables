@@ -1,16 +1,16 @@
 # Basic Usage
 
 ## Render and refresh the Table
-We pass source data to `vue-data-tables` by prop `data`, and define the column by [el-table-column](http://element.eleme.io/#/zh-CN/component/table). The table can show automatically according to `data` and `el-table-column`s.
+We pass source data to `vue-data-tables` by prop `data`, and define the column by [el-table-column](http://element.eleme.io/#/en-US/component/table#table-column-attributes). The table can show automatically according to `data` and `el-table-column`s.
 
-At low level, the prop `data` is passed to the embedded [el-table](http://element.eleme.io/#/zh-CN/component/table) as [el-table](http://element.eleme.io/#/zh-CN/component/table)'s data prop, all `el-table-column`s are also all passed to [el-table](http://element.eleme.io/#/zh-CN/component/table) as default slot. So you can refer to [el-table](http://element.eleme.io/#/zh-CN/component/table) to understand how the table is rendered.
+At low level, the prop `data` is passed to the embedded [el-table](http://element.eleme.io/#/en-US/component/table) as [el-table](http://element.eleme.io/#/en-US/component/table)'s data prop, all `el-table-column`s are also all passed to [el-table](http://element.eleme.io/#/en-US/component/table) as default slot. So you can refer to [el-table](http://element.eleme.io/#/en-US/component/table) to understand how the table is rendered.
 
 1. main feature of `data-table`:
 
   - auto-generate pagination and make it link with table。
     - the `total` value is calculated automatically according to `data` and `filters`。
     - when pagination navigates, render correct element in the table according to `pageSize` and `currentPage`.
-  - handle `sort` and `filter` according to configuration, refer to <a href="/#/sort">Sort</a> and  <a href="/#/sort">Filter</a> for more details.
+  - handle `sort` and `filter` according to configuration, refer to [Sort](en-us/sort.md) and [Filter](en-us/filter.md) for more details.
 <br/>
 
   ** A basic sample: **
@@ -87,7 +87,7 @@ At low level, the prop `data` is passed to the embedded [el-table](http://elemen
 
 # Pass props to the embedded el-table
 
-We can pass [props](http://element.eleme.io/#/zh-CN/component/table#table-attributes) to the embedded `el-table` by `table-props` prop of `vue-data-tables`.
+We can pass [props](http://element.eleme.io/#/en-US/component/table#table-attributes) to the embedded `el-table` by `table-props` prop of `vue-data-tables`.
 
 `table-props` accept a js Object, all props of `el-table` can be passed by this Object. prop of Vue component is generally defined in `kebabCase` style, but we need write these props in a js Object. As you know, writing js Object properties in `kebabCase` style is not convenient because of the `quotation mark`, for example, `{ 'default-sort': VALUE }`. The good news is that `Vue`'s principle allows us to write prop to `camelCase` in this scenario, `{ defaultSort: VALUE }`.
 
@@ -128,7 +128,7 @@ export default {
 ```
 # Slots of el-table
 
-The slots of `el-table`, `empty` and `append`, can be used in `vue-data-tables`, for details of the slots, check the [document](http://element.eleme.io/#/zh-CN/component/table).
+The slots of `el-table`, `empty` and `append`, can be used in `vue-data-tables`, for details of the slots, check the [document](http://element.eleme.io/#/en-US/component/table).
 
 Reference example:
 
@@ -195,8 +195,7 @@ layout accept a `String`, which can be compose of the following 3 elements (join
 
 * table: the table
 * pagination: pagination
-* tool: tool bar, refer to section <a href='/#/actionBar'>Tool bar</a>
-
+* tool: tool bar, refer to section [Tool bar](en-us/actionBar.md)
 The default value is `"tool, table, pagination"`, indicating render `tool bar`, `table` and `pagination` in sequence.
 
 example to render `pagination` and `table`:

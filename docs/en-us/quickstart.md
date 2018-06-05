@@ -11,7 +11,7 @@ yarn install vue-data-tables
 # Import vue-data-tables
 
 ## import element-ui
-As mentioned in the front section, `vue-data-tables` depends on [el-table](http://element.eleme.io/#/zh-CN/component/table), [el-table-column](http://element.eleme.io/#/zh-CN/component/table), [el-button](http://element.eleme.io/#/zh-CN/component/button) and [el-pagination](http://element.eleme.io/#/zh-CN/component/pagination) of [element-ui](http://element.eleme.io/), so we need entirely import `element-ui` or import the 4 components on demand before importing `vue-data-tables`.
+As mentioned in the [front section](/en-us/?id=vue-data-tables), `vue-data-tables` depends on [el-table](http://element.eleme.io/#/en-US/component/table), [el-table-column](http://element.eleme.io/#/en-US/component/table#table-column-attributes), [el-button](http://element.eleme.io/#/en-US/component/button) and [el-pagination](http://element.eleme.io/#/en-US/component/pagination) of [element-ui](http://element.eleme.io/), so we need entirely import `element-ui` or import the 4 components on demand before importing `vue-data-tables`.
 
 ```
 import ElementUI from 'element-ui'

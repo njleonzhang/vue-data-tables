@@ -1,6 +1,6 @@
 # 分页
 
-`vue-data-tables` 的分页栏实际上就是一个内置的 [el-pagination](http://element.eleme.io/#/component/pagination). 我们可以通过 `pagination-props`, `current-page` 和 `page-size` 来对其进行定制。
+`vue-data-tables` 的分页栏实际上就是一个内置的 [el-pagination](http://element.eleme.io/#/zh-CN/component/pagination). 我们可以通过 `pagination-props`, `current-page` 和 `page-size` 来对其进行定制。
 
 * `current-page`: 用于设置当前选中的页面，可以使用 sync 后缀。
 * `page-size`: 用于设置当前的每页面个数，可以使用 sync 后缀。

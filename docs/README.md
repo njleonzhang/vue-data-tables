@@ -1,7 +1,7 @@
 # Documents
 
-* <a href='/#/en-us/'>English</a>
-* <a href='/#/zh-cn/'>中文</a>
+* [English](/en-us/)
+* [中文](/zh-cn/)
 
 # Author
 

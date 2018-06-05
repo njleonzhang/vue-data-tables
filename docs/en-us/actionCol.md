@@ -28,9 +28,9 @@ The value passed to `action-col` should be a `Object`.It's in the following form
 }
 ```
 
-> The 2 `props` in the above definition is used to pass props to  [el-table-column](http://element.eleme.io/#/zh-CN/component/table#table-attributes) and [el-button](http://element.eleme.io/#/zh-CN/component/button#attributes) respectively. Similar to <a href='/#/basic?id=pass-props-to-the-embedded-el-table'>table-props</a>, we suggest write the js property in `camelCase`
+> The 2 `props` in the above definition is used to pass props to  [el-table-column](http://element.eleme.io/#/en-US/component/table#table-column-attributes) and [el-button](http://element.eleme.io/#/en-US/component/button#attributes) respectively. Similar to [table-props](en-us/basic.md?id=pass-props-to-the-embedded-el-table), we suggest write the js property in `camelCase`
 
-In the following example, label of action column is set to `Actionsssssss`; content align of action column is set to `center`; 2 buttons are defined with callback functions; the first button is set to primary type with icon `el-icon-edit`
+In the following example, label of action column is set to `Actionsssssss`; content align of action column is set to `center`; 2 buttons are defined with callback functions; the first button is set to primary type with icon `el-icon-edit`.
 
 ```html
 /*vue*/

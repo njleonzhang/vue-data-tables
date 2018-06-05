@@ -19,7 +19,7 @@
 - Based on element-ui
 
 [GitHub](https://github.com/njleonzhang/vue-data-tables/)
-[English Document](en-us/README.md?id=vue-data-tables)
-[中文文档](zh-cn/README.md?id=vue-data-tables)
+[English Document](/en-us/)
+[中文文档](/zh-cn/)
 
 ![color](#b3daff)

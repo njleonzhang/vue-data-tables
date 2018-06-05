@@ -545,7 +545,7 @@ export default {
 ```
 
 ## Filter of data-tables-server
-Similar to <a href="/#/sort?id=sort-of-data-tables-server">Sort of data-tables-server</a>, `data-tables-server` doesn't take charge the data `filter` either. Only the back-end server have the entire data set, and the `filter` can also be handled by back-end server. What `data-tables-server` need to do is emitting the `filter item`s out when the filter changes, so that the back-end server can sort and return new data according to the condition.
+Similar to [Sort of data-tables-server](en-us/sort.md?id=sort-of-data-tables-server), `data-tables-server` doesn't take charge the data `filter` either. Only the back-end server have the entire data set, and the `filter` can also be handled by back-end server. What `data-tables-server` need to do is emitting the `filter item`s out when the filter changes, so that the back-end server can sort and return new data according to the condition.
 
 When `filter item`s change, `data-tables-server` emits emits a event named `query-change` with type `filter`.
 

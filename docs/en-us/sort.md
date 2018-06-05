@@ -4,7 +4,7 @@
 
 > PS, Setting `sortable` to `true` can also work, but `vue-data-table` and embedded `el-table` both sort the data, which may cause performance downgrade.
 
-`el-table` accepts `default-sort` prop to set default sort column and order. `vue-data-tables` can pass any props to embedded `el-table` by prop <a href='/#/basic?id=pass-props-to-the-embedded-el-table'>table-props</a>, so we can define `vue-data-tables`'s default sort by `:table-props='{ defaultSort: VALUE }'`.
+`el-table` accepts `default-sort` prop to set default sort column and order. `vue-data-tables` can pass any props to embedded `el-table` by prop [table-props](en-us/basic.md?id=pass-props-to-the-embedded-el-table), so we can define `vue-data-tables`'s default sort by `:table-props='{ defaultSort: VALUE }'`.
 
 ```html
 /*vue*/
@@ -44,7 +44,7 @@ export default {
 ```
 
 ## Principle of data-tables' sort
-When a column is selected to sort, `data-tables` sorts the data according the prop of the column with [Array.prototype.sort](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/sort), the default sort function is:
+When a column is selected to sort, `data-tables` sorts the data according the prop of the column with [Array.prototype.sort](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort), the default sort function is:
 
 ```
 (a, b) => a > b
@@ -54,7 +54,7 @@ When a column is selected to sort, `data-tables` sorts the data according the pr
     : 0
 ```
 
-In the following example, the data have 3 properties, `flow_no`, `content` and `flow_type`, corresponding to the 3 column of the table. If we sort the table with 1st column, `data-tables` will sort the table using [Array.prototype.sort](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/sort) with the default sort function and data `row['flow_no']`.
+In the following example, the data have 3 properties, `flow_no`, `content` and `flow_type`, corresponding to the 3 column of the table. If we sort the table with 1st column, `data-tables` will sort the table using [Array.prototype.sort](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort) with the default sort function and data `row['flow_no']`.
 
 ```html
 /*vue*/

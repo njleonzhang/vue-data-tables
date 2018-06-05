@@ -1,7 +1,7 @@
 # 基本用法
 
 ## 渲染数据和刷新表格
-我们通过 `data` 属性 为 `vue-data-tables` 传入数据，并通过[el-table-column](http://element.eleme.io/#/zh-CN/component/table)来定义表格的列。表格的内容会根据 `data` 定义的数据和 `el-table-column` 定义的列来自动呈现。
+我们通过 `data` 属性 为 `vue-data-tables` 传入数据，并通过[el-table-column](http://element.eleme.io/#/zh-CN/component/table#table-column-attributes)来定义表格的列。表格的内容会根据 `data` 定义的数据和 `el-table-column` 定义的列来自动呈现。
 
 实际上，data 属性的值最终传给了内置的 [el-table](http://element.eleme.io/#/zh-CN/component/table) 组件; 所有的 `el-table-column` 也同样的被作为默认插槽传给了内置的 [el-table](http://element.eleme.io/#/zh-CN/component/table) 组件，所以关于如何利用 data 属性和 `el-table-column` 去渲染表格，如果你有疑惑，请完全参照 [el-table](http://element.eleme.io/#/zh-CN/component/table) 的文档。
 
@@ -10,7 +10,7 @@
   - 自动的生成 pagination，并使之与表格联动。
     - pagination上的总数量是自动计算得到的。
     - 翻页的时候，展示的元素也会根据 `pageSize`（每页的数量） 和 `currentPage`（当前页的index）自动生成。
-  - 根据设置来处理排序和过滤，详见相关章节：<a href="/#/zh-CN/sort">排序</a> and  <a href="/#/zh-CN/sort">过滤</a>
+  - 根据设置来处理排序和过滤，详见相关章节：[排序](zh-cn/sort.md) and [过滤](zh-cn/filter.md)。
 <br/>
   ```html
     /*vue*/
@@ -190,7 +190,7 @@ export default {
 layout 传入值是一个 `String`，是一个通过 `,` 隔开的元素组合, `vue-data-tables` 会根据顺序来显示表格的内容。可选的元素对应于 `vue-data-tables` 的3个部分：
 * table 表格
 * pagination 分页栏
-* tool 工具栏, 请参照<a href='/#/zh-cn/actionBar'>工具栏</a>的章节
+* tool 工具栏, 请参照[工具栏](zh-cn/actionBar.md)的章节
 
 其默认值为 `"tool, table, pagination"`, 即依次显示`工具栏`, `表格`和`分页栏`。
 

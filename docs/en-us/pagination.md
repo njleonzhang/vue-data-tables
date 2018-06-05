@@ -1,10 +1,10 @@
 # Pagination
 
-The pagination of `vue-data-tables` is a embedded [el-pagination](http://element.eleme.io/#/component/pagination), `vue-data-tables` provide property `pagination-props`, `current-page` and `page-size` to customize it.
+The pagination of `vue-data-tables` is a embedded [el-pagination](http://element.eleme.io/#/en-US/component/pagination), `vue-data-tables` provide property `pagination-props`, `current-page` and `page-size` to customize it.
 
 * `current-page`: set the current page number, supports the .sync modifier
 * `page-size`: set item count of each page，supports the .sync modifier
-* `pagination-props`: Similar to [table-props](en-us/basic.md?id=pass-props-to-the-embedded-el-table)，used to pass props to the embedded [el-pagination](http://element.eleme.io/#/component/pagination) with a `js` Object
+* `pagination-props`: Similar to [table-props](en-us/basic.md?id=pass-props-to-the-embedded-el-table)，used to pass props to the embedded [el-pagination](http://element.eleme.io/#/en-US/component/pagination) with a `js` Object
 
 In the following example, options of item count per page is set to [1, 2, 3]; item count of each page is set to 1; current page is set to 2; pagination background is also set.
 

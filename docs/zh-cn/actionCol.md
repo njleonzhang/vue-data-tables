@@ -27,7 +27,7 @@
 }
 ```
 
-> 上面的两个 props 分别用于传入 [el-table-column](http://element.eleme.io/#/zh-CN/component/table#table-attributes) 和 [el-button](http://element.eleme.io/#/zh-CN/component/button#attributes) 的属性，与 <a href='/#/zh-cn/basic?id=传递-prop-给内置的-el-table'>table-props</a> 类似，建议使用 camelCase 风格来写书 js 对象的属性。
+> 上面的两个 props 分别用于传入 [el-table-column](http://element.eleme.io/#/zh-CN/component/table#table-column-attributes) 和 [el-button](http://element.eleme.io/#/zh-CN/component/button#attributes) 的属性，与 [table-props](zh-cn/basic.md?id=传递-prop-给内置的-el-table) 类似，建议使用 camelCase 风格来写书 js 对象的属性。
 
 
 下例中，我们设置了动作列的表头(`Actionsssssss`)、列内容的对齐方式(`center`), 并定义了2个按钮(`el-button`)，为它们绑定了点击的回调函数，还为第一个按钮设置了类型(`primary`) 和 图标 (`el-icon-edit`)。
