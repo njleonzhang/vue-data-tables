@@ -1,7 +1,7 @@
 
 export let DELAY = 100
 
-export let tableData = [{
+export let data = [{
   'building': '5',
   'building_group': 'North',
   'cellphone': '13400000000',
@@ -80,7 +80,7 @@ let serverData = []
 for (let i = 0; i < 1000; i++) {
   serverData.push({
     'building': '6',
-    'building_group': 'Sourth',
+    'building_group': 'South',
     'cellphone': '13400000000',
     'content': 'Lock broken',
     'create_time': '2016-10-01 22:25',

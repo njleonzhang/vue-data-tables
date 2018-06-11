@@ -45,7 +45,7 @@ export default {
       }
     }
   },
-  render() {
+  render(h) {
     let layoutMap = {
       tool: (
         this.toolBarShow
