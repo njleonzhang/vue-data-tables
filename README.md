@@ -27,10 +27,10 @@ yarn install
 npm run play
 ```
 
-## Author's projects related to Vue
-* [babel-plugin-vue-jsx-sync](https://github.com/njleonzhang/babel-plugin-vue-jsx-sync) jsx plugin for vue sync modifier
-* [el-form-dialog](https://github.com/njleonzhang/el-form-dialog) A tool to make [el-dialog](http://element.eleme.io/#/en-US/component/dialog) and [el-form](http://element.eleme.io/#/en-US/component/form) work eaiser, especially for creating dialog to support two states, such as `add` and `edit`.
+## My projects related to Vue
 * [element-ui-pro](https://github.com/njleonzhang/element-ui-pro) Boilerplate for element-ui 2.0 management website, simulate [ant design pro](https://github.com/ant-design/ant-design-pro)
+* [el-form-dialog](https://github.com/njleonzhang/el-form-dialog) A tool to make [el-dialog](http://element.eleme.io/#/en-US/component/dialog) and [el-form](http://element.eleme.io/#/en-US/component/form) work eaiser, especially for creating dialog to support two states, such as `add` and `edit`.
+* [babel-plugin-vue-jsx-sync](https://github.com/njleonzhang/babel-plugin-vue-jsx-sync) jsx plugin for vue sync modifier
 * [docsify-demo-box-vue](https://njleonzhang.github.io/docsify-demo-box-vue/#/) A plugin for docsify to write Vue demo with instant preview and jsfiddle integration
 
 ## Buy me a coffee
