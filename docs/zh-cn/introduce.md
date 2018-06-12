@@ -9,7 +9,7 @@
   * 列动作区
 * 分页栏
 
-![](../_media/table parts.png)
+![](../_media/intro-cn.png)
 
 ## 工具栏
 工具栏完全是由用户自定义的，通常情况下`工具栏`都可以是独立于 `vue-data-tables` 之外的, 如果有必要的话，可以通过名为`tool`的[具名插槽](https://cn.vuejs.org/v2/guide/components-slots.html#%E5%85%B7%E5%90%8D%E6%8F%92%E6%A7%BD)将`工具栏`插入 `vue-data-tables` 中。具体内容请参见[工具栏](zh-cn/actionBar.md)章节。

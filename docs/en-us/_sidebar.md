@@ -4,7 +4,7 @@
 - Guide
   - [Basic Usage](/en-us/basic)
   - [Action Column](/en-us/actionCol)
-  - [Action Bar](/en-us/actionBar)
+  - [Tool Bar](/en-us/actionBar)
   - [Sort](/en-us/sort)
   - [Filter](/en-us/filter)
   - [Pagination](/en-us/pagination)

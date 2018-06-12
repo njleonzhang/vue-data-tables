@@ -1,5 +1,5 @@
-# Action Bar
-In the version before `3.4`, `vue-data-tables` provides a default action bar with some filter tools, like checkbox and search. In practice, the action bar is entirely different from project to project, most of the time, the default tool bar is useless. To decrease the complexity of this library, the default action bar is removed from `3.4`. If you need action bar, just implement yourself according to your project requirement.
+# Tool Bar
+In the version before `3.4`, `vue-data-tables` provides a default tool bar with some filter tools, like checkbox and search. In practice, the tool bar is entirely different from project to project, most of the time, the default tool bar is useless. To decrease the complexity of this library, the default tool bar is removed from `3.4`. If you need tool bar, just implement yourself according to your project requirement.
 
 In the following example, we implement a tool bar, and leverage the [filters](en-us/filter.md) property of `vue-data-tables` to make table filter work.
 
@@ -57,7 +57,7 @@ export default {
   },
   methods: {
     handleClick(command) {
-      this.$message(`click drapdown button ${command}`)
+      this.$message(`click dropdown button ${command}`)
     }
   }
 }
@@ -89,8 +89,8 @@ If there are lots of similar tool bar in the project, we can consider to encapsu
 
 ```
 
-# Slot for action bar
-`vue-data-table` provide a `tool` slot for embedding the tool bar inside. Combined with property `layout`, we can make the action bar show between table and pagination, as in the following example.
+# Slot for tool bar
+`vue-data-table` provide a `tool` slot for embedding the tool bar inside. Combined with property `layout`, we can make the tool bar show between table and pagination, as in the following example.
 
 ```html
 /*vue*/

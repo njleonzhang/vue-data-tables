@@ -2,16 +2,16 @@
 
 `vue-data-tables` is compose of the following 3 parts:
 
-* Action Bar
+* Tool Bar
 * Table
   * Content
   * Column action
 * Pagination
 
-![](../_media/table parts.png)
+![](../_media/intro-en.png)
 
-## Action Bar
-Action Bar is entirely created by users. Most of the time, Action Bar can be independent to `vue-data-tables`, but if needed, we can embed it into `vue-data-tables` by a [slot](https://vuejs.org/v2/guide/components-slots.html#Named-Slots) named `tool`. Refer to the [Action Bar](en-us/actionBar.md) section for more details.
+## Tool Bar
+Tool Bar is entirely created by users. Most of the time, Tool Bar can be independent to `vue-data-tables`, but if needed, we can embed it into `vue-data-tables` by a [slot](https://vuejs.org/v2/guide/components-slots.html#Named-Slots) named `tool`. Refer to the [Tool Bar](en-us/actionBar.md) section for more details.
 
 ## Table
 A embedded [el-table](http://element.eleme.io/#/en-US/component/table). If you are not familiar to [el-table](http://element.eleme.io/#/component/table), please read its document。
