@@ -1,5 +1,5 @@
 # Tool Bar
-In the version before `3.4`, `vue-data-tables` provides a default tool bar with some filter tools, like checkbox and search. In practice, the tool bar is entirely different from project to project, most of the time, the default tool bar is useless. To decrease the complexity of this library, the default tool bar is removed from `3.4`. If you need tool bar, just implement yourself according to your project requirement.
+In the version before `3.4`, `vue-data-tables` provides a default tool bar with some filter tools, like checkbox and search. In practice, the tool bar is entirely different from project to project, most of the time, the default tool bar is useless. To decrease the complexity of this library, the default tool bar is removed from version `3.4`. If you need tool bar, just implement yourself according to your project requirement.
 
 In the following example, we implement a tool bar, and leverage the [filters](en-us/filter.md) property of `vue-data-tables` to make table filter work.
 
