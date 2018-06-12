@@ -1,5 +1,10 @@
+## 3.4.0 (2018-6-12)
+* remove the default action bar and encourage use customize action bar.
+* improve render performance with function cache.
+* sync modifier for currentPage and pageSize
+
 ## 3.2.0 (2018-4-10)
-* fix #161 current page doesn't not change after data is filtered. 
+* fix #161 current page doesn't not change after data is filtered.
 * support element-ui 2.3.3
 
 ## 3.1.4 (2018-3-6)
