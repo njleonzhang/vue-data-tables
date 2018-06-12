@@ -38,7 +38,7 @@ module.exports = function(config) {
     },
     client: {
       mocha: {
-        timeout : process.env.timeout || 2000
+        timeout: process.env.timeout || 2000
       }
     }
   })
