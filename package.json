@@ -18,6 +18,7 @@
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
     "start": "npm run dev",
     "unit": "cross-env BABEL_ENV=test karma start test/unit/karma.conf.js --single-run",
+    "tdd": "cross-env BABEL_ENV=test karma start test/unit/karma.conf.js",
     "test": "npm run unit",
     "lint": "eslint --ext .js,.vue src test/unit",
     "build": "node build/build.js",
@@ -30,6 +31,7 @@
     "vue": "^2.5.16"
   },
   "devDependencies": {
+    "@vue/test-utils": "^1.0.0-beta.18",
     "autoprefixer": "^8.3.0",
     "babel-core": "^6.26.3",
     "babel-eslint": "^8.2.1",
