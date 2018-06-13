@@ -21,3 +21,27 @@ export let nextTick = function(vm) {
     })
   })
 }
+
+export let getTable = function(el) {
+  return el.find('.el-table')
+}
+
+export let getHead = function(el) {
+  return el.find('thead')
+}
+
+export let getBody = function(el) {
+  return el.find('tbody')
+}
+
+export let getRows = function(el) {
+  return el.findAll('tr')
+}
+
+export let getTableItems = function(el) {
+  let table = getTable(el)
+  let head = getHead(table)
+  let body = getBody(table)
+  let rows = getRows(body)
+  return { table, head, body, rows }
+}
