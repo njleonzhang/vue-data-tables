@@ -1,10 +1,10 @@
 import { data, titles, http } from '../tools/source'
-import { nextTick, createVue, getTableItems, sleep } from '../tools/utils'
+import { destroyVM, createVue, getTableItems, sleep } from '../tools/utils'
 
 describe('client render table', _ => {
   let wrapper
   afterEach(function() {
-    wrapper.destroy()
+    wrapper && destroyVM(wrapper)
   })
 
   it('should render correct content', async () => {
@@ -22,18 +22,16 @@ describe('client render table', _ => {
       },
     })
 
-    await nextTick(wrapper.vm)
+    await sleep(1000)
 
-    let { table, rows } = getTableItems(wrapper)
-    rows.length.should.equal(3)
+    let { rows } = getTableItems(wrapper)
+    rows.should.have.length(3)
     let firstRow = rows.at(0)
-    let firstItemTds = firstRow.findAll('td').at(0)
-    let secondItemTds = firstRow.findAll('td').at(1)
-    let thirdItemTds = firstRow.findAll('td').at(2)
-    firstItemTds.text().should.equal('FW201601010001')
-    secondItemTds.text().should.equal('Water flood')
-    thirdItemTds.text().should.equal('Repair')
-    table.contains('.el-table__header-wrapper').should.equal(true)
+    let secondRow = rows.at(1)
+    let thirdRow = rows.at(2)
+    firstRow.findAll('td').at(0).should.contain.text('FW201601010001')
+    secondRow.findAll('td').at(1).should.contain.text('Lock broken')
+    thirdRow.findAll('td').at(2).should.contain.text('Help')
   })
 
   // no data render
@@ -51,9 +49,9 @@ describe('client render table', _ => {
         return { titles }
       }
     })
-    await nextTick(wrapper.vm)
+    await sleep(1000)
     let { rows } = getTableItems(wrapper)
-    rows.length.should.equal(0)
+    rows.should.have.length(0)
   })
 
   it('table props', async () => {
@@ -81,15 +79,11 @@ describe('client render table', _ => {
         }
       }
     })
-    await nextTick(wrapper.vm)
+    await sleep(1000)
     let { table, head } = getTableItems(wrapper)
-    table.contains('.el-table--border').should.equal(true)
-    table.contains('.el-table--striped').should.equal(true)
-    head
-      .findAll('th')
-      .at(0)
-      .contains('.descending')
-      .should.equal(true)
+    table.should.have.class('el-table--border')
+    table.should.have.class('el-table--striped')
+    head.findAll('th').at(0).should.have.class('descending')
   })
 })
 
@@ -97,7 +91,7 @@ describe('server table render', _ => {
   let wrapper
 
   afterEach(function() {
-    // wrapper.destroy()
+    wrapper && destroyVM(wrapper)
   })
   it('should render server table correct content', async () => {
     wrapper = createVue({
@@ -132,12 +126,9 @@ describe('server table render', _ => {
     await sleep(1000)
 
     let { rows } = getTableItems(wrapper)
-    rows.length.should.equal(20)
+    rows.should.have.length(20)
     let secondItem = rows.at(1)
     let secondItemTds = secondItem.findAll('td')
-    secondItemTds
-      .at(0)
-      .text()
-      .should.equal('FW201601010001')
+    secondItemTds.at(0).should.have.text('FW201601010001')
   })
 })

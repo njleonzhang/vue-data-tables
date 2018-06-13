@@ -1,11 +1,11 @@
 import { data, titles } from '../tools/source'
-import { createVue, getTableItems, nextTick, sleep } from '../tools/utils'
+import { createVue, destroyVM, getTableItems, sleep } from '../tools/utils'
 
-describe.only('client actionColDef', _ => {
+describe('client actionColDef', _ => {
   let wrapper
   // Action column generator
   afterEach(function() {
-    wrapper.destroy()
+    wrapper && destroyVM(wrapper)
   })
   it('actionCol render', async () => {
     let spy1 = sinon.spy()
@@ -52,35 +52,29 @@ describe.only('client actionColDef', _ => {
           }
         }
       }
-    })
-    await nextTick(wrapper.vm)
+    }, true)
+    await sleep(300)
     let { rows } = getTableItems(wrapper)
     let firstRow = rows.at(0)
     let firstRowTds = firstRow.findAll('td')
-    firstRowTds.length.should.equal(4)
+    firstRowTds.should.have.length(4)
     let fouthItemTds = firstRowTds.at(3)
     let button = fouthItemTds.findAll('button')
-    button.at(0).text().should.equal('Edit')
-    button
-      .at(0)
-      .text()
-      .should.equal('Edit')
-    button.at(0).trigger('click')
+    button.at(0).should.have.text('Edit')
+    button.at(1).should.have.text('delete')
 
+    button.at(0).click()
+    spy1.should.have.been.calledOnce
     await sleep(300)
-
-    // spy1.should.have.been.calledOnce
-
     let newRows = getTableItems(wrapper).rows
     firstRow = newRows.at(0)
     firstRowTds = firstRow.findAll('td').at(0)
-    firstRowTds
-      .text()
-      .should.equal('hello world')
+    firstRowTds.should.have.text('hello world')
 
-    button.at(1).trigger('click')
-    // await sleep(300)
-    // newRows = getTableItems(wrapper).rows
-    // newRows.length.should.equal(2)
+    button.at(1).click()
+    spy2.should.have.been.calledOnce
+    await sleep(300)
+    newRows = getTableItems(wrapper).rows
+    newRows.should.have.length(2)
   })
 })
