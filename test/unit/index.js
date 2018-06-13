@@ -12,6 +12,8 @@ Vue.use(DataTablesServer)
 chai.should() // Using Should style
 chai.use(sinonChai)
 
+const isHeadlessChrome = /\bHeadlessChrome\//.test(navigator.userAgent)
+Vue.config.devtools = !isHeadlessChrome
 Vue.config.productionTip = false
 
 // require all test files (files that ends with .spec.js)
