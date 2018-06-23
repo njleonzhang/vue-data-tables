@@ -2,16 +2,16 @@ import { data, titles } from '../tools/source'
 import { createVue, destroyVM, getTableItems, sleep } from '../tools/utils'
 
 describe('client actionColDef', _ => {
-  let wrapper
+  let vm
   // Action column generator
   afterEach(function() {
-    wrapper && destroyVM(wrapper)
+    vm && destroyVM(vm)
   })
   it('actionCol render', async () => {
     let spy1 = sinon.spy()
     let spy2 = sinon.spy()
 
-    wrapper = createVue({
+    vm = createVue({
       template: `
         <data-tables :data="data" :action-col="actionCol">
           <el-table-column v-for="title in titles" :prop="title.prop" :label="title.label" :key="title.prop">
@@ -54,19 +54,19 @@ describe('client actionColDef', _ => {
       }
     }, true)
     await sleep(300)
-    let { rows } = getTableItems(wrapper)
+    let { rows } = getTableItems(vm)
     let firstRow = rows.at(0)
     let firstRowTds = firstRow.findAll('td')
     firstRowTds.should.have.length(4)
-    let fouthItemTds = firstRowTds.at(3)
-    let button = fouthItemTds.findAll('button')
+    let forthItemTd = firstRowTds.at(3)
+    let button = forthItemTd.findAll('button')
     button.at(0).should.have.text('Edit')
     button.at(1).should.have.text('delete')
 
     button.at(0).click()
     spy1.should.have.been.calledOnce
     await sleep(300)
-    let newRows = getTableItems(wrapper).rows
+    let newRows = getTableItems(vm).rows
     firstRow = newRows.at(0)
     firstRowTds = firstRow.findAll('td').at(0)
     firstRowTds.should.have.text('hello world')
@@ -74,7 +74,7 @@ describe('client actionColDef', _ => {
     button.at(1).click()
     spy2.should.have.been.calledOnce
     await sleep(300)
-    newRows = getTableItems(wrapper).rows
+    newRows = getTableItems(vm).rows
     newRows.should.have.length(2)
   })
 })

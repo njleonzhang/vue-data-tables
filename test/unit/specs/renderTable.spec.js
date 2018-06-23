@@ -2,13 +2,13 @@ import { data, titles, http } from '../tools/source'
 import { destroyVM, createVue, getTableItems, sleep } from '../tools/utils'
 
 describe('client render table', _ => {
-  let wrapper
+  let vm
   afterEach(function() {
-    wrapper && destroyVM(wrapper)
+    vm && destroyVM(vm)
   })
 
   it('should render correct content', async () => {
-    wrapper = createVue({
+    vm = createVue({
       template: `
         <data-tables :data='data'>
           <el-table-column v-for='title in titles'
@@ -24,7 +24,7 @@ describe('client render table', _ => {
 
     await sleep(1000)
 
-    let { rows } = getTableItems(wrapper)
+    let { rows } = getTableItems(vm)
     rows.should.have.length(3)
     let firstRow = rows.at(0)
     let secondRow = rows.at(1)
@@ -36,7 +36,7 @@ describe('client render table', _ => {
 
   // no data render
   it('no data', async () => {
-    wrapper = createVue({
+    vm = createVue({
       template: `
         <data-tables>
           <el-table-column v-for="title in titles"
@@ -50,12 +50,12 @@ describe('client render table', _ => {
       }
     })
     await sleep(1000)
-    let { rows } = getTableItems(wrapper)
+    let { rows } = getTableItems(vm)
     rows.should.have.length(0)
   })
 
   it('table props', async () => {
-    wrapper = createVue({
+    vm = createVue({
       template: `
         <data-tables :data='data' :table-props='tableProps'>
           <el-table-column v-for="title in titles"
@@ -80,7 +80,7 @@ describe('client render table', _ => {
       }
     })
     await sleep(1000)
-    let { table, head } = getTableItems(wrapper)
+    let { table, head } = getTableItems(vm)
     table.should.have.class('el-table--border')
     table.should.have.class('el-table--striped')
     head.findAll('th').at(0).should.have.class('descending')
@@ -88,13 +88,13 @@ describe('client render table', _ => {
 })
 
 describe('server table render', _ => {
-  let wrapper
+  let vm
 
   afterEach(function() {
-    wrapper && destroyVM(wrapper)
+    vm && destroyVM(vm)
   })
   it('should render server table correct content', async () => {
-    wrapper = createVue({
+    vm = createVue({
       template: `
         <data-tables-server
           ref='server' 
@@ -125,7 +125,7 @@ describe('server table render', _ => {
     })
     await sleep(1000)
 
-    let { rows } = getTableItems(wrapper)
+    let { rows } = getTableItems(vm)
     rows.should.have.length(20)
     let secondItem = rows.at(1)
     let secondItemTds = secondItem.findAll('td')
