@@ -16,8 +16,8 @@ let actionColRender = async function(vm, spy1, spy2) {
   await sleep(300)
   let newRows = getTableItems(vm).rows
   firstRow = newRows.at(0)
-  firstRowTds = firstRow.findAll('td').at(0)
-  firstRowTds.should.have.text('hello world')
+  firstRowTds = firstRow.findAll('td')
+  firstRowTds.at(0).should.have.text('hello world')
 
   button.at(1).click()
   spy2.should.have.been.calledOnce
@@ -173,7 +173,7 @@ describe('server actionColDef', _ => {
         <data-tables-server
           ref='server'
           :data="data"
-           :loading="loading"
+          :loading="loading"
           :total="total"
           @query-change="loadData"
         >

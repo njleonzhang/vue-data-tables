@@ -2,22 +2,26 @@
 export let DELAY = 100
 
 export let data = function() {
-  return [{
-    'content': 'Water flood',
-    'flow_no': 'FW201601010001',
-    'flow_type': 'Repair',
-    'flow_type_code': 'repair',
-  }, {
-    'content': 'Lock broken',
-    'flow_no': 'FW201601010002',
-    'flow_type': 'Repair',
-    'flow_type_code': 'repair',
-  }, {
-    'content': 'Help to buy some drinks',
-    'flow_no': 'FW201601010003',
-    'flow_type': 'Help',
-    'flow_type_code': 'help'
-  }]
+  return [
+    {
+      'content': 'Water flood',
+      'flow_no': 'FW201601010001',
+      'flow_type': 'Repair',
+      'flow_type_code': 'repair'
+    },
+    {
+      'content': 'Lock broken',
+      'flow_no': 'FW201601010002',
+      'flow_type': 'Repair',
+      'flow_type_code': 'repair'
+    },
+    {
+      'content': 'Help to buy some drinks',
+      'flow_no': 'FW201601010003',
+      'flow_type': 'Help',
+      'flow_type_code': 'help'
+    }
+  ]
 }
 
 export
