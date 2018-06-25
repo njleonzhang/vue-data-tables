@@ -13,6 +13,7 @@ let actionColRender = async function(vm, spy1, spy2) {
 
   button.at(0).click()
   spy1.should.have.been.calledOnce
+
   await sleep(300)
   let newRows = getTableItems(vm).rows
   firstRow = newRows.at(0)
@@ -91,9 +92,9 @@ describe('client actionColDef', _ => {
 describe('server actionColDef', _ => {
   let vm
   afterEach(function() {
-    // vm && destroyVM(vm)
+    vm && destroyVM(vm)
   })
-  it('actionCol render', async () => {
+  it.only('actionCol render', async () => {
     let spy1 = sinon.spy()
     let spy2 = sinon.spy()
 

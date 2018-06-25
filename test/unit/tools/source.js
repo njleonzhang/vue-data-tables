@@ -54,17 +54,51 @@ sortInfo: this.sortData,
 filters: this.filters
 */
 
-export let mockServer = function(res, time = 200) {
-  return new Promise((resolve) => {
-    setTimeout(_ => {
-      resolve({
-        data: serverData.slice((res.page - 1) * res.pageSize, res.page * res.pageSize),
-        req: res,
-        ts: new Date(),
-        total: 1000
+export let mockServer = function(res) {
+  let datas = serverData.slice()
+  let allKeys = Object.keys(data()[0])
+
+  // do filter
+  res && res.filters && res.filters.forEach(filter => {
+    datas = datas.filter(data => {
+      let props = (filter.search_prop && [].concat(filter.search_prop)) || allKeys
+      return props.some(prop => {
+        if (!filter.value || filter.value.length === 0) {
+          return true
+        }
+        return [].concat(filter.value).some(val => {
+          return data[prop].toString().toLowerCase().indexOf(val.toLowerCase()) > -1
+        })
       })
-    }, time)
+    })
   })
+
+  // do sort
+  if (res.sort && res.sort.order) {
+    let order = res.sort.order
+    let prop = res.sort.prop
+    let isDescending = order === 'descending'
+
+    datas.sort(function(a, b) {
+      if (a[prop] > b[prop]) {
+        return 1
+      } else if (a[prop] < b[prop]) {
+        return -1
+      } else {
+        return 0
+      }
+    })
+    if (isDescending) {
+      datas.reverse()
+    }
+  }
+
+  return {
+    data: datas.slice((res.page - 1) * res.pageSize, res.page * res.pageSize),
+    req: res,
+    ts: new Date(),
+    total: datas.length
+  }
 }
 
 export let mockServerError = function(res, time = 200) {
