@@ -1,6 +1,18 @@
 import { data, titles, http } from '../tools/source'
 import { destroyVM, createVue, getTableItems, sleep } from '../tools/utils'
 
+let renderTableProps = function(vm) {
+  let { table, head } = getTableItems(vm)
+  table.should.have.class('el-table--border')
+  table.should.have.class('el-table--striped')
+  head.findAll('th').at(0).should.have.class('descending')
+}
+
+let renderEmptyTable = function(vm) {
+  let { rows } = getTableItems(vm)
+  rows.should.have.length(0)
+}
+
 describe('client render table', _ => {
   let vm
   afterEach(function() {
@@ -20,7 +32,7 @@ describe('client render table', _ => {
       data() {
         return { data: data(), titles }
       },
-    })
+    }, true)
 
     await sleep(1000)
 
@@ -50,9 +62,8 @@ describe('client render table', _ => {
       }
     })
     await sleep(1000)
-    let { rows } = getTableItems(vm)
-    rows.should.have.length(0)
-  })
+    renderEmptyTable(vm)
+  }, true)
 
   it('table props', async () => {
     vm = createVue({
@@ -80,10 +91,7 @@ describe('client render table', _ => {
       }
     })
     await sleep(1000)
-    let { table, head } = getTableItems(vm)
-    table.should.have.class('el-table--border')
-    table.should.have.class('el-table--striped')
-    head.findAll('th').at(0).should.have.class('descending')
+    renderTableProps(vm)
   })
 })
 
@@ -97,16 +105,16 @@ describe('server table render', _ => {
     vm = createVue({
       template: `
         <data-tables-server
-          ref='server' 
-          :data="data" 
+          ref='server'
+          :data="data"
            :loading="loading"
-          :total="total" 
+          :total="total"
           @query-change="loadData"
         >
-          <el-table-column v-for="title in titles" 
-            :prop="title.prop" 
-            :label="title.label" 
-            :key="title.label"> 
+          <el-table-column v-for="title in titles"
+            :prop="title.prop"
+            :label="title.label"
+            :key="title.label">
           </el-table-column>
         </data-tables-server>
         `,
@@ -122,7 +130,7 @@ describe('server table render', _ => {
           this.loading = false
         }
       }
-    })
+    }, true)
     await sleep(1000)
 
     let { rows } = getTableItems(vm)
@@ -130,5 +138,54 @@ describe('server table render', _ => {
     let secondItem = rows.at(1)
     let secondItemTds = secondItem.findAll('td')
     secondItemTds.at(0).should.have.text('FW201601010001')
+  })
+
+  it('no data', async () => {
+    vm = createVue({
+      template: `
+        <data-tables-server>
+          <el-table-column v-for="title in titles"
+            :prop="title.prop"
+            :label="title.label"
+            :key="title.prop" sortable="custom"/>
+        </data-tables-server>
+      `,
+      data() {
+        return {
+          titles
+        }
+      },
+    }, true)
+    await sleep(1000)
+    renderEmptyTable(vm)
+  })
+
+  it('table props', async () => {
+    vm = createVue({
+      template: `
+        <data-tables-server :data='data' :table-props='tableProps'>
+          <el-table-column v-for="title in titles"
+            :prop="title.prop"
+            :label="title.label"
+            :key="title.prop" sortable="custom"/>
+        </data-tables-server>
+      `,
+      data() {
+        return {
+          data: data(),
+          titles,
+          tableProps: {
+            border: true,
+            stripe: true,
+            defaultSort: {
+              prop: 'flow_no',
+              order: 'descending'
+            }
+          }
+        }
+      }
+    })
+    await sleep(1000)
+    renderTableProps(vm)
   })
 })
