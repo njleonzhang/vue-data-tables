@@ -37,11 +37,11 @@ locale.use(lang)
 
 ### 引入打包之后的 vue-data-tables (推荐, 简单)
 ```js
-// 分别导入 DataTables 和 DataTableServer
-import { DataTables, DataTableServer } from 'vue-data-tables'
+// 分别导入 DataTables 和 DataTablesServer
+import { DataTables, DataTablesServer } from 'vue-data-tables'
 Vue.use(DataTables)
 
-// 同时使用 DataTables 和 DataTableServer
+// 同时使用 DataTables 和 DataTablesServer
 import VueDataTables from 'vue-data-tables'
 Vue.use(VueDataTables)
 ```
