@@ -115,7 +115,7 @@ describe('client sort table render', _ => {
 describe('server sort table render', _ => {
   let vm
   afterEach(function() {
-    // vm && destroyVM(vm)
+    vm && destroyVM(vm)
   })
 
   it('server sort table render', async () => {

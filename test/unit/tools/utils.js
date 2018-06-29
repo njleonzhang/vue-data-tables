@@ -77,3 +77,9 @@ export let simulateEvent = (inputElm, text, event) => {
   inputElm.value = text
   inputElm.dispatchEvent(new Event(event))
 }
+export let triggerKeyDown = function(el, keyCode) {
+  const evt = document.createEvent('Events')
+  evt.initEvent('keydown', true, true)
+  evt.keyCode = keyCode
+  el.dispatchEvent(evt)
+}

@@ -1,7 +1,7 @@
-import { data, titles, http } from '../tools/source'
+import { titles, http } from '../tools/source'
 import { destroyVM, createVue, getTableItems, nextTick, simulateEvent, sleep } from '../tools/utils'
 
-describe('client checkedFilters', _ => {
+describe('client checkFilters', _ => {
   let vm
   afterEach(function() {
     vm && destroyVM(vm)
@@ -435,12 +435,13 @@ describe('client checkedFilters', _ => {
   })
 })
 
-describe('server checkFilter', _ => {
+describe.only('server checkFilter', _ => {
   let vm
   afterEach(function() {
-    // vm && destroyVM(vm)
+    vm && destroyVM(vm)
   })
-  it.only('data-tables-server filter', async () => {
+
+  it('data-tables-server filter', async () => {
     vm = createVue({
       template: `
         <data-tables-server
@@ -468,7 +469,7 @@ describe('server checkFilter', _ => {
           filters: [
             {
               value: '',
-              'search_prop': 'flow_no' // define search_prop for backend usage.
+              'search_prop': 'flow_no'
             }
           ]
         }

@@ -163,7 +163,7 @@ describe('server actionColDef', _ => {
     await sleep(1000)
     await actionColRender(vm, spy1, spy2)
   })
-  it('custom actionCol render', async () => {
+  it.only('custom actionCol render', async () => {
     let spy1 = sinon.spy()
     let spy2 = sinon.spy()
     let spy3 = sinon.spy()
@@ -236,7 +236,7 @@ describe('server actionColDef', _ => {
         }
       }
     }, true)
-    await sleep(1500)
+    await sleep(1000)
     let { rows } = getTableItems(vm)
     let firstRow = rows.at(0)
     let firstRowTds = firstRow.findAll('td')
@@ -260,7 +260,7 @@ describe('server actionColDef', _ => {
     firstButtons.at(1).click()
     spy1.should.have.been.calledOnce
     spy2.should.have.been.calledOnce
-    await sleep(300)
+    await sleep(800)
     let newRows = getTableItems(vm).rows
     let newFirstRow = newRows.at(0)
     let newFirstRowTds = newFirstRow.findAll('td')
@@ -268,7 +268,7 @@ describe('server actionColDef', _ => {
     newFirstRowTds.at(1).should.have.text('content changed')
 
     secondButton.at(0).click()
-    await sleep(300)
+    await sleep(800)
     spy3.should.have.been.calledOnce
     newRows = getTableItems(vm).rows
     let newSecondRow = newRows.at(0)
