@@ -11,7 +11,6 @@ let actionColRender = async function(vm, spy1, spy2) {
   button.at(0).should.have.text('Edit')
   button.at(1).should.have.text('delete')
 
-  console.log(123)
   button.at(0).click()
   spy1.should.have.been.calledOnce
 

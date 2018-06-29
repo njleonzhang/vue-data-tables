@@ -147,11 +147,22 @@ describe('server sort table render', _ => {
         async loadData(queryInfo) {
           queryInfo.type === 'sort' && this.$message(`prop: ${queryInfo.sort.prop}, order: ${queryInfo.sort.order}`)
           let { data, total } = await http(queryInfo)
-          console.log(queryInfo)
           this.data = data
           this.total = total
         }
       }
     }, true)
+    await sleep(1000)
+    let { head } = getTableItems(vm)
+    let th = head.find('tr').findAll('th')
+    th.at(0).click()
+    await sleep(500)
+    let newRows = getTableItems(vm).rows
+    let firstRow = newRows.at(0)
+    firstRow.findAll('td').at(0).should.contain.text('FW201601010000')
+    firstRow.findAll('td').at(1).should.contain.text('Lock broken0')
+    let thirdRow = newRows.at(2)
+    thirdRow.findAll('td').at(0).should.contain.text('FW2016010100010')
+    thirdRow.findAll('td').at(1).should.contain.text('Lock broken10')
   })
 })
