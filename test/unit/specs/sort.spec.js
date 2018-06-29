@@ -118,7 +118,7 @@ describe('server sort table render', _ => {
     // vm && destroyVM(vm)
   })
 
-  it.only('server sort table render', async () => {
+  it('server sort table render', async () => {
     vm = createVue({
       template: `
         <data-tables-server

@@ -72,3 +72,8 @@ export let getTableItems = function(el) {
   let rows = getRows(body)
   return { table, head, body, rows }
 }
+
+export let simulateEvent = (inputElm, text, event) => {
+  inputElm.value = text
+  inputElm.dispatchEvent(new Event(event))
+}

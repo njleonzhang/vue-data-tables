@@ -1,12 +1,8 @@
 import { data, titles } from '../tools/source'
-import { destroyVM, createVue, getTableItems, nextTick } from '../tools/utils'
+import { destroyVM, createVue, getTableItems, nextTick, simulateEvent } from '../tools/utils'
 
 describe('client actionBar render', _ => {
   let vm
-  let simulateEvent = (inputElm, text, event) => {
-    inputElm.at(1).value = text
-    inputElm.at(1).dispatchEvent(new Event(event))
-  }
   afterEach(function() {
     vm && destroyVM(vm)
   })
@@ -68,13 +64,13 @@ describe('client actionBar render', _ => {
     await nextTick(vm)
     let tool = vm.$el.find('.tool')
     let selectOptions = tool.findAll('.el-select-dropdown__item')
-    selectOptions.at(0).click()
 
+    selectOptions.at(0).click()
     await nextTick(vm)
     let { rows } = getTableItems(vm)
     rows.should.have.length(2)
-    selectOptions.at(1).click()
 
+    selectOptions.at(1).click()
     await nextTick(vm)
     let newRows = getTableItems(vm).rows
     newRows.should.have.length(3)
@@ -83,15 +79,14 @@ describe('client actionBar render', _ => {
     dropdownMenuItems.at(0).click()
     await nextTick(vm)
     spy1.should.have.been.calledOnce
-    dropdownMenuItems.at(1).click()
 
+    dropdownMenuItems.at(1).click()
     await nextTick(vm)
     spy1.should.have.have.callCount(2)
 
     let inputElm = tool.findAll('input')
-    simulateEvent(inputElm, 'Help', 'input')
+    simulateEvent(inputElm.at(1), 'Help', 'input')
     await nextTick(vm)
-
     newRows = getTableItems(vm).rows
     newRows.should.have.length(1)
     let firstRow = newRows.at(0)

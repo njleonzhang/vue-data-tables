@@ -13,7 +13,6 @@ let actionColRender = async function(vm, spy1, spy2) {
 
   button.at(0).click()
   spy1.should.have.been.calledOnce
-
   await nextTick(vm)
   let newRows = getTableItems(vm).rows
   firstRow = newRows.at(0)
