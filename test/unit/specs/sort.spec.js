@@ -1,7 +1,7 @@
 import { data, titles, http } from '../tools/source'
 import { destroyVM, createVue, getTableItems, sleep, nextTick } from '../tools/utils'
 
-describe('client render table', _ => {
+describe('client sort table render', _ => {
   let vm
   afterEach(function() {
     vm && destroyVM(vm)
@@ -31,20 +31,20 @@ describe('client render table', _ => {
         }
       },
     }, true)
-    await sleep(300)
+    await nextTick(vm)
     let { head } = getTableItems(vm)
     let th = head.find('tr').findAll('th')
     for (let i = 0; i < 2; i++) {
       th.at(0).click()
     }
-    await sleep(300)
+    await nextTick(vm)
     let newRows = getTableItems(vm).rows
     let firstRow = newRows.at(0)
     firstRow.findAll('td').at(0).should.contain.text('FW201601010003')
     for (let i = 0; i < 2; i++) {
       th.at(0).click()
     }
-    await sleep(300)
+    await nextTick(vm)
     newRows = getTableItems(vm).rows
     firstRow = newRows.at(0)
     firstRow.findAll('td').at(2).should.contain.text('Repair')
@@ -109,5 +109,49 @@ describe('client render table', _ => {
     let newRows = getTableItems(vm).rows
     firstRow = newRows.at(0)
     firstRow.findAll('td').at(1).should.contain.text('张小虎')
+  })
+})
+
+describe('server sort table render', _ => {
+  let vm
+  afterEach(function() {
+    // vm && destroyVM(vm)
+  })
+
+  it.only('server sort table render', async () => {
+    vm = createVue({
+      template: `
+        <data-tables-server
+          ref='server'
+          :data="data"
+          :loading="loading"
+          :total="total"
+          @query-change="loadData">
+          <el-table-column v-for="title in titles"
+            :prop="title.prop"
+            :label="title.label"
+            :key="title.label"
+            sortable="custom">
+          </el-table-column>
+        </data-tables-server>
+        `,
+      data() {
+        return {
+          data: [],
+          titles,
+          total: 0,
+          loading: false,
+        }
+      },
+      methods: {
+        async loadData(queryInfo) {
+          queryInfo.type === 'sort' && this.$message(`prop: ${queryInfo.sort.prop}, order: ${queryInfo.sort.order}`)
+          let { data, total } = await http(queryInfo)
+          console.log(queryInfo)
+          this.data = data
+          this.total = total
+        }
+      }
+    }, true)
   })
 })

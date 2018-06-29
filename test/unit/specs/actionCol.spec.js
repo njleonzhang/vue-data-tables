@@ -1,5 +1,5 @@
 import { data, titles, http } from '../tools/source'
-import { createVue, destroyVM, getTableItems, sleep } from '../tools/utils'
+import { createVue, destroyVM, getTableItems, sleep, nextTick } from '../tools/utils'
 
 let actionColRender = async function(vm, spy1, spy2) {
   let { rows } = getTableItems(vm)
@@ -11,10 +11,11 @@ let actionColRender = async function(vm, spy1, spy2) {
   button.at(0).should.have.text('Edit')
   button.at(1).should.have.text('delete')
 
+  console.log(123)
   button.at(0).click()
   spy1.should.have.been.calledOnce
 
-  await sleep(300)
+  await nextTick(vm)
   let newRows = getTableItems(vm).rows
   firstRow = newRows.at(0)
   firstRowTds = firstRow.findAll('td')
@@ -22,7 +23,7 @@ let actionColRender = async function(vm, spy1, spy2) {
 
   button.at(1).click()
   spy2.should.have.been.calledOnce
-  await sleep(300)
+  await nextTick(vm)
   newRows = getTableItems(vm).rows
   newRows.should.have.length(rows.length - 1)
 }
@@ -94,7 +95,7 @@ describe('server actionColDef', _ => {
   afterEach(function() {
     vm && destroyVM(vm)
   })
-  it.only('actionCol render', async () => {
+  it('actionCol render', async () => {
     let spy1 = sinon.spy()
     let spy2 = sinon.spy()
 
@@ -162,7 +163,7 @@ describe('server actionColDef', _ => {
       }
     }, true)
     await sleep(1000)
-    actionColRender(vm, spy1, spy2)
+    await actionColRender(vm, spy1, spy2)
   })
   it('custom actionCol render', async () => {
     let spy1 = sinon.spy()
