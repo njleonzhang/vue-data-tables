@@ -37,13 +37,13 @@ locale.use(lang)
 ### import bundled vue-data-tables (recommended and straightforward)
 ```js
 // import DataTables and DataTableServer separately
-import { DataTables, DataTablesServer } from 'vue-data-tables';
-Vue.use(DataTables);
-Vue.use(DataTablesServer);
+import { DataTables, DataTablesServer } from 'vue-data-tables'
+Vue.use(DataTables)
+Vue.use(DataTablesServer)
 
 // import DataTables and DataTableServer together
-import VueDataTables from 'vue-data-tables';
-Vue.use(VueDataTables);
+import VueDataTables from 'vue-data-tables'
+Vue.use(VueDataTables)
 ```
 
 ## import vue-data-tables source code
@@ -74,7 +74,7 @@ You can import the source code of this lib to decrease the code size, if you rea
 * revise the `import`
 
 ```
-import { DataTables, DataTablesServer } from 'vue-data-tables/src/index.js';
+import { DataTables, DataTablesServer } from 'vue-data-tables/src/index.js'
 ```
 
 # Hello world
