@@ -435,7 +435,7 @@ describe('client checkFilters', _ => {
   })
 })
 
-describe.only('server checkFilter', _ => {
+describe('server checkFilter', _ => {
   let vm
   afterEach(function() {
     vm && destroyVM(vm)

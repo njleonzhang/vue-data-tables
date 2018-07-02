@@ -163,7 +163,8 @@ describe('server actionColDef', _ => {
     await sleep(1000)
     await actionColRender(vm, spy1, spy2)
   })
-  it.only('custom actionCol render', async () => {
+
+  it('custom actionCol render', async () => {
     let spy1 = sinon.spy()
     let spy2 = sinon.spy()
     let spy3 = sinon.spy()
