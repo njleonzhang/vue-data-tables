@@ -24,6 +24,8 @@ let actionColRender = async function(vm, spy1, spy2) {
   await nextTick(vm)
   newRows = getTableItems(vm).rows
   newRows.should.have.length(rows.length - 1)
+  destroyVM(vm)
+  await nextTick(vm)
 }
 
 describe('client actionColDef', _ => {
@@ -87,7 +89,6 @@ describe('client actionColDef', _ => {
     actionColRender(vm, spy1, spy2)
   })
 })
-
 describe('server actionColDef', _ => {
   let vm
   afterEach(function() {

@@ -11,7 +11,7 @@ let getPaginationItems = function(vm) {
   }
 }
 
-describe.skip('client pagination render', _ => {
+describe('client pagination render', _ => {
   let vm
   afterEach(function() {
     vm && destroyVM(vm)
@@ -63,7 +63,7 @@ describe.skip('client pagination render', _ => {
     currentRows.should.have.length(3)
   })
 })
-describe.skip('server pagination render', _ => {
+describe('server pagination render', _ => {
   let vm
   afterEach(function() {
     vm && destroyVM(vm)

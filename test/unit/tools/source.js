@@ -36,15 +36,17 @@ let titles = [{
   label: 'Type'
 }]
 
-let serverData = []
-
-for (let i = 0; i < 1000; i++) {
-  serverData.push({
-    content: 'Lock broken' + i,
-    flow_no: 'FW20160101000' + i,
-    flow_type: i % 2 === 0 ? 'Repair' : 'Help',
-    flow_type_code: i % 2 === 0 ? 'repair' : 'help'
-  })
+let serverData = () => {
+  let serverData = []
+  for (let i = 0; i < 1000; i++) {
+    serverData.push({
+      content: 'Lock broken' + i,
+      flow_no: 'FW20160101000' + i,
+      flow_type: i % 2 === 0 ? 'Repair' : 'Help',
+      flow_type_code: i % 2 === 0 ? 'repair' : 'help'
+    })
+  }
+  return serverData
 }
 
 /*
@@ -55,7 +57,8 @@ filters: this.filters
 */
 
 export let mockServer = function(res) {
-  let datas = serverData.slice()
+  let datas = serverData().slice()
+  // let [...datas] = serverData()
   let allKeys = Object.keys(data()[0])
 
   // do filter

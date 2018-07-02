@@ -57,7 +57,7 @@ describe('client actionBar render', _ => {
       methods: {
         handleClick(command) {
           spy1()
-          console.log(command)
+          this.$message(`click dropdown button ${command}`)
         }
       }
     }, true)

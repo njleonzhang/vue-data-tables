@@ -482,7 +482,7 @@ describe('server checkFilter', _ => {
         }
       }
     }, true)
-    await sleep(1000)
+    await sleep(1500)
     let tool = vm.$el.find('.tool')
     let inputElm = tool.findAll('input')
 
