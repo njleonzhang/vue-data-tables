@@ -72,8 +72,8 @@ describe('client actionBar render', _ => {
 
     selectOptions.at(1).click()
     await nextTick(vm)
-    let newRows = getTableItems(vm).rows
-    newRows.should.have.length(3)
+    let currentRows = getTableItems(vm).rows
+    currentRows.should.have.length(3)
 
     let dropdownMenuItems = tool.findAll('.el-dropdown-menu__item')
     dropdownMenuItems.at(0).click()
@@ -87,10 +87,10 @@ describe('client actionBar render', _ => {
     let inputElm = tool.findAll('input')
     simulateEvent(inputElm.at(1), 'Help', 'input')
     await nextTick(vm)
-    newRows = getTableItems(vm).rows
-    newRows.should.have.length(1)
-    let firstRow = newRows.at(0)
-    let firstRowTds = firstRow.findAll('td')
-    firstRowTds.at(2).should.have.text('Help')
+    currentRows = getTableItems(vm).rows
+    currentRows.should.have.length(1)
+    let currentFirstRow = currentRows.at(0)
+    let currentFirstRowTds = currentFirstRow.findAll('td')
+    currentFirstRowTds.at(2).should.have.text('Help')
   })
 })

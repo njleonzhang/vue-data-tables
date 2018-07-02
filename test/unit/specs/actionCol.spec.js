@@ -14,16 +14,16 @@ let actionColRender = async function(vm, spy1, spy2) {
   button.at(0).click()
   spy1.should.have.been.calledOnce
   await nextTick(vm)
-  let newRows = getTableItems(vm).rows
-  firstRow = newRows.at(0)
-  firstRowTds = firstRow.findAll('td')
-  firstRowTds.at(0).should.have.text('hello world')
+  let currentRows = getTableItems(vm).rows
+  let currentFirstRow = currentRows.at(0)
+  let currentFirstRowTds = currentFirstRow.findAll('td')
+  currentFirstRowTds.at(0).should.have.text('hello world')
 
   button.at(1).click()
   spy2.should.have.been.calledOnce
   await nextTick(vm)
-  newRows = getTableItems(vm).rows
-  newRows.should.have.length(rows.length - 1)
+  currentRows = getTableItems(vm).rows
+  currentRows.should.have.length(rows.length - 1)
   destroyVM(vm)
   await nextTick(vm)
 }
@@ -262,19 +262,19 @@ describe('server actionColDef', _ => {
     firstButtons.at(1).click()
     spy1.should.have.been.calledOnce
     spy2.should.have.been.calledOnce
-    await sleep(800)
-    let newRows = getTableItems(vm).rows
-    let newFirstRow = newRows.at(0)
-    let newFirstRowTds = newFirstRow.findAll('td')
-    newFirstRowTds.at(0).should.have.text('Number changed')
-    newFirstRowTds.at(1).should.have.text('content changed')
+    await sleep(1000)
+    let currentRows = getTableItems(vm).rows
+    let currentFirstRow = currentRows.at(0)
+    let currentFirstRowTds = currentFirstRow.findAll('td')
+    currentFirstRowTds.at(0).should.have.text('Number changed')
+    currentFirstRowTds.at(1).should.have.text('content changed')
 
     secondButton.at(0).click()
-    await sleep(800)
+    await sleep(1000)
     spy3.should.have.been.calledOnce
-    newRows = getTableItems(vm).rows
-    let newSecondRow = newRows.at(0)
-    let newSecondRowTds = newSecondRow.findAll('td')
-    newSecondRowTds.at(1).should.have.text('content changed')
+    currentRows = getTableItems(vm).rows
+    let currentSecondRow = currentRows.at(0)
+    let currentSecondRowTds = currentSecondRow.findAll('td')
+    currentSecondRowTds.at(1).should.have.text('content changed')
   })
 })

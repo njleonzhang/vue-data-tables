@@ -38,16 +38,16 @@ describe('client sort table render', _ => {
       th.at(0).click()
     }
     await nextTick(vm)
-    let newRows = getTableItems(vm).rows
-    let firstRow = newRows.at(0)
-    firstRow.findAll('td').at(0).should.contain.text('FW201601010003')
+    let currentRows = getTableItems(vm).rows
+    let currentFirstRow = currentRows.at(0)
+    currentFirstRow.findAll('td').at(0).should.contain.text('FW201601010003')
     for (let i = 0; i < 2; i++) {
       th.at(0).click()
     }
     await nextTick(vm)
-    newRows = getTableItems(vm).rows
-    firstRow = newRows.at(0)
-    firstRow.findAll('td').at(2).should.contain.text('Repair')
+    currentRows = getTableItems(vm).rows
+    currentFirstRow = currentRows.at(0)
+    currentFirstRow.findAll('td').at(2).should.contain.text('Repair')
   })
   it('custom sort render', async () => {
     vm = createVue({
@@ -106,9 +106,9 @@ describe('client sort table render', _ => {
     firstRow.findAll('td').at(1).should.contain.text('李小虎')
     th.at(1).click()
     await nextTick(vm)
-    let newRows = getTableItems(vm).rows
-    firstRow = newRows.at(0)
-    firstRow.findAll('td').at(1).should.contain.text('张小虎')
+    let currentRows = getTableItems(vm).rows
+    let currentFirstRow = currentRows.at(0)
+    currentFirstRow.findAll('td').at(1).should.contain.text('张小虎')
   })
 })
 
@@ -157,12 +157,12 @@ describe('server sort table render', _ => {
     let th = head.find('tr').findAll('th')
     th.at(0).click()
     await sleep(500)
-    let newRows = getTableItems(vm).rows
-    let firstRow = newRows.at(0)
-    firstRow.findAll('td').at(0).should.contain.text('FW201601010000')
-    firstRow.findAll('td').at(1).should.contain.text('Lock broken0')
-    let thirdRow = newRows.at(2)
-    thirdRow.findAll('td').at(0).should.contain.text('FW2016010100010')
-    thirdRow.findAll('td').at(1).should.contain.text('Lock broken10')
+    let currentRows = getTableItems(vm).rows
+    let currentFirstRow = currentRows.at(0)
+    currentFirstRow.findAll('td').at(0).should.contain.text('FW201601010000')
+    currentFirstRow.findAll('td').at(1).should.contain.text('Lock broken0')
+    let currentThirdRow = currentRows.at(2)
+    currentThirdRow.findAll('td').at(0).should.contain.text('FW2016010100010')
+    currentThirdRow.findAll('td').at(1).should.contain.text('Lock broken10')
   })
 })

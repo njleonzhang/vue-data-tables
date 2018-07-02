@@ -92,33 +92,33 @@ describe('server pagination render', _ => {
         }
       }
     }, true)
-    await sleep(800)
+    await sleep(1000)
     let { rows } = getTableItems(vm)
     rows.should.have.length(20)
     let { buttons, pageNumber, inputElm, dropDowns } = getPaginationItems(vm)
     buttons.at(1).click()
-    await sleep(800)
+    await sleep(1000)
     let currentRows = getTableItems(vm).rows
     let currentFirstRow = rows.at(0)
     let currentFirstRowTds = currentFirstRow.findAll('td')
     currentFirstRowTds.at(0).should.have.text('FW2016010100020')
 
     simulateEvent(inputElm.at(0), 3, 'change')
-    await sleep(800)
+    await sleep(1000)
     currentRows = getTableItems(vm).rows
     currentFirstRow = rows.at(0)
     currentFirstRowTds = currentFirstRow.findAll('td')
     currentFirstRowTds.at(0).should.have.text('FW2016010100040')
 
     pageNumber.at(1).click()
-    await sleep(800)
+    await sleep(1000)
     currentRows = getTableItems(vm).rows
     currentFirstRow = rows.at(0)
     currentFirstRowTds = currentFirstRow.findAll('td')
     currentFirstRowTds.at(0).should.have.text('FW2016010100020')
 
     dropDowns.at(0).click()
-    await sleep(800)
+    await sleep(1000)
     currentRows = getTableItems(vm).rows
     currentRows.should.have.length(5)
   })

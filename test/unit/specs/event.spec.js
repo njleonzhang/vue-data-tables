@@ -6,7 +6,7 @@ describe('client event', _ => {
   afterEach(function() {
     // vm && destroyVM(vm)
   })
-  it.only('filtered-data event', async () => {
+  it('filtered-data event', async () => {
     vm = createVue({
       template: `
         <data-tables :data="data" :filters="filters" @filtered-data="handleFilteredData">
