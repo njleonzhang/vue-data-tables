@@ -34,6 +34,7 @@ describe('client sort table render', _ => {
     await nextTick(vm)
     let { head } = getTableItems(vm)
     let th = head.find('tr').findAll('th')
+
     for (let i = 0; i < 2; i++) {
       th.at(0).click()
     }
@@ -41,6 +42,7 @@ describe('client sort table render', _ => {
     let currentRows = getTableItems(vm).rows
     let currentFirstRow = currentRows.at(0)
     currentFirstRow.findAll('td').at(0).should.contain.text('FW201601010003')
+
     for (let i = 0; i < 2; i++) {
       th.at(0).click()
     }
@@ -99,11 +101,13 @@ describe('client sort table render', _ => {
     await sleep(300)
     let { head } = getTableItems(vm)
     let th = head.find('tr').findAll('th')
+
     th.at(1).click()
     await nextTick(vm)
     let { rows } = getTableItems(vm)
     let firstRow = rows.at(0)
     firstRow.findAll('td').at(1).should.contain.text('李小虎')
+
     th.at(1).click()
     await nextTick(vm)
     let currentRows = getTableItems(vm).rows
@@ -155,6 +159,7 @@ describe('server sort table render', _ => {
     await sleep(1000)
     let { head } = getTableItems(vm)
     let th = head.find('tr').findAll('th')
+
     th.at(0).click()
     await sleep(500)
     let currentRows = getTableItems(vm).rows

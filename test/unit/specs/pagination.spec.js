@@ -33,6 +33,7 @@ describe('client pagination render', _ => {
     }, true)
     await nextTick(vm)
     let { buttons, pageNumber, inputElm, dropDowns } = getPaginationItems(vm)
+
     buttons.at(0).click()
     await nextTick(vm)
     let { rows } = getTableItems(vm)
