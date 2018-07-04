@@ -4,7 +4,41 @@
 
 > 注意虽然把 `sortable` 属性为 `true` 也可以工作，但是此时 `vue-data-table` 和内置的 `el-table` 都会对数据进行排序，会影响表格的性能。
 
-我们可以通过 `el-table` 的 `default-sort` 属性来设置默认的排序列和方向。对于 `vue-data-tables` 来说所有的内置 `el-table` 的属性，都可以通过 [table-props](zh-cn/basic.md?id=传递-prop-给内置的-el-table) 来传递，所以我们可以通过 `:table-props='{ defaultSort: VALUE }'`, 来为  `vue-data-tables` 定义默认排序。
+
+```html
+/*vue*/
+<desc>
+* `sortable="custom"` 很重要
+* `tableProps.defaultSort` 定义了默认的排序列
+</desc>
+<template>
+  <data-tables
+    :data='data'
+  >
+    <el-table-column v-for="title in titles"
+      :prop="title.prop"
+      :label="title.label"
+      :key="title.label"
+      sortable="custom">
+    </el-table-column>
+  </data-tables>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      data,
+      titles,
+    }
+  }
+}
+</script>
+```
+
+## 默认排序
+
+如[前文](zh-cn/basic.md?id=传递-prop-给内置的-el-table)提到的，我们可以通过 `el-table` 的 `default-sort` 属性来设置默认的排序列和方向。对于 `vue-data-tables` 来说所有的内置 `el-table` 的属性，都可以通过 [table-props](zh-cn/basic.md?id=传递-prop-给内置的-el-table) 来传递，所以我们可以通过 `:table-props='{ defaultSort: VALUE }'`, 来为  `vue-data-tables` 定义默认排序。
 
 ```html
 /*vue*/

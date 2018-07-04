@@ -2,9 +2,41 @@
 
 `sort` feature of `vue-data-tables` is based on the [customize sort](http://element.eleme.io/#/en-US/component/table#sorting) of `el-table`. Setting `sortable` prop of `el-table-column` to `custom` can enable customize sort of the column.
 
-> PS, Setting `sortable` to `true` can also work, but `vue-data-table` and embedded `el-table` both sort the data, which may cause performance downgrade.
+> PS: Setting `sortable` to `true` can also work, but `vue-data-table` and embedded `el-table` both sort the data, which may cause performance downgrade.
 
-`el-table` accepts `default-sort` prop to set default sort column and order. `vue-data-tables` can pass any props to embedded `el-table` by prop [table-props](en-us/basic.md?id=pass-props-to-the-embedded-el-table), so we can define `vue-data-tables`'s default sort by `:table-props='{ defaultSort: VALUE }'`.
+```html
+/*vue*/
+<desc>
+* `sortable="custom"` 很重要
+* `tableProps.defaultSort` 定义了默认的排序列
+</desc>
+<template>
+  <data-tables
+    :data='data'
+  >
+    <el-table-column v-for="title in titles"
+      :prop="title.prop"
+      :label="title.label"
+      :key="title.label"
+      sortable="custom">
+    </el-table-column>
+  </data-tables>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      data,
+      titles,
+    }
+  }
+}
+</script>
+```
+
+## Default sort
+As mentioned in [previous section](en-us/basic.md?id=pass-props-to-the-embedded-el-table), `el-table` accepts `default-sort` prop to set default sort column and order. `vue-data-tables` can pass any props to embedded `el-table` by prop [table-props](en-us/basic.md?id=pass-props-to-the-embedded-el-table), so we can define `vue-data-tables`'s default sort by `:table-props='{ defaultSort: VALUE }'`.
 
 ```html
 /*vue*/

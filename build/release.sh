@@ -24,6 +24,8 @@ if [[ $REPLY =~ ^[Yy]$ ]]; then
   echo "revising version in doc..."
   sed -i '' "s/vue-data-tables@\(.*\)\/dist/vue-data-tables@$VERSION\/dist/g" docs/index.html
   sed -i '' "s/<small>\(.*\)<\/small>/<small>$VERSION<\/small>/" docs/_coverpage.md
+  sed -i '' "s/<small>\(.*\)<\/small>/<small>$VERSION<\/small>/" docs/en-us/_coverpage.md
+  sed -i '' "s/<small>\(.*\)<\/small>/<small>$VERSION<\/small>/" docs/zh-cn/_coverpage.md
 
   # commit
   git add docs

@@ -11,6 +11,8 @@ Vue.use(VueDataTables)
 chai.should() // Using Should style
 chai.use(sinonChai)
 
+const isHeadlessChrome = /\bHeadlessChrome\//.test(navigator.userAgent)
+Vue.config.devtools = !isHeadlessChrome
 Vue.config.productionTip = false
 Vue.config.silent = true
 

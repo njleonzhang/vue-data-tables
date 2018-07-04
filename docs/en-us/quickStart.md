@@ -36,11 +36,11 @@ locale.use(lang)
 
 ### import bundled vue-data-tables (recommended and straightforward)
 ```js
-// import DataTables and DataTableServer separately
-import { DataTables, DataTableServer } from 'vue-data-tables'
+// import DataTables and DataTablesServer separately
+import { DataTables, DataTablesServer } from 'vue-data-tables'
 Vue.use(DataTables)
 
-// import DataTables and DataTableServer together
+// import DataTables and DataTablesServer together
 import VueDataTables from 'vue-data-tables'
 Vue.use(VueDataTables)
 ```
