@@ -17,7 +17,7 @@ describe('client pagination render', _ => {
     vm && destroyVM(vm)
   })
   it('client base pagination', async () => {
-    let vm = createVue({
+    vm = createVue({
       template: `
         <data-tables :data="data" :current-page="2" :page-size="1" :pagination-props="{ background: true, pageSizes: [1, 2, 3] }">
           <el-table-column v-for="title in titles" :prop="title.prop" :label="title.label" :key="title.prop">
@@ -62,6 +62,42 @@ describe('client pagination render', _ => {
     await nextTick(vm)
     currentRows = getTableItems(vm).rows
     currentRows.should.have.length(3)
+  })
+  it('mismatch pagination', async () => {
+    vm = createVue({
+      template: `
+        <data-tables :data="data" :current-page="1" :page-size="2" :pagination-props="{ background: true, pageSizes: [1, 5, 10] }">
+          <el-table-column v-for="title in titles" :prop="title.prop" :label="title.label" :key="title.prop">
+          </el-table-column>
+        </data-tables>
+      `,
+      data() {
+        return {
+          data: data(),
+          titles
+        }
+      }
+    }, true)
+    let { rows } = getTableItems(vm)
+    rows.should.have.length(1)
+  })
+  it('no pagination', async () => {
+    vm = createVue({
+      template: `
+        <data-tables :data="data" layout="table">
+          <el-table-column v-for="title in titles" :prop="title.prop" :label="title.label" :key="title.prop">
+          </el-table-column>
+        </data-tables>
+      `,
+      data() {
+        return {
+          data: data(),
+          titles
+        }
+      }
+    }, true)
+    await nextTick(vm)
+    vm.$el.should.not.contain('.pagination-bar')
   })
 })
 describe('server pagination render', _ => {

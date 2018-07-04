@@ -225,6 +225,98 @@ describe('client checkFilters', _ => {
     let newFirstRowTds = newFirstRow.findAll('td')
     newFirstRowTds.at(0).should.have.text('USA')
   })
+  it('mismatch prop', async () => {
+    vm = createVue({
+      template: `
+        <data-tables :data='data' :filters='filters'>
+          <el-row slot='tool' style='margin: 10px 0'>
+            <el-col :span='6'>
+              <el-checkbox-group v-model='filters[0].value'>
+                <el-checkbox label='China' ref='china'></el-checkbox>
+                <el-checkbox label='USA' ref='usa'></el-checkbox>
+                <el-checkbox label='Canada' ref='canada'></el-checkbox>
+                <el-checkbox label='Russia' ref='russia'></el-checkbox>
+              </el-checkbox-group>
+            </el-col>
+          </el-row>
+          <el-table-column v-for='title in titles' :prop='title.prop' :label='title.label' :key='title.prop'>
+          </el-table-column>
+        </data-tables>
+      `,
+      data() {
+        return {
+          data: [
+            { name: 'USA', neighbor: 'Canada' },
+            { name: 'China', neighbor: 'Russia' }
+          ],
+          titles: [{
+            prop: 'name',
+            label: 'Name'
+          }, {
+            prop: 'neighbor',
+            label: 'Neighbor'
+          }],
+          filters: [
+            {
+              prop: 'age',
+              value: []
+            }
+          ]
+        }
+      }
+    }, true)
+    await nextTick(vm)
+
+    vm.$refs.china.$el.click()
+    await nextTick(vm)
+    let { rows } = getTableItems(vm)
+    rows.should.have.length(0)
+  })
+  it('prop is not String or Array', async () => {
+    vm = createVue({
+      template: `
+        <data-tables :data='data' :filters='filters'>
+          <el-row slot='tool' style='margin: 10px 0'>
+            <el-col :span='6'>
+              <el-input v-model='filters[0].value' placeholder='input &quot;us&quot; to try'></el-input>
+            </el-col>
+          </el-row>
+          <el-table-column v-for='title in titles' :prop='title.prop' :label='title.label' :key='title.prop'>
+          </el-table-column>
+        </data-tables>
+      `,
+      data() {
+        return {
+          data: [
+            { name: 'USA', rank: 1 },
+            { name: 'China', rank: 2 }
+          ],
+          titles: [{
+            prop: 'name',
+            label: 'Name'
+          }, {
+            prop: 'rank',
+            label: 'Rank'
+          }],
+          filters: [
+            {
+              prop: {},
+              value: {}
+            }
+          ]
+        }
+      }
+    }, true)
+    await nextTick(vm)
+
+    let tool = vm.$el.find('.tool')
+    let inputElm = tool.findAll('input')
+
+    simulateEvent(inputElm.at(0), 'us', 'input')
+    await nextTick(vm)
+    let { rows } = getTableItems(vm)
+    rows.should.have.length(0)
+  })
   it('prop is undefined', async () => {
     vm = createVue({
       template: `
@@ -270,6 +362,54 @@ describe('client checkFilters', _ => {
     let firstRow = rows.at(0)
     let firstRowTds = firstRow.findAll('td')
     firstRowTds.at(0).should.have.text('USA')
+  })
+  it('tableData contains null', async () => {
+    vm = createVue({
+      template: `
+        <data-tables :data='data' :filters='filters'>
+          <el-row slot='tool' style='margin: 10px 0'>
+            <el-col :span='6'>
+              <el-input v-model='filters[0].value' placeholder='input &quot;us&quot; to try'></el-input>
+            </el-col>
+          </el-row>
+          <el-table-column v-for='title in titles' :prop='title.prop' :label='title.label' :key='title.prop'>
+          </el-table-column>
+        </data-tables>
+      `,
+      data() {
+        return {
+          data: [
+            { name: null, rank: 1 },
+            { name: 'China', rank: 2 }
+          ],
+          titles: [{
+            prop: 'name',
+            label: 'Name'
+          }, {
+            prop: 'rank',
+            label: 'Rank'
+          }],
+          filters: [
+            {
+              prop: 'name',
+              value: ''
+            }
+          ]
+        }
+      }
+    }, true)
+    await nextTick(vm)
+    let { rows } = getTableItems(vm)
+    let firstRow = rows.at(0)
+    let firstRowTds = firstRow.findAll('td')
+    firstRowTds.at(0).should.have.text('')
+    let tool = vm.$el.find('.tool')
+    let inputElm = tool.findAll('input')
+
+    simulateEvent(inputElm.at(0), 'null', 'input')
+    await nextTick(vm)
+    let currentRow = getTableItems(vm).rows
+    currentRow.should.have.length(0)
   })
   it('custom filterProps', async () => {
     vm = createVue({

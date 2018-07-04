@@ -120,7 +120,7 @@ describe('server actionColDef', _ => {
           data: [],
           titles,
           total: 0,
-          loading: false,
+          loading: true,
           actionCol: {
             label: 'Actions',
             props: {

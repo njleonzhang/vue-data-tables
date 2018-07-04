@@ -35,15 +35,18 @@ describe('client sort table render', _ => {
     let { head } = getTableItems(vm)
     let th = head.find('tr').findAll('th')
 
-    for (let i = 0; i < 2; i++) {
+    for (let i = 0; i < 5; i++) {
+      await nextTick(vm)
       th.at(0).click()
     }
+
     await nextTick(vm)
     let currentRows = getTableItems(vm).rows
     let currentFirstRow = currentRows.at(0)
     currentFirstRow.findAll('td').at(0).should.contain.text('FW201601010003')
 
     for (let i = 0; i < 2; i++) {
+      await nextTick(vm)
       th.at(0).click()
     }
     await nextTick(vm)
@@ -113,6 +116,71 @@ describe('client sort table render', _ => {
     let currentRows = getTableItems(vm).rows
     let currentFirstRow = currentRows.at(0)
     currentFirstRow.findAll('td').at(1).should.contain.text('张小虎')
+  })
+  it('change sort rules render', async () => {
+    vm = createVue({
+      template: `
+        <data-tables
+          :data='data'
+          :table-props='tableProps'
+          :sort-method='sortMethod'>
+          <el-table-column v-for='title in titles'
+            :prop='title.prop'
+            :label='title.label'
+            :key='title.prop'
+            sortable='custom' />
+        </data-tables>
+      `,
+      data() {
+        return {
+          data: data(),
+          titles,
+          sortMethod: {
+            flow_no(a, b) {
+              if (a > b) {
+                return 1
+              } else if (a < b) {
+                return -1
+              } else {
+                return 0
+              }
+            }
+          }
+        }
+      },
+    }, true)
+    await nextTick(vm)
+    let { head } = getTableItems(vm)
+    let th = head.find('tr').findAll('th')
+
+    for (let i = 0; i < 3; i++) {
+      await nextTick(vm)
+      th.at(0).click()
+    }
+    await nextTick(vm)
+    let currentRows = getTableItems(vm).rows
+    let currentFirstRow = currentRows.at(0)
+    currentFirstRow.findAll('td').at(0).should.contain.text('FW201601010001')
+    vm.$data.sortMethod = {
+      flow_no(a, b) {
+        if (a > b) {
+          return -1
+        } else if (a < b) {
+          return 1
+        } else {
+          return 0
+        }
+      }
+    }
+    await nextTick(vm)
+    for (let i = 0; i < 5; i++) {
+      await nextTick(vm)
+      th.at(0).click()
+    }
+    await nextTick(vm)
+    currentRows = getTableItems(vm).rows
+    currentFirstRow = currentRows.at(0)
+    currentFirstRow.findAll('td').at(0).should.contain.text('FW201601010001')
   })
 })
 

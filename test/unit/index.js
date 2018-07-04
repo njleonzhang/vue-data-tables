@@ -1,13 +1,12 @@
 import Vue from 'vue'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
-import { DataTables, DataTablesServer } from '@/index'
+import VueDataTables from '@/index'
 import chai from 'chai'
 import sinonChai from 'sinon-chai'
 
 Vue.use(ElementUI)
-Vue.use(DataTables)
-Vue.use(DataTablesServer)
+Vue.use(VueDataTables)
 
 chai.should() // Using Should style
 chai.use(sinonChai)

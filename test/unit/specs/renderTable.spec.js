@@ -82,6 +82,10 @@ describe('client render table', _ => {
           tableProps: {
             border: true,
             stripe: true,
+            rowClassName: 'test-class',
+            'elementLoadingText': '拼命加载中',
+            'elementLoadingSpinner': 'el-icon-loading',
+            'elementLoadingBackground': 'rgba(0, 0, 0, 0.8)',
             defaultSort: {
               prop: 'flow_no',
               order: 'descending'
