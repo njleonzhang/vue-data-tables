@@ -1,13 +1,12 @@
 import Vue from 'vue'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
-import { DataTables, DataTablesServer } from '@/index'
+import VueDataTables from '@/index'
 import chai from 'chai'
 import sinonChai from 'sinon-chai'
 
 Vue.use(ElementUI)
-Vue.use(DataTables)
-Vue.use(DataTablesServer)
+Vue.use(VueDataTables)
 
 chai.should() // Using Should style
 chai.use(sinonChai)
@@ -15,6 +14,7 @@ chai.use(sinonChai)
 const isHeadlessChrome = /\bHeadlessChrome\//.test(navigator.userAgent)
 Vue.config.devtools = !isHeadlessChrome
 Vue.config.productionTip = false
+Vue.config.silent = true
 
 // require all test files (files that ends with .spec.js)
 const testsContext = require.context('./specs', true, /\.spec$/)
