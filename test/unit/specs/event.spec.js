@@ -1,10 +1,10 @@
 import { data, titles } from '../tools/source'
-import { createVue, nextTick, simulateEvent } from '../tools/utils'
+import { destroyVM, createVue, nextTick, simulateEvent } from '../tools/utils'
 
 describe('client event', _ => {
   let vm
   afterEach(function() {
-    // vm && destroyVM(vm)
+    vm && destroyVM(vm)
   })
   it('filtered-data event', async () => {
     vm = createVue({
