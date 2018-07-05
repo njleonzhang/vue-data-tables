@@ -32,7 +32,7 @@ export default {
 
     // fix https://github.com/njleonzhang/vue-data-tables/issues/172
     let totalPage = this.total / this.pageSize
-    let ceilTotalPage = totalPage.ceil ? totalPage.ceil() : totalPage
+    let ceilTotalPage = Math.ceil(totalPage)
 
     this.innerTotal = ceilTotalPage >= this.currentPage
       ? this.total

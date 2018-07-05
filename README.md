@@ -21,10 +21,10 @@
 yarn install
 ```
 
-* serve test/play with hot reload at localhost:8089
+* serve test/play with hot reload at localhost:8081
 
 ```
-npm run play
+npm run dev
 ```
 
 ## My projects related to Vue
