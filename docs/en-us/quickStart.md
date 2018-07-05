@@ -5,7 +5,7 @@
 ```
 npm install vue-data-tables
 or
-yarn install vue-data-tables
+yarn add vue-data-tables
 ```
 
 # Import vue-data-tables
@@ -39,6 +39,7 @@ locale.use(lang)
 // import DataTables and DataTablesServer separately
 import { DataTables, DataTablesServer } from 'vue-data-tables'
 Vue.use(DataTables)
+Vue.use(DataTablesServer)
 
 // import DataTables and DataTablesServer together
 import VueDataTables from 'vue-data-tables'

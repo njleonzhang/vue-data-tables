@@ -6,7 +6,7 @@
 ```
 npm install vue-data-tables
 或
-yarn install vue-data-tables
+yarn add vue-data-tables
 ```
 
 # 引入
@@ -40,6 +40,7 @@ locale.use(lang)
 // 分别导入 DataTables 和 DataTablesServer
 import { DataTables, DataTablesServer } from 'vue-data-tables'
 Vue.use(DataTables)
+Vue.use(DataTablesServer)
 
 // 同时使用 DataTables 和 DataTablesServer
 import VueDataTables from 'vue-data-tables'
