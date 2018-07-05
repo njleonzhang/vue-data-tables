@@ -1,3 +1,6 @@
+## 3.4.1 (2018-7-5)
+fix https://github.com/njleonzhang/vue-data-tables/pull/183
+
 ## 3.4.0 (2018-6-12)
 * remove the default action bar and encourage use customize action bar.
 * improve render performance with function cache.
