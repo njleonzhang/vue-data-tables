@@ -15,6 +15,7 @@ let install = function(Vue) {
 }
 
 export {
+  install,
   DataTables,
   DataTablesServer,
 }
