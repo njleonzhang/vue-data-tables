@@ -1,3 +1,6 @@
+## 3.4.2 (2018-7-6)
+fix https://github.com/njleonzhang/vue-data-tables/pull/184
+
 ## 3.4.1 (2018-7-5)
 fix https://github.com/njleonzhang/vue-data-tables/pull/183
 
