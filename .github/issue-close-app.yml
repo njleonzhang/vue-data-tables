@@ -1,5 +1,5 @@
 # Comment that will be sent if an issue is judged to be closed
-comment: "This issue is closed because it does not meet our issue template. Please read it."
+comment: "This issue is closed because it does not meet our [issue template](https://github.com/njleonzhang/vue-data-tables/blob/master/.github/issue_template.md). Please read it."
 issueConfigs:
 # There can be several configs for different kind of issues.
 - content:
