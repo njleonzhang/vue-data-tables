@@ -1,7 +1,7 @@
 # Event
 
 ## Event proxy
-`vue-data-tables` is proxy for all events of [el-table](http://element.eleme.io/#/en-US/component/table) and [el-pagination](http://element.eleme.io/#/en-US/component/pagination). except `current-page`, all other events are emitted by `vue-data-tables` with same name and payload.
+`vue-data-tables` has proxied all events of [el-table](http://element.eleme.io/#/en-US/component/table) and [el-pagination](http://element.eleme.io/#/en-US/component/pagination). All events are emitted by `vue-data-tables` with same name and payload except `current-page`.
 
 `el-table` and `el-pagination` both emit event `current-change` (same name, payload is totally different). To distinguish these 2 events, we rename `current-change` of `el-pagination` to `current-page-change` after version **3.1.3**.
 
