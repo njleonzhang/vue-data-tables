@@ -3,7 +3,7 @@
 ## Render and refresh the Table
 We pass source data to `vue-data-tables` by prop `data`, and define the column by [el-table-column](http://element.eleme.io/#/en-US/component/table#table-column-attributes). The table can show automatically according to `data` and `el-table-column`s.
 
-At low level, the prop `data` is passed to the embedded [el-table](http://element.eleme.io/#/en-US/component/table) as [el-table](http://element.eleme.io/#/en-US/component/table)'s data prop, all `el-table-column`s are also all passed to [el-table](http://element.eleme.io/#/en-US/component/table) as default slot. So you can refer to [el-table](http://element.eleme.io/#/en-US/component/table) to understand how the table is rendered.
+At low level, the prop `data` is passed to the embedded [el-table](http://element.eleme.io/#/en-US/component/table) as [el-table](http://element.eleme.io/#/en-US/component/table)'s data prop, all `el-table-column`s are also passed to [el-table](http://element.eleme.io/#/en-US/component/table) as default slot. So you can refer to [el-table](http://element.eleme.io/#/en-US/component/table) to understand how the table is rendered.
 
 1. main feature of `data-table`:
 
