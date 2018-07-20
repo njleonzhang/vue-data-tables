@@ -16,7 +16,7 @@ const env = process.env.NODE_ENV === 'testing'
   ? require('../config/test.env')
   : require('../config/prod.env')
 
-const webpackConfig = merge(baseWebpackConfig, {
+const clientConfig = merge(baseWebpackConfig, {
   entry: {
     app: './src/index.js'
   },
@@ -76,17 +76,6 @@ const webpackConfig = merge(baseWebpackConfig, {
   ],
   optimization: {
     concatenateModules: true,
-    // splitChunks: {
-    //   chunks: 'all',
-    //   cacheGroups: {
-    //     vendor: {
-    //       name: 'vendor',
-    //       test: /[\\/]node_modules[\\/]/,
-    //       enforce: true,
-    //     },
-    //   },
-    // },
-    // runtimeChunk: 'single',
     minimizer: [
       new UglifyJsPlugin({
         uglifyOptions: {
@@ -124,4 +113,12 @@ if (config.build.bundleAnalyzerReport) {
   webpackConfig.plugins.push(new BundleAnalyzerPlugin())
 }
 
-module.exports = webpackConfig
+const serverConfig = merge(clientConfig, {
+  target: 'node',
+  output: {
+    filename: 'data-tables.server.min.js',
+    libraryTarget: 'commonjs2'
+  },
+})
+
+module.exports = [clientConfig, serverConfig]
