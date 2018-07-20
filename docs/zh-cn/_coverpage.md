@@ -1,6 +1,6 @@
 ![logo](../_media/icon.svg)
 
-# vue-data-tables <small>3.4.2</small>
+# vue-data-tables <small>3.4.3</small>
 
 > 一个基于 Vue 和 element-ui 简单易用, 可定制的分页表格
 
