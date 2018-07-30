@@ -19,7 +19,7 @@
 
 `row`, the 1st parameter of filterFn, represents a item in the data set; the 2nd parameter, `filter`, is a reference to the `filter item`
 
-## Principle of data-tables' sort
+## Principle of data-tables' filter
 
 `data-tables` generate filter functions of [Array.prototype.filter](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter) according to `filter item` in `filters`, and then filter the data through [Array.prototype.filter](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter) using the generated filter functions one by one.
 
