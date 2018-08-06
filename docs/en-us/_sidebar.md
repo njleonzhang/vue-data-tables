@@ -9,3 +9,4 @@
   - [Filter](/en-us/filter)
   - [Pagination](/en-us/pagination)
   - [Event](/en-us/event)
+  - [SSR support](/en-us/ssr)

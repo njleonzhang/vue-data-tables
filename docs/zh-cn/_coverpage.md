@@ -2,7 +2,7 @@
 
 # vue-data-tables <small>3.4.2</small>
 
-> 一个基于 Vue 和 element-ui 简单易用, 可定制的分页表格
+> 一个基于 Vue 和 element-ui 支持SSR的, 简单易用的, 可定制的分页表格
 
 <p align="center">
   <a href="https://github.com/njleonzhang/vue-data-tables"><img alt="star this repo" src="http://githubbadges.com/star.svg?user=njleonzhang&repo=vue-data-tables&style=flat" /></a>
@@ -17,6 +17,7 @@
 - 支持前台分页和后台分页
 - 可定制, 灵活, 强大
 - 基于 Vue 和 Element-ui
+- 支持 SSR (目前还在beta阶段)
 
 [GitHub](https://github.com/njleonzhang/vue-data-tables/)
 [开始](#vue-data-tables)

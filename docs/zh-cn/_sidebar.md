@@ -9,3 +9,4 @@
   - [过滤](zh-cn/filter)
   - [分页](zh-cn/pagination)
   - [事件](zh-cn/event)
+  - [SSR 的支持](/zh-cn/ssr)

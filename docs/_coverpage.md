@@ -2,7 +2,7 @@
 
 # vue-data-tables <small>3.4.2</small>
 
-> A simple, customizable and pageable table, based on vue2 and element-ui
+> A simple, customizable and pageable table with SSR support, based on vue2 and element-ui
 
 <p align="center">
   <a href="https://github.com/njleonzhang/vue-data-tables"><img alt="star this repo" src="http://githubbadges.com/star.svg?user=njleonzhang&repo=vue-data-tables&style=flat" /></a>
@@ -17,6 +17,7 @@
 - Support both font-side and server-side pagination
 - Customizable, flexible and powerful
 - Based on element-ui
+- SSR support (in beta)
 
 [GitHub](https://github.com/njleonzhang/vue-data-tables/)
 [English Document](/en-us/)
