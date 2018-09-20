@@ -1,4 +1,4 @@
-## 3.4.3 (2018-9-20)
+## 3.4.4 (2018-9-20)
 fix bug: table show as empty if pagination is disabled, at the same time, data is retrieved asynchronously.
 
 ## 3.4.2 (2018-7-6)
