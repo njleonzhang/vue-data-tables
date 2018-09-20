@@ -1,6 +1,6 @@
 {
   "name": "vue-data-tables",
-  "version": "3.4.2",
+  "version": "3.4.3",
   "description": "A simple, customizable and pageable table, based on vue2 and element-ui.",
   "author": "njleonzhang <zpczjl@126.com>",
   "main": "dist/data-tables.min.js",
