@@ -69,9 +69,13 @@ export default {
       return filteredData
     },
     curTableData() {
-      let from = this.innerPageSize * (this.innerCurrentPage - 1)
-      let to = from + this.innerPageSize
-      return this.tableData.slice(from, to)
+      if (this.paginationShow) {
+        let from = this.innerPageSize * (this.innerCurrentPage - 1)
+        let to = from + this.innerPageSize
+        return this.tableData.slice(from, to)
+      } else {
+        return this.tableData
+      }
     },
     total() {
       return this.tableData.length
