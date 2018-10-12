@@ -12,6 +12,16 @@ fix https://github.com/njleonzhang/vue-data-tables/pull/183
 * improve render performance with function cache.
 * sync modifier for currentPage and pageSize
 
+## 3.3.3 (2018-5-22)
+* `DataTables` no more exported by default
+```js
+// Since 3.3.3
+import { DataTables } from 'vue-data-tables'
+
+// Before 3.3.3
+import DataTables from 'vue-data-tables'
+```
+
 ## 3.2.0 (2018-4-10)
 * fix #161 current page doesn't not change after data is filtered.
 * support element-ui 2.3.3
