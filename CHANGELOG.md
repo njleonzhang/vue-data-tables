@@ -13,14 +13,16 @@ fix https://github.com/njleonzhang/vue-data-tables/pull/183
 * sync modifier for currentPage and pageSize
 
 ## 3.3.3 (2018-5-22)
-* `DataTables` no more exported by default
-```js
-// Since 3.3.3
-import { DataTables } from 'vue-data-tables'
+* upgrade to webpack 4 and vue-loader 15
 
-// Before 3.3.3
-import DataTables from 'vue-data-tables'
-```
+  **breaking changes:** `DataTables` no more exported by default
+  ```js
+  // Since 3.3.3
+  import { DataTables } from 'vue-data-tables'
+
+  // Before 3.3.3
+  import DataTables from 'vue-data-tables'
+  ```
 
 ## 3.2.0 (2018-4-10)
 * fix #161 current page doesn't not change after data is filtered.
