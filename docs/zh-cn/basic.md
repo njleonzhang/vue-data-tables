@@ -12,6 +12,7 @@
     - 翻页的时候，展示的元素也会根据 `pageSize`（每页的数量） 和 `currentPage`（当前页的index）自动生成。
   - 根据设置来处理排序和过滤，详见相关章节：[排序](zh-cn/sort.md) and [过滤](zh-cn/filter.md)。
 <br/>
+
   ```html
     /*vue*/
     <template>
