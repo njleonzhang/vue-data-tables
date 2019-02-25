@@ -78,6 +78,9 @@ Vue.use(VueDataTables)
 import { DataTables, DataTablesServer } from 'vue-data-tables/src/index.js'
 ```
 
+# polyfill
+本库依赖于 es6 api [includes](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/includes), 请根据自己的情况自行 polyfill。
+
 # Hello world
 * 按这几个按钮试一试
 * 试着排序一下列表

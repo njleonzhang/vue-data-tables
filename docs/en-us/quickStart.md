@@ -77,6 +77,9 @@ You can import the source code of this lib to decrease the code size, if you rea
 import { DataTables, DataTablesServer } from 'vue-data-tables/src/index.js'
 ```
 
+## polyfill
+This library relies on es6 api [includes](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/includes), you need polyfill it according to your situation.
+
 # Hello world
 * try the buttons
 * try to sort the data
