@@ -1,6 +1,6 @@
 ![logo](_media/icon.svg)
 
-# vue-data-tables <small>3.4.4</small>
+# vue-data-tables <small>3.4.5</small>
 
 > A simple, customizable and pageable table with SSR support, based on vue2 and element-ui
 
