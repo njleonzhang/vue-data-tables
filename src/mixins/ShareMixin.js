@@ -176,7 +176,7 @@ export default {
     return {
       innerCurrentPage: 1,
       innerPageSize: 20,
-      sortData: {},
+      sortData: (this.tableProps && this.tableProps.defaultSort) || {},
       actionColProp: 'e6e4c9de-7cf5-4f19-bb73-838e5182a372',
       innerPaginationProps: {}
     }
