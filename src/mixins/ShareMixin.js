@@ -147,6 +147,9 @@ export default {
                       }
                     }}
                   >
+                    {
+                      this.$slots.pagination
+                    }
                   </el-pagination>
                 </div>
               )
