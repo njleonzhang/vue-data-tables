@@ -148,9 +148,8 @@ export default {
       :label="title.label"
       :key="title.prop"
     />
+    <span slot="pagination" style='color: red'>I am slot</span>
   </data-tables>
-
-  <span slot="pagination" style='color: red'>I am slot</span>
 </template>
 
 <script>

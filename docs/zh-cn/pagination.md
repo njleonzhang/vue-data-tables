@@ -149,9 +149,8 @@ export default {
       :label="title.label"
       :key="title.prop"
     />
+    <span slot="pagination" style='color: red'>我是 pagination 插槽</span>
   </data-tables>
-
-  <span slot="pagination" style='color: red'>我是 pagination 插槽</span>
 </template>
 
 <script>
