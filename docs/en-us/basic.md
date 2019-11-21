@@ -131,69 +131,71 @@ export default {
 }
 </script>
 ```
-# Slots of el-table
+# Slots of el-table and el-pagination
 
-The slots of `el-table`, `empty` and `append`, can be used in `vue-data-tables`, for details of the slots, check the [document](http://element.eleme.io/#/en-US/component/table).
+1. The slots of `el-table`, `empty` and `append`, can be used in `vue-data-tables`, for details of the slots, check the [document](http://element.eleme.io/#/en-US/component/table).
 
-Reference example:
+  Reference example:
 
-* `append` slot
+  * `append` slot
 
-  ```html
-  /*vue*/
-  <template>
-    <data-tables :data='data'>
-      <el-table-column v-for="title in titles"
-        :prop="title.prop"
-        :label="title.label"
-        :key="title.label"
-        sortable="custom">
-      </el-table-column>
-      <p slot="append">table slot</p>
-    </data-tables>
-  </template>
+    ```html
+    /*vue*/
+    <template>
+      <data-tables :data='data'>
+        <el-table-column v-for="title in titles"
+          :prop="title.prop"
+          :label="title.label"
+          :key="title.label"
+          sortable="custom">
+        </el-table-column>
+        <p slot="append">table slot</p>
+      </data-tables>
+    </template>
 
-  <script>
-  export default {
-    data() {
-      return {
-        data,
-        titles,
+    <script>
+    export default {
+      data() {
+        return {
+          data,
+          titles,
+        }
       }
     }
-  }
-  </script>
-  ```
+    </script>
+    ```
 
-* `empty` slot
+  * `empty` slot
 
-  ```html
-  /*vue*/
-  <template>
-    <data-tables-server
-      :data='[]'
-      :total='100'>
-      <div slot="empty" style='color: red'>emptyyyyyyyyyyyyyy</div>
-      <el-table-column v-for="title in titles"
-        :prop="title.prop"
-        :label="title.label"
-        :key="title.label"
-        sortable="custom">
-      </el-table-column>
-    </data-tables>
-  </template>
+    ```html
+    /*vue*/
+    <template>
+      <data-tables-server
+        :data='[]'
+        :total='100'>
+        <div slot="empty" style='color: red'>emptyyyyyyyyyyyyyy</div>
+        <el-table-column v-for="title in titles"
+          :prop="title.prop"
+          :label="title.label"
+          :key="title.label"
+          sortable="custom">
+        </el-table-column>
+      </data-tables>
+    </template>
 
-  <script>
-  export default {
-    data() {
-      return {
-        data,
-        titles,
+    <script>
+    export default {
+      data() {
+        return {
+          data,
+          titles,
+        }
       }
     }
-  }
-  </script>
-  ```
+    </script>
+    ```
+2. `vue-data-tables` also supports the default slot of `el-pagination`, for details, go to [Pagination](en-us/pagination.md).
+
 
 # Layout
 layout accept a `String`, which can be compose of the following 3 elements (joined by `,`). `vue-data-tables` render the components according to the order of the elements.

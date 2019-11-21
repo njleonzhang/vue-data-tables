@@ -135,3 +135,32 @@ export default {
 }
 </script>
 ```
+
+# support for pagination slot (3.4.5+)
+
+```html
+/*vue*/
+<template>
+  <data-tables :data="data"
+    :pagination-props='{ layout: "sizes, prev, pager, next, jumper, ->, total, slot" }'>
+    <el-table-column v-for="title in titles"
+      :prop="title.prop"
+      :label="title.label"
+      :key="title.prop"
+    />
+  </data-tables>
+
+  <span slot="pagination" style='color: red'>I am slot</span>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      data,
+      titles
+    }
+  }
+}
+</script>
+```

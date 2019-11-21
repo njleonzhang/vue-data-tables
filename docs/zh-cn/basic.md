@@ -130,67 +130,69 @@ export default {
 }
 </script>
 ```
-# el-table 的插槽
+# el-table 和 el-pagination 的插槽
 
-`vue-data-tables` 支持 `el-table` 的 `empty` 和 `append` 两个插槽都支持。其具体用法请参照[文档](http://element.eleme.io/#/zh-CN/component/table), 下面给2个简单的示例：
+1. `vue-data-tables` 支持 `el-table` 的 `empty` 和 `append` 两个插槽。其具体用法请参照[文档](http://element.eleme.io/#/zh-CN/component/table), 下面给2个简单的示例：
 
-* append 插槽
+  * append 插槽
 
-  ```html
-  /*vue*/
-  <template>
-    <data-tables :data='data'>
-      <el-table-column v-for="title in titles"
-        :prop="title.prop"
-        :label="title.label"
-        :key="title.label"
-        sortable="custom">
-      </el-table-column>
-      <p slot="append">table slot</p>
-    </data-tables>
-  </template>
+    ```html
+    /*vue*/
+    <template>
+      <data-tables :data='data'>
+        <el-table-column v-for="title in titles"
+          :prop="title.prop"
+          :label="title.label"
+          :key="title.label"
+          sortable="custom">
+        </el-table-column>
+        <p slot="append">table slot</p>
+      </data-tables>
+    </template>
 
-  <script>
-  export default {
-    data() {
-      return {
-        data,
-        titles,
+    <script>
+    export default {
+      data() {
+        return {
+          data,
+          titles,
+        }
       }
     }
-  }
-  </script>
-  ```
+    </script>
+    ```
 
-* empty 插槽
+  * empty 插槽
 
-  ```html
-  /*vue*/
-  <template>
-    <data-tables-server
-      :data='[]'
-      :total='100'>
-      <div slot="empty" style='color: red'>emptyyyyyyyyyyyyyy</div>
-      <el-table-column v-for="title in titles"
-        :prop="title.prop"
-        :label="title.label"
-        :key="title.label"
-        sortable="custom">
-      </el-table-column>
-    </data-tables>
-  </template>
+    ```html
+    /*vue*/
+    <template>
+      <data-tables-server
+        :data='[]'
+        :total='100'>
+        <div slot="empty" style='color: red'>emptyyyyyyyyyyyyyy</div>
+        <el-table-column v-for="title in titles"
+          :prop="title.prop"
+          :label="title.label"
+          :key="title.label"
+          sortable="custom">
+        </el-table-column>
+      </data-tables>
+    </template>
 
-  <script>
-  export default {
-    data() {
-      return {
-        data,
-        titles,
+    <script>
+    export default {
+      data() {
+        return {
+          data,
+          titles,
+        }
       }
     }
-  }
-  </script>
-  ```
+    </script>
+    ```
+
+2. `vue-data-tables` 还支持 `el-pagination` 的默认插槽。详情参照[分页](zh-cn/pagination.md)
 
 # Layout
 layout 传入值是一个 `String`，是一个通过 `,` 隔开的元素组合, `vue-data-tables` 会根据顺序来显示表格的内容。可选的元素对应于 `vue-data-tables` 的3个部分：
