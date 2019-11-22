@@ -1,3 +1,8 @@
+## 3.4.5 (2019-11-22)
+* fix bug: #235 [default-sort not work ](https://github.com/njleonzhang/vue-data-tables/issues/235) 
+* support pagination slot tnx to @sriduth for [pr #234](https://github.com/njleonzhang/vue-data-tables/pull/234)
+* improve doc tnx to @jaumebalust for [pr #227](https://github.com/njleonzhang/vue-data-tables/pull/227) 
+
 ## 3.4.4 (2018-9-20)
 fix bug: table show as empty if pagination is disabled, at the same time, data is retrieved asynchronously.
 
