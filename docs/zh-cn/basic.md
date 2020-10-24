@@ -130,6 +130,48 @@ export default {
 }
 </script>
 ```
+
+# 访问内置 el-table 的方法
+`vue-data-tables` 内部的 `el-table` 被设置了一个 `ref` 属性，其值是 `elTable`, 所以我们可以通过下列中的方式来访问内置的 `el-table`。
+
+```html
+/*vue*/
+<desc>
+点击 sort 按钮，试一试
+</desc>
+<template>
+  <div>
+    <el-button @click='sort'>sort</el-button>
+    <data-tables ref='dt' :data='data'>
+      <el-table-column v-for="title in titles"
+        :prop="title.prop"
+        :label="title.label"
+        :key="title.label"
+        sortable="custom">
+      </el-table-column>
+    </data-tables>
+  </div>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      data,
+      titles,
+      toggle: false
+    }
+  },
+  methods: {
+    sort() {
+      this.$refs.dt.$refs.elTable.sort('flow_no', this.toggle ? 'ascending' : 'descending')
+      this.toggle = !this.toggle
+    }
+  }
+}
+</script>
+```
+
 # el-table 和 el-pagination 的插槽
 
 1. `vue-data-tables` 支持 `el-table` 的 `empty` 和 `append` 两个插槽。其具体用法请参照[文档](http://element.eleme.io/#/zh-CN/component/table), 下面给2个简单的示例：

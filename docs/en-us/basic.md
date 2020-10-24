@@ -131,6 +131,48 @@ export default {
 }
 </script>
 ```
+
+# Call methods of embedded el-table
+To call [talbe methods](https://element.eleme.io/#/zh-CN/component/table#table-methods) of embedded `el-table`, you need get the instace of `el-table` inside `vue-data-tables`, a `ref` named `elTable` which indicated to the embedded `el-table` is configured, so that you can get the instance.
+
+```html
+/*vue*/
+<desc>
+click sort button to try
+</desc>
+<template>
+  <div>
+    <el-button @click='sort'>sort</el-button>
+    <data-tables ref='dt' :data='data'>
+      <el-table-column v-for="title in titles"
+        :prop="title.prop"
+        :label="title.label"
+        :key="title.label"
+        sortable="custom">
+      </el-table-column>
+    </data-tables>
+  </div>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      data,
+      titles,
+      toggle: false
+    }
+  },
+  methods: {
+    sort() {
+      this.$refs.dt.$refs.elTable.sort('flow_no', this.toggle ? 'ascending' : 'descending')
+      this.toggle = !this.toggle
+    }
+  }
+}
+</script>
+```
+
 # Slots of el-table and el-pagination
 
 1. The slots of `el-table`, `empty` and `append`, can be used in `vue-data-tables`, for details of the slots, check the [document](http://element.eleme.io/#/en-US/component/table).
@@ -168,7 +210,6 @@ export default {
   * `empty` slot
 
     ```html
-    /*vue*/
     <template>
       <data-tables-server
         :data='[]'
