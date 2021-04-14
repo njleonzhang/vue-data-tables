@@ -87,12 +87,12 @@ export default {
 
 Same to [Sort](en-us/sort?id=sort-of-data-tables-server) and [Filter](en-us/filter?id=filter-of-data-tables-server) of `data-tables-server`, `data-tables-server` doesn't take charge the data `pagination` either, the `pagination` is also handled by back-end server. What `data-tables-server` need to do is emitting the pagination information when the pagination information changes, so that the back-end server can paginate and return new data according to the information.
 
-Pagination information includes `item count of each page` and `current page`. When these 2 items change, `data-tables-server` emits emits a event named `query-change`.
+Pagination information includes `item count of each page` and `current page`. When these 2 items change, `data-tables-server` emits an event named `query-change`.
 
 * When `item count of each page` changes, the event is emitted with type `size`.
 * When `current page` changes, the event is emitted with type `page`.
 
-The payload of `query-info` event has property `page` and `pageSize`, which respectively represent `item count of each page` and `current page`.
+The payload of `query-info` event has properties `page` and `pageSize`, which respectively represent `current page` and `item count of each page`.
 
 Example to demonstrate how to handle `query-info` for pagination.
 
